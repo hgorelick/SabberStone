@@ -1,0 +1,1147 @@
+{
+	"game": {
+		"ts": "2019 - 01 - 02T11:15: 26.924964-05:00",
+		"setup": {
+			"player1": {
+				"hero": {
+					"class": "hunter",
+					"name": "Rexxar",
+					"power": "Steady Shot",
+					"deck": {
+						"deck-class": "HUNTER",
+						"archetype": "SECRET",
+						"deck-name": "MidrangeSecretHunter",
+						"num-games": 0,
+						"cards": {
+							"0": {
+								"name": "Alleycat",
+								"id": "CFM_315",
+								"cost": 1,
+								"atk": 1,
+								"health": 1
+							},
+							"1": {
+								"name": "Alleycat",
+								"id": "CFM_315",
+								"cost": 1,
+								"atk": 1,
+								"health": 1
+							},
+							"2": {
+								"name": "Bear Trap",
+								"id": "AT_060",
+								"cost": 2,
+							},
+							"3": {
+								"name": "Bear Trap",
+								"id": "AT_060",
+								"cost": 2,
+							},
+							"4": {
+								"name": "Explosive Trap",
+								"id": "EX1_610",
+								"cost": 2,
+							},
+							"5": {
+								"name": "Explosive Trap",
+								"id": "EX1_610",
+								"cost": 2,
+							},
+							"6": {
+								"name": "Quick Shot",
+								"id": "BRM_013",
+								"cost": 2,
+							},
+							"7": {
+								"name": "Quick Shot",
+								"id": "BRM_013",
+								"cost": 2,
+							},
+							"8": {
+								"name": "Scavenging Hyena",
+								"id": "EX1_531",
+								"cost": 2,
+								"atk": 2,
+								"health": 2
+							},
+							"9": {
+								"name": "Scavenging Hyena",
+								"id": "EX1_531",
+								"cost": 2,
+								"atk": 2,
+								"health": 2
+							},
+							"10": {
+								"name": "Snake Trap",
+								"id": "EX1_554",
+								"cost": 2,
+							},
+							"11": {
+								"name": "Snake Trap",
+								"id": "EX1_554",
+								"cost": 2,
+							},
+							"12": {
+								"name": "Animal Companion",
+								"id": "NEW1_031",
+								"cost": 3,
+							},
+							"13": {
+								"name": "Animal Companion",
+								"id": "NEW1_031",
+								"cost": 3,
+							},
+							"14": {
+								"name": "Cloaked Huntress",
+								"id": "KAR_006",
+								"cost": 3,
+								"atk": 3,
+								"health": 4
+							},
+							"15": {
+								"name": "Cloaked Huntress",
+								"id": "KAR_006",
+								"cost": 3,
+								"atk": 3,
+								"health": 4
+							},
+							"16": {
+								"name": "Eaglehorn Bow",
+								"id": "EX1_536",
+								"cost": 3,
+								"atk": 3,
+								"dur": 2
+							},
+							"17": {
+								"name": "Eaglehorn Bow",
+								"id": "EX1_536",
+								"cost": 3,
+								"atk": 3,
+								"dur": 2
+							},
+							"18": {
+								"name": "Kill Command",
+								"id": "EX1_539",
+								"cost": 3,
+							},
+							"19": {
+								"name": "Kill Command",
+								"id": "EX1_539",
+								"cost": 3,
+							},
+							"20": {
+								"name": "Unleash the Hounds",
+								"id": "EX1_538",
+								"cost": 3,
+							},
+							"21": {
+								"name": "Unleash the Hounds",
+								"id": "EX1_538",
+								"cost": 3,
+							},
+							"22": {
+								"name": "Houndmaster",
+								"id": "DS1_070",
+								"cost": 4,
+								"atk": 4,
+								"health": 3
+							},
+							"23": {
+								"name": "Houndmaster",
+								"id": "DS1_070",
+								"cost": 4,
+								"atk": 4,
+								"health": 3
+							},
+							"24": {
+								"name": "Savannah Highmane",
+								"id": "EX1_534",
+								"cost": 6,
+								"atk": 6,
+								"health": 5
+							},
+							"25": {
+								"name": "Savannah Highmane",
+								"id": "EX1_534",
+								"cost": 6,
+								"atk": 6,
+								"health": 5
+							},
+							"26": {
+								"name": "Secretkeeper",
+								"id": "EX1_080",
+								"cost": 1,
+								"atk": 1,
+								"health": 2
+							},
+							"27": {
+								"name": "Secretkeeper",
+								"id": "EX1_080",
+								"cost": 1,
+								"atk": 1,
+								"health": 2
+							},
+							"28": {
+								"name": "Knife Juggler",
+								"id": "NEW1_019",
+								"cost": 2,
+								"atk": 2,
+								"health": 2
+							},
+							"29": {
+								"name": "Knife Juggler",
+								"id": "NEW1_019",
+								"cost": 2,
+								"atk": 2,
+								"health": 2
+							},
+						}
+					}
+				}
+			},
+			"player2": {
+				"hero": {
+					"class": "shaman",
+					"name": "Thrall",
+					"power": "Totemic Call",
+					"deck": {
+						"deck-class": "SHAMAN",
+						"archetype": "MIDRANGE",
+						"deck-name": "MidrangeJadeShaman",
+						"num-games": 0,
+						"cards": {
+							"0": {
+								"name": "Tunnel Trogg",
+								"id": "LOE_018",
+								"cost": 1,
+								"atk": 1,
+								"health": 3
+							},
+							"1": {
+								"name": "Tunnel Trogg",
+								"id": "LOE_018",
+								"cost": 1,
+								"atk": 1,
+								"health": 3
+							},
+							"2": {
+								"name": "Totem Golem",
+								"id": "AT_052",
+								"cost": 2,
+								"atk": 3,
+								"health": 4
+							},
+							"3": {
+								"name": "Totem Golem",
+								"id": "AT_052",
+								"cost": 2,
+								"atk": 3,
+								"health": 4
+							},
+							"4": {
+								"name": "Thing from Below",
+								"id": "OG_028",
+								"cost": 6,
+								"atk": 5,
+								"health": 5
+							},
+							"5": {
+								"name": "Thing from Below",
+								"id": "OG_028",
+								"cost": 6,
+								"atk": 5,
+								"health": 5
+							},
+							"6": {
+								"name": "Spirit Claws",
+								"id": "KAR_063",
+								"cost": 2,
+								"atk": 1,
+								"dur": 3
+							},
+							"7": {
+								"name": "Spirit Claws",
+								"id": "KAR_063",
+								"cost": 2,
+								"atk": 1,
+								"dur": 3
+							},
+							"8": {
+								"name": "Maelstrom Portal",
+								"id": "KAR_073",
+								"cost": 2,
+							},
+							"9": {
+								"name": "Maelstrom Portal",
+								"id": "KAR_073",
+								"cost": 2,
+							},
+							"10": {
+								"name": "Lightning Storm",
+								"id": "EX1_259",
+								"cost": 3,
+							},
+							"11": {
+								"name": "Lightning Bolt",
+								"id": "EX1_238",
+								"cost": 1,
+							},
+							"12": {
+								"name": "Jade Lightning",
+								"id": "CFM_707",
+								"cost": 4,
+							},
+							"13": {
+								"name": "Jade Lightning",
+								"id": "CFM_707",
+								"cost": 4,
+							},
+							"14": {
+								"name": "Jade Claws",
+								"id": "CFM_717",
+								"cost": 2,
+								"atk": 2,
+								"dur": 2
+							},
+							"15": {
+								"name": "Jade Claws",
+								"id": "CFM_717",
+								"cost": 2,
+								"atk": 2,
+								"dur": 2
+							},
+							"16": {
+								"name": "Hex",
+								"id": "EX1_246",
+								"cost": 4,
+							},
+							"17": {
+								"name": "Hex",
+								"id": "EX1_246",
+								"cost": 4,
+							},
+							"18": {
+								"name": "Flametongue Totem",
+								"id": "EX1_565",
+								"cost": 2,
+								"atk": 0,
+								"health": 3
+							},
+							"19": {
+								"name": "Flametongue Totem",
+								"id": "EX1_565",
+								"cost": 2,
+								"atk": 0,
+								"health": 3
+							},
+							"20": {
+								"name": "Al'Akir the Windlord",
+								"id": "NEW1_010",
+								"cost": 8,
+								"atk": 3,
+								"health": 5
+							},
+							"21": {
+								"name": "Patches the Pirate",
+								"id": "CFM_637",
+								"cost": 1,
+								"atk": 1,
+								"health": 1
+							},
+							"22": {
+								"name": "Small-Time Buccaneer",
+								"id": "CFM_325",
+								"cost": 1,
+								"atk": 1,
+								"health": 1
+							},
+							"23": {
+								"name": "Small-Time Buccaneer",
+								"id": "CFM_325",
+								"cost": 1,
+								"atk": 1,
+								"health": 1
+							},
+							"24": {
+								"name": "Bloodmage Thalnos",
+								"id": "EX1_012",
+								"cost": 2,
+								"atk": 1,
+								"health": 1
+							},
+							"25": {
+								"name": "Barnes",
+								"id": "KAR_114",
+								"cost": 4,
+								"atk": 3,
+								"health": 4
+							},
+							"26": {
+								"name": "Azure Drake",
+								"id": "EX1_284",
+								"cost": 5,
+								"atk": 4,
+								"health": 4
+							},
+							"27": {
+								"name": "Azure Drake",
+								"id": "EX1_284",
+								"cost": 5,
+								"atk": 4,
+								"health": 4
+							},
+							"28": {
+								"name": "Aya Blackpaw",
+								"id": "CFM_902",
+								"cost": 6,
+								"atk": 5,
+								"health": 3
+							},
+							"29": {
+								"name": "Ragnaros the Firelord",
+								"id": "EX1_298",
+								"cost": 8,
+								"atk": 8,
+								"health": 8
+							},
+						}
+					}
+				}
+			},
+	},
+		"play": {
+			"turn": "1",
+			"player1": {
+				"hero": {
+					"class": "hunter",
+					"name": "Rexxar",
+					"power": "Steady Shot",
+					"power-usable": "false",
+					"remaining-mana" 1,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 4,
+							"0": {
+								"name": "Unleash the Hounds",
+								"cost": "3",
+							},
+							"1": {
+								"name": "Knife Juggler",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"2": {
+								"name": "Animal Companion",
+								"cost": "3",
+							},
+							"3": {
+								"name": "Animal Companion",
+								"cost": "3",
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 26,
+							"0": {
+								"name": "Unleash the Hounds",
+								"cost": "3",
+							},
+							"1": {
+								"name": "Quick Shot",
+								"cost": "2",
+							},
+							"2": {
+								"name": "Kill Command",
+								"cost": "3",
+							},
+							"3": {
+								"name": "Explosive Trap",
+								"cost": "2",
+							},
+							"4": {
+								"name": "Houndmaster",
+								"cost": "4",
+								"atk": "4",
+								"health": "3"
+							},
+							"5": {
+								"name": "Savannah Highmane",
+								"cost": "6",
+								"atk": "6",
+								"health": "5"
+							},
+							"6": {
+								"name": "Bear Trap",
+								"cost": "2",
+							},
+							"7": {
+								"name": "Quick Shot",
+								"cost": "2",
+							},
+							"8": {
+								"name": "Secretkeeper",
+								"cost": "1",
+								"atk": "1",
+								"health": "2"
+							},
+							"9": {
+								"name": "Cloaked Huntress",
+								"cost": "3",
+								"atk": "3",
+								"health": "4"
+							},
+							"10": {
+								"name": "Cloaked Huntress",
+								"cost": "3",
+								"atk": "3",
+								"health": "4"
+							},
+							"11": {
+								"name": "Secretkeeper",
+								"cost": "1",
+								"atk": "1",
+								"health": "2"
+							},
+							"12": {
+								"name": "Houndmaster",
+								"cost": "4",
+								"atk": "4",
+								"health": "3"
+							},
+							"13": {
+								"name": "Explosive Trap",
+								"cost": "2",
+							},
+							"14": {
+								"name": "Eaglehorn Bow",
+								"cost": "3",
+								"atk": "3",
+								"dur": "2"
+							},
+							"15": {
+								"name": "Knife Juggler",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"16": {
+								"name": "Scavenging Hyena",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"17": {
+								"name": "Alleycat",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"18": {
+								"name": "Kill Command",
+								"cost": "3",
+							},
+							"19": {
+								"name": "Alleycat",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"20": {
+								"name": "Snake Trap",
+								"cost": "2",
+							},
+							"21": {
+								"name": "Scavenging Hyena",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"22": {
+								"name": "Savannah Highmane",
+								"cost": "6",
+								"atk": "6",
+								"health": "5"
+							},
+							"23": {
+								"name": "Eaglehorn Bow",
+								"cost": "3",
+								"atk": "3",
+								"dur": "2"
+							},
+							"24": {
+								"name": "Bear Trap",
+								"cost": "2",
+							},
+							"25": {
+								"name": "Snake Trap",
+								"cost": "2",
+							},
+					},
+				}
+			},
+			"player2": {
+				"hero": {
+					"class": "shaman",
+					"name": "Thrall",
+					"power": "Totemic Call",
+					"power-usable": "false",
+					"remaining-mana" 0,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 5,
+							"0": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+							"1": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"2": {
+								"name": "Patches the Pirate",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"3": {
+								"name": "Barnes",
+								"cost": "4",
+								"atk": "3",
+								"health": "4"
+							},
+							"4": {
+								"name": "The Coin",
+								"cost": "0",
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 26,
+							"0": {
+								"name": "Lightning Storm",
+								"cost": "3",
+							},
+							"1": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"2": {
+								"name": "Ragnaros the Firelord",
+								"cost": "8",
+								"atk": "8",
+								"health": "8"
+							},
+							"3": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"4": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"5": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"6": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"7": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"8": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"9": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"10": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"11": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"12": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+							"13": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"14": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"15": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"16": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"17": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"18": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"19": {
+								"name": "Aya Blackpaw",
+								"cost": "6",
+								"atk": "5",
+								"health": "3"
+							},
+							"20": {
+								"name": "Lightning Bolt",
+								"cost": "1",
+							},
+							"21": {
+								"name": "Al'Akir the Windlord",
+								"cost": "8",
+								"atk": "3",
+								"health": "5"
+							},
+							"22": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"23": {
+								"name": "Bloodmage Thalnos",
+								"cost": "2",
+								"atk": "1",
+								"health": "1"
+							},
+							"24": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"25": {
+								"name": "Hex",
+								"cost": "4",
+							},
+					},
+				}
+			},
+			}
+		},
+	"move": {
+		"player": 1
+		"type": "end_turn",
+	}
+		"play": {
+			"turn": "2",
+			"player1": {
+				"hero": {
+					"class": "hunter",
+					"name": "Rexxar",
+					"power": "Steady Shot",
+					"power-usable": "false",
+					"remaining-mana" 1,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 4,
+							"0": {
+								"name": "Unleash the Hounds",
+								"cost": "3",
+							},
+							"1": {
+								"name": "Knife Juggler",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"2": {
+								"name": "Animal Companion",
+								"cost": "3",
+							},
+							"3": {
+								"name": "Animal Companion",
+								"cost": "3",
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 26,
+							"0": {
+								"name": "Unleash the Hounds",
+								"cost": "3",
+							},
+							"1": {
+								"name": "Quick Shot",
+								"cost": "2",
+							},
+							"2": {
+								"name": "Kill Command",
+								"cost": "3",
+							},
+							"3": {
+								"name": "Explosive Trap",
+								"cost": "2",
+							},
+							"4": {
+								"name": "Houndmaster",
+								"cost": "4",
+								"atk": "4",
+								"health": "3"
+							},
+							"5": {
+								"name": "Savannah Highmane",
+								"cost": "6",
+								"atk": "6",
+								"health": "5"
+							},
+							"6": {
+								"name": "Bear Trap",
+								"cost": "2",
+							},
+							"7": {
+								"name": "Quick Shot",
+								"cost": "2",
+							},
+							"8": {
+								"name": "Secretkeeper",
+								"cost": "1",
+								"atk": "1",
+								"health": "2"
+							},
+							"9": {
+								"name": "Cloaked Huntress",
+								"cost": "3",
+								"atk": "3",
+								"health": "4"
+							},
+							"10": {
+								"name": "Cloaked Huntress",
+								"cost": "3",
+								"atk": "3",
+								"health": "4"
+							},
+							"11": {
+								"name": "Secretkeeper",
+								"cost": "1",
+								"atk": "1",
+								"health": "2"
+							},
+							"12": {
+								"name": "Houndmaster",
+								"cost": "4",
+								"atk": "4",
+								"health": "3"
+							},
+							"13": {
+								"name": "Explosive Trap",
+								"cost": "2",
+							},
+							"14": {
+								"name": "Eaglehorn Bow",
+								"cost": "3",
+								"atk": "3",
+								"dur": "2"
+							},
+							"15": {
+								"name": "Knife Juggler",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"16": {
+								"name": "Scavenging Hyena",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"17": {
+								"name": "Alleycat",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"18": {
+								"name": "Kill Command",
+								"cost": "3",
+							},
+							"19": {
+								"name": "Alleycat",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"20": {
+								"name": "Snake Trap",
+								"cost": "2",
+							},
+							"21": {
+								"name": "Scavenging Hyena",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"22": {
+								"name": "Savannah Highmane",
+								"cost": "6",
+								"atk": "6",
+								"health": "5"
+							},
+							"23": {
+								"name": "Eaglehorn Bow",
+								"cost": "3",
+								"atk": "3",
+								"dur": "2"
+							},
+							"24": {
+								"name": "Bear Trap",
+								"cost": "2",
+							},
+							"25": {
+								"name": "Snake Trap",
+								"cost": "2",
+							},
+					},
+				}
+			},
+			"player2": {
+				"hero": {
+					"class": "shaman",
+					"name": "Thrall",
+					"power": "Totemic Call",
+					"power-usable": "false",
+					"remaining-mana" 1,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 6,
+							"0": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+							"1": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"2": {
+								"name": "Patches the Pirate",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"3": {
+								"name": "Barnes",
+								"cost": "4",
+								"atk": "3",
+								"health": "4"
+							},
+							"4": {
+								"name": "The Coin",
+								"cost": "0",
+							},
+							"5": {
+								"name": "Hex",
+								"cost": "4",
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 25,
+							"0": {
+								"name": "Lightning Storm",
+								"cost": "3",
+							},
+							"1": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"2": {
+								"name": "Ragnaros the Firelord",
+								"cost": "8",
+								"atk": "8",
+								"health": "8"
+							},
+							"3": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"4": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"5": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"6": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"7": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"8": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"9": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"10": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"11": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"12": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+							"13": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"14": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"15": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"16": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"17": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"18": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"19": {
+								"name": "Aya Blackpaw",
+								"cost": "6",
+								"atk": "5",
+								"health": "3"
+							},
+							"20": {
+								"name": "Lightning Bolt",
+								"cost": "1",
+							},
+							"21": {
+								"name": "Al'Akir the Windlord",
+								"cost": "8",
+								"atk": "3",
+								"health": "5"
+							},
+							"22": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"23": {
+								"name": "Bloodmage Thalnos",
+								"cost": "2",
+								"atk": "1",
+								"health": "1"
+							},
+							"24": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+					},
+				}
+			},
+			}
+		},

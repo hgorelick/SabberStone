@@ -1,0 +1,1630 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hsreplay SYSTEM "https://hearthsim.info/hsreplay/dtd/hsreplay-1.7.dtd">
+<HSReplay build="25770" version="1.6">
+	<Game ts="2018-11-27T21:45:02.808834-05:00">
+		<GameEntity id="1">
+			<Tag tag="49" value="1"/>
+			<Tag tag="53" value="1"/>
+			<Tag tag="202" value="1"/>
+		</GameEntity>
+		<Player id="2" playerID="1" accountHi="144115193835963207" accountLo="149683134" name="hgore#11426" rank="22" cardback="119">
+			<Tag tag="28" value="10"/>
+			<Tag tag="29" value="4"/>
+			<Tag tag="30" value="1"/>
+			<Tag tag="31" value="1"/>
+			<Tag tag="176" value="10"/>
+			<Tag tag="49" value="1"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="2"/>
+			<Tag tag="202" value="2"/>
+		</Player>
+		<Player id="3" playerID="2" accountHi="144115193835963207" accountLo="149683134" name="HSREPLAY_TEST" rank="22" cardback="65">
+			<Tag tag="28" value="10"/>
+			<Tag tag="29" value="4"/>
+			<Tag tag="30" value="2"/>
+			<Tag tag="31" value="2"/>
+			<Tag tag="176" value="10"/>
+			<Tag tag="49" value="1"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="3"/>
+			<Tag tag="202" value="2"/>
+		</Player>
+		<Deck>
+			<Card id="UNG_934"/>
+			<Card id="CS1_042"/>
+			<Card id="UNG_929"/>
+			<Card id="LOOT_117"/>
+			<Card id="LOOT_117"/>
+			<Card id="CS2_114"/>
+			<Card id="UNG_926"/>
+			<Card id="LOOT_367"/>
+			<Card id="LOOT_367"/>
+			<Card id="CS2_108"/>
+			<Card id="CS2_108"/>
+			<Card id="LOOT_413"/>
+			<Card id="LOOT_413"/>
+			<Card id="GIL_654"/>
+			<Card id="GIL_654"/>
+			<Card id="GIL_207"/>
+			<Card id="GIL_207"/>
+			<Card id="EX1_606"/>
+			<Card id="EX1_606"/>
+			<Card id="UNG_072"/>
+			<Card id="UNG_072"/>
+			<Card id="EX1_407"/>
+			<Card id="UNG_957"/>
+			<Card id="UNG_957"/>
+			<Card id="GIL_667"/>
+			<Card id="UNG_925"/>
+			<Card id="LOOT_285"/>
+			<Card id="LOOT_285"/>
+			<Card id="LOOT_519"/>
+			<Card id="ICC_834"/>
+		</Deck>
+		<FullEntity id="4">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="4"/>
+		</FullEntity>
+		<FullEntity id="5">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="5"/>
+		</FullEntity>
+		<FullEntity id="6">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="6"/>
+		</FullEntity>
+		<FullEntity id="7">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="7"/>
+		</FullEntity>
+		<FullEntity id="8">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="8"/>
+		</FullEntity>
+		<FullEntity id="9">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="9"/>
+		</FullEntity>
+		<FullEntity id="10">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="10"/>
+		</FullEntity>
+		<FullEntity id="11">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="11"/>
+		</FullEntity>
+		<FullEntity id="12">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="12"/>
+		</FullEntity>
+		<FullEntity id="13">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="13"/>
+		</FullEntity>
+		<FullEntity id="14">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="14"/>
+		</FullEntity>
+		<FullEntity id="15">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="15"/>
+		</FullEntity>
+		<FullEntity id="16">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="16"/>
+		</FullEntity>
+		<FullEntity id="17">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="17"/>
+		</FullEntity>
+		<FullEntity id="18">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="18"/>
+		</FullEntity>
+		<FullEntity id="19">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="19"/>
+		</FullEntity>
+		<FullEntity id="20">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="20"/>
+		</FullEntity>
+		<FullEntity id="21">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="21"/>
+		</FullEntity>
+		<FullEntity id="22">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="22"/>
+		</FullEntity>
+		<FullEntity id="23">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="23"/>
+		</FullEntity>
+		<FullEntity id="24">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="24"/>
+		</FullEntity>
+		<FullEntity id="25">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="25"/>
+		</FullEntity>
+		<FullEntity id="26">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="26"/>
+		</FullEntity>
+		<FullEntity id="27">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="27"/>
+		</FullEntity>
+		<FullEntity id="28">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="28"/>
+		</FullEntity>
+		<FullEntity id="29">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="29"/>
+		</FullEntity>
+		<FullEntity id="30">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="30"/>
+		</FullEntity>
+		<FullEntity id="31">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="31"/>
+		</FullEntity>
+		<FullEntity id="32">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="32"/>
+		</FullEntity>
+		<FullEntity id="33">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="33"/>
+		</FullEntity>
+		<FullEntity id="34">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="34"/>
+		</FullEntity>
+		<FullEntity id="35">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="35"/>
+		</FullEntity>
+		<FullEntity id="36">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="36"/>
+		</FullEntity>
+		<FullEntity id="37">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="37"/>
+		</FullEntity>
+		<FullEntity id="38">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="38"/>
+		</FullEntity>
+		<FullEntity id="39">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="39"/>
+		</FullEntity>
+		<FullEntity id="40">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="40"/>
+		</FullEntity>
+		<FullEntity id="41">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="41"/>
+		</FullEntity>
+		<FullEntity id="42">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="42"/>
+		</FullEntity>
+		<FullEntity id="43">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="43"/>
+		</FullEntity>
+		<FullEntity id="44">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="44"/>
+		</FullEntity>
+		<FullEntity id="45">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="45"/>
+		</FullEntity>
+		<FullEntity id="46">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="46"/>
+		</FullEntity>
+		<FullEntity id="47">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="47"/>
+		</FullEntity>
+		<FullEntity id="48">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="48"/>
+		</FullEntity>
+		<FullEntity id="49">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="49"/>
+		</FullEntity>
+		<FullEntity id="50">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="50"/>
+		</FullEntity>
+		<FullEntity id="51">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="51"/>
+		</FullEntity>
+		<FullEntity id="52">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="52"/>
+		</FullEntity>
+		<FullEntity id="53">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="53"/>
+		</FullEntity>
+		<FullEntity id="54">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="54"/>
+		</FullEntity>
+		<FullEntity id="55">
+			<Tag tag="49" value="6"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="55"/>
+			<Tag tag="313" value="54"/>
+			<Tag tag="316" value="54"/>
+			<Tag tag="201" value="3"/>
+			<Tag tag="202" value="5"/>
+		</FullEntity>
+		<FullEntity id="56">
+			<Tag tag="49" value="6"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="56"/>
+			<Tag tag="313" value="54"/>
+			<Tag tag="316" value="54"/>
+			<Tag tag="201" value="3"/>
+			<Tag tag="202" value="5"/>
+		</FullEntity>
+		<FullEntity id="57">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="57"/>
+		</FullEntity>
+		<FullEntity id="58">
+			<Tag tag="49" value="6"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="58"/>
+			<Tag tag="313" value="57"/>
+			<Tag tag="316" value="57"/>
+			<Tag tag="201" value="3"/>
+			<Tag tag="202" value="5"/>
+		</FullEntity>
+		<FullEntity id="59">
+			<Tag tag="49" value="6"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="59"/>
+			<Tag tag="313" value="57"/>
+			<Tag tag="316" value="57"/>
+			<Tag tag="201" value="3"/>
+			<Tag tag="202" value="5"/>
+		</FullEntity>
+		<FullEntity id="60">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="60"/>
+		</FullEntity>
+		<FullEntity id="61">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="61"/>
+		</FullEntity>
+		<FullEntity id="62">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="62"/>
+		</FullEntity>
+		<FullEntity id="63">
+			<Tag tag="49" value="6"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="63"/>
+			<Tag tag="313" value="62"/>
+			<Tag tag="316" value="62"/>
+			<Tag tag="202" value="5"/>
+		</FullEntity>
+		<FullEntity id="64">
+			<Tag tag="49" value="6"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="64"/>
+			<Tag tag="313" value="62"/>
+			<Tag tag="316" value="62"/>
+			<Tag tag="202" value="5"/>
+		</FullEntity>
+		<FullEntity id="65">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="65"/>
+		</FullEntity>
+		<FullEntity id="66">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="66"/>
+		</FullEntity>
+		<FullEntity id="67">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="67"/>
+		</FullEntity>
+		<FullEntity id="68">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="68"/>
+		</FullEntity>
+		<FullEntity id="69">
+			<Tag tag="49" value="2"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="69"/>
+		</FullEntity>
+		<FullEntity id="70" cardID="HERO_01">
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="70"/>
+			<Tag tag="45" value="30"/>
+			<Tag tag="201" value="3"/>
+			<Tag tag="202" value="3"/>
+			<Tag tag="203" value="2"/>
+		</FullEntity>
+		<FullEntity id="71" cardID="CS2_102">
+			<Tag tag="49" value="1"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="71"/>
+			<Tag tag="313" value="70"/>
+			<Tag tag="48" value="2"/>
+			<Tag tag="201" value="3"/>
+			<Tag tag="202" value="10"/>
+			<Tag tag="203" value="2"/>
+		</FullEntity>
+		<FullEntity id="72" cardID="HERO_06">
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="72"/>
+			<Tag tag="45" value="30"/>
+			<Tag tag="201" value="3"/>
+			<Tag tag="202" value="3"/>
+			<Tag tag="203" value="2"/>
+		</FullEntity>
+		<FullEntity id="73" cardID="CS2_017">
+			<Tag tag="49" value="1"/>
+			<Tag tag="50" value="2"/>
+			<Tag tag="53" value="73"/>
+			<Tag tag="313" value="72"/>
+			<Tag tag="48" value="2"/>
+			<Tag tag="201" value="3"/>
+			<Tag tag="202" value="10"/>
+			<Tag tag="203" value="2"/>
+		</FullEntity>
+		<TagChange entity="2" tag="17" value="1"/>
+		<TagChange entity="3" tag="17" value="1"/>
+		<Block entity="1" type="5" ts="2018-11-27T21:45:02.817344-05:00">
+			<TagChange entity="2" tag="24" value="1"/>
+			<TagChange entity="2" tag="23" value="1"/>
+			<TagChange entity="2" tag="399" value="1"/>
+			<ShowEntity entity="4" cardID="UNG_934">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="4"/>
+				<Tag tag="48" value="1"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="5"/>
+			</ShowEntity>
+			<TagChange entity="4" tag="49" value="3"/>
+			<TagChange entity="4" tag="263" value="1"/>
+			<TagChange entity="2" tag="399" value="2"/>
+			<ShowEntity entity="25" cardID="EX1_407">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="25"/>
+				<Tag tag="48" value="5"/>
+				<Tag tag="201" value="3"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="4"/>
+			</ShowEntity>
+			<TagChange entity="25" tag="49" value="3"/>
+			<TagChange entity="25" tag="263" value="2"/>
+			<TagChange entity="2" tag="399" value="3"/>
+			<ShowEntity entity="32" cardID="LOOT_519">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="32"/>
+				<Tag tag="47" value="4"/>
+				<Tag tag="45" value="8"/>
+				<Tag tag="48" value="8"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="5"/>
+			</ShowEntity>
+			<TagChange entity="32" tag="49" value="3"/>
+			<TagChange entity="32" tag="263" value="3"/>
+			<TagChange entity="2" tag="272" value="1"/>
+			<TagChange entity="3" tag="399" value="1"/>
+			<ShowEntity entity="48" cardID="CS2_012">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="48"/>
+				<Tag tag="48" value="4"/>
+				<Tag tag="201" value="3"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="2"/>
+			</ShowEntity>
+			<TagChange entity="48" tag="49" value="3"/>
+			<TagChange entity="48" tag="263" value="1"/>
+			<TagChange entity="3" tag="399" value="2"/>
+			<ShowEntity entity="54" cardID="EX1_164">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="54"/>
+				<Tag tag="48" value="5"/>
+				<Tag tag="201" value="3"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="3"/>
+			</ShowEntity>
+			<TagChange entity="54" tag="49" value="3"/>
+			<TagChange entity="54" tag="263" value="2"/>
+			<TagChange entity="3" tag="399" value="3"/>
+			<ShowEntity entity="50" cardID="LOOT_130">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="50"/>
+				<Tag tag="47" value="4"/>
+				<Tag tag="45" value="4"/>
+				<Tag tag="48" value="5"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="4"/>
+			</ShowEntity>
+			<TagChange entity="50" tag="49" value="3"/>
+			<TagChange entity="50" tag="263" value="3"/>
+			<TagChange entity="3" tag="399" value="4"/>
+			<ShowEntity entity="43" cardID="GIL_637">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="43"/>
+				<Tag tag="48" value="3"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="1"/>
+			</ShowEntity>
+			<TagChange entity="43" tag="49" value="3"/>
+			<TagChange entity="43" tag="263" value="4"/>
+			<FullEntity id="74">
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="74"/>
+				<Tag tag="313" value="2"/>
+				<Tag tag="202" value="5"/>
+			</FullEntity>
+			<ShowEntity entity="74" cardID="GAME_005">
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="74"/>
+				<Tag tag="313" value="2"/>
+				<Tag tag="202" value="5"/>
+			</ShowEntity>
+			<TagChange entity="74" tag="49" value="3"/>
+			<TagChange entity="74" tag="263" value="5"/>
+			<TagChange entity="3" tag="272" value="1"/>
+			<TagChange entity="2" tag="7" value="75"/>
+			<TagChange entity="3" tag="7" value="75"/>
+		</Block>
+		<Block entity="2" type="5" ts="2018-11-27T21:45:02.818085-05:00">
+			<TagChange entity="70" tag="271" value="1"/>
+			<TagChange entity="2" tag="399" value="0"/>
+			<TagChange entity="72" tag="271" value="1"/>
+			<TagChange entity="3" tag="399" value="0"/>
+			<TagChange entity="2" tag="26" value="1"/>
+			<TagChange entity="2" tag="25" value="1"/>
+			<TagChange entity="2" tag="25" value="0"/>
+		</Block>
+		<Block entity="2" type="5" ts="2018-11-27T21:45:02.818112-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:45:02.818117-05:00">
+			<TagChange entity="2" tag="399" value="1"/>
+			<ShowEntity entity="33" cardID="ICC_834">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="33"/>
+				<Tag tag="45" value="30"/>
+				<Tag tag="48" value="8"/>
+				<Tag tag="202" value="3"/>
+				<Tag tag="203" value="5"/>
+				<Tag tag="218" value="1"/>
+			</ShowEntity>
+			<TagChange entity="33" tag="49" value="3"/>
+			<TagChange entity="33" tag="263" value="4"/>
+		</Block>
+		<Block entity="4" type="5" ts="2018-11-27T21:46:59.157353-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:46:59.163611-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:46:59.163623-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:46:59.163627-05:00">
+			<ShowEntity entity="60" cardID="ICC_054">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="60"/>
+				<Tag tag="48" value="6"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="3"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="74" type="5" ts="2018-11-27T21:47:08.977300-05:00">
+			<Block entity="74" type="5" ts="2018-11-27T21:47:08.977350-05:00"/>
+		</Block>
+		<Block entity="73" type="5" ts="2018-11-27T21:47:09.001010-05:00">
+			<Block entity="73" type="5" ts="2018-11-27T21:47:09.001029-05:00">
+				<FullEntity id="75">
+					<Tag tag="50" value="2"/>
+					<Tag tag="202" value="6"/>
+					<Tag tag="40" value="72"/>
+					<Tag tag="49" value="6"/>
+					<Tag tag="53" value="75"/>
+					<Tag tag="313" value="73"/>
+				</FullEntity>
+				<FullEntity id="75">
+					<Tag tag="50" value="2"/>
+					<Tag tag="202" value="6"/>
+					<Tag tag="40" value="72"/>
+					<Tag tag="49" value="6"/>
+					<Tag tag="53" value="75"/>
+					<Tag tag="313" value="73"/>
+				</FullEntity>
+			</Block>
+		</Block>
+		<HideEntity entity="75"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:47:09.019299-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:47:09.019315-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:47:09.019317-05:00">
+			<ShowEntity entity="13" cardID="CS2_108">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="13"/>
+				<Tag tag="48" value="2"/>
+				<Tag tag="201" value="3"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="2"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="71" type="5" ts="2018-11-27T21:48:13.565501-05:00">
+			<Block entity="71" type="5" ts="2018-11-27T21:48:13.565526-05:00"/>
+		</Block>
+		<Block entity="3" type="5" ts="2018-11-27T21:48:13.786142-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:48:13.786178-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:48:13.786180-05:00">
+			<ShowEntity entity="68" cardID="ICC_085">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="68"/>
+				<Tag tag="48" value="10"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="4"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="2" type="5" ts="2018-11-27T21:48:13.789658-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:48:13.789674-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:48:13.789676-05:00">
+			<ShowEntity entity="19" cardID="GIL_207">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="19"/>
+				<Tag tag="47" value="2"/>
+				<Tag tag="45" value="4"/>
+				<Tag tag="48" value="3"/>
+				<Tag tag="190" value="1"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="3"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="19" type="5" ts="2018-11-27T21:49:05.945217-05:00">
+			<Block entity="4" type="5" ts="2018-11-27T21:49:05.945233-05:00"/>
+			<FullEntity id="76">
+				<Tag tag="785" value="1"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="49" value="3"/>
+				<Tag tag="53" value="76"/>
+				<Tag tag="47" value="2"/>
+				<Tag tag="45" value="4"/>
+				<Tag tag="48" value="3"/>
+				<Tag tag="190" value="1"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="3"/>
+			</FullEntity>
+			<ShowEntity entity="76" cardID="GIL_207">
+				<Tag tag="785" value="1"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="49" value="3"/>
+				<Tag tag="53" value="76"/>
+				<Tag tag="47" value="2"/>
+				<Tag tag="45" value="4"/>
+				<Tag tag="48" value="3"/>
+				<Tag tag="190" value="1"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="3"/>
+			</ShowEntity>
+			<TagChange entity="76" tag="263" value="5"/>
+			<TagChange entity="76" tag="385" value="19"/>
+		</Block>
+		<Block entity="3" type="5" ts="2018-11-27T21:49:05.948768-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:49:05.948782-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:49:05.948784-05:00">
+			<ShowEntity entity="46" cardID="BOT_434">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="46"/>
+				<Tag tag="47" value="3"/>
+				<Tag tag="45" value="4"/>
+				<Tag tag="48" value="4"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="5"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="43" type="5" ts="2018-11-27T21:49:05.957451-05:00">
+			<Block entity="43" type="5" ts="2018-11-27T21:49:05.957484-05:00">
+				<ShowEntity entity="62" cardID="ICC_832">
+					<Tag tag="49" value="2"/>
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="62"/>
+					<Tag tag="45" value="30"/>
+					<Tag tag="48" value="7"/>
+					<Tag tag="202" value="3"/>
+					<Tag tag="203" value="5"/>
+				</ShowEntity>
+			</Block>
+		</Block>
+		<Block entity="2" type="5" ts="2018-11-27T21:49:05.961200-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:49:05.961253-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:49:05.961257-05:00">
+			<ShowEntity entity="8" cardID="LOOT_117">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="8"/>
+				<Tag tag="45" value="2"/>
+				<Tag tag="48" value="1"/>
+				<Tag tag="190" value="1"/>
+				<Tag tag="194" value="1"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="1"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="71" type="5" ts="2018-11-27T21:49:51.795940-05:00">
+			<Block entity="71" type="5" ts="2018-11-27T21:49:51.795960-05:00"/>
+		</Block>
+		<Block entity="19" type="5" ts="2018-11-27T21:50:44.472806-05:00"/>
+		<Block entity="8" type="5" ts="2018-11-27T21:51:35.174128-05:00">
+			<Block entity="4" type="5" ts="2018-11-27T21:51:35.174164-05:00"/>
+		</Block>
+		<Block entity="3" type="5" ts="2018-11-27T21:51:35.178303-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:51:35.178318-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:51:35.178321-05:00">
+			<ShowEntity entity="41" cardID="CS2_013">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="41"/>
+				<Tag tag="48" value="2"/>
+				<Tag tag="201" value="3"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="2"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="41" type="5" ts="2018-11-27T21:51:35.187565-05:00">
+			<Block entity="41" type="5" ts="2018-11-27T21:51:35.187580-05:00"/>
+		</Block>
+		<Block entity="2" type="5" ts="2018-11-27T21:51:35.191286-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:51:35.191298-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:51:35.191305-05:00">
+			<ShowEntity entity="6" cardID="UNG_929">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="6"/>
+				<Tag tag="47" value="1"/>
+				<Tag tag="187" value="1"/>
+				<Tag tag="48" value="1"/>
+				<Tag tag="202" value="7"/>
+				<Tag tag="203" value="3"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="19" type="5" ts="2018-11-27T21:52:22.152702-05:00"/>
+		<Block entity="25" type="5" ts="2018-11-27T21:53:09.551064-05:00">
+			<Block entity="25" type="5" ts="2018-11-27T21:53:09.551079-05:00"/>
+		</Block>
+		<Block entity="3" type="5" ts="2018-11-27T21:53:09.554773-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:53:09.554787-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:53:09.554790-05:00">
+			<ShowEntity entity="39" cardID="EX1_161">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="39"/>
+				<Tag tag="48" value="1"/>
+				<Tag tag="201" value="3"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="1"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="54" type="5" ts="2018-11-27T21:53:09.558754-05:00">
+			<Block entity="54" type="5" ts="2018-11-27T21:53:09.558779-05:00"/>
+		</Block>
+		<Block entity="2" type="5" ts="2018-11-27T21:53:09.567836-05:00"/>
+		<Block entity="6" type="5" ts="2018-11-27T21:53:09.567850-05:00">
+			<FullEntity id="77">
+				<Tag tag="50" value="1"/>
+				<Tag tag="202" value="6"/>
+				<Tag tag="40" value="6"/>
+				<Tag tag="49" value="6"/>
+				<Tag tag="53" value="77"/>
+				<Tag tag="313" value="6"/>
+			</FullEntity>
+			<FullEntity id="77">
+				<Tag tag="50" value="1"/>
+				<Tag tag="202" value="6"/>
+				<Tag tag="40" value="6"/>
+				<Tag tag="49" value="6"/>
+				<Tag tag="53" value="77"/>
+				<Tag tag="313" value="6"/>
+			</FullEntity>
+		</Block>
+		<Block entity="2" type="5" ts="2018-11-27T21:53:09.567867-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:53:09.567893-05:00">
+			<ShowEntity entity="17" cardID="GIL_654">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="17"/>
+				<Tag tag="48" value="2"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="1"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="3" type="5" ts="2018-11-27T21:53:56.223549-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:53:56.223575-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:53:56.223578-05:00">
+			<ShowEntity entity="65" cardID="ICC_314">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="65"/>
+				<Tag tag="47" value="8"/>
+				<Tag tag="45" value="8"/>
+				<Tag tag="48" value="8"/>
+				<Tag tag="190" value="1"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="5"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="50" type="5" ts="2018-11-27T21:53:56.300098-05:00">
+			<TagChange entity="50" tag="48" value="5"/>
+		</Block>
+		<Block entity="46" type="5" ts="2018-11-27T21:53:56.312224-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:53:56.315470-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:53:56.315479-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:53:56.315482-05:00">
+			<ShowEntity entity="12" cardID="LOOT_367">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="12"/>
+				<Tag tag="47" value="2"/>
+				<Tag tag="45" value="2"/>
+				<Tag tag="48" value="2"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="1"/>
+				<Tag tag="218" value="1"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="12" type="5" ts="2018-11-27T21:54:53.328697-05:00">
+			<Block entity="12" type="5" ts="2018-11-27T21:54:53.328712-05:00"/>
+		</Block>
+		<Block entity="17" type="5" ts="2018-11-27T21:55:38.917647-05:00">
+			<Block entity="17" type="5" ts="2018-11-27T21:55:38.917710-05:00"/>
+			<FullEntity id="78">
+				<Tag tag="785" value="1"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="49" value="3"/>
+				<Tag tag="53" value="78"/>
+				<Tag tag="48" value="2"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="1"/>
+			</FullEntity>
+			<ShowEntity entity="78" cardID="GIL_654">
+				<Tag tag="785" value="1"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="49" value="3"/>
+				<Tag tag="53" value="78"/>
+				<Tag tag="48" value="2"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="1"/>
+			</ShowEntity>
+			<TagChange entity="78" tag="263" value="4"/>
+			<TagChange entity="78" tag="385" value="17"/>
+		</Block>
+		<Block entity="13" type="5" ts="2018-11-27T21:56:33.576971-05:00">
+			<Block entity="13" type="5" ts="2018-11-27T21:56:33.576987-05:00"/>
+		</Block>
+		<Block entity="70" type="5" ts="2018-11-27T21:57:24.500001-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:57:24.503779-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:57:24.503797-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:57:24.503802-05:00">
+			<ShowEntity entity="47" cardID="CS2_012">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="47"/>
+				<Tag tag="48" value="4"/>
+				<Tag tag="201" value="3"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="2"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="68" type="5" ts="2018-11-27T21:57:24.609181-05:00">
+			<Block entity="68" type="5" ts="2018-11-27T21:57:24.609197-05:00">
+				<ShowEntity entity="38" cardID="EX1_161">
+					<Tag tag="49" value="2"/>
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="38"/>
+					<Tag tag="48" value="1"/>
+					<Tag tag="201" value="3"/>
+					<Tag tag="202" value="5"/>
+					<Tag tag="203" value="1"/>
+				</ShowEntity>
+				<ShowEntity entity="44" cardID="LOOT_054">
+					<Tag tag="49" value="2"/>
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="44"/>
+					<Tag tag="48" value="4"/>
+					<Tag tag="202" value="5"/>
+					<Tag tag="203" value="4"/>
+				</ShowEntity>
+				<ShowEntity entity="36" cardID="LOOT_051">
+					<Tag tag="49" value="2"/>
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="36"/>
+					<Tag tag="48" value="1"/>
+					<Tag tag="202" value="5"/>
+					<Tag tag="203" value="3"/>
+				</ShowEntity>
+				<ShowEntity entity="67" cardID="EX1_563">
+					<Tag tag="49" value="2"/>
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="67"/>
+					<Tag tag="47" value="4"/>
+					<Tag tag="45" value="12"/>
+					<Tag tag="48" value="9"/>
+					<Tag tag="201" value="3"/>
+					<Tag tag="202" value="4"/>
+					<Tag tag="203" value="5"/>
+				</ShowEntity>
+				<Block entity="36" type="5" ts="2018-11-27T21:57:24.609245-05:00"/>
+				<FullEntity id="79">
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="79"/>
+					<Tag tag="385" value="68"/>
+					<Tag tag="47" value="5"/>
+					<Tag tag="45" value="5"/>
+					<Tag tag="48" value="5"/>
+					<Tag tag="202" value="4"/>
+				</FullEntity>
+				<TagChange entity="79" tag="49" value="1"/>
+				<TagChange entity="79" tag="263" value="1"/>
+				<TagChange entity="79" tag="43" value="1"/>
+				<ShowEntity entity="79" cardID="ICC_085t">
+					<Tag tag="49" value="1"/>
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="79"/>
+					<Tag tag="263" value="1"/>
+					<Tag tag="385" value="68"/>
+					<Tag tag="43" value="1"/>
+					<Tag tag="47" value="5"/>
+					<Tag tag="45" value="5"/>
+					<Tag tag="48" value="5"/>
+					<Tag tag="202" value="4"/>
+				</ShowEntity>
+			</Block>
+		</Block>
+		<Block entity="2" type="5" ts="2018-11-27T21:57:24.612529-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:57:24.612543-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:57:24.612545-05:00">
+			<ShowEntity entity="31" cardID="LOOT_285">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="31"/>
+				<Tag tag="48" value="6"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="1"/>
+			</ShowEntity>
+			<Block entity="31" type="5" ts="2018-11-27T21:57:24.612555-05:00"/>
+		</Block>
+		<Block entity="33" type="5" ts="2018-11-27T21:58:15.714755-05:00">
+			<FullEntity id="80" cardID="ICC_834h">
+				<Tag tag="49" value="1"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="80"/>
+				<Tag tag="48" value="2"/>
+				<Tag tag="202" value="10"/>
+			</FullEntity>
+			<Block entity="33" type="5" ts="2018-11-27T21:58:15.714841-05:00">
+				<FullEntity id="81">
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="81"/>
+					<Tag tag="47" value="4"/>
+					<Tag tag="187" value="3"/>
+					<Tag tag="48" value="8"/>
+					<Tag tag="202" value="7"/>
+				</FullEntity>
+				<TagChange entity="81" tag="49" value="1"/>
+				<Block entity="81" type="5" ts="2018-11-27T21:58:15.714871-05:00"/>
+			</Block>
+		</Block>
+		<Block entity="12" type="5" ts="2018-11-27T21:58:52.759503-05:00"/>
+		<Block entity="33" type="5" ts="2018-11-27T21:59:38.097629-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:59:38.102308-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:59:38.102325-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T21:59:38.102328-05:00"/>
+		<Block entity="67" type="5" ts="2018-11-27T21:59:38.220918-05:00"/>
+		<Block entity="39" type="5" ts="2018-11-27T21:59:38.233760-05:00">
+			<Block entity="39" type="5" ts="2018-11-27T21:59:38.233775-05:00"/>
+			<Block entity="39" type="5" ts="2018-11-27T21:59:38.233798-05:00">
+				<ShowEntity entity="22" cardID="EX1_606">
+					<Tag tag="49" value="2"/>
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="22"/>
+					<Tag tag="48" value="3"/>
+					<Tag tag="201" value="3"/>
+					<Tag tag="202" value="5"/>
+					<Tag tag="203" value="2"/>
+				</ShowEntity>
+			</Block>
+			<Block entity="39" type="5" ts="2018-11-27T21:59:38.233809-05:00">
+				<ShowEntity entity="27" cardID="UNG_957">
+					<Tag tag="49" value="2"/>
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="27"/>
+					<Tag tag="47" value="3"/>
+					<Tag tag="45" value="6"/>
+					<Tag tag="48" value="5"/>
+					<Tag tag="190" value="1"/>
+					<Tag tag="202" value="4"/>
+					<Tag tag="203" value="3"/>
+					<Tag tag="217" value="1"/>
+				</ShowEntity>
+			</Block>
+		</Block>
+		<Block entity="79" type="5" ts="2018-11-27T21:59:38.237247-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:59:38.244873-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:59:38.244888-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T21:59:38.244901-05:00">
+			<ShowEntity entity="24" cardID="UNG_072">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="24"/>
+				<Tag tag="47" value="1"/>
+				<Tag tag="45" value="4"/>
+				<Tag tag="48" value="3"/>
+				<Tag tag="190" value="1"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="3"/>
+				<Tag tag="218" value="1"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="33" type="5" ts="2018-11-27T22:00:18.274753-05:00"/>
+		<Block entity="81" type="5" ts="2018-11-27T22:00:18.274822-05:00"/>
+		<Block entity="31" type="5" ts="2018-11-27T22:00:55.627872-05:00">
+			<Block entity="31" type="5" ts="2018-11-27T22:00:55.627884-05:00">
+				<FullEntity id="82">
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="82"/>
+					<Tag tag="47" value="5"/>
+					<Tag tag="187" value="2"/>
+					<Tag tag="48" value="5"/>
+					<Tag tag="202" value="7"/>
+				</FullEntity>
+				<TagChange entity="82" tag="49" value="1"/>
+				<Block entity="82" type="5" ts="2018-11-27T22:00:55.627899-05:00"/>
+			</Block>
+		</Block>
+		<Block entity="22" type="5" ts="2018-11-27T22:01:38.505622-05:00">
+			<Block entity="22" type="5" ts="2018-11-27T22:01:38.505636-05:00">
+				<ShowEntity entity="10" cardID="UNG_926">
+					<Tag tag="49" value="2"/>
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="10"/>
+					<Tag tag="47" value="2"/>
+					<Tag tag="45" value="6"/>
+					<Tag tag="48" value="2"/>
+					<Tag tag="190" value="1"/>
+					<Tag tag="202" value="4"/>
+					<Tag tag="203" value="3"/>
+					<Tag tag="218" value="1"/>
+				</ShowEntity>
+			</Block>
+		</Block>
+		<Block entity="3" type="5" ts="2018-11-27T22:01:38.510061-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T22:01:38.510093-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T22:01:38.510097-05:00">
+			<ShowEntity entity="57" cardID="EX1_164">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="57"/>
+				<Tag tag="48" value="5"/>
+				<Tag tag="201" value="3"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="3"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="38" type="5" ts="2018-11-27T22:01:38.594824-05:00">
+			<Block entity="38" type="5" ts="2018-11-27T22:01:38.594842-05:00"/>
+			<Block entity="38" type="5" ts="2018-11-27T22:01:38.594860-05:00">
+				<ShowEntity entity="9" cardID="CS2_114">
+					<Tag tag="49" value="2"/>
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="9"/>
+					<Tag tag="48" value="2"/>
+					<Tag tag="201" value="3"/>
+					<Tag tag="202" value="5"/>
+					<Tag tag="203" value="2"/>
+				</ShowEntity>
+			</Block>
+			<Block entity="38" type="5" ts="2018-11-27T22:01:38.594888-05:00">
+				<ShowEntity entity="30" cardID="LOOT_285">
+					<Tag tag="49" value="2"/>
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="30"/>
+					<Tag tag="48" value="6"/>
+					<Tag tag="202" value="5"/>
+					<Tag tag="203" value="1"/>
+				</ShowEntity>
+				<Block entity="30" type="5" ts="2018-11-27T22:01:38.594897-05:00"/>
+			</Block>
+		</Block>
+		<Block entity="36" type="5" ts="2018-11-27T22:01:38.644870-05:00">
+			<Block entity="36" type="5" ts="2018-11-27T22:01:38.644890-05:00"/>
+		</Block>
+		<Block entity="65" type="5" ts="2018-11-27T22:01:38.649938-05:00"/>
+		<Block entity="65" type="5" ts="2018-11-27T22:01:38.675567-05:00">
+			<FullEntity id="83">
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="83"/>
+				<Tag tag="48" value="2"/>
+				<Tag tag="202" value="5"/>
+			</FullEntity>
+			<TagChange entity="83" tag="385" value="65"/>
+			<ShowEntity entity="83" cardID="ICC_314t4">
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="83"/>
+				<Tag tag="385" value="65"/>
+				<Tag tag="48" value="2"/>
+				<Tag tag="202" value="5"/>
+			</ShowEntity>
+			<TagChange entity="83" tag="49" value="3"/>
+			<TagChange entity="83" tag="263" value="7"/>
+		</Block>
+		<Block entity="2" type="5" ts="2018-11-27T22:01:38.675619-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T22:01:38.675635-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T22:01:38.675637-05:00">
+			<ShowEntity entity="14" cardID="CS2_108">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="14"/>
+				<Tag tag="48" value="2"/>
+				<Tag tag="201" value="3"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="2"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="14" type="5" ts="2018-11-27T22:02:17.048100-05:00">
+			<Block entity="14" type="5" ts="2018-11-27T22:02:17.048126-05:00"/>
+		</Block>
+		<Block entity="30" type="5" ts="2018-11-27T22:02:51.779866-05:00">
+			<Block entity="30" type="5" ts="2018-11-27T22:02:51.779881-05:00"/>
+		</Block>
+		<Block entity="80" type="5" ts="2018-11-27T22:03:26.756850-05:00">
+			<Block entity="80" type="5" ts="2018-11-27T22:03:26.756875-05:00"/>
+		</Block>
+		<Block entity="33" type="5" ts="2018-11-27T22:04:10.177351-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T22:04:10.184110-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T22:04:10.184125-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T22:04:10.184127-05:00">
+			<ShowEntity entity="61" cardID="ICC_054">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="61"/>
+				<Tag tag="48" value="6"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="3"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="61" type="5" ts="2018-11-27T22:04:10.241515-05:00">
+			<Block entity="61" type="5" ts="2018-11-27T22:04:10.241550-05:00">
+				<FullEntity id="84">
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="84"/>
+					<Tag tag="385" value="61"/>
+					<Tag tag="47" value="1"/>
+					<Tag tag="45" value="5"/>
+					<Tag tag="48" value="2"/>
+					<Tag tag="190" value="1"/>
+					<Tag tag="202" value="4"/>
+				</FullEntity>
+				<TagChange entity="84" tag="49" value="1"/>
+				<TagChange entity="84" tag="263" value="2"/>
+				<TagChange entity="84" tag="43" value="1"/>
+				<ShowEntity entity="84" cardID="ICC_832t4">
+					<Tag tag="49" value="1"/>
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="84"/>
+					<Tag tag="263" value="2"/>
+					<Tag tag="385" value="61"/>
+					<Tag tag="43" value="1"/>
+					<Tag tag="47" value="1"/>
+					<Tag tag="45" value="5"/>
+					<Tag tag="48" value="2"/>
+					<Tag tag="190" value="1"/>
+					<Tag tag="202" value="4"/>
+				</ShowEntity>
+			</Block>
+		</Block>
+		<Block entity="65" type="5" ts="2018-11-27T22:04:10.250644-05:00">
+			<FullEntity id="85">
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="85"/>
+				<Tag tag="47" value="5"/>
+				<Tag tag="187" value="3"/>
+				<Tag tag="48" value="7"/>
+				<Tag tag="202" value="7"/>
+				<Tag tag="217" value="1"/>
+			</FullEntity>
+			<TagChange entity="85" tag="385" value="65"/>
+			<ShowEntity entity="85" cardID="ICC_314t1">
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="85"/>
+				<Tag tag="385" value="65"/>
+				<Tag tag="47" value="5"/>
+				<Tag tag="187" value="3"/>
+				<Tag tag="48" value="7"/>
+				<Tag tag="202" value="7"/>
+				<Tag tag="217" value="1"/>
+			</ShowEntity>
+			<TagChange entity="85" tag="49" value="3"/>
+			<TagChange entity="85" tag="263" value="8"/>
+		</Block>
+		<Block entity="2" type="5" ts="2018-11-27T22:04:10.250728-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T22:04:10.250747-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T22:04:10.250749-05:00">
+			<ShowEntity entity="21" cardID="EX1_606">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="21"/>
+				<Tag tag="48" value="3"/>
+				<Tag tag="201" value="3"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="2"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="24" type="5" ts="2018-11-27T22:04:45.634752-05:00">
+			<Block entity="24" type="5" ts="2018-11-27T22:04:45.634775-05:00">
+				<FullEntity id="86">
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="86"/>
+					<Tag tag="313" value="24"/>
+					<Tag tag="385" value="24"/>
+					<Tag tag="47" value="2"/>
+					<Tag tag="45" value="6"/>
+					<Tag tag="48" value="2"/>
+					<Tag tag="190" value="1"/>
+					<Tag tag="202" value="4"/>
+					<Tag tag="203" value="3"/>
+					<Tag tag="218" value="1"/>
+				</FullEntity>
+				<TagChange entity="86" tag="49" value="6"/>
+				<FullEntity id="87">
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="87"/>
+					<Tag tag="313" value="24"/>
+					<Tag tag="385" value="24"/>
+					<Tag tag="47" value="4"/>
+					<Tag tag="45" value="5"/>
+					<Tag tag="48" value="5"/>
+					<Tag tag="190" value="1"/>
+					<Tag tag="202" value="4"/>
+					<Tag tag="203" value="1"/>
+					<Tag tag="217" value="1"/>
+				</FullEntity>
+				<TagChange entity="87" tag="49" value="6"/>
+				<FullEntity id="88">
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="88"/>
+					<Tag tag="313" value="24"/>
+					<Tag tag="385" value="24"/>
+					<Tag tag="47" value="1"/>
+					<Tag tag="45" value="6"/>
+					<Tag tag="48" value="4"/>
+					<Tag tag="190" value="1"/>
+					<Tag tag="685" value="1"/>
+					<Tag tag="202" value="4"/>
+					<Tag tag="203" value="1"/>
+				</FullEntity>
+				<TagChange entity="88" tag="49" value="6"/>
+			</Block>
+			<Block entity="4" type="5" ts="2018-11-27T22:04:45.634895-05:00"/>
+		</Block>
+		<ShowEntity entity="87" cardID="GIL_667">
+			<Tag tag="49" value="6"/>
+			<Tag tag="50" value="1"/>
+			<Tag tag="53" value="87"/>
+			<Tag tag="313" value="24"/>
+			<Tag tag="385" value="24"/>
+			<Tag tag="47" value="4"/>
+			<Tag tag="45" value="5"/>
+			<Tag tag="48" value="5"/>
+			<Tag tag="190" value="1"/>
+			<Tag tag="202" value="4"/>
+			<Tag tag="203" value="1"/>
+			<Tag tag="217" value="1"/>
+		</ShowEntity>
+		<Block entity="33" type="5" ts="2018-11-27T22:05:55.052430-05:00"/>
+		<Block entity="27" type="5" ts="2018-11-27T22:06:37.132636-05:00">
+			<Block entity="4" type="5" ts="2018-11-27T22:06:37.132672-05:00"/>
+		</Block>
+		<Block entity="10" type="5" ts="2018-11-27T22:07:07.112231-05:00">
+			<Block entity="10" type="5" ts="2018-11-27T22:07:07.112254-05:00"/>
+			<Block entity="10" type="5" ts="2018-11-27T22:07:07.112258-05:00">
+				<FullEntity id="89">
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="89"/>
+					<Tag tag="47" value="1"/>
+					<Tag tag="45" value="1"/>
+					<Tag tag="48" value="1"/>
+					<Tag tag="202" value="4"/>
+				</FullEntity>
+				<TagChange entity="89" tag="49" value="1"/>
+				<TagChange entity="89" tag="263" value="2"/>
+				<TagChange entity="89" tag="43" value="1"/>
+				<ShowEntity entity="89" cardID="UNG_076t1">
+					<Tag tag="49" value="1"/>
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="89"/>
+					<Tag tag="263" value="2"/>
+					<Tag tag="43" value="1"/>
+					<Tag tag="47" value="1"/>
+					<Tag tag="45" value="1"/>
+					<Tag tag="48" value="1"/>
+					<Tag tag="202" value="4"/>
+				</ShowEntity>
+			</Block>
+			<Block entity="10" type="5" ts="2018-11-27T22:07:07.112325-05:00">
+				<FullEntity id="90">
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="90"/>
+					<Tag tag="47" value="1"/>
+					<Tag tag="45" value="1"/>
+					<Tag tag="48" value="1"/>
+					<Tag tag="202" value="4"/>
+				</FullEntity>
+				<TagChange entity="90" tag="49" value="1"/>
+				<TagChange entity="90" tag="263" value="3"/>
+				<TagChange entity="90" tag="43" value="1"/>
+				<ShowEntity entity="90" cardID="UNG_076t1">
+					<Tag tag="49" value="1"/>
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="90"/>
+					<Tag tag="263" value="3"/>
+					<Tag tag="43" value="1"/>
+					<Tag tag="47" value="1"/>
+					<Tag tag="45" value="1"/>
+					<Tag tag="48" value="1"/>
+					<Tag tag="202" value="4"/>
+				</ShowEntity>
+			</Block>
+			<Block entity="10" type="5" ts="2018-11-27T22:07:07.112372-05:00">
+				<FullEntity id="91">
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="91"/>
+					<Tag tag="47" value="1"/>
+					<Tag tag="45" value="1"/>
+					<Tag tag="48" value="1"/>
+					<Tag tag="202" value="4"/>
+				</FullEntity>
+				<TagChange entity="91" tag="49" value="1"/>
+				<TagChange entity="91" tag="263" value="4"/>
+				<TagChange entity="91" tag="43" value="1"/>
+				<ShowEntity entity="91" cardID="UNG_076t1">
+					<Tag tag="49" value="1"/>
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="91"/>
+					<Tag tag="263" value="4"/>
+					<Tag tag="43" value="1"/>
+					<Tag tag="47" value="1"/>
+					<Tag tag="45" value="1"/>
+					<Tag tag="48" value="1"/>
+					<Tag tag="202" value="4"/>
+				</ShowEntity>
+			</Block>
+			<Block entity="4" type="5" ts="2018-11-27T22:07:07.112400-05:00"/>
+		</Block>
+		<Block entity="3" type="5" ts="2018-11-27T22:07:07.116980-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T22:07:07.116997-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T22:07:07.117005-05:00">
+			<ShowEntity entity="52" cardID="BOT_270">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="52"/>
+				<Tag tag="47" value="2"/>
+				<Tag tag="45" value="1"/>
+				<Tag tag="48" value="5"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="3"/>
+				<Tag tag="218" value="1"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="85" type="5" ts="2018-11-27T22:07:07.179309-05:00">
+			<Block entity="85" type="5" ts="2018-11-27T22:07:07.179323-05:00"/>
+		</Block>
+		<Block entity="90" type="5" ts="2018-11-27T22:07:07.192618-05:00"/>
+		<Block entity="72" type="5" ts="2018-11-27T22:07:07.197340-05:00"/>
+		<Block entity="85" type="5" ts="2018-11-27T22:07:07.197352-05:00">
+			<FullEntity id="92">
+				<Tag tag="50" value="2"/>
+				<Tag tag="202" value="6"/>
+				<Tag tag="40" value="85"/>
+				<Tag tag="49" value="6"/>
+				<Tag tag="53" value="92"/>
+				<Tag tag="313" value="85"/>
+			</FullEntity>
+			<FullEntity id="92">
+				<Tag tag="50" value="2"/>
+				<Tag tag="202" value="6"/>
+				<Tag tag="40" value="85"/>
+				<Tag tag="49" value="6"/>
+				<Tag tag="53" value="92"/>
+				<Tag tag="313" value="85"/>
+			</FullEntity>
+		</Block>
+		<Block entity="83" type="5" ts="2018-11-27T22:07:07.206294-05:00">
+			<Block entity="83" type="5" ts="2018-11-27T22:07:07.206306-05:00">
+				<ShowEntity entity="26" cardID="UNG_957">
+					<Tag tag="49" value="2"/>
+					<Tag tag="50" value="2"/>
+					<Tag tag="53" value="26"/>
+					<Tag tag="385" value="83"/>
+					<Tag tag="47" value="3"/>
+					<Tag tag="45" value="6"/>
+					<Tag tag="48" value="5"/>
+					<Tag tag="190" value="1"/>
+					<Tag tag="202" value="4"/>
+					<Tag tag="203" value="3"/>
+					<Tag tag="217" value="1"/>
+				</ShowEntity>
+			</Block>
+		</Block>
+		<Block entity="91" type="5" ts="2018-11-27T22:07:07.211213-05:00"/>
+		<Block entity="89" type="5" ts="2018-11-27T22:07:07.219815-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T22:07:07.243243-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T22:07:07.243259-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T22:07:07.243261-05:00">
+			<ShowEntity entity="7" cardID="LOOT_117">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="7"/>
+				<Tag tag="45" value="2"/>
+				<Tag tag="48" value="1"/>
+				<Tag tag="190" value="1"/>
+				<Tag tag="194" value="1"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="1"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="87" type="5" ts="2018-11-27T22:07:48.338251-05:00">
+			<Block entity="4" type="5" ts="2018-11-27T22:07:48.338265-05:00"/>
+		</Block>
+		<Block entity="24" type="5" ts="2018-11-27T22:08:23.652472-05:00"/>
+		<Block entity="80" type="5" ts="2018-11-27T22:22:13.733301-05:00">
+			<Block entity="80" type="5" ts="2018-11-27T22:22:13.733325-05:00"/>
+		</Block>
+		<Block entity="7" type="5" ts="2018-11-27T22:23:02.061079-05:00">
+			<Block entity="4" type="5" ts="2018-11-27T22:23:02.061098-05:00"/>
+			<Block entity="4" type="5" ts="2018-11-27T22:23:02.061100-05:00">
+				<FullEntity id="93">
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="93"/>
+					<Tag tag="47" value="4"/>
+					<Tag tag="187" value="2"/>
+					<Tag tag="48" value="3"/>
+					<Tag tag="202" value="7"/>
+					<Tag tag="218" value="1"/>
+				</FullEntity>
+				<TagChange entity="93" tag="385" value="4"/>
+				<ShowEntity entity="93" cardID="UNG_934t1">
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="93"/>
+					<Tag tag="385" value="4"/>
+					<Tag tag="47" value="4"/>
+					<Tag tag="187" value="2"/>
+					<Tag tag="48" value="3"/>
+					<Tag tag="202" value="7"/>
+					<Tag tag="218" value="1"/>
+				</ShowEntity>
+				<TagChange entity="93" tag="49" value="3"/>
+				<TagChange entity="93" tag="263" value="4"/>
+			</Block>
+		</Block>
+		<Block entity="3" type="5" ts="2018-11-27T22:23:47.079491-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T22:23:47.079540-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T22:23:47.079542-05:00">
+			<ShowEntity entity="35" cardID="CS2_008">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="35"/>
+				<Tag tag="201" value="3"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="2"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="35" type="5" ts="2018-11-27T22:23:47.138701-05:00">
+			<Block entity="35" type="5" ts="2018-11-27T22:23:47.138716-05:00"/>
+		</Block>
+		<Block entity="47" type="5" ts="2018-11-27T22:23:47.220715-05:00">
+			<Block entity="47" type="5" ts="2018-11-27T22:23:47.220730-05:00"/>
+		</Block>
+		<Block entity="48" type="5" ts="2018-11-27T22:23:47.237842-05:00">
+			<Block entity="48" type="5" ts="2018-11-27T22:23:47.237869-05:00"/>
+			<Block entity="27" type="5" ts="2018-11-27T22:23:47.237871-05:00">
+				<FullEntity id="94">
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="94"/>
+					<Tag tag="47" value="6"/>
+					<Tag tag="45" value="9"/>
+					<Tag tag="48" value="5"/>
+					<Tag tag="190" value="1"/>
+					<Tag tag="202" value="4"/>
+				</FullEntity>
+				<TagChange entity="94" tag="385" value="27"/>
+				<TagChange entity="94" tag="49" value="2"/>
+				<HideEntity entity="94"/>
+			</Block>
+		</Block>
+		<Block entity="84" type="5" ts="2018-11-27T22:23:47.245290-05:00"/>
+		<Block entity="72" type="5" ts="2018-11-27T22:23:47.249477-05:00"/>
+		<Block entity="85" type="5" ts="2018-11-27T22:23:47.249489-05:00">
+			<FullEntity id="95">
+				<Tag tag="50" value="2"/>
+				<Tag tag="202" value="6"/>
+				<Tag tag="40" value="85"/>
+				<Tag tag="49" value="6"/>
+				<Tag tag="53" value="95"/>
+				<Tag tag="313" value="85"/>
+			</FullEntity>
+			<FullEntity id="95">
+				<Tag tag="50" value="2"/>
+				<Tag tag="202" value="6"/>
+				<Tag tag="40" value="85"/>
+				<Tag tag="49" value="6"/>
+				<Tag tag="53" value="95"/>
+				<Tag tag="313" value="85"/>
+			</FullEntity>
+		</Block>
+		<Block entity="2" type="5" ts="2018-11-27T22:23:47.256455-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T22:23:47.256466-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T22:23:47.256482-05:00">
+			<ShowEntity entity="29" cardID="UNG_925">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="29"/>
+				<Tag tag="47" value="5"/>
+				<Tag tag="45" value="5"/>
+				<Tag tag="48" value="6"/>
+				<Tag tag="190" value="1"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="1"/>
+				<Tag tag="218" value="1"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="93" type="5" ts="2018-11-27T22:24:21.096651-05:00">
+			<Block entity="93" type="5" ts="2018-11-27T22:24:21.096668-05:00">
+				<Block entity="93" type="5" ts="2018-11-27T22:24:21.096678-05:00">
+					<FullEntity id="96" cardID="UNG_934t2">
+						<Tag tag="49" value="1"/>
+						<Tag tag="50" value="1"/>
+						<Tag tag="53" value="96"/>
+						<Tag tag="48" value="2"/>
+						<Tag tag="202" value="10"/>
+					</FullEntity>
+					<TagChange entity="96" tag="313" value="33"/>
+				</Block>
+			</Block>
+		</Block>
+		<Block entity="21" type="5" ts="2018-11-27T22:24:44.368015-05:00">
+			<Block entity="21" type="5" ts="2018-11-27T22:24:44.368052-05:00">
+				<ShowEntity entity="16" cardID="LOOT_413">
+					<Tag tag="49" value="2"/>
+					<Tag tag="50" value="1"/>
+					<Tag tag="53" value="16"/>
+					<Tag tag="47" value="2"/>
+					<Tag tag="45" value="3"/>
+					<Tag tag="48" value="2"/>
+					<Tag tag="202" value="4"/>
+					<Tag tag="203" value="1"/>
+					<Tag tag="217" value="1"/>
+				</ShowEntity>
+			</Block>
+		</Block>
+		<Block entity="96" type="5" ts="2018-11-27T22:25:00.822050-05:00">
+			<Block entity="96" type="5" ts="2018-11-27T22:25:00.822068-05:00"/>
+		</Block>
+		<Block entity="33" type="5" ts="2018-11-27T22:25:24.821110-05:00"/>
+		<Block entity="87" type="5" ts="2018-11-27T22:25:44.379618-05:00"/>
+		<Block entity="16" type="5" ts="2018-11-27T22:26:07.467537-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T22:26:07.471981-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T22:26:07.471996-05:00"/>
+		<Block entity="3" type="5" ts="2018-11-27T22:26:07.472002-05:00">
+			<ShowEntity entity="40" cardID="CS2_013">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="2"/>
+				<Tag tag="53" value="40"/>
+				<Tag tag="48" value="2"/>
+				<Tag tag="201" value="3"/>
+				<Tag tag="202" value="5"/>
+				<Tag tag="203" value="2"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="2" type="5" ts="2018-11-27T22:26:07.531278-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T22:26:07.531293-05:00"/>
+		<Block entity="2" type="5" ts="2018-11-27T22:26:07.531296-05:00">
+			<ShowEntity entity="5" cardID="CS1_042">
+				<Tag tag="49" value="2"/>
+				<Tag tag="50" value="1"/>
+				<Tag tag="53" value="5"/>
+				<Tag tag="47" value="1"/>
+				<Tag tag="45" value="2"/>
+				<Tag tag="48" value="1"/>
+				<Tag tag="190" value="1"/>
+				<Tag tag="201" value="2"/>
+				<Tag tag="202" value="4"/>
+				<Tag tag="203" value="2"/>
+			</ShowEntity>
+		</Block>
+		<Block entity="32" type="5" ts="2018-11-27T22:26:10.757395-05:00"/>
+		<Block entity="33" type="5" ts="2018-11-27T22:26:15.074828-05:00"/>
+		<Block entity="16" type="5" ts="2018-11-27T22:26:16.160234-05:00"/>
+	</Game>
+</HSReplay>

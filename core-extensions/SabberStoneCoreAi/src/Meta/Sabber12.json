@@ -1,0 +1,2631 @@
+{
+	"game": {
+		"ts": "2018 - 12 - 04T18:14: 29.988416-05:00",
+		"setup": {
+			"player1": {
+				"hero": {
+					"class": "warrior",
+					"name": "Garrosh Hellscream",
+					"power": "Armor Up!",
+					"deck": {
+						"deck-class": "WARRIOR",
+						"archetype": "QUEST",
+						"deck-name": "IceFireWarrior",
+						"num-games": 250,
+						"cards": {
+							"0": {
+								"name": "Fire Plume's Heart",
+								"id": "UNG_934",
+								"cost": 1,
+							},
+							"1": {
+								"name": "Goldshire Footman",
+								"id": "CS1_042",
+								"cost": 1,
+								"atk": 1,
+								"health": 2
+							},
+							"2": {
+								"name": "Molten Blade",
+								"id": "UNG_929",
+								"cost": 1,
+								"atk": 1,
+								"dur": 1
+							},
+							"3": {
+								"name": "Wax Elemental",
+								"id": "LOOT_117",
+								"cost": 1,
+								"atk": 0,
+								"health": 2
+							},
+							"4": {
+								"name": "Wax Elemental",
+								"id": "LOOT_117",
+								"cost": 1,
+								"atk": 0,
+								"health": 2
+							},
+							"5": {
+								"name": "Cleave",
+								"id": "CS2_114",
+								"cost": 2,
+							},
+							"6": {
+								"name": "Cornered Sentry",
+								"id": "UNG_926",
+								"cost": 2,
+								"atk": 2,
+								"health": 6
+							},
+							"7": {
+								"name": "Drywhisker Armorer",
+								"id": "LOOT_367",
+								"cost": 2,
+								"atk": 2,
+								"health": 2
+							},
+							"8": {
+								"name": "Drywhisker Armorer",
+								"id": "LOOT_367",
+								"cost": 2,
+								"atk": 2,
+								"health": 2
+							},
+							"9": {
+								"name": "Execute",
+								"id": "CS2_108",
+								"cost": 2,
+							},
+							"10": {
+								"name": "Execute",
+								"id": "CS2_108",
+								"cost": 2,
+							},
+							"11": {
+								"name": "Plated Beetle",
+								"id": "LOOT_413",
+								"cost": 2,
+								"atk": 2,
+								"health": 3
+							},
+							"12": {
+								"name": "Plated Beetle",
+								"id": "LOOT_413",
+								"cost": 2,
+								"atk": 2,
+								"health": 3
+							},
+							"13": {
+								"name": "Warpath",
+								"id": "GIL_654",
+								"cost": 2,
+							},
+							"14": {
+								"name": "Warpath",
+								"id": "GIL_654",
+								"cost": 2,
+							},
+							"15": {
+								"name": "Phantom Militia",
+								"id": "GIL_207",
+								"cost": 3,
+								"atk": 2,
+								"health": 4
+							},
+							"16": {
+								"name": "Phantom Militia",
+								"id": "GIL_207",
+								"cost": 3,
+								"atk": 2,
+								"health": 4
+							},
+							"17": {
+								"name": "Shield Block",
+								"id": "EX1_606",
+								"cost": 3,
+							},
+							"18": {
+								"name": "Shield Block",
+								"id": "EX1_606",
+								"cost": 3,
+							},
+							"19": {
+								"name": "Stonehill Defender",
+								"id": "UNG_072",
+								"cost": 3,
+								"atk": 1,
+								"health": 4
+							},
+							"20": {
+								"name": "Stonehill Defender",
+								"id": "UNG_072",
+								"cost": 3,
+								"atk": 1,
+								"health": 4
+							},
+							"21": {
+								"name": "Brawl",
+								"id": "EX1_407",
+								"cost": 5,
+							},
+							"22": {
+								"name": "Direhorn Hatchling",
+								"id": "UNG_957",
+								"cost": 5,
+								"atk": 3,
+								"health": 6
+							},
+							"23": {
+								"name": "Direhorn Hatchling",
+								"id": "UNG_957",
+								"cost": 5,
+								"atk": 3,
+								"health": 6
+							},
+							"24": {
+								"name": "Rotten Applebaum",
+								"id": "GIL_667",
+								"cost": 5,
+								"atk": 4,
+								"health": 5
+							},
+							"25": {
+								"name": "Ornery Direhorn",
+								"id": "UNG_925",
+								"cost": 6,
+								"atk": 5,
+								"health": 5
+							},
+							"26": {
+								"name": "Unidentified Shield",
+								"id": "LOOT_285",
+								"cost": 6,
+							},
+							"27": {
+								"name": "Unidentified Shield",
+								"id": "LOOT_285",
+								"cost": 6,
+							},
+							"28": {
+								"name": "Geosculptor Yip",
+								"id": "LOOT_519",
+								"cost": 8,
+								"atk": 4,
+								"health": 8
+							},
+							"29": {
+								"name": "Scourgelord Garrosh",
+								"id": "ICC_834",
+								"cost": 8,
+							},
+						}
+					}
+				}
+			},
+			"player2": {
+				"hero": {
+					"class": "shaman",
+					"name": "Thrall",
+					"power": "Totemic Call",
+					"deck": {
+						"deck-class": "SHAMAN",
+						"archetype": "MIDRANGE",
+						"deck-name": "MidrangeJadeShaman",
+						"num-games": 0,
+						"cards": {
+							"0": {
+								"name": "Tunnel Trogg",
+								"id": "LOE_018",
+								"cost": 1,
+								"atk": 1,
+								"health": 3
+							},
+							"1": {
+								"name": "Tunnel Trogg",
+								"id": "LOE_018",
+								"cost": 1,
+								"atk": 1,
+								"health": 3
+							},
+							"2": {
+								"name": "Totem Golem",
+								"id": "AT_052",
+								"cost": 2,
+								"atk": 3,
+								"health": 4
+							},
+							"3": {
+								"name": "Totem Golem",
+								"id": "AT_052",
+								"cost": 2,
+								"atk": 3,
+								"health": 4
+							},
+							"4": {
+								"name": "Thing from Below",
+								"id": "OG_028",
+								"cost": 6,
+								"atk": 5,
+								"health": 5
+							},
+							"5": {
+								"name": "Thing from Below",
+								"id": "OG_028",
+								"cost": 6,
+								"atk": 5,
+								"health": 5
+							},
+							"6": {
+								"name": "Spirit Claws",
+								"id": "KAR_063",
+								"cost": 2,
+								"atk": 1,
+								"dur": 3
+							},
+							"7": {
+								"name": "Spirit Claws",
+								"id": "KAR_063",
+								"cost": 2,
+								"atk": 1,
+								"dur": 3
+							},
+							"8": {
+								"name": "Maelstrom Portal",
+								"id": "KAR_073",
+								"cost": 2,
+							},
+							"9": {
+								"name": "Maelstrom Portal",
+								"id": "KAR_073",
+								"cost": 2,
+							},
+							"10": {
+								"name": "Lightning Storm",
+								"id": "EX1_259",
+								"cost": 3,
+							},
+							"11": {
+								"name": "Lightning Bolt",
+								"id": "EX1_238",
+								"cost": 1,
+							},
+							"12": {
+								"name": "Jade Lightning",
+								"id": "CFM_707",
+								"cost": 4,
+							},
+							"13": {
+								"name": "Jade Lightning",
+								"id": "CFM_707",
+								"cost": 4,
+							},
+							"14": {
+								"name": "Jade Claws",
+								"id": "CFM_717",
+								"cost": 2,
+								"atk": 2,
+								"dur": 2
+							},
+							"15": {
+								"name": "Jade Claws",
+								"id": "CFM_717",
+								"cost": 2,
+								"atk": 2,
+								"dur": 2
+							},
+							"16": {
+								"name": "Hex",
+								"id": "EX1_246",
+								"cost": 4,
+							},
+							"17": {
+								"name": "Hex",
+								"id": "EX1_246",
+								"cost": 4,
+							},
+							"18": {
+								"name": "Flametongue Totem",
+								"id": "EX1_565",
+								"cost": 2,
+								"atk": 0,
+								"health": 3
+							},
+							"19": {
+								"name": "Flametongue Totem",
+								"id": "EX1_565",
+								"cost": 2,
+								"atk": 0,
+								"health": 3
+							},
+							"20": {
+								"name": "Al'Akir the Windlord",
+								"id": "NEW1_010",
+								"cost": 8,
+								"atk": 3,
+								"health": 5
+							},
+							"21": {
+								"name": "Patches the Pirate",
+								"id": "CFM_637",
+								"cost": 1,
+								"atk": 1,
+								"health": 1
+							},
+							"22": {
+								"name": "Small-Time Buccaneer",
+								"id": "CFM_325",
+								"cost": 1,
+								"atk": 1,
+								"health": 1
+							},
+							"23": {
+								"name": "Small-Time Buccaneer",
+								"id": "CFM_325",
+								"cost": 1,
+								"atk": 1,
+								"health": 1
+							},
+							"24": {
+								"name": "Bloodmage Thalnos",
+								"id": "EX1_012",
+								"cost": 2,
+								"atk": 1,
+								"health": 1
+							},
+							"25": {
+								"name": "Barnes",
+								"id": "KAR_114",
+								"cost": 4,
+								"atk": 3,
+								"health": 4
+							},
+							"26": {
+								"name": "Azure Drake",
+								"id": "EX1_284",
+								"cost": 5,
+								"atk": 4,
+								"health": 4
+							},
+							"27": {
+								"name": "Azure Drake",
+								"id": "EX1_284",
+								"cost": 5,
+								"atk": 4,
+								"health": 4
+							},
+							"28": {
+								"name": "Aya Blackpaw",
+								"id": "CFM_902",
+								"cost": 6,
+								"atk": 5,
+								"health": 3
+							},
+							"29": {
+								"name": "Ragnaros the Firelord",
+								"id": "EX1_298",
+								"cost": 8,
+								"atk": 8,
+								"health": 8
+							},
+						}
+					}
+				}
+			},
+	},
+		"play": {
+			"turn": "1",
+			"player1": {
+				"hero": {
+					"class": "warrior",
+					"name": "Garrosh Hellscream",
+					"power": "Armor Up!",
+					"power-usable": "false",
+					"remaining-mana" 1,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 4,
+							"0": {
+								"name": "Fire Plume's Heart",
+								"cost": "1",
+							},
+							"1": {
+								"name": "Scourgelord Garrosh",
+								"cost": "8",
+							},
+							"2": {
+								"name": "Execute",
+								"cost": "2",
+							},
+							"3": {
+								"name": "Shield Block",
+								"cost": "3",
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 26,
+							"0": {
+								"name": "Warpath",
+								"cost": "2",
+							},
+							"1": {
+								"name": "Cleave",
+								"cost": "2",
+							},
+							"2": {
+								"name": "Plated Beetle",
+								"cost": "2",
+								"atk": "2",
+								"health": "3"
+							},
+							"3": {
+								"name": "Unidentified Shield",
+								"cost": "6",
+							},
+							"4": {
+								"name": "Brawl",
+								"cost": "5",
+							},
+							"5": {
+								"name": "Direhorn Hatchling",
+								"cost": "5",
+								"atk": "3",
+								"health": "6"
+							},
+							"6": {
+								"name": "Direhorn Hatchling",
+								"cost": "5",
+								"atk": "3",
+								"health": "6"
+							},
+							"7": {
+								"name": "Warpath",
+								"cost": "2",
+							},
+							"8": {
+								"name": "Rotten Applebaum",
+								"cost": "5",
+								"atk": "4",
+								"health": "5"
+							},
+							"9": {
+								"name": "Ornery Direhorn",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"10": {
+								"name": "Geosculptor Yip",
+								"cost": "8",
+								"atk": "4",
+								"health": "8"
+							},
+							"11": {
+								"name": "Molten Blade",
+								"cost": "1",
+								"atk": "1",
+								"dur": "1"
+							},
+							"12": {
+								"name": "Unidentified Shield",
+								"cost": "6",
+							},
+							"13": {
+								"name": "Phantom Militia",
+								"cost": "3",
+								"atk": "2",
+								"health": "4"
+							},
+							"14": {
+								"name": "Cornered Sentry",
+								"cost": "2",
+								"atk": "2",
+								"health": "6"
+							},
+							"15": {
+								"name": "Drywhisker Armorer",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"16": {
+								"name": "Goldshire Footman",
+								"cost": "1",
+								"atk": "1",
+								"health": "2"
+							},
+							"17": {
+								"name": "Wax Elemental",
+								"cost": "1",
+								"atk": "0",
+								"health": "2"
+							},
+							"18": {
+								"name": "Execute",
+								"cost": "2",
+							},
+							"19": {
+								"name": "Stonehill Defender",
+								"cost": "3",
+								"atk": "1",
+								"health": "4"
+							},
+							"20": {
+								"name": "Phantom Militia",
+								"cost": "3",
+								"atk": "2",
+								"health": "4"
+							},
+							"21": {
+								"name": "Shield Block",
+								"cost": "3",
+							},
+							"22": {
+								"name": "Stonehill Defender",
+								"cost": "3",
+								"atk": "1",
+								"health": "4"
+							},
+							"23": {
+								"name": "Wax Elemental",
+								"cost": "1",
+								"atk": "0",
+								"health": "2"
+							},
+							"24": {
+								"name": "Drywhisker Armorer",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"25": {
+								"name": "Plated Beetle",
+								"cost": "2",
+								"atk": "2",
+								"health": "3"
+							},
+					},
+				}
+			},
+			"player2": {
+				"hero": {
+					"class": "shaman",
+					"name": "Thrall",
+					"power": "Totemic Call",
+					"power-usable": "false",
+					"remaining-mana" 0,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 5,
+							"0": {
+								"name": "Bloodmage Thalnos",
+								"cost": "2",
+								"atk": "1",
+								"health": "1"
+							},
+							"1": {
+								"name": "Patches the Pirate",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"2": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"3": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+							"4": {
+								"name": "The Coin",
+								"cost": "0",
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 26,
+							"0": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"1": {
+								"name": "Lightning Bolt",
+								"cost": "1",
+							},
+							"2": {
+								"name": "Barnes",
+								"cost": "4",
+								"atk": "3",
+								"health": "4"
+							},
+							"3": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"4": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"5": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"6": {
+								"name": "Al'Akir the Windlord",
+								"cost": "8",
+								"atk": "3",
+								"health": "5"
+							},
+							"7": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"8": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"9": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"10": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"11": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"12": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"13": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"14": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"15": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"16": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"17": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"18": {
+								"name": "Lightning Storm",
+								"cost": "3",
+							},
+							"19": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"20": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"21": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"22": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"23": {
+								"name": "Ragnaros the Firelord",
+								"cost": "8",
+								"atk": "8",
+								"health": "8"
+							},
+							"24": {
+								"name": "Aya Blackpaw",
+								"cost": "6",
+								"atk": "5",
+								"health": "3"
+							},
+							"25": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+					},
+				}
+			},
+			}
+		},
+	"move": {
+		"player": 1
+		"type": "play_card",
+		"source": "'Fire Plume's Heart[4]'",
+	}
+		"play": {
+			"turn": "1",
+			"player1": {
+				"hero": {
+					"class": "warrior",
+					"name": "Garrosh Hellscream",
+					"power": "Armor Up!",
+					"power-usable": "false",
+					"remaining-mana" 0,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 3,
+							"0": {
+								"name": "Scourgelord Garrosh",
+								"cost": "8",
+							},
+							"1": {
+								"name": "Execute",
+								"cost": "2",
+							},
+							"2": {
+								"name": "Shield Block",
+								"cost": "3",
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 26,
+							"0": {
+								"name": "Warpath",
+								"cost": "2",
+							},
+							"1": {
+								"name": "Cleave",
+								"cost": "2",
+							},
+							"2": {
+								"name": "Plated Beetle",
+								"cost": "2",
+								"atk": "2",
+								"health": "3"
+							},
+							"3": {
+								"name": "Unidentified Shield",
+								"cost": "6",
+							},
+							"4": {
+								"name": "Brawl",
+								"cost": "5",
+							},
+							"5": {
+								"name": "Direhorn Hatchling",
+								"cost": "5",
+								"atk": "3",
+								"health": "6"
+							},
+							"6": {
+								"name": "Direhorn Hatchling",
+								"cost": "5",
+								"atk": "3",
+								"health": "6"
+							},
+							"7": {
+								"name": "Warpath",
+								"cost": "2",
+							},
+							"8": {
+								"name": "Rotten Applebaum",
+								"cost": "5",
+								"atk": "4",
+								"health": "5"
+							},
+							"9": {
+								"name": "Ornery Direhorn",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"10": {
+								"name": "Geosculptor Yip",
+								"cost": "8",
+								"atk": "4",
+								"health": "8"
+							},
+							"11": {
+								"name": "Molten Blade",
+								"cost": "1",
+								"atk": "1",
+								"dur": "1"
+							},
+							"12": {
+								"name": "Unidentified Shield",
+								"cost": "6",
+							},
+							"13": {
+								"name": "Phantom Militia",
+								"cost": "3",
+								"atk": "2",
+								"health": "4"
+							},
+							"14": {
+								"name": "Cornered Sentry",
+								"cost": "2",
+								"atk": "2",
+								"health": "6"
+							},
+							"15": {
+								"name": "Drywhisker Armorer",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"16": {
+								"name": "Goldshire Footman",
+								"cost": "1",
+								"atk": "1",
+								"health": "2"
+							},
+							"17": {
+								"name": "Wax Elemental",
+								"cost": "1",
+								"atk": "0",
+								"health": "2"
+							},
+							"18": {
+								"name": "Execute",
+								"cost": "2",
+							},
+							"19": {
+								"name": "Stonehill Defender",
+								"cost": "3",
+								"atk": "1",
+								"health": "4"
+							},
+							"20": {
+								"name": "Phantom Militia",
+								"cost": "3",
+								"atk": "2",
+								"health": "4"
+							},
+							"21": {
+								"name": "Shield Block",
+								"cost": "3",
+							},
+							"22": {
+								"name": "Stonehill Defender",
+								"cost": "3",
+								"atk": "1",
+								"health": "4"
+							},
+							"23": {
+								"name": "Wax Elemental",
+								"cost": "1",
+								"atk": "0",
+								"health": "2"
+							},
+							"24": {
+								"name": "Drywhisker Armorer",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"25": {
+								"name": "Plated Beetle",
+								"cost": "2",
+								"atk": "2",
+								"health": "3"
+							},
+					},
+				}
+			},
+			"player2": {
+				"hero": {
+					"class": "shaman",
+					"name": "Thrall",
+					"power": "Totemic Call",
+					"power-usable": "false",
+					"remaining-mana" 0,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 5,
+							"0": {
+								"name": "Bloodmage Thalnos",
+								"cost": "2",
+								"atk": "1",
+								"health": "1"
+							},
+							"1": {
+								"name": "Patches the Pirate",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"2": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"3": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+							"4": {
+								"name": "The Coin",
+								"cost": "0",
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 26,
+							"0": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"1": {
+								"name": "Lightning Bolt",
+								"cost": "1",
+							},
+							"2": {
+								"name": "Barnes",
+								"cost": "4",
+								"atk": "3",
+								"health": "4"
+							},
+							"3": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"4": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"5": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"6": {
+								"name": "Al'Akir the Windlord",
+								"cost": "8",
+								"atk": "3",
+								"health": "5"
+							},
+							"7": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"8": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"9": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"10": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"11": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"12": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"13": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"14": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"15": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"16": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"17": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"18": {
+								"name": "Lightning Storm",
+								"cost": "3",
+							},
+							"19": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"20": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"21": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"22": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"23": {
+								"name": "Ragnaros the Firelord",
+								"cost": "8",
+								"atk": "8",
+								"health": "8"
+							},
+							"24": {
+								"name": "Aya Blackpaw",
+								"cost": "6",
+								"atk": "5",
+								"health": "3"
+							},
+							"25": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+					},
+				}
+			},
+			}
+		},
+	"move": {
+		"player": 1
+		"type": "end_turn",
+	}
+		"play": {
+			"turn": "2",
+			"player1": {
+				"hero": {
+					"class": "warrior",
+					"name": "Garrosh Hellscream",
+					"power": "Armor Up!",
+					"power-usable": "false",
+					"remaining-mana" 0,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 3,
+							"0": {
+								"name": "Scourgelord Garrosh",
+								"cost": "8",
+							},
+							"1": {
+								"name": "Execute",
+								"cost": "2",
+							},
+							"2": {
+								"name": "Shield Block",
+								"cost": "3",
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 26,
+							"0": {
+								"name": "Warpath",
+								"cost": "2",
+							},
+							"1": {
+								"name": "Cleave",
+								"cost": "2",
+							},
+							"2": {
+								"name": "Plated Beetle",
+								"cost": "2",
+								"atk": "2",
+								"health": "3"
+							},
+							"3": {
+								"name": "Unidentified Shield",
+								"cost": "6",
+							},
+							"4": {
+								"name": "Brawl",
+								"cost": "5",
+							},
+							"5": {
+								"name": "Direhorn Hatchling",
+								"cost": "5",
+								"atk": "3",
+								"health": "6"
+							},
+							"6": {
+								"name": "Direhorn Hatchling",
+								"cost": "5",
+								"atk": "3",
+								"health": "6"
+							},
+							"7": {
+								"name": "Warpath",
+								"cost": "2",
+							},
+							"8": {
+								"name": "Rotten Applebaum",
+								"cost": "5",
+								"atk": "4",
+								"health": "5"
+							},
+							"9": {
+								"name": "Ornery Direhorn",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"10": {
+								"name": "Geosculptor Yip",
+								"cost": "8",
+								"atk": "4",
+								"health": "8"
+							},
+							"11": {
+								"name": "Molten Blade",
+								"cost": "1",
+								"atk": "1",
+								"dur": "1"
+							},
+							"12": {
+								"name": "Unidentified Shield",
+								"cost": "6",
+							},
+							"13": {
+								"name": "Phantom Militia",
+								"cost": "3",
+								"atk": "2",
+								"health": "4"
+							},
+							"14": {
+								"name": "Cornered Sentry",
+								"cost": "2",
+								"atk": "2",
+								"health": "6"
+							},
+							"15": {
+								"name": "Drywhisker Armorer",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"16": {
+								"name": "Goldshire Footman",
+								"cost": "1",
+								"atk": "1",
+								"health": "2"
+							},
+							"17": {
+								"name": "Wax Elemental",
+								"cost": "1",
+								"atk": "0",
+								"health": "2"
+							},
+							"18": {
+								"name": "Execute",
+								"cost": "2",
+							},
+							"19": {
+								"name": "Stonehill Defender",
+								"cost": "3",
+								"atk": "1",
+								"health": "4"
+							},
+							"20": {
+								"name": "Phantom Militia",
+								"cost": "3",
+								"atk": "2",
+								"health": "4"
+							},
+							"21": {
+								"name": "Shield Block",
+								"cost": "3",
+							},
+							"22": {
+								"name": "Stonehill Defender",
+								"cost": "3",
+								"atk": "1",
+								"health": "4"
+							},
+							"23": {
+								"name": "Wax Elemental",
+								"cost": "1",
+								"atk": "0",
+								"health": "2"
+							},
+							"24": {
+								"name": "Drywhisker Armorer",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"25": {
+								"name": "Plated Beetle",
+								"cost": "2",
+								"atk": "2",
+								"health": "3"
+							},
+					},
+				}
+			},
+			"player2": {
+				"hero": {
+					"class": "shaman",
+					"name": "Thrall",
+					"power": "Totemic Call",
+					"power-usable": "false",
+					"remaining-mana" 1,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 6,
+							"0": {
+								"name": "Bloodmage Thalnos",
+								"cost": "2",
+								"atk": "1",
+								"health": "1"
+							},
+							"1": {
+								"name": "Patches the Pirate",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"2": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"3": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+							"4": {
+								"name": "The Coin",
+								"cost": "0",
+							},
+							"5": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 25,
+							"0": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"1": {
+								"name": "Lightning Bolt",
+								"cost": "1",
+							},
+							"2": {
+								"name": "Barnes",
+								"cost": "4",
+								"atk": "3",
+								"health": "4"
+							},
+							"3": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"4": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"5": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"6": {
+								"name": "Al'Akir the Windlord",
+								"cost": "8",
+								"atk": "3",
+								"health": "5"
+							},
+							"7": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"8": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"9": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"10": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"11": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"12": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"13": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"14": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"15": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"16": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"17": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"18": {
+								"name": "Lightning Storm",
+								"cost": "3",
+							},
+							"19": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"20": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"21": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"22": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"23": {
+								"name": "Ragnaros the Firelord",
+								"cost": "8",
+								"atk": "8",
+								"health": "8"
+							},
+							"24": {
+								"name": "Aya Blackpaw",
+								"cost": "6",
+								"atk": "5",
+								"health": "3"
+							},
+					},
+				}
+			},
+			}
+		},
+		"play": {
+			"turn": "3",
+			"player1": {
+				"hero": {
+					"class": "warrior",
+					"name": "Garrosh Hellscream",
+					"power": "Armor Up!",
+					"power-usable": "true",
+					"remaining-mana" 2,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 4,
+							"0": {
+								"name": "Scourgelord Garrosh",
+								"cost": "8",
+							},
+							"1": {
+								"name": "Execute",
+								"cost": "2",
+							},
+							"2": {
+								"name": "Shield Block",
+								"cost": "3",
+							},
+							"3": {
+								"name": "Plated Beetle",
+								"cost": "2",
+								"atk": "2",
+								"health": "3"
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 25,
+							"0": {
+								"name": "Warpath",
+								"cost": "2",
+							},
+							"1": {
+								"name": "Cleave",
+								"cost": "2",
+							},
+							"2": {
+								"name": "Plated Beetle",
+								"cost": "2",
+								"atk": "2",
+								"health": "3"
+							},
+							"3": {
+								"name": "Unidentified Shield",
+								"cost": "6",
+							},
+							"4": {
+								"name": "Brawl",
+								"cost": "5",
+							},
+							"5": {
+								"name": "Direhorn Hatchling",
+								"cost": "5",
+								"atk": "3",
+								"health": "6"
+							},
+							"6": {
+								"name": "Direhorn Hatchling",
+								"cost": "5",
+								"atk": "3",
+								"health": "6"
+							},
+							"7": {
+								"name": "Warpath",
+								"cost": "2",
+							},
+							"8": {
+								"name": "Rotten Applebaum",
+								"cost": "5",
+								"atk": "4",
+								"health": "5"
+							},
+							"9": {
+								"name": "Ornery Direhorn",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"10": {
+								"name": "Geosculptor Yip",
+								"cost": "8",
+								"atk": "4",
+								"health": "8"
+							},
+							"11": {
+								"name": "Molten Blade",
+								"cost": "1",
+								"atk": "1",
+								"dur": "1"
+							},
+							"12": {
+								"name": "Unidentified Shield",
+								"cost": "6",
+							},
+							"13": {
+								"name": "Phantom Militia",
+								"cost": "3",
+								"atk": "2",
+								"health": "4"
+							},
+							"14": {
+								"name": "Cornered Sentry",
+								"cost": "2",
+								"atk": "2",
+								"health": "6"
+							},
+							"15": {
+								"name": "Drywhisker Armorer",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"16": {
+								"name": "Goldshire Footman",
+								"cost": "1",
+								"atk": "1",
+								"health": "2"
+							},
+							"17": {
+								"name": "Wax Elemental",
+								"cost": "1",
+								"atk": "0",
+								"health": "2"
+							},
+							"18": {
+								"name": "Execute",
+								"cost": "2",
+							},
+							"19": {
+								"name": "Stonehill Defender",
+								"cost": "3",
+								"atk": "1",
+								"health": "4"
+							},
+							"20": {
+								"name": "Phantom Militia",
+								"cost": "3",
+								"atk": "2",
+								"health": "4"
+							},
+							"21": {
+								"name": "Shield Block",
+								"cost": "3",
+							},
+							"22": {
+								"name": "Stonehill Defender",
+								"cost": "3",
+								"atk": "1",
+								"health": "4"
+							},
+							"23": {
+								"name": "Wax Elemental",
+								"cost": "1",
+								"atk": "0",
+								"health": "2"
+							},
+							"24": {
+								"name": "Drywhisker Armorer",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+					},
+				}
+			},
+			"player2": {
+				"hero": {
+					"class": "shaman",
+					"name": "Thrall",
+					"power": "Totemic Call",
+					"power-usable": "false",
+					"remaining-mana" 1,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 6,
+							"0": {
+								"name": "Bloodmage Thalnos",
+								"cost": "2",
+								"atk": "1",
+								"health": "1"
+							},
+							"1": {
+								"name": "Patches the Pirate",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"2": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"3": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+							"4": {
+								"name": "The Coin",
+								"cost": "0",
+							},
+							"5": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 25,
+							"0": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"1": {
+								"name": "Lightning Bolt",
+								"cost": "1",
+							},
+							"2": {
+								"name": "Barnes",
+								"cost": "4",
+								"atk": "3",
+								"health": "4"
+							},
+							"3": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"4": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"5": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"6": {
+								"name": "Al'Akir the Windlord",
+								"cost": "8",
+								"atk": "3",
+								"health": "5"
+							},
+							"7": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"8": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"9": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"10": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"11": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"12": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"13": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"14": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"15": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"16": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"17": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"18": {
+								"name": "Lightning Storm",
+								"cost": "3",
+							},
+							"19": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"20": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"21": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"22": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"23": {
+								"name": "Ragnaros the Firelord",
+								"cost": "8",
+								"atk": "8",
+								"health": "8"
+							},
+							"24": {
+								"name": "Aya Blackpaw",
+								"cost": "6",
+								"atk": "5",
+								"health": "3"
+							},
+					},
+				}
+			},
+			}
+		},
+	"move": {
+		"player": 1
+		"type": "play_card",
+		"source": "'Plated Beetle[16]'",
+	}
+		"play": {
+			"turn": "3",
+			"player1": {
+				"hero": {
+					"class": "warrior",
+					"name": "Garrosh Hellscream",
+					"power": "Armor Up!",
+					"power-usable": "false",
+					"remaining-mana" 0,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 3,
+							"0": {
+								"name": "Scourgelord Garrosh",
+								"cost": "8",
+							},
+							"1": {
+								"name": "Execute",
+								"cost": "2",
+							},
+							"2": {
+								"name": "Shield Block",
+								"cost": "3",
+							},
+					},
+					"in-play": {
+						"count": 1,
+						"0": {
+							"name": "Plated Beetle",
+							"atk": "2",
+							"health": "3"
+						},
+					},
+					"deck": {
+						"count": 25,
+							"0": {
+								"name": "Warpath",
+								"cost": "2",
+							},
+							"1": {
+								"name": "Cleave",
+								"cost": "2",
+							},
+							"2": {
+								"name": "Plated Beetle",
+								"cost": "2",
+								"atk": "2",
+								"health": "3"
+							},
+							"3": {
+								"name": "Unidentified Shield",
+								"cost": "6",
+							},
+							"4": {
+								"name": "Brawl",
+								"cost": "5",
+							},
+							"5": {
+								"name": "Direhorn Hatchling",
+								"cost": "5",
+								"atk": "3",
+								"health": "6"
+							},
+							"6": {
+								"name": "Direhorn Hatchling",
+								"cost": "5",
+								"atk": "3",
+								"health": "6"
+							},
+							"7": {
+								"name": "Warpath",
+								"cost": "2",
+							},
+							"8": {
+								"name": "Rotten Applebaum",
+								"cost": "5",
+								"atk": "4",
+								"health": "5"
+							},
+							"9": {
+								"name": "Ornery Direhorn",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"10": {
+								"name": "Geosculptor Yip",
+								"cost": "8",
+								"atk": "4",
+								"health": "8"
+							},
+							"11": {
+								"name": "Molten Blade",
+								"cost": "1",
+								"atk": "1",
+								"dur": "1"
+							},
+							"12": {
+								"name": "Unidentified Shield",
+								"cost": "6",
+							},
+							"13": {
+								"name": "Phantom Militia",
+								"cost": "3",
+								"atk": "2",
+								"health": "4"
+							},
+							"14": {
+								"name": "Cornered Sentry",
+								"cost": "2",
+								"atk": "2",
+								"health": "6"
+							},
+							"15": {
+								"name": "Drywhisker Armorer",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"16": {
+								"name": "Goldshire Footman",
+								"cost": "1",
+								"atk": "1",
+								"health": "2"
+							},
+							"17": {
+								"name": "Wax Elemental",
+								"cost": "1",
+								"atk": "0",
+								"health": "2"
+							},
+							"18": {
+								"name": "Execute",
+								"cost": "2",
+							},
+							"19": {
+								"name": "Stonehill Defender",
+								"cost": "3",
+								"atk": "1",
+								"health": "4"
+							},
+							"20": {
+								"name": "Phantom Militia",
+								"cost": "3",
+								"atk": "2",
+								"health": "4"
+							},
+							"21": {
+								"name": "Shield Block",
+								"cost": "3",
+							},
+							"22": {
+								"name": "Stonehill Defender",
+								"cost": "3",
+								"atk": "1",
+								"health": "4"
+							},
+							"23": {
+								"name": "Wax Elemental",
+								"cost": "1",
+								"atk": "0",
+								"health": "2"
+							},
+							"24": {
+								"name": "Drywhisker Armorer",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+					},
+				}
+			},
+			"player2": {
+				"hero": {
+					"class": "shaman",
+					"name": "Thrall",
+					"power": "Totemic Call",
+					"power-usable": "false",
+					"remaining-mana" 1,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 6,
+							"0": {
+								"name": "Bloodmage Thalnos",
+								"cost": "2",
+								"atk": "1",
+								"health": "1"
+							},
+							"1": {
+								"name": "Patches the Pirate",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"2": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"3": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+							"4": {
+								"name": "The Coin",
+								"cost": "0",
+							},
+							"5": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 25,
+							"0": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"1": {
+								"name": "Lightning Bolt",
+								"cost": "1",
+							},
+							"2": {
+								"name": "Barnes",
+								"cost": "4",
+								"atk": "3",
+								"health": "4"
+							},
+							"3": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"4": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"5": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"6": {
+								"name": "Al'Akir the Windlord",
+								"cost": "8",
+								"atk": "3",
+								"health": "5"
+							},
+							"7": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"8": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"9": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"10": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"11": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"12": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"13": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"14": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"15": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"16": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"17": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"18": {
+								"name": "Lightning Storm",
+								"cost": "3",
+							},
+							"19": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"20": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"21": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"22": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"23": {
+								"name": "Ragnaros the Firelord",
+								"cost": "8",
+								"atk": "8",
+								"health": "8"
+							},
+							"24": {
+								"name": "Aya Blackpaw",
+								"cost": "6",
+								"atk": "5",
+								"health": "3"
+							},
+					},
+				}
+			},
+			}
+		},
+	"move": {
+		"player": 1
+		"type": "end_turn",
+	}
+		"play": {
+			"turn": "4",
+			"player1": {
+				"hero": {
+					"class": "warrior",
+					"name": "Garrosh Hellscream",
+					"power": "Armor Up!",
+					"power-usable": "false",
+					"remaining-mana" 0,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 3,
+							"0": {
+								"name": "Scourgelord Garrosh",
+								"cost": "8",
+							},
+							"1": {
+								"name": "Execute",
+								"cost": "2",
+							},
+							"2": {
+								"name": "Shield Block",
+								"cost": "3",
+							},
+					},
+					"in-play": {
+						"count": 1,
+						"0": {
+							"name": "Plated Beetle",
+							"atk": "2",
+							"health": "3"
+						},
+					},
+					"deck": {
+						"count": 25,
+							"0": {
+								"name": "Warpath",
+								"cost": "2",
+							},
+							"1": {
+								"name": "Cleave",
+								"cost": "2",
+							},
+							"2": {
+								"name": "Plated Beetle",
+								"cost": "2",
+								"atk": "2",
+								"health": "3"
+							},
+							"3": {
+								"name": "Unidentified Shield",
+								"cost": "6",
+							},
+							"4": {
+								"name": "Brawl",
+								"cost": "5",
+							},
+							"5": {
+								"name": "Direhorn Hatchling",
+								"cost": "5",
+								"atk": "3",
+								"health": "6"
+							},
+							"6": {
+								"name": "Direhorn Hatchling",
+								"cost": "5",
+								"atk": "3",
+								"health": "6"
+							},
+							"7": {
+								"name": "Warpath",
+								"cost": "2",
+							},
+							"8": {
+								"name": "Rotten Applebaum",
+								"cost": "5",
+								"atk": "4",
+								"health": "5"
+							},
+							"9": {
+								"name": "Ornery Direhorn",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"10": {
+								"name": "Geosculptor Yip",
+								"cost": "8",
+								"atk": "4",
+								"health": "8"
+							},
+							"11": {
+								"name": "Molten Blade",
+								"cost": "1",
+								"atk": "1",
+								"dur": "1"
+							},
+							"12": {
+								"name": "Unidentified Shield",
+								"cost": "6",
+							},
+							"13": {
+								"name": "Phantom Militia",
+								"cost": "3",
+								"atk": "2",
+								"health": "4"
+							},
+							"14": {
+								"name": "Cornered Sentry",
+								"cost": "2",
+								"atk": "2",
+								"health": "6"
+							},
+							"15": {
+								"name": "Drywhisker Armorer",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+							"16": {
+								"name": "Goldshire Footman",
+								"cost": "1",
+								"atk": "1",
+								"health": "2"
+							},
+							"17": {
+								"name": "Wax Elemental",
+								"cost": "1",
+								"atk": "0",
+								"health": "2"
+							},
+							"18": {
+								"name": "Execute",
+								"cost": "2",
+							},
+							"19": {
+								"name": "Stonehill Defender",
+								"cost": "3",
+								"atk": "1",
+								"health": "4"
+							},
+							"20": {
+								"name": "Phantom Militia",
+								"cost": "3",
+								"atk": "2",
+								"health": "4"
+							},
+							"21": {
+								"name": "Shield Block",
+								"cost": "3",
+							},
+							"22": {
+								"name": "Stonehill Defender",
+								"cost": "3",
+								"atk": "1",
+								"health": "4"
+							},
+							"23": {
+								"name": "Wax Elemental",
+								"cost": "1",
+								"atk": "0",
+								"health": "2"
+							},
+							"24": {
+								"name": "Drywhisker Armorer",
+								"cost": "2",
+								"atk": "2",
+								"health": "2"
+							},
+					},
+				}
+			},
+			"player2": {
+				"hero": {
+					"class": "shaman",
+					"name": "Thrall",
+					"power": "Totemic Call",
+					"power-usable": "true",
+					"remaining-mana" 2,
+					"full-mana": 10,
+					"hp": 30,
+					"armor": 0,
+					"hand": {
+						"count": 7,
+							"0": {
+								"name": "Bloodmage Thalnos",
+								"cost": "2",
+								"atk": "1",
+								"health": "1"
+							},
+							"1": {
+								"name": "Patches the Pirate",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"2": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"3": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+							"4": {
+								"name": "The Coin",
+								"cost": "0",
+							},
+							"5": {
+								"name": "Tunnel Trogg",
+								"cost": "1",
+								"atk": "1",
+								"health": "3"
+							},
+							"6": {
+								"name": "Aya Blackpaw",
+								"cost": "6",
+								"atk": "5",
+								"health": "3"
+							},
+					},
+					"in-play": {
+						"count": 0,
+					},
+					"deck": {
+						"count": 24,
+							"0": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"1": {
+								"name": "Lightning Bolt",
+								"cost": "1",
+							},
+							"2": {
+								"name": "Barnes",
+								"cost": "4",
+								"atk": "3",
+								"health": "4"
+							},
+							"3": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"4": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"5": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"6": {
+								"name": "Al'Akir the Windlord",
+								"cost": "8",
+								"atk": "3",
+								"health": "5"
+							},
+							"7": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"8": {
+								"name": "Small-Time Buccaneer",
+								"cost": "1",
+								"atk": "1",
+								"health": "1"
+							},
+							"9": {
+								"name": "Maelstrom Portal",
+								"cost": "2",
+							},
+							"10": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"11": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"12": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"13": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"14": {
+								"name": "Azure Drake",
+								"cost": "5",
+								"atk": "4",
+								"health": "4"
+							},
+							"15": {
+								"name": "Totem Golem",
+								"cost": "2",
+								"atk": "3",
+								"health": "4"
+							},
+							"16": {
+								"name": "Jade Lightning",
+								"cost": "4",
+							},
+							"17": {
+								"name": "Spirit Claws",
+								"cost": "2",
+								"atk": "1",
+								"dur": "3"
+							},
+							"18": {
+								"name": "Lightning Storm",
+								"cost": "3",
+							},
+							"19": {
+								"name": "Jade Claws",
+								"cost": "2",
+								"atk": "2",
+								"dur": "2"
+							},
+							"20": {
+								"name": "Thing from Below",
+								"cost": "6",
+								"atk": "5",
+								"health": "5"
+							},
+							"21": {
+								"name": "Flametongue Totem",
+								"cost": "2",
+								"atk": "0",
+								"health": "3"
+							},
+							"22": {
+								"name": "Hex",
+								"cost": "4",
+							},
+							"23": {
+								"name": "Ragnaros the Firelord",
+								"cost": "8",
+								"atk": "8",
+								"health": "8"
+							},
+					},
+				}
+			},
+			}
+		},
