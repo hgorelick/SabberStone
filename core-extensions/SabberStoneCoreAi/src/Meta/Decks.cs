@@ -13,6 +13,7 @@
 #endregion
 using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCoreAi.Meta
 {
@@ -250,39 +251,44 @@ namespace SabberStoneCoreAi.Meta
 		/// Midrange Jade Shaman Deck List Guide (January 2017, Standard) – Season 34
 		/// http://www.hearthstonetopdecks.com/decks/midrange-jade-shaman-deck-list-guide/
 		/// </summary>
-		public static List<Card> MidrangeJadeShaman => new List<Card>()
-		{
-			Cards.FromName("Tunnel Trogg"),
-			Cards.FromName("Tunnel Trogg"),
-			Cards.FromName("Totem Golem"),
-			Cards.FromName("Totem Golem"),
-			Cards.FromName("Thing from Below"),
-			Cards.FromName("Thing from Below"),
-			Cards.FromName("Spirit Claws"),
-			Cards.FromName("Spirit Claws"),
-			Cards.FromName("Maelstrom Portal"),
-			Cards.FromName("Maelstrom Portal"),
-			Cards.FromName("Lightning Storm"),
-			Cards.FromName("Lightning Bolt"),
-			Cards.FromName("Jade Lightning"),
-			Cards.FromName("Jade Lightning"),
-			Cards.FromName("Jade Claws"),
-			Cards.FromName("Jade Claws"),
-			Cards.FromName("Hex"),
-			Cards.FromName("Hex"),
-			Cards.FromName("Flametongue Totem"),
-			Cards.FromName("Flametongue Totem"),
-			Cards.FromName("Al'Akir the Windlord"),
-			Cards.FromName("Patches the Pirate"),
-			Cards.FromName("Small-Time Buccaneer"),
-			Cards.FromName("Small-Time Buccaneer"),
-			Cards.FromName("Bloodmage Thalnos"),
-			Cards.FromName("Barnes"),
-			Cards.FromName("Azure Drake"),
-			Cards.FromName("Azure Drake"),
-			Cards.FromName("Aya Blackpaw"),
-			Cards.FromName("Ragnaros the Firelord")
-		};
+		public static Deck MidrangeJadeShaman =>
+			new Deck(CardClass.SHAMAN,
+					 Archetype.MIDRANGE,
+					 "MidrangeJadeShaman",
+					 0,
+					 new List<Card>()
+					 {
+					 Cards.FromName("Tunnel Trogg"),
+					 Cards.FromName("Tunnel Trogg"),
+					 Cards.FromName("Totem Golem"),
+					 Cards.FromName("Totem Golem"),
+					 Cards.FromName("Thing from Below"),
+					 Cards.FromName("Thing from Below"),
+					 Cards.FromName("Spirit Claws"),
+					 Cards.FromName("Spirit Claws"),
+					 Cards.FromName("Maelstrom Portal"),
+					 Cards.FromName("Maelstrom Portal"),
+					 Cards.FromName("Lightning Storm"),
+					 Cards.FromName("Lightning Bolt"),
+					 Cards.FromName("Jade Lightning"),
+					 Cards.FromName("Jade Lightning"),
+					 Cards.FromName("Jade Claws"),
+					 Cards.FromName("Jade Claws"),
+					 Cards.FromName("Hex"),
+					 Cards.FromName("Hex"),
+					 Cards.FromName("Flametongue Totem"),
+					 Cards.FromName("Flametongue Totem"),
+					 Cards.FromName("Al'Akir the Windlord"),
+					 Cards.FromName("Patches the Pirate"),
+					 Cards.FromName("Small-Time Buccaneer"),
+					 Cards.FromName("Small-Time Buccaneer"),
+					 Cards.FromName("Bloodmage Thalnos"),
+					 Cards.FromName("Barnes"),
+					 Cards.FromName("Azure Drake"),
+					 Cards.FromName("Azure Drake"),
+					 Cards.FromName("Aya Blackpaw"),
+					 Cards.FromName("Ragnaros the Firelord")
+					 });
 
 		/// <summary>
 		/// SuperJJ's Aggro Pirate Warrior – Zagreb Gaming Arena, January 2017
