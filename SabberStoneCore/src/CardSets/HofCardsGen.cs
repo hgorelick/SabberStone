@@ -1,24 +1,10 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System.Collections.Generic;
-using SabberStoneCore.Auras;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
-// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
 {
@@ -112,7 +98,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Stealthed until your next turn.
 			// --------------------------------------------------------
-			cards.Add("EX1_128e", Power.OneTurnStealthEnchantmentPower);
+			cards.Add("EX1_128e", new Power {
+				Enchant = new Enchant(GameTag.STEALTH, EffectOperator.SET, 1),
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = new RemoveEnchantmentTask(),
+					RemoveAfterTriggered = true,
+				}
+			});
 
 		}
 
@@ -202,12 +195,11 @@ namespace SabberStoneCore.CardSets
 			cards.Add("EX1_062", new Power {
 				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p =>
 				{
-					int count = 0;
-					var span = p.Controller.BoardZone.GetSpan();
-					for (int i = 0; i < span.Length; i++)
-						if (span[i].Race == Race.MURLOC)
-							count++;
-					return count;
+					int i = 0;
+					foreach (Minion m in p.Controller.BoardZone)
+						if (m.Race == Race.MURLOC)
+							i++;
+					return i;
 				})
 			});
 
@@ -268,7 +260,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Costs (1) less for each damage your hero has taken.
 			// --------------------------------------------------------
 			cards.Add("EX1_620", new Power {
-				Aura = new AdaptiveCostEffect(p => p.Controller.Hero.Damage)
+				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.Hero.Damage)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

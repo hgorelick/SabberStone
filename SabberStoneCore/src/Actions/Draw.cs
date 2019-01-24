@@ -1,17 +1,4 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System;
+﻿using System;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
@@ -63,9 +50,16 @@ namespace SabberStoneCore.Actions
 						c.Game.TaskQueue.EndEvent();
 					}
 
-					ISimpleTask task = playable.Power?.TopdeckTask;
-					if (task != null)
+					if (cardToDraw?.Card.Name == "Scourgeloard Garrosh")
+						Console.WriteLine("");
+
+					ISimpleTask clone = playable.Power?.TopdeckTask?.Clone();
+					if (clone != null)
 					{
+						clone.Game = c.Game;
+						clone.Controller = c;
+						clone.Source = playable;
+
 						if (c.Game.History)
 						{
 							// TODO: triggerkeyword: TOPDECK
@@ -77,9 +71,7 @@ namespace SabberStoneCore.Actions
 
 						c.Game.Log(LogLevel.INFO, BlockType.TRIGGER, "TOPDECK",
 							!c.Game.Logging ? "" : $"{playable}'s TOPDECK effect is activated.");
-
-						task.Process(c.Game, c, playable, null);
-
+						clone.Process();
 						if (c.Game.History)
 							c.Game.PowerHistory.Add(
 								PowerHistoryBuilder.BlockEnd());

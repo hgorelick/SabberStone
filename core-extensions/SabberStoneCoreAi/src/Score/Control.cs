@@ -1,19 +1,7 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCoreAi.Score
@@ -23,25 +11,25 @@ namespace SabberStoneCoreAi.Score
 		public override int Rate()
 		{
 			if (OpHeroHp < 1)
-				return int.MaxValue;
+				return 1;
 
 			if (HeroHp < 1)
-				return int.MinValue;
+				return 1;
 
 			int result = 0;
 
 			if (OpBoardZone.Count == 0 && BoardZone.Count > 0)
-				result += 1000;
+				result += 1;
 
-			result += (BoardZone.Count - OpBoardZone.Count) * 50;
+			result += (BoardZone.Count - OpBoardZone.Count) / 2;
 
-			result += (MinionTotHealthTaunt - OpMinionTotHealthTaunt) * 25;
+			result += (MinionTotHealthTaunt - OpMinionTotHealthTaunt) / 4;// * 0.25;
 
 			result += MinionTotAtk;
 
-			result += (HeroHp - OpHeroHp) * 10;
+			result += (HeroHp - OpHeroHp) / 10;// * 0.1;
 
-			return result;
+			return result / 10;
 		}
 
 		public override Func<List<IPlayable>, List<int>> MulliganRule()

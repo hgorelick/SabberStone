@@ -1,17 +1,4 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
@@ -42,14 +29,16 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 			Choices = choices ?? throw new ArgumentNullException(nameof(choices));
 		}
 
+		public override IEntity Source => null;
+
 		public List<int> Choices { get; set; }
 
-		public override bool Process()
+		public override TaskState Process()
 		{
 			Choice choice = Controller.Choice;
 
 			if (choice == null)
-				return false;
+				return TaskState.STOP;
 
 			switch (choice.ChoiceType)
 			{
@@ -60,19 +49,19 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 					Controller.MulliganState = Enums.Mulligan.DONE;
 					if (Controller.Game.History)
 						Controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
-					return true;
+					return TaskState.COMPLETE;
 
 				case ChoiceType.GENERAL:
-					if (!Generic.ChoicePick.Invoke(Controller, Choices[0])) return false;
+					if (!Generic.ChoicePick.Invoke(Controller, Choices[0])) return TaskState.STOP;
 					Controller.NumOptionsPlayedThisTurn++;
 					Game.ProcessTasks();
 					Game.DeathProcessingAndAuraUpdate();
-					return true;
+					return TaskState.COMPLETE;
 
 				case ChoiceType.INVALID:
 					throw new NotImplementedException();
 			}
-			return false;
+			return TaskState.STOP;
 		}
 
 		public override string FullPrint()

@@ -1,22 +1,9 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -56,21 +43,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		LEGENDARY_MINIONS,
 		BATTLECRY,
 		DEMON,
-		OP_DECK_MINION,
-		DEATHRATTLE_MINIONS,
-		SPELL_COSTS_5_OR_MORE
 	}
 
 	public class DiscoverTask : SimpleTask
 	{
-		private static readonly ConcurrentDictionary<DiscoverType, (Card[][], ChoiceAction)>
-			CachedDiscoverySets =
-				new ConcurrentDictionary<DiscoverType, (Card[][], ChoiceAction)>();
+		private static ConcurrentDictionary<DiscoverType, Tuple<List<Card>[], ChoiceAction>> CachedDiscoverySets = new ConcurrentDictionary<DiscoverType, Tuple<List<Card>[], ChoiceAction>>();
 
 		private readonly DiscoverType _discoverType;
 		private readonly Card _enchantmentCard;
-		private readonly int _numberOfChoices = 3;
 		private readonly ISimpleTask _taskTodo;
+		private readonly int _numberOfChoices = 3;
 
 		public DiscoverTask(DiscoverType discoverType, string enchantmentId = null, int numberOfChoices = 3)
 		{
@@ -94,308 +76,270 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_numberOfChoices = number;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
-			in TaskStack stack = null)
+		public override TaskState Process()
 		{
+			List<Card>[] cardsToDiscover = Discovery(_discoverType, out ChoiceAction choiceAction);
 
-			// Sets of cards to discover.
-			Card[][] cardsToDiscover =
-				Discovery(in game, controller, in _discoverType, out ChoiceAction choiceAction);
-
-			Card[] result;
-			Random rnd;
-
-			// 2 Sets means Class cards / Neutral cards.
-			// 3 Sets means Tri-Class discovers. (Gangs)
-			switch (cardsToDiscover.Length)
+			var totcardsToDiscover = new List<Card>(cardsToDiscover[0]);
+			if (cardsToDiscover.Length == 2)
 			{
-				case 1:
-					Card[] distinct = cardsToDiscover[0].Distinct().ToArray();
-					if (_numberOfChoices >= distinct.Length)
-						result = distinct;
-					else
+				totcardsToDiscover.AddRange(cardsToDiscover[1]);
+				totcardsToDiscover.AddRange(cardsToDiscover[1]);
+				totcardsToDiscover.AddRange(cardsToDiscover[1]);
+				totcardsToDiscover.AddRange(cardsToDiscover[1]);
+			}
+
+			//var resultCards = new List<Card>();
+			var resultCards = new Card[_numberOfChoices];
+
+			// standard discover takes 3 random cards from a set of cards
+			if (cardsToDiscover.Length < 3)
+			{
+				if (_numberOfChoices >= totcardsToDiscover.Count)
+				{
+					//resultCards.AddRange(totcardsToDiscover);
+					if (_numberOfChoices != totcardsToDiscover.Count)
+						resultCards = new Card[totcardsToDiscover.Count];
+					totcardsToDiscover.CopyTo(resultCards);
+				}
+				else
+				{
+					int count = 0;
+					//while (resultCards.Count < 3 && totcardsToDiscover.Count > 0)
+					while (count < 3 && totcardsToDiscover.Count > 0)
 					{
-						rnd = Util.Random;
-						result = new Card[_numberOfChoices];
-						Card pick;
-						for (int i = 0; i < result.Length; i++)
-						{
-							do
-							{
-								pick = cardsToDiscover[0][rnd.Next(cardsToDiscover[0].Length)];
-							} while (result.Contains(pick));
-
-							result[i] = pick;
-						}
+						Card discoveredCard = Util.Choose(totcardsToDiscover);
+						//resultCards.Add(discoveredCard);
+						resultCards[count] = discoveredCard;
+						count++;
+						// remove all cards matching the discovered one, 
+						// need because class cards are duplicated 4 x times
+						// to have a balance to neutral cards
+						// http://hearthstone.gamepedia.com/Discover
+						totcardsToDiscover.RemoveAll(p => p == discoveredCard);
 					}
-					break;
-				case 2:
-					rnd = Util.Random;
-					int classCount = cardsToDiscover[1].Length;
-					int neutralCount = cardsToDiscover[0].Length;
-					result = new Card[_numberOfChoices];
-					for (int i = 0; i < result.Length; i++)
+
+					if (count < resultCards.Length)
 					{
-						int roll = rnd.Next(neutralCount + (classCount << 2));
-						Card pick;
-						if (roll < neutralCount)
-							pick = cardsToDiscover[0][rnd.Next(cardsToDiscover[0].Length)];
-						else
-							pick = cardsToDiscover[1][rnd.Next(cardsToDiscover[1].Length)];
-
-						bool contains = false;
-						for (int j = 0; j < i; j++)
-							if (result[j] == pick)
-								contains = true;
-
-						if (contains)
-						{
-							i--;
-							continue;
-						}
-
-						result[i] = pick;
-
-						if (roll < neutralCount)
-							neutralCount--;
-						else
-							classCount--;
+						var newArray = new Card[count];
+						Array.Copy(resultCards, 0, newArray, 0, count);
+						resultCards = newArray;
 					}
-					break;
-				case 3:
-					result = new Card[3];
-					rnd = Util.Random;
-					for (int i = 0; i < result.Length; i++)
+				}
+			}
+			else
+			{
+				// tri-class discover takes one random card from each of the three sets
+				//foreach (List<Card> classDiscover in cardsToDiscover)
+				//{
+				//	resultCards.ForEach(p => classDiscover.Remove(p));
+
+				//	resultCards.Add(Util.Choose<Card>(classDiscover));
+				//}
+
+				for (int i = 0; i < 3; i++)
+				{
+					Card pick;
+					do
 					{
-						Card pick;
-						bool contains = false;
-						do
-						{
-							pick = cardsToDiscover[i][rnd.Next(cardsToDiscover[i].Length)];
-							for (int j = 0; j < i; j++)
-								if (result[j] == pick)
-									contains = true;
-						} while (contains);
+						pick = Util.Choose(cardsToDiscover[i]);
+					} while (resultCards.Contains(pick));
 
-						result[i] = pick;
-					}
-					break;
-				default:
-					throw new NotImplementedException();
+					resultCards[i] = pick;
+				}
 			}
 
 			// TODO work on it ...
-			//if (game.Splitting)
+			//if (Game.Splitting)
 			//{
 			//    ProcessSplit(cardsToDiscover, choiceAction);
 			//}
 
-
-			if (result.Length == 0)
-				game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask",
-					!game.Logging ? "" : $"Found no potential cards to use for {_discoverType}");
+			//if (resultCards.Count == 0)
+			if (resultCards.Length == 0)
+			{
+				Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask",
+					!Game.Logging ? "" : $"Found no potential cards to use for {_discoverType}");
+			}
 			else
-				Generic.CreateChoiceCards.Invoke(controller, source, null, ChoiceType.GENERAL, choiceAction,
-					result, _enchantmentCard, _taskTodo);
+			{
+				Generic.CreateChoiceCards.Invoke(Controller, Source, null, ChoiceType.GENERAL, choiceAction, resultCards, _enchantmentCard, _taskTodo);
+			}
 
 			return TaskState.COMPLETE;
 		}
 
-		private void ProcessSplit(Game game, Controller controller, IEntity source, Card[][] cardsToDiscover,
-			ChoiceAction choiceAction)
+		private void ProcessSplit(List<Card>[] cardsToDiscover, ChoiceAction choiceAction)
 		{
-			int neutralCnt = cardsToDiscover[0].Length;
+			int neutralCnt = cardsToDiscover[0].Count;
 			int classCnt = 0;
 			var uniqueList = new List<Card>(cardsToDiscover[0]);
 
 			if (cardsToDiscover.Length > 1)
 			{
-				classCnt = cardsToDiscover[1].Length;
+				classCnt = cardsToDiscover[1].Count;
 				uniqueList.AddRange(cardsToDiscover[1]);
 			}
+			var combinations = Util.GetDiscoverSets(uniqueList).ToList();
 
-			List<IEnumerable<Card>> combinations = Util.GetDiscoverSets(uniqueList).ToList();
-
-			game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask",
-				!game.Logging
-					? ""
-					: $"... found {combinations.Count} discovery splits [class: {classCnt}, neutral: {neutralCnt}]");
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask", !Game.Logging ? "" : $"... found {combinations.Count} discovery splits [class: {classCnt}, neutral: {neutralCnt}]");
 			combinations.ForEach(p =>
 			{
-				Game cloneGame = game.Clone();
-				Controller cloneController = cloneGame.ControllerById(controller.Id);
-				bool success = Generic.CreateChoiceCards.Invoke(cloneController, source, null, ChoiceType.GENERAL,
-					choiceAction, p.ToArray(), null, _taskTodo);
+				Game cloneGame = Game.Clone();
+				Controller cloneController = cloneGame.ControllerById(Controller.Id);
+				bool success = Generic.CreateChoiceCards.Invoke(cloneController, Source, null, ChoiceType.GENERAL, choiceAction, p.ToArray(), null, _taskTodo);
 				cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
 			});
+
 		}
 
-		private Card[][] Discovery(in Game game, Controller controller, in DiscoverType discoverType,
-			out ChoiceAction choiceAction)
+		private List<Card>[] Discovery(DiscoverType discoverType, out ChoiceAction choiceAction)
 		{
-			if (!CachedDiscoverySets.TryGetValue(discoverType, out (Card[][], ChoiceAction) result))
+			if (!CachedDiscoverySets.TryGetValue(discoverType, out Tuple<List<Card>[], ChoiceAction> result))
 			{
-				FormatType format = game.FormatType;
-
 				switch (discoverType)
 				{
 					case DiscoverType.DRUID_ROGUE_SHAMAN:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets =
-							GetTriClass(in format, CardClass.DRUID, CardClass.ROGUE, CardClass.SHAMAN);
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetTriClass(CardClass.DRUID, CardClass.ROGUE, CardClass.SHAMAN);
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.MAGE_PRIEST_WARLOCK:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets =
-							GetTriClass(in format, CardClass.MAGE, CardClass.PRIEST, CardClass.WARLOCK);
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetTriClass(CardClass.MAGE, CardClass.PRIEST, CardClass.WARLOCK);
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.HUNTER_PALADIN_WARRIOR:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetTriClass(in format, CardClass.HUNTER, CardClass.PALADIN,
-							CardClass.WARRIOR);
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetTriClass(CardClass.HUNTER, CardClass.PALADIN, CardClass.WARRIOR);
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.BASIC_HEROPOWERS:
 					{
 						choiceAction = ChoiceAction.HEROPOWER;
-						Card[][] cardSets =
-						{
-							Cards.HeroCards().Where(p => p != controller.Hero.Card)
-								.Select(p => Cards.FromAssetId(p[GameTag.HERO_POWER])).ToArray()
-						};
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = { Cards.HeroCards().Where(p => p != Controller.Hero.Card).Select(p => Cards.FromAssetId(p[GameTag.HERO_POWER])).ToList() };
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.DRAGON:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.DRAGON));
-
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Race == Race.DRAGON));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.OVERLOAD:
 					{
 						choiceAction = ChoiceAction.HAND;
-						IEnumerable<Card> cardSet = Cards.FormatTypeCards(game.FormatType);
-						Card[][] cardSets = {cardSet.Where(p => p.HasOverload).ToArray()};
-
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						IEnumerable<Card> cardSet = Cards.FormatTypeCards(Game.FormatType);
+						List<Card>[] listArray = { cardSet.Where(p => p.HasOverload).ToList() };
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.TAUNT:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p[GameTag.TAUNT] == 1));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p[GameTag.TAUNT] == 1));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.SECRET:
 					{
 						choiceAction = ChoiceAction.HAND;
 						CardClass classForSecret =
-							controller.BaseClass == CardClass.PALADIN
-							|| controller.BaseClass == CardClass.MAGE
-							|| controller.BaseClass == CardClass.HUNTER
-								? controller.BaseClass
-								: CardClass.PALADIN;
-						Card[][] cardSets = GetClassCard(in format, classForSecret,
-							list => list.Where(p => p[GameTag.SECRET] == 1));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						Controller.BaseClass == CardClass.PALADIN
+						|| Controller.BaseClass == CardClass.MAGE
+						|| Controller.BaseClass == CardClass.HUNTER
+						? Controller.BaseClass
+						: CardClass.PALADIN;
+						List<Card>[] listArray = GetClassCard(classForSecret, list => list.Where(p => p[GameTag.SECRET] == 1));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.BEAST:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.BEAST));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Race == Race.BEAST));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.MURLOC:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.MURLOC));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Race == Race.MURLOC));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.ELEMENTAL:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.ELEMENTAL));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Race == Race.ELEMENTAL));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.MECHANICAL:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.MECHANICAL));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Race == Race.MECHANICAL));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.DEMON:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.DEMON));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Race == Race.DEMON));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.ALL:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets =
-							GetFilter(in format, in controller, list => list.Where(p => p.Cost >= 0));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Cost >= 0));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.ARTIFACT:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets =
+						List<Card>[] listArray = 
 						{
-							new []
+							new List<Card>
 							{
 								Cards.FromId("LOEA16_3"),
 								Cards.FromId("LOEA16_4"),
 								Cards.FromId("LOEA16_5")
 							}
 						};
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.ELEMENTAL_INVOCATION:
 					{
 						choiceAction = ChoiceAction.CAST;
-						Card[][] cardSets =
+						List<Card>[] listArray = 
 						{
-							new []
+							new List<Card>
 							{
 								Cards.FromId("UNG_211a"),
 								Cards.FromId("UNG_211b"),
@@ -403,118 +347,84 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 								Cards.FromId("UNG_211d")
 							}
 						};
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.MINION:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Type == CardType.MINION));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Type == CardType.MINION));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.DECK_MINION:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets =
-							{controller.DeckZone.Where(p => p is Minion).Select(p => p.Card).ToArray()};
-						return cardSets;
-					}
-					case DiscoverType.OP_DECK_MINION:
-					{
-						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets =
-							{controller.Opponent.DeckZone.Where(p => p is Minion).Select(p => p.Card).ToArray()};
-						return cardSets;
+						List<Card>[] listArray = { Controller.DeckZone.Where(p => p is Minion).Select(p => p.Card).ToList() };
+						return listArray;
 					}
 					case DiscoverType.DEATHRATTLE:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p[GameTag.DEATHRATTLE] == 1));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
-					}
-					case DiscoverType.DEATHRATTLE_MINIONS:
-					{
-						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p[GameTag.DEATHRATTLE] == 1 && p.Type == CardType.MINION));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p[GameTag.DEATHRATTLE] == 1));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.BATTLECRY:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p[GameTag.BATTLECRY] == 1 && p.Type == CardType.MINION));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p[GameTag.BATTLECRY] == 1 && p.Type == CardType.MINION));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.ONE_COST:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets =
-							GetFilter(in format, in controller, list => list.Where(p => p.Cost == 1));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Cost == 1));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.THREE_COST:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets =
-							GetFilter(in format, in controller, list => list.Where(p => p.Cost == 3));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Cost == 3));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.SPELL:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Type == CardType.SPELL));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
-					}
-					case DiscoverType.SPELL_COSTS_5_OR_MORE:
-					{
-						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Type == CardType.SPELL && p.Cost >= 5));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Type == CardType.SPELL));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.SPELL_RANDOM:
 					{
 						choiceAction = ChoiceAction.SPELL_RANDOM;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Type == CardType.SPELL && !p.HideStat));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Type == CardType.SPELL && !p.HideStat));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.OWN_SPELL:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets =
-							{controller.DeckZone.Where(p => p is Spell).Select(p => p.Card).ToArray()};
-						return cardSets;
+						List<Card>[] listArray = { Controller.DeckZone.Where(p => p is Spell).Select(p => p.Card).ToList() };
+						return listArray;
 					}
 					case DiscoverType.BASIC_TOTEM:
 					{
 						choiceAction = ChoiceAction.SUMMON;
-						Card[][] cardSets =
+						List<Card>[] listArray =
 						{
-							new []
+							new List<Card>
 							{
 								Cards.FromId("AT_132_SHAMANa"),
 								Cards.FromId("AT_132_SHAMANb"),
@@ -522,67 +432,64 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 								Cards.FromId("AT_132_SHAMANd")
 							}
 						};
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.COST_8_MORE_SUMMON:
 					{
 						choiceAction = ChoiceAction.SUMMON;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Cost >= 8 && p.Type == CardType.MINION));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Cost >= 8 && p.Type == CardType.MINION));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.OP_DECK:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = { controller.Opponent.DeckZone.Select(p => p.Card).ToArray()};
-						return cardSets;
+						//List<Card>[] listArray = { Controller.Opponent.DeckZone.Select(p => p.Card).ToList() };
+						var deckCards = new List<Card>(Controller.Opponent.DeckZone.Count);
+						Controller.Opponent.DeckZone.ForEach(p => deckCards.Add(p.Card));
+						List<Card>[] listArray = {deckCards};
+						return listArray;
 					}
 					case DiscoverType.OP_HERO:
 					{
 						choiceAction = ChoiceAction.HAND;
-						Card[][] cardSets = GetClassCard(in format, controller.Opponent.HeroClass, list => list);
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetClassCard(Controller.Opponent.HeroClass, list => list);
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.DIED_THIS_GAME:
 					{
 						choiceAction = ChoiceAction.SUMMON;
-						Card[][] cardSets =
-						{
-							controller.GraveyardZone.Where(p => p.ToBeDestroyed && p.Card.Type == CardType.MINION)
-								.Select(p => p.Card).ToArray()
-						};
-						return cardSets;
+						List<Card>[] listArray = { Controller.GraveyardZone.Where(p => p.ToBeDestroyed && p.Card.Type == CardType.MINION).Select(p => p.Card).ToList() };
+						return listArray;
 					}
 					case DiscoverType.BRANCHING_PATHS:
 					{
 						choiceAction = ChoiceAction.CAST;
-						Card[][] cardSets =
+						List<Card>[] listArray =
 						{
-							new []
+							new List<Card>
 							{
 								Cards.FromId("LOOT_054b"),
 								Cards.FromId("LOOT_054c"),
 								Cards.FromId("LOOT_054d")
 							}
 						};
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					case DiscoverType.LEGENDARY_MINIONS:
 					{
 						choiceAction = ChoiceAction.SUMMON;
-						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Rarity == Rarity.LEGENDARY && p.Type == CardType.MINION));
-						
-						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
-						return cardSets;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Rarity == Rarity.LEGENDARY && p.Type == CardType.MINION));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
 					}
 					default:
 						throw new ArgumentOutOfRangeException(nameof(discoverType), discoverType, null);
@@ -593,37 +500,35 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return result.Item1;
 		}
 
-		private Card[][] GetClassCard(in FormatType formatType, CardClass heroClass,
-			in Func<IEnumerable<Card>, IEnumerable<Card>> filter)
+		private List<Card>[] GetClassCard(CardClass heroClass, Func<IEnumerable<Card>, IEnumerable<Card>> filter)
 		{
-			Dictionary<CardClass, IReadOnlyList<Card>> cardSet = Cards.FormatTypeClassCards(formatType);
-			IEnumerable<Card> classCards =
-				filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.IsQuest));
-			return new[] {classCards.ToArray()};
+			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(Game.FormatType);
+			IEnumerable<Card> classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.IsQuest));
+			return new[] { classCards.ToList() };
 		}
 
-		private Card[][] GetTriClass(in FormatType formatType, CardClass class1, CardClass class2, CardClass class3)
+		private List<Card>[] GetTriClass(CardClass class1, CardClass class2, CardClass class3)
 		{
-			Dictionary<CardClass, IReadOnlyList<Card>> cardSet = Cards.FormatTypeClassCards(formatType);
-			return new[]
-			{
-				cardSet[class1].Where(p => (p.Class == class1 || p.MultiClassGroup != 0) && !p.IsQuest).ToArray(),
-				cardSet[class2].Where(p => (p.Class == class2 || p.MultiClassGroup != 0) && !p.IsQuest).ToArray(),
-				cardSet[class3].Where(p => (p.Class == class3 || p.MultiClassGroup != 0) && !p.IsQuest).ToArray()
-			};
+			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(Game.FormatType);
+			return new[] { cardSet[class1].Where(p => (p.Class == class1 || p.MultiClassGroup != 0) && !p.IsQuest).ToList(),
+							cardSet[class2].Where(p => (p.Class == class2 || p.MultiClassGroup != 0) && !p.IsQuest).ToList(),
+							cardSet[class3].Where(p => (p.Class == class3 || p.MultiClassGroup != 0) && !p.IsQuest).ToList()};
 		}
 
-		private Card[][] GetFilter(in FormatType formatType, in Controller controller,
-			in Func<IEnumerable<Card>, IEnumerable<Card>> filter)
+		private List<Card>[] GetFilter(Func<IEnumerable<Card>, IEnumerable<Card>> filter)
 		{
-			Dictionary<CardClass, IReadOnlyList<Card>> cardSet = Cards.FormatTypeClassCards(formatType);
-			CardClass heroClass = controller.BaseClass != CardClass.NEUTRAL
-				? controller.BaseClass
-				: Util.RandomElement(Cards.HeroClasses);
+			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(Game.FormatType);
+			CardClass heroClass = Controller.BaseClass != CardClass.NEUTRAL ? Controller.BaseClass : Util.RandomElement(Cards.HeroClasses);
 			IEnumerable<Card> nonClassCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class != heroClass));
-			IEnumerable<Card> classCards =
-				filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.IsQuest));
-			return new[] {nonClassCards.ToArray(), classCards.ToArray()};
+			IEnumerable<Card> classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.IsQuest));
+			return new[] { nonClassCards.ToList(), classCards.ToList() };
+		}
+
+		public override ISimpleTask Clone()
+		{
+			var clone = new DiscoverTask(_discoverType, _enchantmentCard, _taskTodo, _numberOfChoices);
+			clone.Copy(this);
+			return clone;
 		}
 	}
 }

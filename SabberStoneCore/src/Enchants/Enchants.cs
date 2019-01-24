@@ -1,17 +1,4 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using SabberStoneCore.Enums;
@@ -19,7 +6,7 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Enchants
 {
-    internal static class Enchants
+	internal static class Enchants
     {
 	    private static Regex AttackHealth = new Regex(@"[+](\d)[/][+](\d)");
 	    private static Regex SetAttackHealth = new Regex(@"(\d)[/](\d)");
@@ -27,17 +14,14 @@ namespace SabberStoneCore.Enchants
 	    private static Regex Health = new Regex(@"[+](\d) Health");
 
 	    public static readonly Enchant AddAttackScriptTag =
-		    new Enchant(Effects.Attack_N(0))
-		    {
-			    UseScriptTag = true
-		    };
+		    new Enchant(GameTag.ATK, EffectOperator.ADD);
 	    public static readonly Enchant AddHealthScriptTag =
-		    new Enchant(Effects.Health_N(0))
+		    new Enchant(GameTag.HEALTH, EffectOperator.ADD, 0)
 		    {
 			    UseScriptTag = true
 		    };
 	    public static readonly Enchant SetAttackScriptTag =
-		    new Enchant(Effects.SetAttack(0))
+		    new Enchant(GameTag.ATK, EffectOperator.SET, 0)
 		    {
 			    UseScriptTag = true
 		    };
@@ -61,7 +45,7 @@ namespace SabberStoneCore.Enchants
 		{
 			Card card = Cards.FromId(cardId);
 			string text = card.Text;
-		    var effects = new List<IEffect>();
+		    var effects = new List<Effect>();
 			bool oneTurn = false;
 			bool mod = false;
 
@@ -98,7 +82,7 @@ namespace SabberStoneCore.Enchants
 
 			if (text.Contains(@"<b>Taunt</b>"))
 		    {
-			    effects.Add(Effects.TauntEff);
+			    effects.Add(Effects.Taunt);
 		    }
 
 		    if (text.Contains(@"<b>Windfury</b>"))
@@ -156,54 +140,42 @@ namespace SabberStoneCore.Enchants
 
 	internal static class Effects
 	{
-		internal static IEffect Attack_N(int n)
+		internal static Effect Attack_N(int n)
 		{
-			return ATK.Effect(EffectOperator.ADD, n);
+			return new Effect(GameTag.ATK, EffectOperator.ADD, n);
 		}
 
-		internal static IEffect Health_N(int n)
+		internal static Effect Health_N(int n)
 		{
-			return Health.Effect(EffectOperator.ADD, n);
+			return new Effect(GameTag.HEALTH, EffectOperator.ADD, n);
 		}
 
-		internal static IEffect[] AttackHealth_N(int n)
+		internal static Effect[] AttackHealth_N(int n)
 		{
 			return new[] {Attack_N(n), Health_N(n)};
 		}
 
-		internal static IEffect SetAttack(int n)
+		internal static Effect SetAttack(int n)
 		{
-			return ATK.Effect(EffectOperator.SET, n);
+			return new Effect(GameTag.ATK, EffectOperator.SET, n);
 		}
 
-		internal static IEffect SetMaxHealth(int n)
+		internal static Effect SetMaxHealth(int n)
 		{
-			return Health.Effect(EffectOperator.SET, n);
+			return new Effect(GameTag.HEALTH, EffectOperator.SET, n);
 		}
 
-		internal static IEffect[] SetAttackHealth(int n)
+		internal static Effect[] SetAttackHealth(int n)
 		{
 			return new[] {SetAttack(n), SetMaxHealth(n)};
 		}
 
-		internal static IEffect ReduceCost(int n)
+		internal static Effect ReduceCost(int n)
 		{
-			return Cost.Effect(EffectOperator.SUB, n);
+			return new Effect(GameTag.COST, EffectOperator.SUB, n);
 		}
 
-		internal static IEffect SetCost(int n)
-		{
-			return Cost.Effect(EffectOperator.SET, n);
-		}
-
-		internal static IEffect AddCost(int n)
-		{
-			return Cost.Effect(EffectOperator.ADD, n);
-		}
-
-		internal static IEffect TauntEff => Taunt.Effect();
-
-		internal static IEffect StealthEff => Stealth.Effect();
+		internal static Effect Taunt => new Effect(GameTag.TAUNT, EffectOperator.SET, 1);
 
 		internal static Effect Windfury => new Effect(GameTag.WINDFURY, EffectOperator.SET, 1);
 

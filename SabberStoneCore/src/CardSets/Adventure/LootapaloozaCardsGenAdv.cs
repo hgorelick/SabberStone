@@ -1,17 +1,4 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
@@ -21,7 +8,6 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
-// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Adventure
 {
@@ -866,7 +852,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_04p", new Power {
 				// TODO Test: Sculpt Wax_LOOTA_BOSS_04p
 				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, Zone.PLAY, addToStack: true),
+					new CopyTask(EntityType.TARGET, 1),
 					new FuncPlayablesTask(list =>
 					{
 						var target = list[0] as ICharacter;
@@ -875,7 +861,8 @@ namespace SabberStoneCore.CardSets.Adventure
 						target.Health = 1;
 						target.AttackDamage = 1;
 						return list;
-					}))
+					}),
+					new SummonTask())
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -890,7 +877,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_05p", new Power {
 				// TODO Test: Unstable Explosion_LOOTA_BOSS_05p
-				PowerTask = ComplexTask.DamageRandomTargets(2, EntityType.ENEMIES, 1)
+				PowerTask = ComplexTask.DamageRandomTargets(2, EntityType.ENEMIES, 1, false)
 
 			});
 
@@ -1019,10 +1006,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_16p", new Power {
 				//	TODO: implement EXTRA_DEATHRATTLE Test: Totem of the Dead_LOOTA_BOSS_16p
 				PowerTask = ComplexTask.Create(
-		new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES_BASE, 1, true),
-				new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES_BASE, 1),
-				new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1, true),
-				new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1, false))
+					new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1, true),
+				new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1, false))
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1038,10 +1023,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_17p", new Power {
 				// TODO: Test: Battle Totem_LOOTA_BOSS_17p
 				PowerTask = ComplexTask.Create(
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1, true),
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1),
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1, true),
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1, false))
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1, true),
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1, false))
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1106,10 +1089,11 @@ namespace SabberStoneCore.CardSets.Adventure
 					new FuncPlayablesTask(p =>
 					{
 						if (!p.Any())
-							return new IPlayable[0];
+							return new List<IPlayable>();
 						IPlayable max = p.OrderByDescending(x => ((Minion)x).AttackDamage)
 							.FirstOrDefault();
-						return new[] {max};
+						p.RemoveRange(1, p.Count - 1);
+						return p;
 					}),
 					new DestroyTask(EntityType.STACK))
 			});
@@ -1335,7 +1319,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				// TODO Test: Dampen Magic_LOOTA_BOSS_35p
 				PowerTask = new FuncNumberTask(p =>
 					{
-						Generic.CastSpell.Invoke(p.Controller, (Spell) Entity.FromCard(p.Controller, Cards.FromId("EX1_287")), null, 0, false);
+						Generic.CastSpell.Invoke(p.Controller, (Spell) Entity.FromCard(p.Controller, Cards.FromId("EX1_287")), null, 0);
 						return 0;
 					})
 			});
@@ -1357,7 +1341,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_36p", new Power {
 				// TODO Test: Sprouting Spore_LOOTA_BOSS_36p
-				PowerTask = new SummonTask("LOOTA_105")
+				PowerTask = new SummonTask("LOOTA_105", SummonSide.DEFAULT)
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1384,10 +1368,10 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_38p", new Power {
 				// TODO [LOOTA_BOSS_38p] Totem of Chaos && Test: Totem of Chaos_LOOTA_BOSS_38p
 				PowerTask = ComplexTask.Create(
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1),
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1, true),
-					new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1),
-					new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1))
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1),
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1, true),
+					new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1),
+					new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1))
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1552,7 +1536,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_49p", new Power {
-				PowerTask = new SummonTask("LOOTA_BOSS_49t"),
+				PowerTask = new SummonTask("LOOTA_BOSS_49t", SummonSide.DEFAULT),
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -3445,8 +3429,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// Text: Attack reduced.
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_40pe", new Power {
-				//Enchant = new Enchant(GameTag.ATK, EffectOperator.SUB, 1)
-				Enchant = new Enchant(ATK.Effect(EffectOperator.SUB, 1))
+				Enchant = new Enchant(GameTag.ATK, EffectOperator.SUB, 1)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

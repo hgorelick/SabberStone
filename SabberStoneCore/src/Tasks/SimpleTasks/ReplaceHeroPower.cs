@@ -1,17 +1,4 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -19,44 +6,70 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ReplaceHeroPower : SimpleTask
 	{
-		private readonly Card _heroPowerCard;
+		private ReplaceHeroPower(HeroPower power, Card cardPower)
+		{
+			Power = power;
+			PowerCard = cardPower;
+		}
 
 		public ReplaceHeroPower()
 		{
+			Power = null;
+			PowerCard = null;
 		}
 
-		public ReplaceHeroPower(Card heroPowerCard)
+		public ReplaceHeroPower(HeroPower power)
 		{
-			_heroPowerCard = heroPowerCard;
+			Power = power;
+			PowerCard = null;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
-			in TaskStack stack = null)
+		public ReplaceHeroPower(Card cardPower)
 		{
-			if (controller == null) return TaskState.STOP;
+			Power = null;
+			PowerCard = cardPower;
+		}
 
-			HeroPower power;
+		public HeroPower Power { get; set; }
 
-			if (_heroPowerCard == null)
+		public Card PowerCard { get; set; }
+
+		public override TaskState Process()
+		{
+			if (Controller == null)
 			{
-				if (stack?.Playables.Count != 1 || !(stack.Playables[0] is HeroPower)) return TaskState.STOP;
-
-				power = (HeroPower) stack.Playables[0];
+				return TaskState.STOP;
 			}
-			else
+
+			if (PowerCard == null && Power == null)
 			{
-				power = (HeroPower) Entity.FromCard(controller, _heroPowerCard);
+				if (Playables.Count != 1 || !(Playables[0] is HeroPower))
+				{
+					return TaskState.STOP;
+				}
+
+				Power = (HeroPower)Playables[0];
 			}
 
-			power[GameTag.CREATOR] = controller.Hero.Id;
+			if (PowerCard != null)
+			{
+				Power = Entity.FromCard(Controller, PowerCard) as HeroPower;
+			}
 
-			game.Log(LogLevel.INFO, BlockType.PLAY, "ReplaceHeroPower",
-				!game.Logging ? "" : $"{controller.Hero} power replaced by {power}");
+			Power[GameTag.CREATOR] = Controller.Hero.Id;
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "ReplaceHeroPower", !Game.Logging? "":$"{Controller.Hero} power replaced by {Power}");
 
-			controller.SetasideZone.Add(controller.Hero.HeroPower);
-			controller.Hero.HeroPower = power;
+			Controller.SetasideZone.MoveTo(Controller.Hero.HeroPower, Controller.SetasideZone.Count);
+			Controller.Hero.HeroPower = Power;
 
 			return TaskState.COMPLETE;
+		}
+
+		public override ISimpleTask Clone()
+		{
+			var clone = new ReplaceHeroPower(Power, PowerCard);
+			clone.Copy(this);
+			return clone;
 		}
 	}
 }

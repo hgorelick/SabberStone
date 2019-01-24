@@ -1,22 +1,8 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using SabberStoneCore.Model.Entities;
-using System.Text;
+﻿using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model
 {
-	public struct PlayHistoryEntry
+	public class PlayHistoryEntry
 	{
 		public readonly int SourceController;
 		public readonly int TargetController;
@@ -24,7 +10,7 @@ namespace SabberStoneCore.Model
 		public readonly Card TargetCard;
 		public readonly int SubOption;
 
-		public PlayHistoryEntry(in IPlayable source, in ICharacter target = null, in int chooseOne = -1)
+		public PlayHistoryEntry(IPlayable source, IPlayable target = null, int chooseOne = -1)
 		{
 			SourceController = source.Controller.PlayerId;
 			TargetController = target?.Controller.PlayerId ?? 0;
@@ -33,29 +19,9 @@ namespace SabberStoneCore.Model
 			SubOption = chooseOne;
 		}
 
-		public PlayHistoryEntry(in Card srcCard)
+		public PlayHistoryEntry(Card srcCard)
 		{
 			SourceCard = srcCard;
-
-			SourceController = 0;
-			TargetController = 0;
-			TargetCard = null;
-			SubOption = 0;
-		}
-
-		public override string ToString()
-		{
-			StringBuilder sb = new StringBuilder($"[P{SourceController}]");
-			sb.Append($"[{SourceCard}]");
-			if (SubOption > 0)
-				sb.Append($"[SubOption:{SubOption}]");
-			if (TargetController != 0)
-			{
-				sb.Append("=>");
-				sb.Append($"[P{TargetController}]");
-				sb.Append($"[{TargetCard}]");
-			}
-			return sb.ToString();
 		}
 	}
 }

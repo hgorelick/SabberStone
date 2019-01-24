@@ -1,22 +1,9 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Linq;
 using SabberStoneCore.Conditions;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -49,39 +36,44 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public RelaCondition[] RelaConditions { get; set; }
 		public EntityType Type { get; set; }
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
-			in TaskStack stack = null)
+		public override TaskState Process()
 		{
-			IList<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
-			if (entities.Count == 0)
+			IEnumerable<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			if (!entities.Any())
 				return TaskState.STOP;
 
-			var playableSource = (IPlayable) source;
+			var source = (IPlayable)Source;
 
-			bool flag = true;
+			int i;
+			Flag = true;
 			foreach (IPlayable p in entities)
 			{
-				int i;
 				for (i = 0; i < SelfConditions.Length; i++)
-					flag = flag && SelfConditions[i].Eval(p);
+					Flag = Flag && SelfConditions[i].Eval(p);
 
 				for (i = 0; i < RelaConditions.Length; i++)
-					flag = flag && RelaConditions[i].Eval(playableSource, p);
+					Flag = Flag && RelaConditions[i].Eval(source, p);
 			}
 
-			stack.Flag = flag;
 
 			return TaskState.COMPLETE;
+		}
+
+		public override ISimpleTask Clone()
+		{
+			var clone = new ConditionTask(Type, SelfConditions, RelaConditions);
+			clone.Copy(this);
+			return clone;
 		}
 	}
 
 	public class NumberConditionTask : SimpleTask
 	{
-		private readonly int _reference;
 		private readonly RelaSign _sign;
+		private readonly int _reference;
 
 		/// <summary>
-		///     Create Task that compares the stored stack.Number and the given reference value.
+		/// Create Task that compares the stored Number and the given reference value.
 		/// </summary>
 		public NumberConditionTask(int referenceValue, RelaSign sign)
 		{
@@ -90,7 +82,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		/// <summary>
-		///     Create Task that compares stack.Number and stack.Number1 in the stack.
+		/// Create Task that compares Number and Number1 in the stack.
 		/// </summary>
 		/// <param name="sign"></param>
 		public NumberConditionTask(RelaSign sign)
@@ -99,25 +91,29 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_reference = Int32.MinValue;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
-			in TaskStack stack)
+		public override TaskState Process()
 		{
 			if (_reference == Int32.MinValue)
 			{
-				stack.Flag =
-					_sign == RelaSign.GEQ ? stack.Number >= stack.Number1 :
-					_sign == RelaSign.LEQ ? stack.Number <= stack.Number1 :
-					stack.Number == stack.Number1;
+				Flag =
+					_sign == RelaSign.GEQ ? Number >= Number1 :
+					_sign == RelaSign.LEQ ? Number <= Number1 :
+					Number == Number1;
 
 				return TaskState.COMPLETE;
 			}
 
-			stack.Flag =
-				_sign == RelaSign.GEQ ? stack.Number >= _reference :
-				_sign == RelaSign.LEQ ? stack.Number <= _reference :
-				stack.Number == _reference;
+			Flag =
+				_sign == RelaSign.GEQ ? Number >= _reference :
+				_sign == RelaSign.LEQ ? Number <= _reference :
+				Number == _reference;
 
 			return TaskState.COMPLETE;
+		}
+
+		public override ISimpleTask Clone()
+		{
+			return new NumberConditionTask(_reference, _sign);
 		}
 	}
 }

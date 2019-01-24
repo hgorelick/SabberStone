@@ -1,17 +1,4 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System;
+﻿using System;
 using Xunit;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
@@ -36,29 +23,27 @@ namespace SabberStoneCoreTest.Cloning
 				CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR
 			};
 			bool flag = true;
-			for (int i = 0; i < 100; i++)
+			for (int i = 0; i < 10 && flag; i++)
 			{
 				var game = new Game(new GameConfig
 				{
 					StartPlayer = 1,
 					Player1HeroClass = classes[rnd.Next(classes.Length)],
 					Player2HeroClass = classes[rnd.Next(classes.Length)],
-					FillDecks = true,
-					Logging = false
+					FillDecks = true
 				});
 				game.StartGame();
 
 				while (game.State != State.COMPLETE)
 				{
-					List<PlayerTask> options = game.CurrentPlayer.Options();
-					PlayerTask option = options[rnd.Next(options.Count)];
+					List<SabberStoneCore.Tasks.PlayerTask> options = game.CurrentPlayer.Options();
+					SabberStoneCore.Tasks.PlayerTask option = options[rnd.Next(options.Count)];
 					game.Process(option);
 					Game cloneGame = game.Clone();
 					string str1 = game.Hash();
 					string str2 = cloneGame.Hash();
 
 					flag &= str1.Equals(str2);
-
 					if (!flag)
 						break;
 				}
@@ -75,9 +60,7 @@ namespace SabberStoneCoreTest.Cloning
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
 				Player2HeroClass = CardClass.SHAMAN,
-				FillDecks = true,
-				History = false,
-				Logging = false
+				FillDecks = true
 			});
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
@@ -109,10 +92,7 @@ namespace SabberStoneCoreTest.Cloning
 
 			GameTag[] ignored = new GameTag[] {GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID};
 
-			string gameHash = game.Hash(ignored);
-			string cloneHash = clone.Hash(ignored);
-
-			Assert.Equal(gameHash, cloneHash);
+			Assert.Equal(game.Hash(ignored), clone.Hash(ignored));
 		}
 
 		[Fact]

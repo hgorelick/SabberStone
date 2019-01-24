@@ -1,17 +1,4 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using System;
 using System.Collections.Generic;
@@ -27,7 +14,7 @@ namespace SabberStoneBuildCardSet
 		private static readonly string Path = Directory.GetCurrentDirectory(); // @"C:\Users\admin\Source\Repos\";
 		private static readonly Regex Rgx = new Regex("[^a-zA-Z0-9 -]");
 
-		private static bool Adventure;
+		private static bool Adventure = false;
 
 		private static string MapCardSetAdventureString(CardSet cardSet)
 		{
@@ -49,8 +36,6 @@ namespace SabberStoneBuildCardSet
 					return "GILA";
 				case CardSet.BOOMSDAY:
 					return "BOTA";
-				case CardSet.TROLL:
-					return "TRLA";
 				default:
 					return String.Empty;
 			}
@@ -76,8 +61,7 @@ namespace SabberStoneBuildCardSet
 			//   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
 			//{ CardSet.GVG};
 			//CardSet[] cardSets = new[] { CardSet.NAXX, CardSet.KARA, CardSet.BRM, CardSet.LOE, CardSet.ICECROWN  };
-			//CardSet[] cardSets = new[] { CardSet.CORE, CardSet.EXPERT1, CardSet.UNGORO, CardSet.LOOTAPALOOZA, CardSet.ICECROWN, CardSet.GILNEAS, CardSet.BOOMSDAY, CardSet.TROLL, CardSet.HOF };
-			CardSet[] cardSets = new[] { CardSet.TROLL };
+			CardSet[] cardSets = new[] { CardSet.BOOMSDAY };
 			//var cardSets = Enum.GetValues(typeof(CardSet));
 			foreach (CardSet cardSet in cardSets)
 			{
@@ -291,7 +275,7 @@ namespace SabberStoneBuildCardSet
 				string t = null;
 				if (Tag.TypedTags.ContainsKey(key))
 				{
-					t = Enum.GetName(Tag.TypedTags[key], card.Tags[key]);
+					t = Enum.GetName(Tag.TypedTags[key], (int)card.Tags[key]);
 				}
 
 				str.AppendLine($"{tab}\t// - {key} = {(t ?? card.Tags[key].ToString())}");
@@ -319,7 +303,7 @@ namespace SabberStoneBuildCardSet
 				string t = null;
 				if (Tag.TypedTags.ContainsKey(key))
 				{
-					t = Enum.GetName(Tag.TypedTags[key], card.Tags[key]);
+					t = Enum.GetName(Tag.TypedTags[key], (int)card.Tags[key]);
 				}
 				str.AppendLine($"{tab}\t// - {key} = {t ?? card.RefTags[key].ToString()}");
 			}

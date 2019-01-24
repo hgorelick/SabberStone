@@ -1,24 +1,9 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System.Collections.Generic;
-using SabberStoneCore.Auras;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
-// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
 {
@@ -305,7 +290,9 @@ namespace SabberStoneCore.CardSets
 			// Text: Stats changed to 3/3.
 			// --------------------------------------------------------
 			cards.Add("LOE_017e", new Power {
-				Enchant = new Enchant(Effects.SetAttackHealth(3))
+				Enchant = new Enchant(
+					new Effect(GameTag.ATK, EffectOperator.SET, 3),
+					new Effect(GameTag.HEALTH, EffectOperator.SET, 3))
 			});
 
 		}
@@ -406,7 +393,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOE_019", new Power {
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
-					new AddEnchantmentTask("LOE_019e", EntityType.SOURCE, true, true))
+					new AddEnchantmentTask("LOE_019e", EntityType.SOURCE, true))
 			});
 
 		}
@@ -420,15 +407,14 @@ namespace SabberStoneCore.CardSets
 			// Text: Copied Deathrattle from {0}.
 			// --------------------------------------------------------
 			cards.Add("LOE_019e", new Power {
-				//DeathrattleTask = ComplexTask.Create(
-				//	new IncludeTask(EntityType.SOURCE),
-				//	new IncludeTask(EntityType.TARGET, null, true),
-				//	new FuncPlayablesTask(p =>
-				//	{
-				//		p[0].Game.IdEntityDic[p[1][GameTag.TAG_SCRIPT_DATA_NUM_1]].ActivateTask(PowerActivation.DEATHRATTLE, null, 0, p[0]);
-				//		return null;
-				//	}))
-				DeathrattleTask = ActivateCapturedDeathrattleTask.Task
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.SOURCE),
+					new IncludeTask(EntityType.TARGET, null, true),
+					new FuncPlayablesTask(p =>
+					{
+						p[0].Game.IdEntityDic[p[1][GameTag.TAG_SCRIPT_DATA_NUM_1]].ActivateTask(PowerActivation.DEATHRATTLE, null, 0, p[0]);
+						return null;
+					}))
 			});
 
 		}
@@ -447,7 +433,6 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOE_016", new Power {
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
-					TriggerSource = TriggerSource.FRIENDLY,
 					Condition = SelfCondition.IsBattlecryMinion,
 					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 2)
 				}
@@ -480,7 +465,7 @@ namespace SabberStoneCore.CardSets
 			//       Costs (1) less for each Murloc you control.
 			// --------------------------------------------------------
 			cards.Add("LOE_113", new Power {
-				Aura = new AdaptiveCostEffect(p => p.Controller.BoardZone.GetAll(q => q.Race == Race.MURLOC).Length),
+				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.BoardZone.GetAll(q => q.Race == Race.MURLOC).Length),
 				PowerTask = new AddEnchantmentTask("LOE_113e", EntityType.ALLMINIONS)
 			});
 
@@ -711,7 +696,7 @@ namespace SabberStoneCore.CardSets
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_038", new Power {
-				Aura = new Aura(AuraType.HAND, Effects.SetCost(5))
+				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 5))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -843,7 +828,7 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_077", new Power {
-				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.EXTRA_BATTLECRIES_BASE, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.EXTRA_BATTLECRY, EffectOperator.SET, 1))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

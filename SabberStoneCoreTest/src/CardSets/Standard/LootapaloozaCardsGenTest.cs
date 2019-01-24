@@ -1,17 +1,4 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using Xunit;
+﻿using Xunit;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
 using SabberStoneCore.Model;
@@ -2094,11 +2081,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			do
 			{
 				if (game.CurrentPlayer.DeckZone[i] is Minion m)
-				{
-					game.CurrentPlayer.DeckZone.Remove(m);
-					game.CurrentPlayer.BoardZone.Add(m);
-				}
-
+					game.CurrentPlayer.BoardZone.Add(game.CurrentPlayer.DeckZone.Remove(m));
 				i++;
 			} while (!game.CurrentPlayer.BoardZone.IsFull && i < 26);
 
@@ -2269,13 +2252,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable target = game.ProcessCard("Bloodfen Raptor");
 			game.ProcessCard("Backstab", target);
 
-			var newEntity = game.CurrentPlayer.HandZone.Last() as Minion;
+			IPlayable newEntity = game.CurrentPlayer.HandZone.Last();
 
-			Assert.NotNull(newEntity);
 			Assert.Equal("Bloodfen Raptor", newEntity.Card.Name);
 			Assert.Equal(1, newEntity.Cost);
-			Assert.Equal(1, newEntity.AttackDamage);
-			Assert.Equal(1, newEntity.BaseHealth);
+			Assert.Equal(1, newEntity[GameTag.ATK]);
+			Assert.Equal(1, newEntity[GameTag.HEALTH]);
 
 		}
 
@@ -3132,18 +3114,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hooked Reaver"));
-			var testCard2 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hooked Reaver"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hooked Reaver"));
+			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hooked Reaver"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
-			Assert.Equal(testCard.AttackDamage, testCard.Card.ATK);
-			Assert.Equal(testCard.Health, testCard.Card.Health);
-			Assert.False(testCard.HasTaunt, "Has Taunt with Hero at 30 Health");
+			Assert.Equal(testCard[GameTag.ATK], testCard.Card.Tags[GameTag.ATK]);
+			Assert.Equal(testCard[GameTag.HEALTH], testCard.Card.Tags[GameTag.HEALTH]);
+			Assert.True(testCard[GameTag.TAUNT] == 0, "Has Taunt with Hero at 30 Health");
 
 			game.CurrentPlayer.Hero.Health = 15;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2));
-			Assert.Equal(testCard2.AttackDamage, testCard2.Card.ATK + 3);
-			Assert.Equal(testCard2.Health, testCard2.Card.Health + 3);
-			Assert.True(testCard2.HasTaunt, "Doesn't have Taunt with Hero at 15 Health");
+			Assert.Equal(testCard2[GameTag.ATK], testCard2.Card.Tags[GameTag.ATK] + 3);
+			Assert.Equal(testCard2[GameTag.HEALTH], testCard2.Card.Tags[GameTag.HEALTH] + 3);
+			Assert.True(testCard2[GameTag.TAUNT] == 1, "Doesn't have Taunt with Hero at 15 Health");
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -3220,7 +3202,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			for (int i = 0; i < demonsInDeck.Count; i++)
 			{
 				game.CurrentPlayer.TemporaryMana = 10;
-				var testCard = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Possessed Lackey"));
+				var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Possessed Lackey"));
 				var darkPact = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
 				int previousBoardAmount = game.CurrentPlayer.BoardZone.Count;
 				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
@@ -3391,8 +3373,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			int previousHealth = game.CurrentPlayer.Hero.Health;
 			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
 			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
-			var silverback = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silverback Patriarch"));
-			var silverback2 = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silverback Patriarch"));
+			var silverback = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silverback Patriarch"));
+			var silverback2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silverback Patriarch"));
 
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, silverback));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard, silverback));
@@ -3894,10 +3876,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(2, game.CurrentPlayer.Hero.AttackDamage);
 
 			Assert.False(game.CurrentPlayer.Hero.IsValidAttackTarget(game.CurrentOpponent.Hero));
-
-			Game clone = game.Clone();
-
-			Assert.Equal(clone.CurrentPlayer.Hash(), game.CurrentPlayer.Hash());
 		}
 
 		// --------------------------------------- WEAPON - WARRIOR
@@ -4015,10 +3993,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Scorp-o-matic"));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			var elvenArcher = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elven Archer"));
+			var elvenArcher = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elven Archer"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, elvenArcher, game.CurrentPlayer.Opponent.Hero));
 
-			var frostwolfGrunt = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostwolf Grunt"));
+			var frostwolfGrunt = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostwolf Grunt"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, frostwolfGrunt, game.CurrentPlayer.Opponent.Hero));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
@@ -4712,7 +4690,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Carnivorous Cube"));
 
-			Minion target = game.ProcessCard<Minion>("Voidlord", null, true);
+			IPlayable target = game.ProcessCard("Voidlord", null, true);
 
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Carnivorous Cube", target));
 

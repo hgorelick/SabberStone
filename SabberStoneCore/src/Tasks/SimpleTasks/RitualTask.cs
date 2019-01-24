@@ -1,17 +1,4 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
@@ -30,13 +17,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Blade
 		}
 
-		private static readonly Card BuffEnchantmentCard = Cards.FromId("OG_281e");
-		private static readonly Card BladeofCThunEnchantmentCard = Cards.FromId("OG_282e");
-		private static readonly Card TauntEnchantmentCard = Cards.FromId("OG_284e");
-		private readonly int _amount;
-
-		private readonly RitualType _type;
-
 		public RitualTask(RitualType type = RitualType.Check)
 		{
 			_type = type;
@@ -48,8 +28,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_amount = amount;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
-			in TaskStack stack = null)
+		private RitualTask(RitualType type, int amount)
+		{
+			_type = type;
+			_amount = amount;
+		}
+
+		private readonly RitualType _type;
+		private readonly int _amount;
+
+		private static readonly Card BuffEnchantmentCard = Cards.FromId("OG_281e");
+		private static readonly Card BladeofCThunEnchantmentCard = Cards.FromId("OG_282e");
+		private static readonly Card TauntEnchantmentCard = Cards.FromId("OG_284e");
+
+		public override TaskState Process()
 		{
 			//[irc] Patashu @darkfriend77 yeah, that's the general idea. 
 			// there's two kinds of triggers, one when a c'thun is summoned or 
@@ -60,71 +52,70 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			// hand and board that aren't silenced
 
 			IPlayable proxyCthun;
-			if (!controller.SeenCthun)
+			if (!Controller.SeenCthun)
 			{
-				proxyCthun = Entity.FromCard(in controller, Cards.FromId("OG_279"));
+				proxyCthun = Entity.FromCard(Controller, Cards.FromId("OG_279"));
 				proxyCthun[GameTag.REVEALED] = 1;
-				controller.SetasideZone.Add(proxyCthun);
-				controller.ProxyCthun = proxyCthun.Id;
-				controller.SeenCthun = true;
+				Controller.SetasideZone.Add(proxyCthun);
+				Controller.ProxyCthun = proxyCthun.Id;
+				Controller.SeenCthun = true;
 			}
 			else
-			{
-				proxyCthun = game.IdEntityDic[controller.ProxyCthun];
-			}
+				proxyCthun = Game.IdEntityDic[Controller.ProxyCthun];
 
 			var entities = new List<IPlayable> {proxyCthun};
-			entities.AddRange(controller.BoardZone.GetAll(p => p.Card.Id.Equals("OG_280")));
-			entities.AddRange(controller.HandZone.GetAll(p => p.Card.Id.Equals("OG_280")));
+			entities.AddRange(Controller.BoardZone.GetAll(p => p.Card.Id.Equals("OG_280")));
+			entities.AddRange(Controller.HandZone.GetAll(p => p.Card.Id.Equals("OG_280")));
 
 			switch (_type)
 			{
 				case RitualType.Buff:
 					if (proxyCthun.OngoingEffect == null)
 					{
-						foreach (IPlayable p in entities)
+						entities.ForEach(p =>
 						{
-							Generic.AddEnchantmentBlock.Invoke(controller, BuffEnchantmentCard, (IPlayable) source, p,
-								0, 0, false);
+							Generic.AddEnchantmentBlock.Invoke(Controller, BuffEnchantmentCard, (IPlayable) Source, p, 0, 0);
 
-							((OngoingEnchant) p.OngoingEffect).Count += _amount - 1;
-						}
-
+							((OngoingEnchant) p.OngoingEffect).Count += (_amount - 1);
+						});
 						break;
 					}
-
-					foreach (IPlayable p in entities)
+					entities.ForEach(p =>
+					{
 						if (p.OngoingEffect == null)
 						{
-							Generic.AddEnchantmentBlock.Invoke(controller, BuffEnchantmentCard, (IPlayable) source, p,
-								0, 0, false);
-							((OngoingEnchant) p.OngoingEffect).Count += _amount - 1;
+							Generic.AddEnchantmentBlock.Invoke(Controller, BuffEnchantmentCard, (IPlayable) Source, p, 0, 0);
+							((OngoingEnchant)p.OngoingEffect).Count += (_amount - 1);
 						}
 						else
-						{
-							((OngoingEnchant) p.OngoingEffect).Count += _amount;
-						}
-
+							((OngoingEnchant)p.OngoingEffect).Count += _amount;
+					});
 					break;
 
 				case RitualType.Taunt:
 					if (proxyCthun[GameTag.TAUNT] == 1) break;
-					foreach (IPlayable p in entities)
-						Generic.AddEnchantmentBlock.Invoke(controller, TauntEnchantmentCard, (IPlayable) source, p, 0,
-							0, false);
-
+					entities.ForEach(p =>
+					{
+						Generic.AddEnchantmentBlock.Invoke(Controller, TauntEnchantmentCard, (IPlayable)Source, p, 0, 0);
+					});
 					break;
 
 				case RitualType.Blade:
-					foreach (IPlayable p in entities)
-						Generic.AddEnchantmentBlock.Invoke(controller, BladeofCThunEnchantmentCard, (IPlayable) source,
-							p, stack.Number,
-							stack.Number1, false);
-
+					entities.ForEach(p =>
+					{
+						Generic.AddEnchantmentBlock.Invoke(Controller, BladeofCThunEnchantmentCard, (IPlayable) Source, p, Number,
+							Number1);
+					});
 					break;
 			}
 
 			return TaskState.COMPLETE;
+		}
+
+		public override ISimpleTask Clone()
+		{
+			var clone = new RitualTask(_type, _amount);
+			return clone;
 		}
 	}
 }

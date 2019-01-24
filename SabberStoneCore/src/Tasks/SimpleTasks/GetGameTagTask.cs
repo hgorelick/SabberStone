@@ -1,20 +1,5 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System;
+﻿using SabberStoneCore.Enums;
 using System.Collections.Generic;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -34,61 +19,49 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public int EntityIndex { get; set; }
 		public int NumberIndex { get; set; }
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
-			in TaskStack stack = null)
+		public override TaskState Process()
 		{
-			IList<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
-			if (entities == null || entities.Count == 0 || entities.Count <= EntityIndex) return TaskState.STOP;
-
-			int value;
-			if (Tag == GameTag.ENTITY_ID)
-				value = entities[EntityIndex].Id;
-			else if (entities[EntityIndex] is Character c)
-				switch (Tag)
-				{
-					case GameTag.ATK:
-						value = c.AttackDamage;
-						break;
-					case GameTag.HEALTH:
-						value = c.BaseHealth;
-						break;
-					case GameTag.DAMAGE:
-						value = c.Damage;
-						break;
-					default:
-						value = c[Tag];
-						break;
-				}
-			else
-				value = entities[EntityIndex][Tag];
-
-
+			IList<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			if (entities == null || entities.Count == 0)
+			{
+				return TaskState.STOP;
+			}
 			if (NumberIndex == 0)
-				stack.Number = value;
+			{
+				Number = entities[EntityIndex][Tag];
+			}
 			else if (entities.Count > EntityIndex)
+			{
 				switch (NumberIndex)
 				{
 					case 1:
-						stack.Number1 = value;
+						Number1 = entities[EntityIndex][Tag];
 						break;
 					case 2:
-						stack.Number2 = value;
+						Number2 = entities[EntityIndex][Tag];
 						break;
 					case 3:
-						stack.Number3 = value;
+						Number3 = entities[EntityIndex][Tag];
 						break;
 					case 4:
-						stack.Number4 = value;
+						Number4 = entities[EntityIndex][Tag];
 						break;
 				}
-
+			}
 			return TaskState.COMPLETE;
+		}
+
+		public override ISimpleTask Clone()
+		{
+			var clone = new GetGameTagTask(Tag, Type, EntityIndex, NumberIndex);
+			clone.Copy(this);
+			return clone;
 		}
 	}
 
 	/// <summary>
-	///     Gets number of the current event and stores it to the stack.
-	///     (e.g. the amount damage dealt or heal taken)
+	/// Gets number of the current event and stores it to the stack.
+	/// (e.g. the amount damage dealt or heal taken)
 	/// </summary>
 	public class GetEventNumberTask : SimpleTask
 	{
@@ -99,31 +72,35 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_numberIndex = numberIndex;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
-			in TaskStack stack = null)
+		public override TaskState Process()
 		{
 			switch (_numberIndex)
 			{
 				case 0:
-					stack.Number = game.CurrentEventData?.EventNumber ?? 0;
+					Number = Game.CurrentEventData?.EventNumber ?? 0;
 					break;
 				case 1:
-					stack.Number1 = game.CurrentEventData?.EventNumber ?? 0;
+					Number1 = Game.CurrentEventData?.EventNumber ?? 0;
 					break;
 				case 2:
-					stack.Number2 = game.CurrentEventData?.EventNumber ?? 0;
+					Number2 = Game.CurrentEventData?.EventNumber ?? 0;
 					break;
 				case 3:
-					stack.Number3 = game.CurrentEventData?.EventNumber ?? 0;
+					Number3 = Game.CurrentEventData?.EventNumber ?? 0;
 					break;
 				case 4:
-					stack.Number4 = game.CurrentEventData?.EventNumber ?? 0;
+					Number4 = Game.CurrentEventData?.EventNumber ?? 0;
 					break;
 				default:
-					throw new ArgumentOutOfRangeException();
+					throw new System.ArgumentOutOfRangeException();
 			}
-
+			
 			return TaskState.COMPLETE;
+		}
+
+		public override ISimpleTask Clone()
+		{
+			return new GetEventNumberTask(_numberIndex);
 		}
 	}
 }

@@ -1,21 +1,9 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enums;
-
-// ReSharper disable InconsistentNaming
+using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {
@@ -24,198 +12,129 @@ namespace SabberStoneCore.Enchants
 	/// </summary>
 	public class AuraEffects
 	{
-		private static readonly int _int32Size = sizeof(int);
-
-		private const int PlayableLength = 2;
-		private const int WeaponLength = PlayableLength + 1;
-		private const int CharacterLength = PlayableLength + 2;
-		private const int HeroLength = CharacterLength + 2;
-		private const int MinionLength = CharacterLength + 7;
-
-		// Indices:
-		// Playables
-		// 0 : CardCostHealth
-		// 1 : Echo
-		// Weapon
-		// 2 : Immune
-		// Characters
-		// 2 : CantBeTargetedBySpells
-		// 3 : ATK
-		// Hero
-		// 4 : CannotAttackHeroes
-		// 5 : Immune
-		// Minion
-		// 4 : Health
-		// 5 : Charge
-		// 6 : Taunt
-		// 7 : Lifesteal
-		// 8 : Rush
-		// 9 : CantAttack
-		internal readonly int[] _data;
-
-		internal AuraEffects(CardType type)
+		private class CostEffect
 		{
-			switch (type)
+			private readonly Func<int, int> _func;
+
+			public CostEffect(Effect e)
 			{
-				case CardType.HERO:
-					_data = new int[HeroLength];
-					break;
-				case CardType.MINION:
-					_data = new int[MinionLength];
-					break;
-				case CardType.WEAPON:
-					_data = new int[WeaponLength];
-					break;
-				case CardType.SPELL:
-					_data = new int[PlayableLength];
-					break;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(type), type, null);
+				Effect = e;
+
+				switch (e.Operator)
+				{
+					case EffectOperator.ADD:
+						_func = p => p + e.Value;
+						break;
+					case EffectOperator.SUB:
+						_func = p => p >= e.Value ? p - e.Value : 0;
+						break;
+					case EffectOperator.SET:
+						_func = p => e.Value;
+						break;
+					case EffectOperator.MUL:
+						throw new NotImplementedException();
+				}
 			}
 
-			Type = type;
-		}
+			public readonly Effect Effect;
 
-		private AuraEffects(AuraEffects original) : this (original.Type)
-		{
-			Buffer.BlockCopy(original._data, 0, _data, 0, _data.Length * _int32Size);
-		}
-
-		public readonly CardType Type;
-
-		public bool CardCostHealth
-		{
-			get => _data[0] > 0;
-			set => _data[0] = value ? 1 : 0;
-		}
-
-		public bool Echo
-		{
-			get => _data[1] > 0;
-			set => _data[1] = value ? 1 : 0;
-		}
-
-		public bool CantBeTargetedBySpells
-		{
-			get => _data[2] > 0;
-			set => _data[2] = value ? 1 : 0;
-		}
-
-		public int ATK
-		{
-			get => _data[3];
-			set => _data[3] = value;
-		}
-
-		public int Health
-		{
-			get => _data[4];
-			set => _data[4] = value;
-		}
-
-		public int Charge
-		{
-			get => _data[5];
-			set => _data[5] = value;
-		}
-
-		public bool Taunt
-		{
-			get => _data[6] > 0;
-			set => _data[6] = value ? 1 : 0;
-		}
-
-		public bool Lifesteal
-		{
-			get => _data[7] > 0;
-			set => _data[7] = value ? 1 : 0;
-		}
-
-		public bool Rush
-		{
-			get => _data[8] > 0;
-			set => _data[8] = value ? 1 : 0;
-		}
-
-		public bool CantAttack
-		{
-			get => _data[9] > 0;
-			set => _data[9] = value ? 1 : 0;
-		}
-
-		// Only for Hero entities
-		public bool CannotAttackHeroes
-		{
-			get
+			public int Apply(int c)
 			{
-				if (Type != CardType.HERO)
-					return false;
-				return _data[4] > 0;
+				return _func(c);
 			}
+		}
+
+		private int ATK;
+		private int HEALTH;
+		private int COST;
+		private int CHARGE;
+		private int WINDFURY;
+		private int IMMUNE;
+		private int LIFESTEAL;
+		private int CANT_ATTACK;
+		private int CANT_BE_TARGETED_BY_SPELLS;
+		private int CARD_COST_HEALTH;
+		private int RUSH;
+		private int ECHO;
+		private int CANTATTACKHEROES;
+
+		private List<CostEffect> _costEffects;
+		private AdaptiveCostEffect _adaptiveCostEffect;
+
+		public AuraEffects(IEntity owner)
+		{
+			Owner = owner;
+			if (owner is IPlayable)
+				COST = owner.Card[GameTag.COST];
+		}
+
+		private AuraEffects(IEntity owner, AuraEffects other)
+		{
+			Owner = owner;
+			Checker = Checker;
+			_costEffects = other._costEffects?.Count > 0 ? new List<CostEffect>(other._costEffects) : null;
+			COST = other.COST;
+			CANT_BE_TARGETED_BY_SPELLS = other.CANT_BE_TARGETED_BY_SPELLS;
+			IMMUNE = other.IMMUNE;
+			ATK = other.ATK;
+			CANTATTACKHEROES = other.CANTATTACKHEROES;
+			if (!(owner is Minion)) return;
+			HEALTH = other.HEALTH;
+			CHARGE = other.CHARGE;
+			WINDFURY = other.WINDFURY;
+			LIFESTEAL = other.LIFESTEAL;
+			CANT_ATTACK = other.CANT_ATTACK;
+			CARD_COST_HEALTH = other.CARD_COST_HEALTH;
+			RUSH = other.RUSH;
+			ECHO = other.ECHO;
+		}
+
+		public IEntity Owner { get; private set; }
+
+		public AdaptiveCostEffect AdaptiveCostEffect
+		{
+			get => _adaptiveCostEffect;
 			set
 			{
-				if (Type != CardType.HERO)
-					throw new NotImplementedException();
-				_data[4] = value ? 1 : 0;
+				_adaptiveCostEffect = value;
+				Checker = true;
 			}
 		}
+		public bool Checker { get; set; }
 
-		public int Immune
-		{
-			get
-			{
-				if (Type == CardType.HERO)
-					return _data[5];
-				if (Type == CardType.WEAPON)
-					return _data[2];
-
-				return 0;
-			}
-			set
-			{
-				if (Type == CardType.HERO)
-					_data[5] = value;
-				else if (Type == CardType.WEAPON)
-					_data[2] = value;
-				else
-					throw new NotImplementedException();
-			}
-		}
-
-		public int this[in GameTag t]
+		public int this[GameTag t]
 		{
 			get
 			{
 				switch (t)
 				{
-					case GameTag.ATK when Type != CardType.MINION:
-						return 0;
 					case GameTag.ATK:
 						return ATK;
 					case GameTag.HEALTH:
-						return Health;
-					//case GameTag.COST:
-					//	//return GetCost() - ((Entity)Owner)._data[GameTag.COST];
-					//	return GetCost() - Owner.GetNativeGameTag(GameTag.COST);
+						return HEALTH;
+					case GameTag.COST:
+						return GetCost() - ((Entity)Owner)._data[GameTag.COST];
 					case GameTag.CHARGE:
-						return Charge > 0 ? 1 : 0;
+						return CHARGE > 0 ? 1 : 0;
+					case GameTag.WINDFURY:
+						return WINDFURY > 0 ? 1 : 0;
 					case GameTag.IMMUNE:
-						return Immune;
-					case GameTag.LIFESTEAL when Type == CardType.MINION:
-						return Lifesteal ? 1 : 0;
+						return IMMUNE;
+					case GameTag.LIFESTEAL:
+						return LIFESTEAL;
 					//case GameTag.CANT_ATTACK:
 					//	return CANT_ATTACK;
 					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
 					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
-						return CantBeTargetedBySpells ? 1 : 0;
+						return CANT_BE_TARGETED_BY_SPELLS >= 1 ? 1 : 0;
 					case GameTag.CARD_COSTS_HEALTH:
-						return CardCostHealth ? 1 : 0;
+						return CARD_COST_HEALTH;
 					case GameTag.RUSH:
-						return Rush ? 1 : 0;
+						return RUSH > 0 ? 1 : 0;
 					case GameTag.ECHO:
-						return Echo ? 1 : 0;
+						return ECHO > 0 ? 1 : 0;
 					case GameTag.CANNOT_ATTACK_HEROES:
-						return CannotAttackHeroes ? 1 : 0;
+						return CANTATTACKHEROES;
 					default:
 						return 0;
 				}
@@ -228,38 +147,55 @@ namespace SabberStoneCore.Enchants
 						ATK = value;
 						return;
 					case GameTag.HEALTH:
-						Health = value;
+						HEALTH = value;
 						return;
 					case GameTag.CHARGE:
-						Charge += value;
+						CHARGE = value;
+						if (value > 0 && Owner[GameTag.EXHAUSTED] == 1 && Owner[GameTag.NUM_ATTACKS_THIS_TURN] < 1)
+							Owner[GameTag.EXHAUSTED] = 0;
+						if (((Minion)Owner).AttackableByRush)
+							Owner[GameTag.ATTACKABLE_BY_RUSH] = 0;
+						return;
+					case GameTag.COST:
+						COST = value;
+						return;
+					case GameTag.WINDFURY:
+						WINDFURY = value;
+						if (value > 0 && Owner[GameTag.NUM_ATTACKS_THIS_TURN] == 1)
+							Owner[GameTag.EXHAUSTED] = 0;
 						return;
 					case GameTag.HEALTH_MINIMUM:
-						//Owner[GameTag.HEALTH_MINIMUM] = value;
+						Owner[GameTag.HEALTH_MINIMUM] = value;
 						return;
 					case GameTag.IMMUNE:
-						Immune = value;
+						IMMUNE = value;
 						return;
 					case GameTag.LIFESTEAL:
-						Lifesteal = value > 0;
+						LIFESTEAL = value;
 						return;
 					//case GameTag.CANT_ATTACK:
 					//	CANT_ATTACK = value;
 					//	return;
 					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
 					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
-						CantBeTargetedBySpells = value > 0;
+						CANT_BE_TARGETED_BY_SPELLS = value;
 						return;
 					case GameTag.CARD_COSTS_HEALTH:
-						CardCostHealth = value > 0;
+						CARD_COST_HEALTH = value;
 						return;
 					case GameTag.RUSH:
-						Rush = value > 0;
+						RUSH = value;
+						if (value > 0 && Owner[GameTag.EXHAUSTED] == 1 && Owner[GameTag.NUM_ATTACKS_THIS_TURN] == 0)
+						{
+							Owner[GameTag.EXHAUSTED] = 0;
+							Owner[GameTag.ATTACKABLE_BY_RUSH] = 1;
+						}
 						return;
 					case GameTag.ECHO:
-						Echo = value > 0;
+						ECHO = value;
 						return;
 					case GameTag.CANNOT_ATTACK_HEROES:
-						CannotAttackHeroes = value > 0;
+						CANTATTACKHEROES = value;
 						return;
 					default:
 						return;
@@ -267,18 +203,108 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
-		public AuraEffects Clone()
+		/// <summary>
+		/// Add a new Cost related effect to the owner.
+		/// </summary>
+		public void AddCostAura(Effect e)
 		{
-			return new AuraEffects(this);
+			Checker = true;
+
+			if (_costEffects == null)
+				_costEffects = new List<CostEffect>{ new CostEffect(e) };
+			else
+				_costEffects.Add(new CostEffect(e));
+		}
+
+		/// <summary>
+		/// Remove a Cost related effect from the owner.
+		/// </summary>
+		public void RemoveCostAura(Effect e)
+		{
+			if (_costEffects == null)
+				return;
+			Checker = true;
+			for (int i = 0; i < _costEffects.Count; i++)
+			{
+				if (!_costEffects[i].Effect.Equals(e)) continue;
+
+				_costEffects.Remove(_costEffects[i]);
+				return;
+			}
+
+			throw new Exception($"Can't remove cost aura from {Owner}. Zone: {Owner.Zone.Type}, IsDead?: {Owner[GameTag.TO_BE_DESTROYED] == 1}");
+		}
+
+		/// <summary>
+		/// Gets the estimated Cost of the owner.
+		/// </summary>
+		/// <returns></returns>
+		public int GetCost()
+		{
+			if (!Checker) return COST;
+
+			// Obtain the Card Cost
+			if (!Owner.NativeTags.TryGetValue(GameTag.COST, out int c))
+				Owner.Card.Tags.TryGetValue(GameTag.COST, out c);
+			// Apply Cost effects
+			for (int i = 0; i < _costEffects?.Count; i++)
+				c = _costEffects[i].Apply(c);
+			COST = c;
+			Checker = false;
+
+			// Lastly apply Adaptive Cost effect (Giants + Naga Sea Witch)
+			if (AdaptiveCostEffect != null)
+				COST = AdaptiveCostEffect.Apply(COST);
+
+			if (COST < 0)
+				COST = 0;
+			return COST;
+		}
+
+		public void ResetCost()
+		{
+			if (_costEffects == null && AdaptiveCostEffect == null && !Owner.NativeTags.ContainsKey(GameTag.COST)) return;
+
+			_costEffects = null;
+			Owner.NativeTags.Remove(GameTag.COST);
+			AdaptiveCostEffect?.Remove();
+			COST = Owner.Card[GameTag.COST];
+			if (Owner.Game.History)
+				Owner.Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Owner.Id, GameTag.COST, COST));
+		}
+
+		public AuraEffects Clone(IEntity clone)
+		{
+			return new AuraEffects(clone, this);
 		}
 
 		public string Hash()
 		{
 			var hash = new StringBuilder();
 			hash.Append("[AE:");
-			int[] data = _data;
-			for (int i = 0; i < data.Length; i++)
-				hash.Append(data[i]);
+			hash.Append($"{{COST,{COST}}}");
+			if (ATK > 0)
+				hash.Append($"{{ATK,{ATK}}}");
+			if (HEALTH > 0)
+				hash.Append($"{{HEALTH,{HEALTH}}}");
+			if (CHARGE > 0)
+				hash.Append($"{{CHARGE,{CHARGE}}}");
+			if (WINDFURY > 0)
+				hash.Append($"{{WINDFURY,{WINDFURY}}}");
+			if (LIFESTEAL > 0)
+				hash.Append($"{{LIFESTEAL,{LIFESTEAL}}}");
+			if (IMMUNE > 0)
+				hash.Append($"{{IMMUNE,{IMMUNE}}}");
+			if (CANT_BE_TARGETED_BY_SPELLS > 0)
+				hash.Append($"{{CANT_BE_TARGETED_BY_SPELLS,{CANT_BE_TARGETED_BY_SPELLS}}}");
+			if (CARD_COST_HEALTH > 0)
+				hash.Append($"{{CARD_COST_HEALTH,{CARD_COST_HEALTH}}}");
+			if (RUSH > 0)
+				hash.Append($"{{RUSH,{RUSH}}}");
+			if (ECHO > 0)
+				hash.Append($"{{ECHO,{ECHO}}}");
+			if (CANTATTACKHEROES == 1)
+				hash.Append($"{{CANNOT_ATTACK_HEROES,{CANTATTACKHEROES}");
 			hash.Append("]");
 			return hash.ToString();
 		}
@@ -298,7 +324,6 @@ namespace SabberStoneCore.Enchants
 		private int _spellsCostHealth;
 		private int _extraEndTurnEffect;
 		private int _heroPowerDisabled;
-		private int _allHealingDouble;
 
 		public int this[GameTag t]
 		{
@@ -313,20 +338,18 @@ namespace SabberStoneCore.Enchants
 						return _spellPowerDouble;
 					case GameTag.HERO_POWER_DOUBLE:
 						return _heroPowerDouble;
-					case GameTag.HEALING_DOES_DAMAGE:
+					case GameTag.RESTORE_TO_DAMAGE:
 						return _restoreToDamage >= 1 ? 1 : 0;
 					case GameTag.CHOOSE_BOTH:
 						return _chooseBoth >= 1 ? 1 : 0;
 					case GameTag.SPELLS_COST_HEALTH:
 						return _spellsCostHealth >= 1 ? 1 : 0;
-					case GameTag.EXTRA_BATTLECRIES_BASE:
+					case GameTag.EXTRA_BATTLECRY:
 						return _extraBattecry;
 					case GameTag.EXTRA_END_TURN_EFFECT:
 						return _extraEndTurnEffect;
 					case GameTag.HERO_POWER_DISABLED:
 						return _heroPowerDisabled >= 1 ? 1 : 0;
-					case GameTag.ALL_HEALING_DOUBLE:
-						return _allHealingDouble;
 					default:
 						return 0;
 				}
@@ -345,7 +368,7 @@ namespace SabberStoneCore.Enchants
 					case GameTag.HERO_POWER_DOUBLE:
 						_heroPowerDouble = value;
 						return;
-					case GameTag.HEALING_DOES_DAMAGE:
+					case GameTag.RESTORE_TO_DAMAGE:
 						_restoreToDamage = value;
 						return;
 					case GameTag.CHOOSE_BOTH:
@@ -354,7 +377,7 @@ namespace SabberStoneCore.Enchants
 					case GameTag.SPELLS_COST_HEALTH:
 						_spellsCostHealth = value;
 						return;
-					case GameTag.EXTRA_BATTLECRIES_BASE:
+					case GameTag.EXTRA_BATTLECRY:
 						_extraBattecry = value;
 						return;
 					case GameTag.EXTRA_END_TURN_EFFECT:
@@ -362,9 +385,6 @@ namespace SabberStoneCore.Enchants
 						return;
 					case GameTag.HERO_POWER_DISABLED:
 						_heroPowerDisabled = value;
-						return;
-					case GameTag.ALL_HEALING_DOUBLE:
-						_allHealingDouble = value;
 						return;
 					default:
 						return;
@@ -389,7 +409,6 @@ namespace SabberStoneCore.Enchants
 			sb.Append(_spellsCostHealth);
 			sb.Append(_extraEndTurnEffect);
 			sb.Append(_heroPowerDisabled);
-			sb.Append(_allHealingDouble);
 			sb.Append("]");
 			return sb.ToString();
 		}

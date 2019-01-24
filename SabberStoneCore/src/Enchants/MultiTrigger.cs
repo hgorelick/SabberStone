@@ -1,31 +1,18 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {
-    public class MultiTrigger : Trigger, IReadOnlyList<Trigger>
+	public class MultiTrigger : Trigger, IReadOnlyList<Trigger>
     {
 		private readonly IReadOnlyList<Trigger> _triggers;
 
 		public MultiTrigger(params Trigger[] triggers) : base(TriggerType.MULTITRIGGER)
 	    {
-			//for (int i = 0; i < triggers.Length; i++)
-			//	triggers[i].IsAncillaryTrigger = true;
+			for (int i = 0; i < triggers.Length; i++)
+				triggers[i].IsAncillaryTrigger = true;
 		    _triggers = triggers;
 	    }
 
@@ -34,17 +21,17 @@ namespace SabberStoneCore.Enchants
 			_triggers = triggers;
 	    }
 
-		public override Trigger Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY, bool cloning = false, bool asAncillary = false)
+		public override Trigger Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY, bool cloning = false)
 		{
 			if (source.ActivatedTrigger != null && !IsAncillaryTrigger)
-				throw new Exceptions.EntityException($"{source} already has an activated trigger.");
+				throw new Exceptions.EntityException($"{source} already has an activatd trigger.");
 
 			Trigger[] triggers = new Trigger[_triggers.Count];
 
 			bool flag = false;
-			for (int i = 0; i < triggers.Length; i++)
+			for (int i = 0; i < _triggers.Count; i++)
 			{
-				triggers[i] = _triggers[i]?.Activate(source, activation, cloning, true);
+				triggers[i] = _triggers[i]?.Activate(source, activation, cloning);
 				if (triggers[i] != null)
 					flag = true;
 			}
