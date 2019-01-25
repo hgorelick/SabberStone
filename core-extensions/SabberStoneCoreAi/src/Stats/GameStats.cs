@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Xml.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+//using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Diagnostics;
 using SabberStoneCore.Enums;
@@ -137,18 +138,16 @@ namespace SabberStoneCoreAi.Stats
 			string path = dir + newfile + ".stats";
 			int count = 1;
 
-			while (File.Exists(path))// && File.GetLastWriteTime(path) + TimeSpan.FromMinutes(10) < DateTime.Now)
+			while (File.Exists(path))
 			{
 				newfile += count++.ToString();
 				path = dir + newfile + ".stats";
 			}
 
-			using (var sw = new StreamWriter(File.Open(path, FileMode.Append)))
-			{
-				var serializer = new XmlSerializer(typeof(PlayerStats));
-				serializer.Serialize(sw, Hero1);
-				serializer.Serialize(sw, Hero2);
-			}
+			FileStream f = File.Open(path, FileMode.Append);
+			var bf = new BinaryFormatter();
+			bf.Serialize(f, Hero1);
+			bf.Serialize(f, Hero2);
 		}
 	}
 }

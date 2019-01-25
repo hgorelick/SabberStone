@@ -320,14 +320,14 @@ namespace SabberStoneCore.Model
 			if (History)
 				PowerHistory.Add(PowerHistoryBuilder.CreateGame(this, _players));
 
-			//if (setupHeroes)
-			//{
-			//	_players[0].AddHeroAndPower(gameConfig.Player1HeroCard ?? Cards.HeroCard(gameConfig.Player1HeroClass));
-			//	_players[0].BaseClass = _players[0].HeroClass;
+			if (setupHeroes)
+			{
+				_players[0].AddHeroAndPower(gameConfig.Player1HeroCard ?? Cards.HeroCard(gameConfig.Player1HeroClass));
+				_players[0].BaseClass = _players[0].HeroClass;
 
-			//	_players[1].AddHeroAndPower(gameConfig.Player2HeroCard ?? Cards.HeroCard(gameConfig.Player2HeroClass));
-			//	_players[1].BaseClass = _players[1].HeroClass;
-			//}
+				_players[1].AddHeroAndPower(gameConfig.Player2HeroCard ?? Cards.HeroCard(gameConfig.Player2HeroClass));
+				_players[1].BaseClass = _players[1].HeroClass;
+			}
 
 			TaskQueue = new TaskQueue(this);
 
@@ -341,21 +341,21 @@ namespace SabberStoneCore.Model
 			}
 
 			// setting up the decks ...
-			//_gameConfig.Player1Deck?.ForEach(p =>
-			//{
-			//	Player1.DeckCards.Add(p);
-			//	FromCard(Player1, p, null, Player1.DeckZone);
-			//});
-			//_gameConfig.Player2Deck?.ForEach(p =>
-			//{
-			//	Player2.DeckCards.Add(p);
-			//	FromCard(Player2, p, null, Player2.DeckZone);
-			//});
-			//if (_gameConfig.FillDecks)
-			//{
-			//	Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably ? GameConfig.UnPredictableCardIDs : null);
-			//	Player2.DeckZone.Fill(_gameConfig.FillDecksPredictably ? GameConfig.UnPredictableCardIDs : null);
-			//}
+			_gameConfig.Player1Deck?.ForEach(p =>
+			{
+				Player1.Deck.Add(p);
+				FromCard(Player1, p, null, Player1.DeckZone);
+			});
+			_gameConfig.Player2Deck?.ForEach(p =>
+			{
+				Player2.Deck.Add(p);
+				FromCard(Player2, p, null, Player2.DeckZone);
+			});
+			if (_gameConfig.FillDecks)
+			{
+				Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably ? GameConfig.UnPredictableCardIDs : null);
+				Player2.DeckZone.Fill(_gameConfig.FillDecksPredictably ? GameConfig.UnPredictableCardIDs : null);
+			}
 		}
 
 		/// <summary> A copy constructor. </summary>
@@ -391,6 +391,10 @@ namespace SabberStoneCore.Model
 			TaskQueue = new TaskQueue(this);
 
 			SetIndexer(game._idIndex, game._oopIndex);
+
+			bool check = true;
+			if (IdEntityDic.Count < 10)
+				check = false;
 		}
 
 		/// <summary>Method which is called when an entity wants to notify that one of it's tags changed value.</summary>
@@ -1216,15 +1220,16 @@ namespace SabberStoneCore.Model
 		public string FullPrint()
 		{
 			var str = new StringBuilder();
-			str.AppendLine(Player1.HandZone.FullPrint());
-			str.AppendLine(Player1.Hero.FullPrint());
-			str.AppendLine(Player1.BoardZone.FullPrint());
-			str.AppendLine(Player2.BoardZone.FullPrint());
 			str.AppendLine(Player2.Hero.FullPrint());
 			str.AppendLine(Player2.HandZone.FullPrint());
+			str.AppendLine(Player2.BoardZone.FullPrint());
+			str.AppendLine(Player1.BoardZone.FullPrint());
+			str.AppendLine(Player1.HandZone.FullPrint());
+			str.AppendLine(Player1.Hero.FullPrint());
+			str.Append("\n");
 			return str.ToString();
 		}
-		
+
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 

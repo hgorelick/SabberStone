@@ -188,7 +188,7 @@ namespace SabberStoneCoreAi
 				// Next Turn
 				Assert.Equal(blade.Cost, blade.Card.Cost);
 				Assert.Equal(scroll.Cost, scroll.Card.Cost);
-				if (zerus.AuraEffects.AdaptiveCostEffect != null)
+				if (zerus.AuraEffects != null)
 					Assert.Equal(zerus.Cost, zerus.Card.Cost);
 
 				game.Process(EndTurnTask.Any(game.CurrentPlayer));
@@ -197,7 +197,7 @@ namespace SabberStoneCoreAi
 				// Next Turn
 				Assert.Equal(blade.Cost, blade.Card.Cost);
 				Assert.Equal(scroll.Cost, scroll.Card.Cost);
-				if (zerus.AuraEffects.AdaptiveCostEffect != null)
+				if (zerus.AuraEffects != null)
 					Assert.Equal(zerus.Cost, zerus.Card.Cost);
 				Assert.Equal(zerus.Cost, zerus.Card.Cost);
 			}

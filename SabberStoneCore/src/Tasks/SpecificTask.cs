@@ -222,7 +222,7 @@ namespace SabberStoneCore.Tasks
 							var opClassCards = new List<Card>();
 							_glimmerrootMemory2 = new HashSet<int>();
 							_glimmerrootMemory3 = Cards.FormatTypeClassCards(controller.Game.FormatType)[opponent.BaseClass].Where(c => c.Class == opponent.BaseClass).ToList().AsReadOnly();
-							foreach (Card card in opponent.DeckCards)
+							foreach (Card card in opponent.Deck)
 							{
 								if (card.Class != opponent.BaseClass)
 									continue;

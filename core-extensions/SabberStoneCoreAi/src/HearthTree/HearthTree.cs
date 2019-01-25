@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCoreAi.Utils;
 
@@ -178,15 +178,19 @@ namespace SabberStoneCoreAi.HearthNodes
 
 			if (state.PossibleActions.Count == 0 && state.Children.Count > 0 && !state.IsEndTurn)
 			{
-				if (state.Game.CurrentOpponent.BoardZone.IsEmpty && state.Game.CurrentOpponent.SecretZone.IsEmpty && state.Children.Count > 1)
+				if (state.Game.CurrentOpponent.BoardZone.IsEmpty
+					&& state.Game.CurrentOpponent.SecretZone.IsEmpty
+					&& state.Children.Count > 1)
+				{
 					endTurn = state.Children.Pop(c => c.IsEndTurn);
+				}
 
 				HearthNode selection = state.ScoreAndSelect();
 
 				if (endTurn != null)
 					state.AddChild(endTurn);
 
-				return Select(selection);//, iterations);
+				return Select(selection);
 			}
 			return state;
 		}
@@ -331,7 +335,7 @@ namespace SabberStoneCoreAi.HearthNodes
 					obvious = state.PossibleActions[0];
 			}
 
-			if (obvious != null)
+			else
 				state.BirthPossibility(obvious);
 
 			return obvious;

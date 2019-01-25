@@ -278,7 +278,7 @@ namespace SabberStoneCoreAi.Agent
 				}
 				while (OpponentSecretZone.Contains(secret));
 
-				OpponentSecretZone.Add(secret as IPlayable);
+				OpponentSecretZone.Add(new Spell(BlindGame.CurrentOpponent, secret, secret.Tags));
 			}
 		}
 
@@ -302,7 +302,7 @@ namespace SabberStoneCoreAi.Agent
 				}
 				while (OpponentSecretZone.Contains(secret));
 
-				OpponentSecretZone.Add(secret as IPlayable);
+				OpponentSecretZone.Add(new Spell(BlindGame.CurrentOpponent, secret, secret.Tags));
 			}
 		}
 

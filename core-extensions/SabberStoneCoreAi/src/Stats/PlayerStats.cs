@@ -22,9 +22,16 @@ namespace SabberStoneCoreAi.Stats
 			FullStats = new KeyValuePair<string, List<dynamic>>(Name, new List<dynamic>());
 		}
 
+		private PlayerStats() { }
+
 		internal void SaveResults(int turns, int health, int armor, double gameTime)
 		{
-			Stats[GameNumber].Add("NumTurns", turns);
+			if (!Stats.ContainsKey(GameNumber))
+				Stats.Add(GameNumber, new stats { { "NumTurns", turns } });
+
+			else
+				Stats[GameNumber].Add("NumTurns", turns);
+
 			Stats[GameNumber].Add("FinalScore", new Tuple<int, int>(health, armor));
 			Stats[GameNumber].Add("GameTime", gameTime);
 			GameNumber++;

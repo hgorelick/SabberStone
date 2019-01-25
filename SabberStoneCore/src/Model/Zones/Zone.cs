@@ -142,14 +142,17 @@ namespace SabberStoneCore.Model.Zones
 		public string FullPrint()
 		{
 			var str = new StringBuilder();
-			str.Append($"{this}|");
-			foreach (T p in this)
+			str.Append("\n");
+			foreach (T card in this)
 			{
-				var m = p as Minion;
-				var w = p as Weapon;
-				string mStr = m != null ? $"[{m.AttackDamage}/{m.Health}]" : (w != null ? $"[{w.AttackDamage}/{w.Durability}]" : "");
-				str.Append($"[P{p.ZonePosition}]{mStr}[C{p.Cost}]{p}|");
+				var minion = card as Minion;
+				var weapon = card as Weapon;
+				string cStr = minion != null ? $"[{minion.AttackDamage}/{minion.Health}]" : (weapon != null ? $"[{weapon.AttackDamage}/{weapon.Durability}]" : "");
+				str.Append($"[{card.Cost}]{card.Card.Name}{cStr} | ");
 			}
+			//str.Append($"[ENCH {Enchants.Count}]");
+			//str.Append($"[TRIG {Triggers.Count}]");
+			str.Append("\n");
 			return str.ToString();
 		}
 

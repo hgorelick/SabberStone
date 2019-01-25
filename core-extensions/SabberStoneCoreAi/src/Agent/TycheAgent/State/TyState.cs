@@ -1,7 +1,7 @@
 ﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 using System;
 using System.Text.RegularExpressions;
 using SabberStoneCoreAi.POGamespace;

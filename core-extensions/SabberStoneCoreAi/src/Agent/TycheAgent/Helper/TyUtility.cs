@@ -1,6 +1,6 @@
 ﻿using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 using System;
 using System.Collections.Generic;
 

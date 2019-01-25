@@ -1,5 +1,5 @@
 ﻿using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 using System;
 
 namespace SabberStoneCoreAi.Tyche2

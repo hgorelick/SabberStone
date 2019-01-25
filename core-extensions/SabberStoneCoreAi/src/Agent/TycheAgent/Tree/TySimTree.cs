@@ -1,4 +1,4 @@
-﻿using SabberStoneCore.Tasks;
+﻿using SabberStoneCore.Tasks.PlayerTasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;

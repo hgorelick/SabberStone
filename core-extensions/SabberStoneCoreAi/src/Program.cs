@@ -3,7 +3,7 @@ using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCoreAi.POGamespace;
 using SabberStoneCoreAi.Agent;
-using SabberStoneCoreAi.Agent.ExampleAgents;
+//using SabberStoneCoreAi.Agent.ExampleAgents;
 using SabberStoneCoreAi.Tyche2;
 using SabberStoneCoreAi.Stats;
 using SabberStoneCore.Model;

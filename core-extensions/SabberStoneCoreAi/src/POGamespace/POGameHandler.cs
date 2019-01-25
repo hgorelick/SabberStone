@@ -5,7 +5,7 @@ using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCoreAi.Agent;
 using SabberStoneCoreAi.HearthNodes;
 using SabberStoneCoreAi.Utils;
@@ -142,7 +142,7 @@ namespace SabberStoneCoreAi.POGamespace
 				if (!PlayGame(i, addToGameStats))
 					i -= 1;		// invalid _game
 			}
-			gameStats.FinalizeResults("GameStats_MCTSvsTyche" + DateTime.Now.ToString().Replace('/', '_'));
+			gameStats.FinalizeResults("GameStats_MCTSvsTyche" + DateTime.Now.ToString().Replace('/', '_').Replace(':', '_'));
 		}
 
 		public GameStats getGameStats() { return gameStats; }

@@ -86,7 +86,7 @@ namespace SabberStoneCore.Model.Zones
 				if (this.Count(c => c.Card == card) >= card.MaxAllowedInDeck)
 					continue;
 
-				Controller.DeckCards.Add(card);
+				Controller.Deck.Add(card);
 
 				IPlayable entity = Entity.FromCard(Controller, card);
 				Add(entity, 0);

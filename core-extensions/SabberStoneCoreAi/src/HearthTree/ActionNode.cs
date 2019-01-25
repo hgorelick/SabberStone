@@ -1,5 +1,5 @@
 ﻿using SabberStoneCore.Model;
-using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCoreAi.Utils;
 
 namespace SabberStoneCoreAi.HearthNodes

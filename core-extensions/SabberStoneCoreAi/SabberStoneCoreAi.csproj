@@ -5,6 +5,12 @@
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="src\Meta\Decks.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.4.1" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\SabberStoneCore\SabberStoneCore.csproj" />
   </ItemGroup>
 </Project>

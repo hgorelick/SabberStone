@@ -6,7 +6,7 @@ using System.Linq;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCoreAi.HearthNodes;
@@ -122,7 +122,7 @@ namespace SabberStoneCoreAi.Utils
 		/// <returns></returns>
 		public static bool AttackOnly(this HearthNode h)
 		{
-			return h.PossibleActions.TakeWhile(p => !p.IsEndTurn).ToList().All(p =>
+			return h.PossibleActions.SkipWhile(p => p.IsEndTurn).ToList().All(p =>
 			   (p.Action.PlayerTaskType == PlayerTaskType.MINION_ATTACK || p.Action.PlayerTaskType == PlayerTaskType.HERO_ATTACK)
 				&& h.Game.CurrentOpponent.BoardZone.IsEmpty
 				&& h.Game.CurrentOpponent.SecretZone.IsEmpty);
@@ -473,7 +473,7 @@ namespace SabberStoneCoreAi.Utils
 				if (m.Poisonous)
 					str.AppendLine($"{sevenTabs}\"poisonous\": \"true\",");
 
-				if (m.HasRush)
+				if (m.IsRush)
 					str.AppendLine($"{sevenTabs}\"rush\": \"true\",");
 
 				if (m.HasStealth)
@@ -496,7 +496,7 @@ namespace SabberStoneCoreAi.Utils
 		{
 			var str = new StringBuilder();
 
-			bool hasExtra = w.HasLifeSteal || w.HasWindfury || w.Poisonous;
+			bool hasExtra = w.HasLifeSteal || w.IsWindfury || w.Poisonous;
 
 			str.AppendLine($"{fiveTabs}\"weapon\": {{");
 			str.AppendLine($"{sixTabs}\"name\": \"{w.Card.Name}\",");
@@ -508,14 +508,14 @@ namespace SabberStoneCoreAi.Utils
 				int extras = 0;
 				if (w.HasLifeSteal)
 				{
-					extras += w.HasWindfury ? 1 : 0;
+					extras += w.IsWindfury ? 1 : 0;
 					str.AppendLine($"{sixTabs}\"lifesteal\": \"true\"{(extras > 0 ? "," : "")}");
 				}
 
 				if (w.Poisonous)
 					str.AppendLine($"{sixTabs}\"poisonous\": \"true\"{(extras == 1 ? "," : "")}");
 
-				if (w.HasWindfury)
+				if (w.IsWindfury)
 					str.AppendLine($"{sixTabs}\"windfury\": \"true\"");
 			}
 
@@ -848,11 +848,11 @@ namespace SabberStoneCoreAi.Utils
 
 		public static bool IsEqual(this PlayerTask a, PlayerTask other)
 		{
-			return a.State == other.State && a.PlayerTaskType == other.PlayerTaskType
+			return a.Game.State == other.Game.State && a.PlayerTaskType == other.PlayerTaskType
 				&& a.Controller.PlayerId == other.Controller.PlayerId
 				&& a.Source?.Card == other.Source?.Card
 				&& a.Target?.Card == other.Target?.Card
-				&& a.ZonePosition == other.ZonePosition
+				//&& a. == other.ZonePosition
 				&& a.ChooseOne == other.ChooseOne
 				&& a.SkipPrePhase == other.SkipPrePhase;
 		}

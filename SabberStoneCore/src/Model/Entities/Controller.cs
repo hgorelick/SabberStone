@@ -93,7 +93,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Initial cards that are in the deck of the controller.
 		/// </summary>
-		public List<Card> DeckCards { get; internal set; } = new List<Card>();
+		public Deck Deck { get; set; } = new Deck();
 
 		/// <summary>
 		/// Base class of the controller.
@@ -234,7 +234,7 @@ namespace SabberStoneCore.Model.Entities
 			SecretZone = controller.SecretZone.Clone(this);
 			controller.BoardZone.Stamp(BoardZone);
 
-			DeckCards = controller.DeckCards;
+			Deck = controller.Deck;
 			BaseClass = controller.BaseClass;
 
 			ControlledZones = new ControlledZones(this);

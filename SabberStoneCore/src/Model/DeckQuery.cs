@@ -15,7 +15,6 @@ namespace SabberStoneCore.HearthQuery
 		const string connection = @"DataSource=C:\Users\hgore\SabberStone\SabberStoneCore\resources\Data\hearth_decks.db;";
 		DataTable Deck = new DataTable();
 		DataTable DeckNames = new DataTable();
-		DataTable DeckCards = new DataTable();
 		#endregion
 
 		CardClass _heroClass { get; set; }
@@ -108,16 +107,16 @@ namespace SabberStoneCore.HearthQuery
 				foreach (string name in names)
 				{
 					query = $"select card_name from deck_cards where deck_name = '{name}';";
-					DeckCards = new DataTable();
+					Deck = new DataTable();
 
 					var cmd = new SQLiteCommand(query, conn);
 					using (var adapter = new SQLiteDataAdapter { SelectCommand = cmd })
 					{
-						adapter.Fill(DeckCards);
+						adapter.Fill(Deck);
 					}
 
 					var cards = new List<string>();
-					foreach (DataRow row in DeckCards.Rows)
+					foreach (DataRow row in Deck.Rows)
 					{
 						string card = row.ItemArray[0].ToString();
 						if (psf.Contains(c => c.Name == card))

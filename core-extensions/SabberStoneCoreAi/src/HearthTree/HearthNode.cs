@@ -5,7 +5,7 @@ using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Kettle;
 using SabberStoneCoreAi.Utils;
 
@@ -75,6 +75,11 @@ namespace SabberStoneCoreAi.HearthNodes
 			_root = root;
 			_parent = parent;
 			_action = action;
+
+			bool check = true;
+			if (game.Player1.Hero.Card.Name == "Scourgelord Garrosh")
+				check = false;
+
 			_game = game.Clone();
 			_logging = Game.Logging;
 			//_powerHistory = new PowerHistory();
@@ -332,7 +337,7 @@ namespace SabberStoneCoreAi.HearthNodes
 		internal static double ScoreSpecial(this HearthNode h, double score)
 		{
 			if (h.Action.Source?.Card.Type == CardType.HERO)
-				score *= 1.05;
+				score *= 1.15;
 
 			else if (h.Parent.Game.CurrentPlayer.BoardZone.Sum(m => m.AttackDamage) >= h.Parent.Game.CurrentOpponent.Hero.Health - 5
 					&& h.Action.PlayerTaskType == PlayerTaskType.MINION_ATTACK && h.Action.Target?.Card.Type == CardType.HERO)
@@ -347,7 +352,7 @@ namespace SabberStoneCoreAi.HearthNodes
 					if (h.Action.HasSource && h.Action.PlayerTaskType == PlayerTaskType.PLAY_CARD)
 						if (h.Action.Source.NativeTags.Contains(kv => kv.Key == GameTag.DISPLAYED_CREATOR
 																			&& kv.Value == quest.NativeTags[GameTag.ENTITY_ID]))
-							score *= 1.01;
+							score *= 1.05;
 				}
 			}
 			return score;

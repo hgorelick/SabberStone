@@ -38,6 +38,8 @@ namespace SabberStoneCore.Model.Entities
 					_list = newlist;
 				}
 
+				try { list[id] = list[id]; }
+				catch (Exception) { }
 				if (list[id] == null)
 					_count++;
 

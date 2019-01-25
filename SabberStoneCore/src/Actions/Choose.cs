@@ -174,7 +174,7 @@ namespace SabberStoneCore.Actions
 						break;
 
 					case ChoiceAction.GLIMMERROOT:
-						if (c.Opponent.DeckCards.Select(p => p.Id).Contains(playable.Card.Id))
+						if (c.Opponent.Deck.Select(p => p.Id).Contains(playable.Card.Id))
 						{
 							if (RemoveFromZone(c, playable))
 								AddHandPhase.Invoke(c, playable);
