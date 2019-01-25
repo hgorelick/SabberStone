@@ -1,4 +1,17 @@
-﻿using System;
+﻿#region copyright
+// SabberStone, Hearthstone Simulator in C# .NET Core
+// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+//
+// SabberStone is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License.
+// SabberStone is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+#endregion
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -30,18 +43,18 @@ namespace SabberStonePowerLog
 		{
 			this.filePath = filePath;
 			this.fileName = fileName;
-			file = new StreamReader(File.Open(filePath + fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
+			this.file = new StreamReader(File.Open(filePath + fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
 		}
 
 		public List<PowerGame> Parse(bool createJsonFile, bool createCleanLog)
 		{
-			var powerGames = new List<PowerGame>();
+			List<PowerGame> powerGames = new List<PowerGame>();
 			PowerState currentPowerState = PowerState.Start;
 			PowerGame currentPowerGame = null;
 			PowerType currentPowerType = 0;
 			Dictionary<string, int> currentNameToIdDict;
 			PowerHistoryEntry currentPowerHistoryEntry = null;
-			var cleanLog = new StringBuilder();
+			StringBuilder cleanLog = new StringBuilder();
 
 			string line;
 			while ((line = file.ReadLine()) != null)
@@ -153,7 +166,7 @@ namespace SabberStonePowerLog
 			return new PowerHideEntity()
 			{
 				Name = match1.Groups[1].Value,
-				Id = Int32.Parse(match1.Groups[2].Value),
+				Id = int.Parse(match1.Groups[2].Value),
 				Zone = match1.Groups[3].Value,
 				ZonePos = match1.Groups[4].Value,
 				CardId = match1.Groups[5].Value,
@@ -196,12 +209,12 @@ namespace SabberStonePowerLog
 		private int GetIdFromEntity(string str, PowerGame powerGame)
 		{
 			int result;
-			if (!Int32.TryParse(str, out result))
+			if (!int.TryParse(str, out result))
 			{
 				Match match = idRgx.Match(str);
 				if (match.Success)
 				{
-					result = Int32.Parse(match.Groups[2].Value);
+					result = int.Parse(match.Groups[2].Value);
 				}
 				else
 				{
@@ -219,7 +232,7 @@ namespace SabberStonePowerLog
 				Console.WriteLine("fullEntityRgx unmatched: '" + str + "'");
 				return null;
 			}
-			int id = Int32.Parse(match.Groups[1].Value);
+			int id = int.Parse(match.Groups[1].Value);
 			string cardId = match.Groups[2].Value;
 
 			return new PowerFullEntity()
@@ -243,7 +256,7 @@ namespace SabberStonePowerLog
 			string value = match1.Groups[2].Value;
 			string entity = match2.Groups[2].Value;
 			int id;
-			if (!Int32.TryParse(entity, out id))
+			if (!int.TryParse(entity, out id))
 			{
 				if (powerGame.Game.Name == null)
 				{

@@ -1,4 +1,17 @@
-﻿using System.Collections.Generic;
+﻿#region copyright
+// SabberStone, Hearthstone Simulator in C# .NET Core
+// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+//
+// SabberStone is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License.
+// SabberStone is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+#endregion
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using SabberStoneCore.Config;
@@ -477,7 +490,8 @@ namespace SabberStoneCoreTest.CardSets
 					Cards.FromName("Mirror Entity"),
 				},
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
+				FillDecks = false,
+				Shuffle = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
@@ -546,7 +560,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			SabberStoneCore.Model.Entities.IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Nerubian Egg"));
+			var testCard = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Nerubian Egg"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			SabberStoneCore.Model.Entities.IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));

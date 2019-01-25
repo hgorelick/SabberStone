@@ -1,13 +1,26 @@
-﻿using System.Collections.Generic;
+﻿#region copyright
+// SabberStone, Hearthstone Simulator in C# .NET Core
+// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+//
+// SabberStone is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License.
+// SabberStone is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+#endregion
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
-using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCore.Kettle
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+	#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 {
 	//message AllOptions
 	//{
@@ -46,7 +59,7 @@ namespace SabberStoneCore.Kettle
 			return str.ToString();
 		}
 	}
-	
+
 	public class PowerOptionsBuilder
 	{
 		public static PowerAllOptions AllOptions(Game game, List<PlayerTask> list)
@@ -81,7 +94,7 @@ namespace SabberStoneCore.Kettle
 					var subOptions = playCards.Where(p => p.Source.Id == sourceId && p.ChooseOne == i).ToList();
 					if (subOptions.Any())
 					{
-						int refCardId = ((IPlayable)subOptions.First().Source).ChooseOnePlayables[i - 1].Id;
+						int refCardId = subOptions.First().Source.ChooseOnePlayables[i - 1].Id;
 						var refCardTargets = subOptions.Where(p => p.Target != null).Select(p => p.Target).ToList();
 						mainOption.SubOptions.Add(new PowerSubOption
 						{
@@ -144,7 +157,7 @@ namespace SabberStoneCore.Kettle
 			return result;
 		}
 	}
-	
+
 	//message Option
 	//{
 	//    enum Type
@@ -185,7 +198,7 @@ namespace SabberStoneCore.Kettle
 			return str.ToString();
 		}
 	}
-	
+
 	//message SubOption
 	//{
 	//    required int32 id = 1;

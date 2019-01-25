@@ -1,61 +1,91 @@
-﻿#region copyright
-// SabberStone, Hearthstone Simulator in C# .NET Core
-// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-//
-// SabberStone is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License.
-// SabberStone is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-#endregion
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Model;
 using SabberStoneCore.Enums;
 
-namespace SabberStoneCoreAi.Meta
+namespace SabberStoneCore.Meta
 {
 	public class Decks
 	{
+		public static Deck IceFireWarrior =>
+			new Deck(CardClass.WARRIOR,
+					"IceFireWarrior",
+					250,
+					new List<Card>
+					{
+						Cards.FromName("Fire Plume's Heart"),
+						Cards.FromName("Goldshire Footman"),
+						Cards.FromName("Molten Blade"),
+						Cards.FromName("Wax Elemental"),
+						Cards.FromName("Wax Elemental"),
+						Cards.FromName("Cleave"),
+						Cards.FromName("Cornered Sentry"),
+						Cards.FromName("Drywhisker Armorer"),
+						Cards.FromName("Drywhisker Armorer"),
+						Cards.FromName("Execute"),
+						Cards.FromName("Execute"),
+						Cards.FromName("Plated Beetle"),
+						Cards.FromName("Plated Beetle"),
+						Cards.FromName("Warpath"),
+						Cards.FromName("Warpath"),
+						Cards.FromName("Phantom Militia"),
+						Cards.FromName("Phantom Militia"),
+						Cards.FromName("Shield Block"),
+						Cards.FromName("Shield Block"),
+						Cards.FromName("Stonehill Defender"),
+						Cards.FromName("Stonehill Defender"),
+						Cards.FromName("Brawl"),
+						Cards.FromName("Direhorn Hatchling"),
+						Cards.FromName("Direhorn Hatchling"),
+						Cards.FromName("Rotten Applebaum"),
+						Cards.FromName("Ornery Direhorn"),
+						Cards.FromName("Unidentified Shield"),
+						Cards.FromName("Unidentified Shield"),
+						Cards.FromName("Geosculptor Yip"),
+						Cards.FromName("Scourgelord Garrosh")
+					});
+
 		/// <summary>
 		/// Questing Miracle Rogue Deck List Guide (January 2017, Standard) – Season 34
 		/// http://www.hearthstonetopdecks.com/decks/miracle-pirate-rogue-deck-list-guide-standard/
 		/// </summary>
-		public static List<Card> MiraclePirateRogue => new List<Card>()
-		{
-			Cards.FromName("Backstab"),
-			Cards.FromName("Backstab"),
-			Cards.FromName("Counterfeit Coin"),
-            //Cards.FromName("Preparation"),
-            //Cards.FromName("Preparation"),
-            Cards.FromName("Cold Blood"),
-			Cards.FromName("Cold Blood"),
-            //Cards.FromName("Conceal"),
-            //Cards.FromName("Conceal"),
-            Cards.FromName("Swashburglar"),
-			Cards.FromName("Eviscerate"),
-			Cards.FromName("Eviscerate"),
-			Cards.FromName("Sap"),
-			Cards.FromName("Sap"),
-			Cards.FromName("Edwin VanCleef"),
-			Cards.FromName("Fan of Knives"),
-			Cards.FromName("Fan of Knives"),
-			Cards.FromName("Tomb Pillager"),
-			Cards.FromName("Tomb Pillager"),
-			Cards.FromName("Patches the Pirate"),
-			Cards.FromName("Small-Time Buccaneer"),
-			Cards.FromName("Small-Time Buccaneer"),
-			Cards.FromName("Bloodmage Thalnos"),
-			Cards.FromName("Questing Adventurer"),
-			Cards.FromName("Questing Adventurer"),
-			Cards.FromName("Azure Drake"),
-			Cards.FromName("Azure Drake"),
-			Cards.FromName("Leeroy Jenkins"),
-			Cards.FromName("Gadgetzan Auctioneer"),
-			Cards.FromName("Gadgetzan Auctioneer")
-		};
+		public static Deck MiraclePirateRogue =>
+			new Deck(CardClass.ROGUE,
+					 Archetype.QUEST,
+					 "MiraclePirateRogue",
+					 0,
+					 new List<Card>()
+					 {
+							Cards.FromName("Backstab"),
+							Cards.FromName("Backstab"),
+							Cards.FromName("Counterfeit Coin"),
+							//Cards.FromName("Preparation"),
+							//Cards.FromName("Preparation"),
+							Cards.FromName("Cold Blood"),
+							Cards.FromName("Cold Blood"),
+							//Cards.FromName("Conceal"),
+							//Cards.FromName("Conceal"),
+							Cards.FromName("Swashburglar"),
+							Cards.FromName("Eviscerate"),
+							Cards.FromName("Eviscerate"),
+							Cards.FromName("Sap"),
+							Cards.FromName("Sap"),
+							Cards.FromName("Edwin VanCleef"),
+							Cards.FromName("Fan of Knives"),
+							Cards.FromName("Fan of Knives"),
+							Cards.FromName("Tomb Pillager"),
+							Cards.FromName("Tomb Pillager"),
+							Cards.FromName("Patches the Pirate"),
+							Cards.FromName("Small-Time Buccaneer"),
+							Cards.FromName("Small-Time Buccaneer"),
+							Cards.FromName("Bloodmage Thalnos"),
+							Cards.FromName("Questing Adventurer"),
+							Cards.FromName("Questing Adventurer"),
+							Cards.FromName("Azure Drake"),
+							Cards.FromName("Azure Drake"),
+							Cards.FromName("Leeroy Jenkins"),
+							Cards.FromName("Gadgetzan Auctioneer"),
+							Cards.FromName("Gadgetzan Auctioneer")
+					 });
 
 		/// <summary>
 		/// Warlock Zoo (Discard) Deck List Guide (December 2016, Standard) – Season 33
@@ -137,7 +167,12 @@ namespace SabberStoneCoreAi.Meta
 		/// NickChipper's Midrange Secret Hunter (December 2016, Season 33) – Mean Streets of Gadgetzan
 		/// http://www.hearthstonetopdecks.com/decks/nickchippers-midrange-secret-hunter-december-2016-season-33-mean-streets-gadgetzan/
 		/// </summary>
-		public static List<Card> MidrangeSecretHunter => new List<Card>()
+		public static Deck MidrangeSecretHunter =>
+			new Deck(CardClass.HUNTER,
+					 Archetype.SECRET,
+					 "MidrangeSecretHunter",
+					 0,
+					 new List<Card>()
 		{
 			Cards.FromName("Alleycat"),
 			Cards.FromName("Alleycat"),
@@ -169,7 +204,7 @@ namespace SabberStoneCoreAi.Meta
 			Cards.FromName("Secretkeeper"),
 			Cards.FromName("Knife Juggler"),
 			Cards.FromName("Knife Juggler"),
-		};
+		});
 
 		/// <summary>
 		/// Kolento's Midrange Buff Paladin (January 2017, Season 34)
@@ -258,36 +293,36 @@ namespace SabberStoneCoreAi.Meta
 					 0,
 					 new List<Card>()
 					 {
-					 Cards.FromName("Tunnel Trogg"),
-					 Cards.FromName("Tunnel Trogg"),
-					 Cards.FromName("Totem Golem"),
-					 Cards.FromName("Totem Golem"),
-					 Cards.FromName("Thing from Below"),
-					 Cards.FromName("Thing from Below"),
-					 Cards.FromName("Spirit Claws"),
-					 Cards.FromName("Spirit Claws"),
-					 Cards.FromName("Maelstrom Portal"),
-					 Cards.FromName("Maelstrom Portal"),
-					 Cards.FromName("Lightning Storm"),
-					 Cards.FromName("Lightning Bolt"),
-					 Cards.FromName("Jade Lightning"),
-					 Cards.FromName("Jade Lightning"),
-					 Cards.FromName("Jade Claws"),
-					 Cards.FromName("Jade Claws"),
-					 Cards.FromName("Hex"),
-					 Cards.FromName("Hex"),
-					 Cards.FromName("Flametongue Totem"),
-					 Cards.FromName("Flametongue Totem"),
-					 Cards.FromName("Al'Akir the Windlord"),
-					 Cards.FromName("Patches the Pirate"),
-					 Cards.FromName("Small-Time Buccaneer"),
-					 Cards.FromName("Small-Time Buccaneer"),
-					 Cards.FromName("Bloodmage Thalnos"),
-					 Cards.FromName("Barnes"),
-					 Cards.FromName("Azure Drake"),
-					 Cards.FromName("Azure Drake"),
-					 Cards.FromName("Aya Blackpaw"),
-					 Cards.FromName("Ragnaros the Firelord")
+						Cards.FromName("Tunnel Trogg"),
+						Cards.FromName("Tunnel Trogg"),
+						Cards.FromName("Totem Golem"),
+						Cards.FromName("Totem Golem"),
+						Cards.FromName("Thing from Below"),
+						Cards.FromName("Thing from Below"),
+						Cards.FromName("Spirit Claws"),
+						Cards.FromName("Spirit Claws"),
+						Cards.FromName("Maelstrom Portal"),
+						Cards.FromName("Maelstrom Portal"),
+						Cards.FromName("Lightning Storm"),
+						Cards.FromName("Lightning Bolt"),
+						Cards.FromName("Jade Lightning"),
+						Cards.FromName("Jade Lightning"),
+						Cards.FromName("Jade Claws"),
+						Cards.FromName("Jade Claws"),
+						Cards.FromName("Hex"),
+						Cards.FromName("Hex"),
+						Cards.FromName("Flametongue Totem"),
+						Cards.FromName("Flametongue Totem"),
+						Cards.FromName("Al'Akir the Windlord"),
+						Cards.FromName("Patches the Pirate"),
+						Cards.FromName("Small-Time Buccaneer"),
+						Cards.FromName("Small-Time Buccaneer"),
+						Cards.FromName("Bloodmage Thalnos"),
+						Cards.FromName("Barnes"),
+						Cards.FromName("Azure Drake"),
+						Cards.FromName("Azure Drake"),
+						Cards.FromName("Aya Blackpaw"),
+						Cards.FromName("Ragnaros the Firelord")
 					 });
 
 		/// <summary>
@@ -364,6 +399,109 @@ namespace SabberStoneCoreAi.Meta
 			Cards.FromName("Reno Jackson"),
 			Cards.FromName("Sylvanas Windrunner"),
 			Cards.FromName("Alexstrasza")
+		};
+
+		public static List<Card> DebugDeck => new List<Card>()
+		{
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+			Cards.FromId("LOEA04_31b"),
+
 		};
 	}
 }

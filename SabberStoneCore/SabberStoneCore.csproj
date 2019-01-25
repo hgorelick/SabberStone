@@ -1,17 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.0.0</Version>
+    <Version>2.1.0</Version>
     <RepositoryUrl>https://github.com/HearthSim/Sabberstone</RepositoryUrl>
-    <ApplicationIcon />
-    <OutputType>Library</OutputType>
-    <StartupObject />
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>SabberStone Team, darkfriend77 and rnilva</Authors>
+    <Description>Hearthstone Simulator</Description>
+    <Copyright>GNU AGPL v3</Copyright>
+    <PackageLicenseUrl>https://www.gnu.org/licenses/gpl-3.0.en.html</PackageLicenseUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <TreatSpecificWarningsAsErrors />
     <LangVersion>latest</LangVersion>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <DefineConstants>NETSTANDARD2_0</DefineConstants>
     <OutputPath>bin\Debug\netstandard2.0\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -23,23 +25,11 @@
     <TreatSpecificWarningsAsErrors />
     <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DefineConstants />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="src\Splits - OLD\**" />
-    <EmbeddedResource Remove="src\Splits - OLD\**" />
-    <None Remove="src\Splits - OLD\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="src\Meta\DRUID_decks.cs" />
-    <Compile Remove="src\Meta\HUNTER_decks.cs" />
-    <Compile Remove="src\Meta\MAGE_decks.cs" />
-    <Compile Remove="src\Meta\PALADIN_decks.cs" />
-    <Compile Remove="src\Meta\PRIEST_decks.cs" />
-    <Compile Remove="src\Meta\ROGUE_decks.cs" />
-    <Compile Remove="src\Meta\SHAMAN_decks.cs" />
-    <Compile Remove="src\Meta\WARLOCK_decks.cs" />
-    <Compile Remove="src\Meta\WARRIOR_decks.cs" />
-    <Compile Remove="src\Model\Entities\ControllerCore.cs" />
+    <Compile Remove="src\Model\GameOG.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="resources\Data\CardDefs.xml">
@@ -50,16 +40,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="resources\Data\Archive\CardDefs.xml">
-      <LogicalName>SabberStoneCore.Resources.Archive.CardDefs.xml</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="resources\Data\Archive\CARD.xml">
-      <LogicalName>SabberStoneCore.Resources.Archive.CARD.xml</LogicalName>
-    </EmbeddedResource>
+    <PackageReference Include="System.Data.SQLite" Version="1.0.109.2" />
+    <PackageReference Include="System.Memory" Version="4.5.2-servicing-27114-05" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="7.0.1" />
-    <PackageReference Include="AutoMapper.Data" Version="2.0.0" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.109.2" />
+    <Reference Include="System.Memory">
+      <HintPath>..\..\..\..\..\.nuget\packages\system.memory\4.5.0-preview1-26216-02\ref\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

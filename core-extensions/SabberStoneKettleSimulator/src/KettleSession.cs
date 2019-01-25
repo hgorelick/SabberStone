@@ -1,4 +1,17 @@
-﻿using System;
+﻿#region copyright
+// SabberStone, Hearthstone Simulator in C# .NET Core
+// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+//
+// SabberStone is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License.
+// SabberStone is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+#endregion
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -129,22 +142,18 @@ namespace SabberStoneKettleSimulator
 			string hero2 = player2.Hero;
 			Card hero1Card = Cards.FromId(hero1);
 			Card hero2Card = Cards.FromId(hero2);
-
-			var p1Deck = new Deck(hero1Card.Class, Archetype.CUSTOM,
-				"p1Deck", 0, player1.Cards.Select(Cards.FromId).ToList());
-
-			var p2Deck = new Deck(hero2Card.Class, Archetype.CUSTOM,
-				"p2Deck", 0, player2.Cards.Select(Cards.FromId).ToList());
+			var player1Deck = player1.Cards.Select(Cards.FromId).ToList();
+			var player2Deck = player2.Cards.Select(Cards.FromId).ToList();
 
 			Console.WriteLine("creating game");
 			Game = new Game(new GameConfig
 			{
 				Player1HeroClass = hero1Card.Class,
 				Player1HeroCard = hero1Card,
-				Player1Deck = p1Deck,
+				Player1Deck = player1Deck,
 				Player2HeroClass = hero2Card.Class,
 				Player2HeroCard = hero2Card,
-				Player2Deck = p2Deck,
+				Player2Deck = player2Deck,
 				SkipMulligan = false,
 			});
 

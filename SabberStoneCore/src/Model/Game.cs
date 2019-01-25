@@ -108,13 +108,13 @@ namespace SabberStoneCore.Model
 		/// Gets or sets the index value for identifying the N-th clone of a game. (0-indexed)
 		/// </summary>
 		/// <value>The index of the clone.</value>
-		public string CloneIndex { get; set; } = "[0]";
+		//public string CloneIndex { get; set; } = "[0]";
 
 		/// <summary>
 		/// Gets or sets the index of the next clone.<seealso cref="CloneIndex"/>
 		/// </summary>
 		/// <value>The index of the next clone.</value>
-		public int NextCloneIndex { get; set; } = 1;
+		//public int NextCloneIndex { get; set; } = 1;
 
 		///// <summary>
 		///// Gets or sets the list of splitted (and fully resolved) games, derived from this game.
@@ -168,7 +168,7 @@ namespace SabberStoneCore.Model
 		public Controller Player2
 		{
 			get => _players[1];
-			protected set => _players[1] = value;
+			set => _players[1] = value;
 		}
 
 		/// <summary>
@@ -320,14 +320,14 @@ namespace SabberStoneCore.Model
 			if (History)
 				PowerHistory.Add(PowerHistoryBuilder.CreateGame(this, _players));
 
-			if (setupHeroes)
-			{
-				_players[0].AddHeroAndPower(gameConfig.Player1HeroCard ?? Cards.HeroCard(gameConfig.Player1HeroClass));
-				_players[0].BaseClass = _players[0].HeroClass;
+			//if (setupHeroes)
+			//{
+			//	_players[0].AddHeroAndPower(gameConfig.Player1HeroCard ?? Cards.HeroCard(gameConfig.Player1HeroClass));
+			//	_players[0].BaseClass = _players[0].HeroClass;
 
-				_players[1].AddHeroAndPower(gameConfig.Player2HeroCard ?? Cards.HeroCard(gameConfig.Player2HeroClass));
-				_players[1].BaseClass = _players[1].HeroClass;
-			}
+			//	_players[1].AddHeroAndPower(gameConfig.Player2HeroCard ?? Cards.HeroCard(gameConfig.Player2HeroClass));
+			//	_players[1].BaseClass = _players[1].HeroClass;
+			//}
 
 			TaskQueue = new TaskQueue(this);
 
@@ -341,21 +341,21 @@ namespace SabberStoneCore.Model
 			}
 
 			// setting up the decks ...
-			_gameConfig.Player1Deck?.ForEach(p =>
-			{
-				Player1.DeckCards.Add(p);
-				FromCard(Player1, p, null, Player1.DeckZone);
-			});
-			_gameConfig.Player2Deck?.ForEach(p =>
-			{
-				Player2.DeckCards.Add(p);
-				FromCard(Player2, p, null, Player2.DeckZone);
-			});
-			if (_gameConfig.FillDecks)
-			{
-				Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably ? GameConfig.UnPredictableCardIDs : null);
-				Player2.DeckZone.Fill(_gameConfig.FillDecksPredictably ? GameConfig.UnPredictableCardIDs : null);
-			}
+			//_gameConfig.Player1Deck?.ForEach(p =>
+			//{
+			//	Player1.DeckCards.Add(p);
+			//	FromCard(Player1, p, null, Player1.DeckZone);
+			//});
+			//_gameConfig.Player2Deck?.ForEach(p =>
+			//{
+			//	Player2.DeckCards.Add(p);
+			//	FromCard(Player2, p, null, Player2.DeckZone);
+			//});
+			//if (_gameConfig.FillDecks)
+			//{
+			//	Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably ? GameConfig.UnPredictableCardIDs : null);
+			//	Player2.DeckZone.Fill(_gameConfig.FillDecksPredictably ? GameConfig.UnPredictableCardIDs : null);
+			//}
 		}
 
 		/// <summary> A copy constructor. </summary>
@@ -376,8 +376,6 @@ namespace SabberStoneCore.Model
 
 			_gameConfig = game._gameConfig.Clone();
 			_gameConfig.Logging = logging;
-
-			CloneIndex = game.CloneIndex + $"[{game.NextCloneIndex++}]";
 
 			Player1 = game.Player1.Clone(this);
 			Player2 = game.Player2.Clone(this);

@@ -1,25 +1,38 @@
-﻿using System.Collections.Generic;
+﻿#region copyright
+// SabberStone, Hearthstone Simulator in C# .NET Core
+// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+//
+// SabberStone is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License.
+// SabberStone is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+#endregion
+using System.Collections.Generic;
 using SabberStoneCore.CardSets;
 using SabberStoneCore.CardSets.Standard;
-using SabberStoneCore.Model;
+
 //using SabberStoneCore.CardSets.TavernBrawl;
 //using SabberStoneCore.CardSets.Adventure;
 
 namespace SabberStoneCore.Enchants
 {
-	/// <summary>
-	/// Interface for instances which support delayed removal.
-	/// This interface is used to remove <see cref="OldEnchant"/>s after various
-	/// effects were calculated.
-	/// </summary>
-	/// <seealso cref="Game.LazyRemoves"/>
-	public interface ILazyRemove
-	{
-		/// <summary>Initiates removal of the implemented type.
-		/// The instance will remove itself from the game.
-		/// </summary>
-		void Remove();
-	}
+	///// <summary>
+	///// Interface for instances which support delayed removal.
+	///// This interface is used to remove <see cref="OldEnchant"/>s after various
+	///// effects were calculated.
+	///// </summary>
+	///// <seealso cref="Game.LazyRemoves"/>
+	//public interface ILazyRemove
+	//{
+	//	/// <summary>Initiates removal of the implemented type.
+	//	/// The instance will remove itself from the game.
+	//	/// </summary>
+	//	void Remove();
+	//}
 
 	internal class Powers
 	{
@@ -48,6 +61,7 @@ namespace SabberStoneCore.Enchants
 			LootapaloozaCardsGen.AddAll(_powerDic);
 			GilneasCardsGen.AddAll(_powerDic);
 			BoomsdayCardsGen.AddAll(_powerDic);
+			TrollCardsGen.AddAll(_powerDic);
 
 			// Rest
 			NaxxCardsGen.AddAll(_powerDic);

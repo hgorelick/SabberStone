@@ -1,4 +1,17 @@
-﻿namespace SabberStoneCore.Enums
+﻿#region copyright
+// SabberStone, Hearthstone Simulator in C# .NET Core
+// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+//
+// SabberStone is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License.
+// SabberStone is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+#endregion
+namespace SabberStoneCore.Enums
 {
 	/// <summary>
 	/// Enumeration used WITHIN HISTORY data, interpreted by the real HS client;
@@ -21,7 +34,6 @@
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-	
 	/// <summary>
 	/// UNUSED
 	/// </summary>
@@ -54,7 +66,6 @@
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-	
 	/// <summary>
 	/// UNUSED
 	/// </summary>
@@ -73,7 +84,6 @@
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-	
 	/// <summary>
 	/// UNUSED
 	/// </summary>
@@ -96,8 +106,6 @@
 		THE_BOOMSDAY_PROJECT = 38,
 		MAMMOTH_BUNDLE = 41,
 	}
-
-	
 	/// <summary>
 	/// UNUSED
 	/// </summary>
@@ -111,7 +119,6 @@
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-	
 	/// <summary>
 	/// Class of a card.
 	/// Cards which have a neutral class are allowed in all decks.
@@ -138,7 +145,6 @@
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-	
 	/// <summary>
 	/// Mutual exclusive sets to which cards can belong.
 	/// </summary>
@@ -176,12 +182,12 @@
 		ICECROWN = 1001,
 		LOOTAPALOOZA = 1004,
 		GILNEAS = 1125,
-		BOOMSDAY = 1127
+		BOOMSDAY = 1127,
+		TROLL = 1129
 		//TAVERNS_OF_TIME = 1143
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-	
 	/// <summary>
 	/// Meta information about a card.
 	/// 
@@ -204,7 +210,6 @@
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-	
 	/// <summary>
 	/// Indicates the context in which a player has choose between entities.
 	/// eg: Mulligan; The player picks cards to mulligan back into his deck.
@@ -222,7 +227,6 @@
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-	
 	/// <summary>
 	/// UNUSED
 	/// </summary>
@@ -242,7 +246,6 @@
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-	
 	/// <summary>
 	/// UNUSED
 	/// </summary>
@@ -251,11 +254,10 @@
 	{
 		INVALID = 0,
 		LOOT = 1,
-		TREASURE = 2
+		TREASURE = 2,
+		SHRINE_TREASURE = 3
 	}
-
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
 	/// <summary>
 	/// TODO;
 	/// </summary>
@@ -268,7 +270,7 @@
 		NEUTRAL = 3,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// Another mutual exclusive classification of cards.
 	/// </summary>
@@ -281,7 +283,7 @@
 		NEUTRAL = 3,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// Indicates the format of decks, which limits 
 	/// the allowed cards that can be put into that deck.
@@ -297,7 +299,7 @@
 		FT_STANDARD = 2
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// These tags represent properties of entities. They must be seen as noncomplex and have
 	/// no relation with each other.
@@ -475,7 +477,7 @@
 		//323 EnchantmentTag, true ... when weapon equipped
 		//324 EnchantmentTag
 		TARGETING_ARROW_TEXT = 325,
-		RESTORE_TO_DAMAGE = 326, // more or less guessed gametags
+		HEALING_DOES_DAMAGE = 326, // more or less guessed gametags
 		DATABASE_ID = 327,
 		ENCHANTMENT_BIRTH_VISUAL = 330,
 		ENCHANTMENT_IDLE_VISUAL = 331,
@@ -513,7 +515,7 @@
 		NUM_MINIONS_PLAYER_KILLED_THIS_TURN = 368,
 		NUM_MINIONS_KILLED_THIS_TURN = 369,
 		AFFECTED_BY_SPELL_POWER = 370,
-		EXTRA_DEATHRATTLES = 371,
+		EXTRA_MINION_DEATHRATTLES_BASE = 371,
 		START_WITH_1_HEALTH = 372,
 		IMMUNE_WHILE_ATTACKING = 373,
 		MULTIPLY_HERO_DAMAGE = 374,
@@ -546,7 +548,7 @@
 		HEROPOWER_ADDITIONAL_ACTIVATIONS = 405,
 		HEROPOWER_ACTIVATIONS_THIS_TURN = 406,
 		REVEALED = 410,
-		EXTRA_BATTLECRY = 411, // more or less guessed gametags: ControllerTag, true/false Bronzebard Extra Battlecry
+		EXTRA_BATTLECRIES_BASE = 411, // more or less guessed gametags: ControllerTag, true/false Bronzebard Extra Battlecry
 		NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_GAME = 412,
 		CANNOT_ATTACK_HEROES = 413,
 		LOCK_AND_LOAD = 414,
@@ -671,11 +673,15 @@
 		IGNORE_HIDE_STATS_FOR_BIG_CARD = 857,
 		REAL_TIME_TRANSFORM = 859,
 		WAIT_FOR_PLAYER_RECONNECT_PERIOD = 860,
+		ETHEREAL = 880,
+		EXTRA_DEATHRATTLES_BASE = 882,
 		PHASED_RESTART = 888,
 		DISCARD_CARDS = 890,
 		HEALTH_DISPLAY = 917,
 		ENABLE_HEALTH_DISPLAY = 920,
 		VOODOO_LINK = 921,
+		OVERKILL = 923,
+		PROPHECY = 924,
 		ATTACKABLE_BY_RUSH = 930,
 		SHIFTING_SPELL = 936,
 		USE_ALTERNATE_CARD_TEXT = 955,
@@ -683,6 +689,7 @@
 		ECHOING_OOZE_SPELL = 963,
 		COLLECTIONMANAGER_FILTER_MANA_EVEN = 956,
 		COLLECTIONMANAGER_FILTER_MANA_ODD = 957,
+		AMOUNT_HEALED_THIS_GAME = 958,
 		ZOMBEAST_DEBUG_CURRENT_BEAST_DATABASE_ID = 964,
 		ZOMBEAST_DEBUG_CURRENT_ITERATION = 965,
 		ZOMBEAST_DEBUG_MAX_ITERATIONS = 966,
@@ -710,6 +717,7 @@
 		NUM_MURLOCS_PLAYED_THIS_GAME = 1008, // more or less guessed gametags
 		TAG_LAST_KNOWN_POSITION_ON_BOARD = 1009, // more or less guessed gametags: position aren't changed in graveyard and setaside zone ??? obolet?
 		TREAT_AS_PLAYED_HERO_CARD = 1016,
+		NUM_HERO_POWER_DAMAGE_THIS_GAME = 1025,
 		PUZZLE_NAME = 1026,
 		TURN_INDICATOR_ALTERNATIVE_APPEARANCE = 1027,
 		PREVIOUS_PUZZLE_COMPLETED = 1042,
@@ -721,12 +729,36 @@
 		GEARS = 1052,
 		LUNAHIGHLIGHTHINT = 1054,
 		SUPPRESS_JOBS_DONE_VO = 1055,
+		SHRINE = 1057,
 		ALL_HEALING_DOUBLE = 1058,
 		BLOCK_ALL_INPUT = 1071,
-		PUZZLE_MODE = 1073
+		PUZZLE_MODE = 1073,
+		CARD_DOES_NOTHING = 1075,
+		CASTSWHENDRAWN = 1077,
+		DORMANT = 1090,
+		CUSTOMTEXT1 = 1093,
+		CUSTOMTEXT2 = 1094,
+		CUSTOMTEXT3 = 1095,
+		FLOOPY = 1097,
+		PLAYER_BASE_SHRINE_DECK_ID = 1099,
+		HIDE_WATERMARK = 1107,
+		EXTRA_MINION_BATTLECRIES_BASE = 1112,
+		RUN_PROGRESS = 1113,
+		NON_KEYWORD_ECHO = 1114,
+		PLAYER_TAG_THRESHOLD_TAG_ID = 1115,
+		PLAYER_TAG_THRESHOLD_VALUE = 1116,
+		HEALING_DOES_DAMAGE_HINT = 1117,
+		AFFECTED_BY_HEALING_DOES_DAMAGE = 1118,
+		DECK_LIST_SORT_ORDER = 1125,
+		EXTRA_BATTLECRIES_ADDITIONAL = 1126,
+		EXTRA_DEATHRATTLES_ADDITIONAL = 1131,
+		ALTERNATE_MOUSE_OVER_CARD = 1132,
+		ENCHANTMENT_BANNER_TEXT = 1135,
+		MOUSE_OVER_CARD_APPEARANCE = 1142,
+		IS_ADVENTURE_SCENARIO = 1172
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// UNUSED
 	/// </summary>
@@ -752,7 +784,7 @@
 		// GT_LAST = 24
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// TODO;
 	/// </summary>
@@ -769,7 +801,7 @@
 		OVER_CAIS = 6,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// UNUSED
 	/// </summary>
@@ -795,7 +827,7 @@
 		thTH = 15,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// Enumeration used WITHIN HISTORY data, interpreted by the real HS client.
 	/// </summary>
@@ -818,10 +850,11 @@
 		START_DRAW = 13,
 		BURNED_CARD = 14,
 		EFFECT_SELECTION = 15,
-		BEGIN_LISTENING_FOR_TURN_EVENTS = 16
+		BEGIN_LISTENING_FOR_TURN_EVENTS = 16,
+		HOLD_DRAWN_CARD = 17
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// State in which a player resides when the game is in Mulligan phase.
 	/// Think of Mulligan itself as a state machine within the game, which 
@@ -837,7 +870,7 @@
 		DONE = 4,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// A multiclassgroup is a set of cards which spans multiple 
 	/// classes.
@@ -853,7 +886,7 @@
 		KABAL = 3
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// Indicates the type of choice a player can pick from a set of options.
 	/// eg: END_TURN; Indicates to the simulator that the player desires to end his turn.
@@ -869,7 +902,7 @@
 		POWER = 3,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// Requirements which have to be met before a card can be player.
 	/// The state of the board is checked to match these requirements.
@@ -954,10 +987,15 @@
 		REQ_CANNOT_PLAY_THIS = 73,
 		REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74,
 		REQ_DRAG_TO_PLAY = 75,
-		REQ_OPPONENT_PLAYED_CARDS_THIS_GAME = 77
+		REQ_OPPONENT_PLAYED_CARDS_THIS_GAME = 77,
+		REQ_LITERALLY_UNPLAYABLE = 78,
+		REQ_TARGET_IF_AVAILABLE_AND_HERO_HAS_ATTACK = 79,
+		REQ_FRIENDLY_MINION_OF_RACE_DIED_THIS_TURN = 80,
+		REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_SPELLS_PLAYED_THIS_TURN = 81,
+		REQ_FRIENDLY_MINION_OF_RACE_IN_HAND = 82
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// State information about controllers in a game. A controller represents 
 	/// one player.
@@ -976,7 +1014,7 @@
 		CONCEDED = 8,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// Enumeration for building HISTORY which can be interpreted by the real HS client.
 	/// </summary>
@@ -995,7 +1033,7 @@
 		RESET_GAME = 10
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// Another classification for cards which is mutual exclusive.
 	/// The most used value is DRAGON, since a lot of cards interact with
@@ -1034,7 +1072,7 @@
 		EGG = 38
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// Rarity of a card. This reflects the drop rate from card packs.
 	/// </summary>
@@ -1050,7 +1088,7 @@
 		UNKNOWN_6 = 6,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// Indicates the state of the Game entity.
 	/// </summary>
@@ -1063,7 +1101,7 @@
 		COMPLETE = 3
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// Indicates in which state the Game's state machine is in.
 	/// </summary>
@@ -1090,7 +1128,7 @@
 		MAIN_START_TRIGGERS = 17
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// UNUSED
 	/// </summary>
@@ -1109,7 +1147,7 @@
 		STRING = 8
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// Abstract area where entities reside during the game.
 	/// Each controller has it's own set of zones, these are not shared
@@ -1132,7 +1170,7 @@
 		SECRET = 7,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	
+
 	/// <summary>
 	/// </summary>
 	public enum PuzzleType
