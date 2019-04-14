@@ -10,3 +10,6 @@ the top performing agents.](https://dockhorn.antares.uberspace.de/wordpress/resu
 ### There are still bugs...
 My agent is too slow and not optimized, so he doesn't win very often against more refined agents like TycheAgent. And, every now and then
 the program will throw an exception. I'm still working on that.
+
+### For more info...
+Check out the [original repo](https://github.com/HearthSim/SabberStone)
