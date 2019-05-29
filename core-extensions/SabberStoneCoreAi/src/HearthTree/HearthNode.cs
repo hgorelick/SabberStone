@@ -76,10 +76,6 @@ namespace SabberStoneCoreAi.HearthNodes
 			_parent = parent;
 			_action = action;
 
-			bool check = true;
-			if (game.Player1.Hero.Card.Name == "Scourgelord Garrosh")
-				check = false;
-
 			_game = game.Clone();
 			_logging = Game.Logging;
 			//_powerHistory = new PowerHistory();

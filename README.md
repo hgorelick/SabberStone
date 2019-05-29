@@ -10,3 +10,13 @@ the top performing agents.](https://dockhorn.antares.uberspace.de/wordpress/resu
 ### There are still bugs...
 My agent is too slow and not optimized, so he doesn't win very often against more refined agents like TycheAgent. And, every now and then
 the program will throw an exception. I'm still working on that.
+
+
+### Future Work
+* Add secret prediction and incorporate into action selected
+* Possibly include "sequential action nodes"
+	* For moves that can be made in any order and achieve same outcome, compress into a single node 
+	* Could massively decrease size of game tree
+
+### Related Ideas
+* Mid-game deck modifier for deck building

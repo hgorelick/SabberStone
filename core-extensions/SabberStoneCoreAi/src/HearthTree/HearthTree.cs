@@ -447,7 +447,7 @@ namespace SabberStoneCoreAi.HearthNodes
 		/// <returns></returns>
 		static double SelectionScore(this HearthNode child)
 		{
-			double exploitation = ((double)child.Wins / child.Visits);// * child.Reward;
+			double exploitation = ((double)child.Wins / child.Visits);
 			double exploration = Math.Sqrt(Math.Log((double)child.Parent.Visits / child.Visits));
 			exploration = Double.IsNaN(exploration) ? 0 : 2.0 * exploration;
 

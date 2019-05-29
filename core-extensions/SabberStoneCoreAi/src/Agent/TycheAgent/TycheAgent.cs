@@ -100,7 +100,15 @@ namespace SabberStoneCoreAi.Tyche2
 			}
 
 			//selected.Process();
-			state.BirthPossibility(selected);
+			try
+			{
+				state.BirthPossibility(selected);
+
+			}
+			catch (Exception)
+			{
+				Console.Write("Why");
+			}
 
 			if (selected.IsEndTurn)
 				OnMyTurnEnd();

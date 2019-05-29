@@ -291,6 +291,11 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Card FromId(string cardId)
 		{
+			try { Card c = Data.Cards[cardId]; }
+			catch (Exception)
+			{
+				Console.Write("Why");
+			}
 			return Data.Cards[cardId];
 		}
 

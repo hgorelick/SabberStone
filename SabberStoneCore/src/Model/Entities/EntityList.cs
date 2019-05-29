@@ -39,7 +39,13 @@ namespace SabberStoneCore.Model.Entities
 				}
 
 				try { list[id] = list[id]; }
-				catch (Exception) { }
+				catch (Exception)
+				{
+					var newlist = new IPlayable[(int)(list.Length * 1.5)];
+					Array.Copy(list, newlist, list.Length);
+					list = newlist;
+					_list = newlist;
+				}
 				if (list[id] == null)
 					_count++;
 

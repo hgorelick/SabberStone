@@ -58,18 +58,18 @@ namespace SabberStoneCoreAi.HearthNodes
 				return;
 			}
 
-			///myHealthAfter *= MY_HEALTH_WEIGHT;
-			///
-			///double oppHealthAfter = _game.CurrentOpponent.Hero.Health + _game.CurrentOpponent.Hero.Armor;
-			///if (oppHealthAfter <= 0)
-			///{
-			///	Wins = 1;
-			///	return;
-			///}
-			///
-			///oppHealthAfter *= OPP_HEALTH_WEIGHT;
-			///
-			///Reward += oppHealthBefore != oppHealthAfter ? CalculateReward(oppHealthBefore, oppHealthAfter) : 0;
+			//myHealthAfter *= MY_HEALTH_WEIGHT;
+			//
+			//double oppHealthAfter = _game.CurrentOpponent.Hero.Health + _game.CurrentOpponent.Hero.Armor;
+			//if (oppHealthAfter <= 0)
+			//{
+			//	Wins = 1;
+			//	return;
+			//}
+			//
+			//oppHealthAfter *= OPP_HEALTH_WEIGHT;
+			//
+			//Reward += oppHealthBefore != oppHealthAfter ? CalculateReward(oppHealthBefore, oppHealthAfter) : 0;
 		}
 
 		/// <summary>
