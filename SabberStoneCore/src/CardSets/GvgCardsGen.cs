@@ -20,6 +20,8 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
+
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
@@ -1017,7 +1019,7 @@ namespace SabberStoneCore.CardSets
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_024", new Power {
-				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p => p.Controller.BoardZone.Any(m => m.Race == Race.MECHANICAL) ? 2 : 0)
+				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p => p.Controller.BoardZone.Any(m => m.IsRace(Race.MECHANICAL)) ? 2 : 0)
 			});
 
 		}
@@ -1193,8 +1195,9 @@ namespace SabberStoneCore.CardSets
 		private static void Warlock(IDictionary<string, Power> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
-			// [GVG_018] Mistress of Pain - COST:2 [ATK:1/HP:4] 
+			// [GVG_018] Queen of Pain - COST:2 [ATK:1/HP:4] 
 			// - Race: demon, Set: gvg, Rarity: rare
+			// Renamed Queen of Pain 2019-07-01
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
 			// --------------------------------------------------------
@@ -1571,7 +1574,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("GVG_013", new Power {
 				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD,
-					p => p.Controller.BoardZone.Any(m => m.Race == Race.MECHANICAL) ? 2 : 0)
+					p => p.Controller.BoardZone.Any(m => m.IsRace(Race.MECHANICAL)) ? 2 : 0)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

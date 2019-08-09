@@ -29,7 +29,7 @@ namespace SabberStoneCore.Enchants
 		private const int PlayableLength = 2;
 		private const int WeaponLength = PlayableLength + 1;
 		private const int CharacterLength = PlayableLength + 2;
-		private const int HeroLength = CharacterLength + 2;
+		private const int HeroLength = CharacterLength + 3;
 		private const int MinionLength = CharacterLength + 7;
 
 		// Indices:
@@ -44,6 +44,7 @@ namespace SabberStoneCore.Enchants
 		// Hero
 		// 4 : CannotAttackHeroes
 		// 5 : Immune
+		// 6 : HEROPOWER_DAMAGE
 		// Minion
 		// 4 : Health
 		// 5 : Charge
@@ -182,6 +183,23 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
+		public int HeroPowerDamage
+		{
+			get
+			{
+				if (Type == CardType.HERO)
+					return _data[6];
+				return 0;
+			}
+			set
+			{
+				if (Type == CardType.HERO)
+					_data[6] = value;
+				else
+					throw new NotImplementedException();
+			}
+		}
+
 		public int this[in GameTag t]
 		{
 			get
@@ -216,6 +234,8 @@ namespace SabberStoneCore.Enchants
 						return Echo ? 1 : 0;
 					case GameTag.CANNOT_ATTACK_HEROES:
 						return CannotAttackHeroes ? 1 : 0;
+					case GameTag.HEROPOWER_DAMAGE:
+						return HeroPowerDamage;
 					default:
 						return 0;
 				}
@@ -261,6 +281,9 @@ namespace SabberStoneCore.Enchants
 					case GameTag.CANNOT_ATTACK_HEROES:
 						CannotAttackHeroes = value > 0;
 						return;
+					case GameTag.HEROPOWER_DAMAGE:
+						HeroPowerDamage = value;
+						return;
 					default:
 						return;
 				}
@@ -299,6 +322,8 @@ namespace SabberStoneCore.Enchants
 		private int _extraEndTurnEffect;
 		private int _heroPowerDisabled;
 		private int _allHealingDouble;
+		private int _extraBattlecryAndCombo;
+		private int _spellPower;
 
 		public int this[GameTag t]
 		{
@@ -327,6 +352,10 @@ namespace SabberStoneCore.Enchants
 						return _heroPowerDisabled >= 1 ? 1 : 0;
 					case GameTag.ALL_HEALING_DOUBLE:
 						return _allHealingDouble;
+					case GameTag.EXTRA_MINION_BATTLECRIES_BASE:
+						return _extraBattlecryAndCombo;
+					case GameTag.SPELLPOWER:
+						return _spellPower;
 					default:
 						return 0;
 				}
@@ -366,6 +395,12 @@ namespace SabberStoneCore.Enchants
 					case GameTag.ALL_HEALING_DOUBLE:
 						_allHealingDouble = value;
 						return;
+					case GameTag.EXTRA_MINION_BATTLECRIES_BASE:
+						_extraBattlecryAndCombo = value;
+						return;
+					case GameTag.SPELLPOWER:
+						_spellPower = value;
+						return;
 					default:
 						return;
 				}
@@ -390,6 +425,8 @@ namespace SabberStoneCore.Enchants
 			sb.Append(_extraEndTurnEffect);
 			sb.Append(_heroPowerDisabled);
 			sb.Append(_allHealingDouble);
+			sb.Append(_extraBattlecryAndCombo);
+			sb.Append(_spellPower);
 			sb.Append("]");
 			return sb.ToString();
 		}

@@ -245,14 +245,21 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="zone">The zone in which the entity must spawn.</param>
 		/// <param name="id">The EntityID to assign to the newly created entity.</param>
 		/// <param name="zonePos">The position to be placed when the entity is summoned to Board.</param>
+		/// <param name="creator">The creator entity of the new entity.</param>
 		/// <returns></returns>
 		/// <exception cref="EntityException"></exception>
-		public static IPlayable FromCard(in Controller controller, in Card card, IDictionary<GameTag, int> tags = null, in IZone zone = null, in int id = -1, in int zonePos = -1)
+		public static IPlayable FromCard(in Controller controller, in Card card,
+			IDictionary<GameTag, int> tags = null,
+			in IZone zone = null, in int id = -1, in int zonePos = -1,
+			in IEntity creator = null)
 		{
 			Game game = controller.Game;
 
 			tags = tags ?? new EntityData();
 			//tags[GameTag.CARD_ID] = card.AssetId;
+
+			//if (creator != null)
+			//	tags.Add(GameTag.CREATOR, creator.Id);
 
 			IPlayable result;
 			switch (card.Type)
@@ -325,38 +332,66 @@ namespace SabberStoneCore.Model.Entities
 					controller.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(result));
 			}
 
-			// add entity to the appropriate zone if it was given
-			if (zone is BoardZone)
-				Generic.SummonBlock.Invoke(game, (Minion)result, zonePos);
-			else if (zone is HandZone)
-				Generic.AddHandPhase.Invoke(controller, result);
-			else
-				zone?.Add(result, zonePos);
+			if (zone != null) // add entity to the appropriate zone if it was given
+				switch (zone.Type)
+				{
+
+					case Enums.Zone.PLAY:
+						Generic.SummonBlock.Invoke(game, (Minion) result, zonePos, creator);
+						break;
+					case Enums.Zone.HAND:
+						Generic.AddHandPhase.Invoke(controller, result);
+						break;
+					default:
+						zone?.Add(result, zonePos);
+						break;
+				}
 
 			if (result.ChooseOne)
 			{
-				result.ChooseOnePlayables = new IPlayable[2];
-				result.ChooseOnePlayables[0] =
-					id < 0 ? FromCard(controller,
-						Cards.FromId(result.Card.Id + "a"),
-						new EntityData
-						{
-							[GameTag.CREATOR] = result.Id,
-							[GameTag.PARENT_CARD] = result.Id
-						},
-						controller.SetasideZone) :
-						controller.SetasideZone.ToList().Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "a");
+				if (result.Card.Id == "TRL_343")
+				{ // Wardruid Loti
+					var data = new EntityData
+					{
+						[GameTag.CREATOR] = result.Id,
+						[GameTag.PARENT_CARD] = result.Id
+					};
+					IPlayable[] playables = new[]
+					{
+						FromCard(in controller, Cards.FromId("TRL_343at1"), data, controller.SetasideZone),
+						FromCard(in controller, Cards.FromId("TRL_343ct1"), data, controller.SetasideZone),
+						FromCard(in controller, Cards.FromId("TRL_343dt1"), data, controller.SetasideZone),
+						FromCard(in controller, Cards.FromId("TRL_343bt1"), data, controller.SetasideZone)
+					};
 
-				result.ChooseOnePlayables[1] =
-					id < 0 ? FromCard(controller,
-						Cards.FromId(result.Card.Id + "b"),
-						new EntityData
-						{
-							[GameTag.CREATOR] = result.Id,
-							[GameTag.PARENT_CARD] = result.Id
-						},
-						controller.SetasideZone) :
-						controller.SetasideZone.ToList().Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "b");
+					result.ChooseOnePlayables = playables;
+				}
+				else
+				{
+
+					result.ChooseOnePlayables = new IPlayable[2];
+					result.ChooseOnePlayables[0] =
+						id < 0 ? FromCard(controller,
+								Cards.FromId(result.Card.Id + "a"),
+								new EntityData
+								{
+									[GameTag.CREATOR] = result.Id,
+									[GameTag.PARENT_CARD] = result.Id
+								},
+								controller.SetasideZone) :
+							controller.SetasideZone.ToList().Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "a");
+
+					result.ChooseOnePlayables[1] =
+						id < 0 ? FromCard(controller,
+								Cards.FromId(result.Card.Id + "b"),
+								new EntityData
+								{
+									[GameTag.CREATOR] = result.Id,
+									[GameTag.PARENT_CARD] = result.Id
+								},
+								controller.SetasideZone) :
+							controller.SetasideZone.ToList().Find(p => p[GameTag.CREATOR] == result.Id && p.Card.Id == result.Card.Id + "b");
+				}
 			}
 
 			return result;

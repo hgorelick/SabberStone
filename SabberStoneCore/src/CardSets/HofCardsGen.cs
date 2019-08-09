@@ -11,13 +11,24 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+#if NOSPAN
+using SabberStoneCore.Model.Zones;
+#else
+using System;
+#endif
 using System.Collections.Generic;
 using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
+
+
+
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
@@ -34,7 +45,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// GameTag:
 			// - FREEZE = 1
-			// --------------------------------------------------------
+			// ------------------------------------st--------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
@@ -87,6 +98,20 @@ namespace SabberStoneCore.CardSets
 			});
 		}
 
+		private static void Priest(IDictionary<string, Power> cards)
+		{
+			// ----------------------------------------- SPELL - PRIEST
+			// [DS1_233] Mind Blast - COST:2 
+			// - Fac: neutral, Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: Deal $5 damage to the enemy hero. @spelldmg
+			// --------------------------------------------------------
+			cards.Add("DS1_233", new Power
+			{
+				PowerTask = new DamageTask(5, EntityType.OP_HERO, true)
+			});
+		}
+
 		private static void Rogue(IDictionary<string, Power> cards)
 		{
 			// ------------------------------------------ SPELL - ROGUE
@@ -102,6 +127,16 @@ namespace SabberStoneCore.CardSets
 				PowerTask = new AddEnchantmentTask("EX1_128e", EntityType.MINIONS)
 			});
 
+			// ------------------------------------------ SPELL - ROGUE
+			// [NEW1_004] Vanish - COST:6 
+			// - Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: Return all minions to their owner's hand.
+			// --------------------------------------------------------
+			cards.Add("NEW1_004", new Power
+			{
+				PowerTask = new ReturnHandTask(EntityType.ALLMINIONS)
+			});
 		}
 
 		private static void RogueNonCollect(IDictionary<string, Power> cards)
@@ -203,9 +238,9 @@ namespace SabberStoneCore.CardSets
 				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p =>
 				{
 					int count = 0;
-					var span = p.Controller.BoardZone.GetSpan();
+					ReadOnlySpan<Minion> span = p.Controller.BoardZone.GetSpan();
 					for (int i = 0; i < span.Length; i++)
-						if (span[i].Race == Race.MURLOC)
+						if (span[i].IsRace(Race.MURLOC))
 							count++;
 					return count;
 				})
@@ -460,6 +495,7 @@ namespace SabberStoneCore.CardSets
 		{
 			Mage(cards);
 			MageNonCollect(cards);
+			Priest(cards);
 			Rogue(cards);
 			RogueNonCollect(cards);
 			Warlock(cards);

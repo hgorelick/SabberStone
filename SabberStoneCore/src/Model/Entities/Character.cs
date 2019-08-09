@@ -147,6 +147,11 @@ namespace SabberStoneCore.Model.Entities
 						return IsImmune ? 1 : 0;
 					case GameTag.TAUNT:
 						return HasTaunt ? 1 : 0;
+					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
+					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
+						return CantBeTargetedBySpells ? 1 : 0;
+					case GameTag.NUM_ATTACKS_THIS_TURN:
+						return _numAttackThisTurn;
 					default:
 						return base[t];
 				}
@@ -172,6 +177,13 @@ namespace SabberStoneCore.Model.Entities
 						return;
 					case GameTag.TAUNT:
 						HasTaunt = value > 0;
+						return;
+					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
+					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
+						CantBeTargetedBySpells = value > 0;
+						return;
+					case GameTag.NUM_ATTACKS_THIS_TURN:
+						_numAttackThisTurn = value;
 						return;
 					default:
 						base[t] = value;
@@ -251,7 +263,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				ReadOnlySpan<Minion> span = Controller.Opponent.BoardZone.GetSpan();
+				var span = Controller.Opponent.BoardZone.GetSpan();
 				for (int i = 0; i < span.Length; i++)
 				{
 					if (!(span[i].HasStealth || span[i].IsImmune))
@@ -325,6 +337,9 @@ namespace SabberStoneCore.Model.Entities
 				{
 					if (_history)
 						PreDamage = 0;
+
+					game.TaskQueue.EndEvent();
+					game.CurrentEventData = temp;
 					return 0;
 				}
 			}
@@ -358,6 +373,14 @@ namespace SabberStoneCore.Model.Entities
 			TakeDamageTrigger?.Invoke(this);
 			game.TriggerManager.OnDamageTrigger(this);
 			game.TriggerManager.OnDealDamageTrigger(source);
+
+			// Check if the source is Overkill
+			if (source.HasOverkill && source.Controller == game.CurrentPlayer && Health < 0)
+			{
+				game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TakeDamage", !_logging ? "" : $"{source}' Overkill is triggered.");
+				game.TaskQueue.Enqueue(source.Card.Power.OverkillTask, source.Controller, source, null);
+			}
+
 			game.ProcessTasks();
 			game.TaskQueue.EndEvent();
 			game.CurrentEventData = temp;
@@ -378,6 +401,9 @@ namespace SabberStoneCore.Model.Entities
 
 			if (hero != null)
 				hero.DamageTakenThisTurn += amount;
+
+			if (source.Card.Type == CardType.HERO_POWER)
+				source.Controller.NumHeroPowerDamageThisGame += amount;
 
 			return amount;
 		}
@@ -516,9 +542,10 @@ namespace SabberStoneCore.Model.Entities
 		int NumAttacksThisTurn { get; set; }
 
 		/// <summary>
-		/// <see cref="Enums.Race"/>
+		/// Character is member of Race.
+		/// Characters of Race.ALL.  IE Amalgam.IsRace(Race.MULROC/Race.DRAGON/...) => true
 		/// </summary>
-		Race Race { get; }
+		bool IsRace(Race race);
 
 		///// <summary>
 		///// Character should exit combat.
@@ -728,7 +755,11 @@ namespace SabberStoneCore.Model.Entities
 			set
 			{
 				_modifiedCantBeTargetedBySpells = value;
-				this[GameTag.CANT_BE_TARGETED_BY_SPELLS] = value ? 1 : 0;
+				if (_history)
+				{
+					base[GameTag.CANT_BE_TARGETED_BY_SPELLS] = value ? 1 : 0;
+					base[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] = value ? 1 : 0;
+				}
 			}
 		}
 
@@ -797,11 +828,11 @@ namespace SabberStoneCore.Model.Entities
 				if (value)
 				{
 					Game.TriggerManager.OnFreezeTrigger(this);
-					NativeTags[GameTag.FROZEN] = 1;
+					base[GameTag.FROZEN] = 1;
 				}
 				else
 				{
-					NativeTags[GameTag.FROZEN] = 0;
+					base[GameTag.FROZEN] = 0;
 				}
 			}
 		}
@@ -841,7 +872,7 @@ namespace SabberStoneCore.Model.Entities
 			{
 				_numAttackThisTurn = value;
 				if (_history)
-					this[GameTag.NUM_ATTACKS_THIS_TURN] = value;
+					base[GameTag.NUM_ATTACKS_THIS_TURN] = value;
 			}
 		}
 
@@ -851,7 +882,7 @@ namespace SabberStoneCore.Model.Entities
 			set => this[GameTag.PREDAMAGE] = value;
 		}
 
-		public Race Race => Card.Race;
+		public bool IsRace(Race race) => Card.IsRace(race);
 
 		public bool ShouldExitCombat
 		{

@@ -21,7 +21,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RemoveEnchantmentTask : SimpleTask
 	{
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public static readonly RemoveEnchantmentTask Task = new RemoveEnchantmentTask();
+		private RemoveEnchantmentTask() {}
+
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			// Remove applied effects of this enchantment
@@ -33,10 +37,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (!(source is Enchantment e)) throw new NotImplementedException();
 
-			if (e.Power.Enchant?.Effects != null)
-				if (!e.IsOneTurnActive || game.Step != Step.MAIN_CLEANUP)
-					foreach (IEffect effect in e.Power.Enchant.Effects)
-						effect.RemoveFrom(target);
+			//if (e.Power.Enchant?.Effects != null)
+			//	if (!e.IsOneTurnActive || game.Step != Step.MAIN_CLEANUP)
+			//		for (int i = 0; i < e.Power.Enchant.Effects.Length; i++)
+			//		{
+			//			IEffect effect = e.Power.Enchant.Effects[i];
+			//			effect.RemoveFrom(target);
+			//		}
+
+			if (!e.IsOneTurnActive || game.Step != Step.MAIN_CLEANUP)
+				e.Power.Enchant?.RemoveEffect(e.Target);
 
 			e.Remove();
 

@@ -19,6 +19,8 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
+
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
@@ -629,8 +631,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("CFM_062", new Power
 			{
 				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.MINIONS),
-					new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+					new IncludeAdjacentTask(EntityType.SOURCE),
 					new SetGameTagTask(GameTag.DIVINE_SHIELD, 1, EntityType.STACK))
 			});
 
@@ -953,7 +954,7 @@ namespace SabberStoneCore.CardSets
 				{
 					EitherTurn = true,
 					SingleTask = ComplexTask.Create(
-						new RemoveEnchantmentTask(),
+						RemoveEnchantmentTask.Task,
 						new ControlTask(EntityType.TARGET, true))
 				}
 			});
@@ -1930,7 +1931,11 @@ namespace SabberStoneCore.CardSets
 					TriggerSource = TriggerSource.SELF,
 					//Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed),
 					Condition = SelfCondition.IsDefenderDead,
-					SingleTask = new EnqueueTask(2, ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsSameRace))
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.DECK),
+						new FilterStackTask(SelfCondition.IsRace(Race.MURLOC)),
+						new RandomTask(2, EntityType.STACK),
+						new SummonStackTask())
 				}
 			});
 
@@ -3360,12 +3365,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1087
 			// --------------------------------------------------------
-			cards.Add("CFM_621t11", new Power
-			{
-				// TODO [CFM_621t11] Lesser Potion && Test: Lesser Potion_CFM_621t11
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("CFM_621t11", null);
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t12] Greater Potion (*) - COST:5 
@@ -3376,12 +3376,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1088
 			// --------------------------------------------------------
-			cards.Add("CFM_621t12", new Power
-			{
-				// TODO [CFM_621t12] Greater Potion && Test: Greater Potion_CFM_621t12
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("CFM_621t12", null);
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t13] Superior Potion (*) - COST:10 
@@ -3392,12 +3387,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1089
 			// --------------------------------------------------------
-			cards.Add("CFM_621t13", new Power
-			{
-				// TODO [CFM_621t13] Superior Potion && Test: Superior Potion_CFM_621t13
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("CFM_621t13", null);
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t14] Kazakus Potion (*) - COST:5 
