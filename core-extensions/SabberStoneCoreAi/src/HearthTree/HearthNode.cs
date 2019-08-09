@@ -192,8 +192,9 @@ namespace SabberStoneCoreAi.HearthNodes
 		}
 	}
 
+	#region Getters, setters, adders, printers, and other utilities
 	/// <summary>
-	/// Getters, setters, and adders
+	/// Getters, setters, adders, printers, and other utilities
 	/// </summary>
 	public partial class HearthNode
 	{
@@ -371,6 +372,7 @@ namespace SabberStoneCoreAi.HearthNodes
 			return familyVisits == climber.Visits;
 		}
 	}
+	#endregion
 
 	/// <summary>
 	/// HearthNode extension methods 

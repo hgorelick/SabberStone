@@ -81,7 +81,7 @@ namespace SabberStoneCoreAi.Agent
 
 			UpdateOpponent(BlindGame.CurrentOpponent.HandZone.Count);
 
-			return new RootNode(state.Root, state.Parent, BlindGame, state.Action);
+			return new HearthNode(state.Root, state.Parent, BlindGame, state.Action);
 		}
 
 		/// <summary>
@@ -95,7 +95,7 @@ namespace SabberStoneCoreAi.Agent
 			Opponent = BlindGame.CurrentOpponent;
 			Opponent.Game = BlindGame;
 
-			OpponentDeck = new DeckQuery(Opponent.HeroClass).GetMostPopular();
+			OpponentDeck = DeckQuery.GetMostPopular(Opponent.HeroClass);
 			OpponentDeckZone = new DeckZone(Opponent)
 			{
 				Controller = Opponent
@@ -194,29 +194,28 @@ namespace SabberStoneCoreAi.Agent
 
 				BlindGame = state.Game.Clone();
 				Opponent = BlindGame.CurrentOpponent;
-				var deckQuery = new DeckQuery(Opponent.HeroClass);
 
 				if (PlayedSoFar.Any(c => c.Name == "The Coin"))
 					PlayedSoFar.RemoveAll(c => c.Name == "The Coin");
 
 				if (PlayedSoFar.Count == 0)
-					OpponentDeck = deckQuery.GetMostPopular();
+					OpponentDeck = DeckQuery.GetMostPopular(Opponent.HeroClass);
 
 				var bestMatches = new List<string>();
 
 				if (PossibleOpponentDecks.Count == 0)
-					bestMatches = deckQuery.GetBestMatch(PlayedSoFar);
+					bestMatches = DeckQuery.GetBestMatch(PlayedSoFar, Opponent.HeroClass);
 
 				else if (PossibleOpponentDecks.Count == 1)
 				{
 					if (PossibleOpponentDecks[0] == OpponentDeck.DeckName)
 						return;
 
-					OpponentDeck = deckQuery.DeckFromName(PossibleOpponentDecks[0]);
+					OpponentDeck = DeckQuery.DeckFromName(PossibleOpponentDecks[0], Opponent.HeroClass);
 				}
 
 				else
-					bestMatches = deckQuery.GetBestMatch(PlayedSoFar, PossibleOpponentDecks);
+					bestMatches = DeckQuery.GetBestMatch(PlayedSoFar, Opponent.HeroClass, PossibleOpponentDecks);
 
 				if (bestMatches.Count == 1)
 				{
@@ -228,7 +227,7 @@ namespace SabberStoneCoreAi.Agent
 					for (int i = 1; i < bestMatches.Count; ++i)
 						PossibleOpponentDecks.Add(bestMatches[i]);
 
-				OpponentDeck = deckQuery.DeckFromName(bestMatches[0]);
+				OpponentDeck = DeckQuery.DeckFromName(bestMatches[0], Opponent.HeroClass);
 			}
 		}
 
