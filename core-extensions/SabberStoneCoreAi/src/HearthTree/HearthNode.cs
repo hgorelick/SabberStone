@@ -14,14 +14,14 @@ namespace SabberStoneCoreAi.HearthNodes
 	/// <summary>
 	/// Constructors and defining members
 	/// </summary>
-	public abstract partial class HearthNode
+	public partial class HearthNode
 	{
-		protected RootNode _root { get; set; }
-		public RootNode Root => _root;
+		protected HearthNode _root { get; set; }
+		public HearthNode Root => _root;
 
-		public bool IsRoot => this is RootNode || Parent == null;
+		public bool IsRoot => Parent == null; // || this is RootNode;
 
-		protected bool _endTurn => this is EndTurnNode;
+		protected bool _endTurn = false;
 		public bool IsEndTurn => _endTurn;
 
 		protected HearthNode _parent { get; set; }
@@ -50,17 +50,17 @@ namespace SabberStoneCoreAi.HearthNodes
 		//protected bool _processed { get; set; } = false;
 		//public bool Processed => _processed;
 
-		protected List<HearthNode> _possibleActions { get; } = new List<HearthNode>();
+		protected List<HearthNode> _frontier { get; } = new List<HearthNode>();
 		protected List<HearthNode> _children { get; set; } = new List<HearthNode>();
 
 		/// <summary>
 		/// Actions that have yet to be applied to this HearthNode. Once expanded,
 		/// the resulting HearthNode is added to Children.
 		/// </summary>
-		public List<HearthNode> PossibleActions => _possibleActions;
+		public List<HearthNode> Frontier => _frontier;
 
 		/// <summary>
-		/// StateAction nodes that are created once an action has been selected (i.e. expansion)
+		/// Expanded PossibleActions
 		/// </summary>
 		/// <value><see cref="ActionNode"/></value>
 		public List<HearthNode> Children => _children;
@@ -70,14 +70,16 @@ namespace SabberStoneCoreAi.HearthNodes
 		/// </summary>
 		/// <param name="root"></param>
 		/// <param name="game"></param>
-		public HearthNode(RootNode root, HearthNode parent, Game game, PlayerTask action)//, bool isRoot = false)
+		public HearthNode(HearthNode root, HearthNode parent, Game game, PlayerTask action)//, bool isRoot = false)
 		{
 			_root = root;
 			_parent = parent;
 			_action = action;
+			_endTurn = Action.PlayerTaskType == PlayerTaskType.END_TURN;
 
 			_game = game.Clone();
 			_logging = Game.Logging;
+
 			//_powerHistory = new PowerHistory();
 			//IsRoot = isRoot;
 
@@ -99,8 +101,8 @@ namespace SabberStoneCoreAi.HearthNodes
 			_action = other.Action;
 			_damage = other.Damage;
 
-			for (int i = 0; i < other.PossibleActions.Count; ++i)
-				AddPossibility(other.PossibleActions[i]);
+			for (int i = 0; i < other.Frontier.Count; ++i)
+				AddFrontier(other.Frontier[i]);
 
 			for (int i = 0; i < other.Children.Count; ++i)
 				AddChild(other.Children[i]);	
@@ -111,18 +113,60 @@ namespace SabberStoneCoreAi.HearthNodes
 		/// </summary>
 		/// <param name="other"></param>
 		/// <returns></returns>
-		public abstract HearthNode Clone();
+		public virtual HearthNode Clone() { return new HearthNode(this); }
 
 		/// <summary>
 		/// Processes this HearthNode's action
 		/// </summary>
-		public abstract void Process();
+		public virtual void Process()
+		{
+			int oppHealthBefore = Game.CurrentOpponent.TotalHealth();// * OPP_HEALTH_WEIGHT;
+			int myHealthBefore = Game.CurrentPlayer.TotalHealth();// * MY_HEALTH_WEIGHT;
+
+			Game.Process(Action);
+
+			#region OLD -- Check if Processed 
+			//if (!Processed)
+			//{
+			//	Game.Process(Action);
+			//	_processed = true;
+			//}
+			#endregion
+
+			Game.CurrentPlayer.Game = Game;
+			Game.CurrentOpponent.Game = Game;
+
+			int oppHealthAfter = Game.CurrentOpponent.TotalHealth();
+			_damage = oppHealthBefore - oppHealthAfter;
+
+			int myHealthAfter = Game.CurrentPlayer.TotalHealth();
+			if (myHealthAfter <= 0)
+			{
+				Wins = -100;
+				return;
+			}
+
+			#region Weighted Reward
+			//myHealthAfter *= MY_HEALTH_WEIGHT;
+			//
+			//double oppHealthAfter = _game.CurrentOpponent.Hero.Health + _game.CurrentOpponent.Hero.Armor;
+			//if (oppHealthAfter <= 0)
+			//{
+			//	Wins = 1;
+			//	return;
+			//}
+			//
+			//oppHealthAfter *= OPP_HEALTH_WEIGHT;
+			//
+			//Reward += oppHealthBefore != oppHealthAfter ? CalculateReward(oppHealthBefore, oppHealthAfter) : 0;
+			#endregion
+		}
 	}
 
 	/// <summary>
 	/// MCTS methods
 	/// </summary>
-	public abstract partial class HearthNode
+	public partial class HearthNode
 	{
 		protected const double DISCOUNT = 0.75;
 		protected const double MY_HEALTH_WEIGHT = 0.1;
@@ -136,11 +180,14 @@ namespace SabberStoneCoreAi.HearthNodes
 			List<PlayerTask> options = Game.CurrentPlayer.Options();
 			for (int i = 0; i < options.Count; ++i)
 			{
-				if (options[i].PlayerTaskType == PlayerTaskType.END_TURN)
-					AddPossibility(new EndTurnNode(Root, this, Game.Clone(), options[i]));
+				#region OLD -- Before removing endturn/action nodes
+				//if (options[i].PlayerTaskType == PlayerTaskType.END_TURN)
+				//	AddFrontier(new EndTurnNode(Root, this, Game.Clone(), options[i]));
 
-				else
-					AddPossibility(new ActionNode(Root, this, Game.Clone(), options[i]));
+				//else
+				#endregion
+
+				AddFrontier(new HearthNode(Root, this, Game.Clone(), options[i]));
 			}
 		}
 	}
@@ -148,7 +195,7 @@ namespace SabberStoneCoreAi.HearthNodes
 	/// <summary>
 	/// Getters, setters, and adders
 	/// </summary>
-	public abstract partial class HearthNode
+	public partial class HearthNode
 	{
 		/// <summary>
 		/// Adds child to parent's children
@@ -165,32 +212,32 @@ namespace SabberStoneCoreAi.HearthNodes
 		/// Adds possibility to parent's PossibleActions
 		/// </summary>
 		/// <param name="parent"></param>
-		/// <param name="possibility"></param>
-		internal void AddPossibility(HearthNode possibility)
+		/// <param name="frontier"></param>
+		internal void AddFrontier(HearthNode frontier)
 		{
-			PossibleActions.Add(possibility);
-			possibility._parent = this;
+			Frontier.Add(frontier);
+			frontier._parent = this;
 		}
 
 		/// <summary>
 		/// Essentially pop() method for parent's PossibleActions (i.e. remove and return)
 		/// </summary>
 		/// <param name="parent"></param>
-		/// <param name="possibility"></param>
-		internal HearthNode PopPossibility(HearthNode possibility)
+		/// <param name="frontier"></param>
+		internal HearthNode PopFrontier(HearthNode frontier)
 		{
-			PossibleActions.Remove(possibility);
-			return possibility;
+			Frontier.Remove(frontier);
+			return frontier;
 		}
 
 		/// <summary>
 		/// Moves possibility from this HearthNode's PossibleActions' to its Children.
 		/// </summary>
-		/// <param name="possibility"></param>
-		internal void BirthPossibility(HearthNode possibility)
+		/// <param name="frontier"></param>
+		internal void BirthPossibility(HearthNode frontier)
 		{
-			PossibleActions.Remove(possibility);
-			AddChild(possibility);
+			Frontier.Remove(frontier);
+			AddChild(frontier);
 		}
 
 		/// <summary>

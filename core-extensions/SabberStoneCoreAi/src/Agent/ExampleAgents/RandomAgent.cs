@@ -26,9 +26,9 @@ namespace SabberStoneCoreAi.Agent.ExampleAgents
 		public override HearthNode PlayTurn(HearthNode state)
 		{
 			var rnd = new Random();
-			int rndInd = rnd.Next(state.PossibleActions.Count);
+			int rndInd = rnd.Next(state.Frontier.Count);
 
-			HearthNode selected = state.PossibleActions[rndInd];
+			HearthNode selected = state.Frontier[rndInd];
 			state.BirthPossibility(selected);
 			//selected.Game.PowerHistory.Dump(@"C:\Users\hgore\SabberStone\core-extensions\SabberStoneCoreAi\src\Meta\SabberStone.log");
 			//selected.Write(filename, false, false, true);

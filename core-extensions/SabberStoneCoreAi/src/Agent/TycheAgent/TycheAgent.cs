@@ -79,7 +79,7 @@ namespace SabberStoneCoreAi.Tyche2
 			List<PlayerTask> options = poGame._game.CurrentPlayer.Options();
 			PlayerTask chosen = ChooseTask(poGame, options);
 
-			HearthNode selected = state.PossibleActions.Find(h => h.Action.IsEqual(chosen));
+			HearthNode selected = state.Frontier.Find(h => h.Action.IsEqual(chosen));
 
 			//if (selected == null)
 			//	foreach (HearthNode p in state.PossibleActions)
@@ -96,7 +96,7 @@ namespace SabberStoneCoreAi.Tyche2
 					TyDebug.LogError("Choosen task was null!");
 				}
 
-				selected = state.PossibleActions.Find(h => h.Action.IsEqual(options.GetUniformRandom(_random)));
+				selected = state.Frontier.Find(h => h.Action.IsEqual(options.GetUniformRandom(_random)));
 			}
 
 			//selected.Process();

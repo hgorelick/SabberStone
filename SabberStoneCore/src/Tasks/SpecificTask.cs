@@ -220,7 +220,7 @@ namespace SabberStoneCore.Tasks
 							.Where(card => card.Class == op.BaseClass)
 							.ToList()
 							.AsReadOnly();
-						foreach (Card card in op.DeckCards)
+						foreach (Card card in op.Deck)
 						{
 							if (card.Class != op.BaseClass)
 								continue;

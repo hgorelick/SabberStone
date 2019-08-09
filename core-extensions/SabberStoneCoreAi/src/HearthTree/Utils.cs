@@ -122,7 +122,7 @@ namespace SabberStoneCoreAi.Utils
 		/// <returns></returns>
 		public static bool AttackOnly(this HearthNode h)
 		{
-			return h.PossibleActions.SkipWhile(p => p.IsEndTurn).ToList().All(p =>
+			return h.Frontier.SkipWhile(p => p.IsEndTurn).ToList().All(p =>
 			   (p.Action.PlayerTaskType == PlayerTaskType.MINION_ATTACK || p.Action.PlayerTaskType == PlayerTaskType.HERO_ATTACK)
 				&& h.Game.CurrentOpponent.BoardZone.IsEmpty
 				&& h.Game.CurrentOpponent.SecretZone.IsEmpty);
@@ -382,7 +382,7 @@ namespace SabberStoneCoreAi.Utils
 			{
 				str.AppendLine($"{fiveTabs}\"power-usable\": \"{h.HeroPower.IsPlayableByPlayer.ToString().ToLower()}\",");
 				str.AppendLine($"{fiveTabs}\"remaining-mana\" {h.Controller.RemainingMana},");
-				str.AppendLine($"{fiveTabs}\"full-mana\": {h.Controller.MaxResources},");
+				str.AppendLine($"{fiveTabs}\"full-mana\": {Controller.MaxResources},");
 				str.AppendLine($"{fiveTabs}\"hp\": {h.Health},");
 				str.AppendLine($"{fiveTabs}\"armor\": {h.Armor},");
 

@@ -281,9 +281,9 @@ namespace SabberStoneCoreAi
 				//if (molten.Cost != molten.Card.Cost)
 				//	check = false;
 
-				HearthNode state = root.PossibleActions.Find(p => p.IsEndTurn);
+				HearthNode state = root.Frontier.Find(p => p.IsEndTurn);
 				for (int i = 0; i < 5; ++i)
-					state = state.PossibleActions.Find(p => p.IsEndTurn);
+					state = state.Frontier.Find(p => p.IsEndTurn);
 			}
 		}
 	}

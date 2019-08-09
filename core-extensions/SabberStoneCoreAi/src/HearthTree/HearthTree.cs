@@ -116,15 +116,16 @@ namespace SabberStoneCoreAi.HearthNodes
 				selection = move.Item1;
 
 			else if (move.Item1.Children.Count == 0)
-				selection = move.Item1.PossibleActions.Find(p => p.IsEndTurn);
+				selection = move.Item1.Frontier.Find(p => p.IsEndTurn);
 
 			else
 			{
 				HearthNode MCTSNode = move.Item1;
 				List<HearthNode> children = MCTSNode.Children;
 
-				HearthNode endTurn = (MCTSNode.Game.CurrentOpponent.BoardZone.IsEmpty && MCTSNode.Game.CurrentOpponent.SecretZone.IsEmpty && children.Count > 1)
-									 ? children.Pop(h => h.IsEndTurn) : null;
+				HearthNode endTurn = (MCTSNode.Game.CurrentOpponent.BoardZone.IsEmpty
+								   && MCTSNode.Game.CurrentOpponent.SecretZone.IsEmpty
+								   && children.Count > 1) ? children.Pop(h => h.IsEndTurn) : null;
 
 				///if (MCTSNode.Game.CurrentOpponent.BoardZone.IsEmpty && MCTSNode.Game.CurrentOpponent.SecretZone.IsEmpty && children.Count > 1)
 				///	endTurn = children.Pop(h => h.IsEndTurn);
@@ -176,7 +177,7 @@ namespace SabberStoneCoreAi.HearthNodes
 		{
 			HearthNode endTurn = null;
 
-			if (state.PossibleActions.Count == 0 && state.Children.Count > 0 && !state.IsEndTurn)
+			if (state.Frontier.Count == 0 && state.Children.Count > 0 && !state.IsEndTurn)
 			{
 				if (state.Game.CurrentOpponent.BoardZone.IsEmpty
 					&& state.Game.CurrentOpponent.SecretZone.IsEmpty
@@ -225,19 +226,19 @@ namespace SabberStoneCoreAi.HearthNodes
 
 			if (dumbMoves.Count > 0)
 				for (int i = 0; i < dumbMoves.Count; ++i)
-					state.PossibleActions.Remove(dumbMoves[i]);
+					state.Frontier.Remove(dumbMoves[i]);
 
-			if (state.PossibleActions.Count == 0 || state.IsEndTurn)
+			if (state.Frontier.Count == 0 || state.IsEndTurn)
 			{
 				if (state.IsEndTurn)
-					state.PossibleActions.Clear();
+					state.Frontier.Clear();
 
 				return state;
 			}
 
 			var rnd = new Random();
-			int rndInd = rnd.Next(state.PossibleActions.Count);
-			HearthNode expansion = state.PossibleActions[rndInd];
+			int rndInd = rnd.Next(state.Frontier.Count);
+			HearthNode expansion = state.Frontier[rndInd];
 
 			state.BirthPossibility(expansion);
 			//expansion = state.PopPossibility(expansion);
@@ -248,7 +249,7 @@ namespace SabberStoneCoreAi.HearthNodes
 
 			if (dumbMoves.Count > 0)
 				for (int i = 0; i < dumbMoves.Count; ++i)
-					state.AddPossibility(dumbMoves[i]);
+					state.AddFrontier(dumbMoves[i]);
 
 			return expansion;
 		}
@@ -263,17 +264,17 @@ namespace SabberStoneCoreAi.HearthNodes
 
 			while (state.Game.State != State.COMPLETE && state.Game.State != State.INVALID)
 			{
-				if (state.PossibleActions.Count == 0)
+				if (state.Frontier.Count == 0)
 					state.GenPossibleActions();
 
-				List<HearthNode> deathNodes = state.PossibleActions.FindAll(p => p.Wins == -100);
-				if (deathNodes != null && state.PossibleActions.Count > 1)
+				List<HearthNode> deathNodes = state.Frontier.FindAll(p => p.Wins == -100);
+				if (deathNodes != null && state.Frontier.Count > 1)
 					for (int i = 0; i < deathNodes.Count; ++i)
-						state.PossibleActions.Remove(deathNodes[i]);
+						state.Frontier.Remove(deathNodes[i]);
 
 				var rnd = new Random();
-				int rndInd = rnd.Next(state.PossibleActions.Count);
-				state = state.PossibleActions[rndInd];
+				int rndInd = rnd.Next(state.Frontier.Count);
+				state = state.Frontier[rndInd];
 			}
 
 			if (state.Game.CurrentPlayer.PlayerId == currentPlayer)
@@ -319,11 +320,19 @@ namespace SabberStoneCoreAi.HearthNodes
 		}
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	internal static class TreeHelper
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="state"></param>
+		/// <returns></returns>
 		internal static HearthNode GetObvious(this HearthNode state)
 		{
-			HearthNode obvious = state.PossibleActions.Count == 1 ? state.GetSingleChoice() : state.PlayQuest();
+			HearthNode obvious = state.Frontier.Count == 1 ? state.GetSingleChoice() : state.PlayQuest();
 
 			if (obvious == null)
 			{
@@ -332,7 +341,7 @@ namespace SabberStoneCoreAi.HearthNodes
 					obvious = lethalMoves[0];
 
 				else if (state.AttackOnly())
-					obvious = state.PossibleActions[0];
+					obvious = state.Frontier[0];
 			}
 
 			else
@@ -341,9 +350,14 @@ namespace SabberStoneCoreAi.HearthNodes
 			return obvious;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="state"></param>
+		/// <returns></returns>
 		internal static HearthNode PlayQuest(this HearthNode state)
 		{
-			return state.PossibleActions.Count > 1 ? state.PossibleActions.Find(p => p.Action?.Source?.Card.IsQuest ?? false) : null;
+			return state.Frontier.Count > 1 ? state.Frontier.Find(p => p.Action?.Source?.Card.IsQuest ?? false) : null;
 		}
 
 		/// <summary>
@@ -353,8 +367,8 @@ namespace SabberStoneCoreAi.HearthNodes
 		/// <returns></returns>
 		internal static HearthNode GetSingleChoice(this HearthNode state)
 		{
-			HearthNode choice = state.PossibleActions[0];
-			state.PossibleActions.Remove(choice);
+			HearthNode choice = state.Frontier[0];
+			state.Frontier.Remove(choice);
 			state.AddChild(choice);
 			return choice;
 		}
@@ -363,9 +377,9 @@ namespace SabberStoneCoreAi.HearthNodes
 		{
 			var purged = new List<HearthNode>();
 
-			for (int i = 0; i < state.PossibleActions.Count; ++i)
+			for (int i = 0; i < state.Frontier.Count; ++i)
 			{
-				HearthNode p = state.PossibleActions[i];
+				HearthNode p = state.Frontier[i];
 
 				if (p.Action.Source?.Card.Name == "Warpath" && state.Game.CurrentOpponent.BoardZone.IsEmpty)
 					purged.Add(p);
@@ -411,11 +425,7 @@ namespace SabberStoneCoreAi.HearthNodes
 			List<PlayerTask> options = state.Game.CurrentPlayer.Options();
 			for (int i = 0; i < options.Count; ++i)
 			{
-				if (options[i].PlayerTaskType == PlayerTaskType.END_TURN)
-					state.AddPossibility(new EndTurnNode(state.Root, state, state.Game, options[i]));
-
-				else
-					state.AddPossibility(new ActionNode(state.Root, state, state.Game, options[i]));
+				state.AddFrontier(new HearthNode(state.Root, state, state.Game, options[i]));
 			}
 		}
 

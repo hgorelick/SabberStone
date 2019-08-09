@@ -53,14 +53,14 @@ namespace SabberStoneCoreAi.POGamespace
 
 			_masterGame.StartGame();
 
-			var _masterRoot = new RootNode(null, null, _masterGame, null);
+			var _masterRoot = new HearthNode(null, null, _masterGame, null);
 
 			AbstractAgent _currentAgent;
 
 			Stopwatch currentStopwatch;
 			Stopwatch[] watches = new[] { new Stopwatch(), new Stopwatch() };
 
-			var state = new RootNode(_masterRoot, null, _masterGame, null);
+			var state = new HearthNode(_masterRoot, null, _masterGame, null);
 
 			try
 			{
@@ -82,7 +82,7 @@ namespace SabberStoneCoreAi.POGamespace
 					if (_debug)
 						Console.Write(moveNode.PrintAction());
 
-					state = new RootNode(moveNode.Root, null, moveNode.Game, moveNode.Action);
+					state = new HearthNode(moveNode.Root, null, moveNode.Game, moveNode.Action);
 					currentStopwatch.Stop();
 
 					state.Game.CurrentPlayer.Game = state.Game;
