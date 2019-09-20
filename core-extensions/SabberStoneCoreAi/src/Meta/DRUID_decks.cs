@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCoreAi.Meta
 {
@@ -10,7 +11,7 @@ namespace SabberStoneCoreAi.Meta
 		public DRUIDDecks()
 		{
 			decks = new List<Deck> {
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid1",
 						27000,
 						new List<Card>
@@ -47,7 +48,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Forest's Aid"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid1",
 						7600,
 						new List<Card>
@@ -84,7 +85,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tending Tauren"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid2",
 						7500,
 						new List<Card>
@@ -121,7 +122,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid2",
 						6500,
 						new List<Card>
@@ -158,7 +159,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tending Tauren"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid3",
 						6300,
 						new List<Card>
@@ -195,7 +196,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Forest's Aid"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid4",
 						5600,
 						new List<Card>
@@ -232,7 +233,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Forest's Aid"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid3",
 						3100,
 						new List<Card>
@@ -269,7 +270,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("King Phaoris"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid4",
 						2700,
 						new List<Card>
@@ -306,7 +307,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid5",
 						2400,
 						new List<Card>
@@ -343,7 +344,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid5",
 						2100,
 						new List<Card>
@@ -380,7 +381,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Forest's Aid"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid6",
 						1900,
 						new List<Card>
@@ -417,7 +418,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid6",
 						1800,
 						new List<Card>
@@ -454,7 +455,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Chef Nomi"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid7",
 						1700,
 						new List<Card>
@@ -491,7 +492,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Forest's Aid"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Highlander_Quest_Druid",
 						1600,
 						new List<Card>
@@ -528,7 +529,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid7",
 						1500,
 						new List<Card>
@@ -565,7 +566,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid8",
 						1400,
 						new List<Card>
@@ -602,7 +603,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Forest's Aid"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid8",
 						1300,
 						new List<Card>
@@ -639,7 +640,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid9",
 						1300,
 						new List<Card>
@@ -676,7 +677,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Malygos"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid9",
 						1200,
 						new List<Card>
@@ -713,7 +714,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Forest's Aid"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Druid1",
 						1100,
 						new List<Card>
@@ -750,7 +751,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid10",
 						1100,
 						new List<Card>
@@ -787,7 +788,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid10",
 						880,
 						new List<Card>
@@ -824,7 +825,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid11",
 						880,
 						new List<Card>
@@ -861,7 +862,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Forest's Aid"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid11",
 						860,
 						new List<Card>
@@ -898,7 +899,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid12",
 						860,
 						new List<Card>
@@ -935,7 +936,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid13",
 						780,
 						new List<Card>
@@ -972,7 +973,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Forest's Aid"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid12",
 						750,
 						new List<Card>
@@ -1009,7 +1010,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid13",
 						670,
 						new List<Card>
@@ -1046,7 +1047,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid14",
 						660,
 						new List<Card>
@@ -1083,7 +1084,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Heal_Druid1",
 						660,
 						new List<Card>
@@ -1120,7 +1121,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Lucentbark"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid15",
 						650,
 						new List<Card>
@@ -1157,7 +1158,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid14",
 						620,
 						new List<Card>
@@ -1194,7 +1195,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Forest's Aid"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Druid2",
 						600,
 						new List<Card>
@@ -1231,7 +1232,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Malygos"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Druid3",
 						590,
 						new List<Card>
@@ -1268,7 +1269,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Malygos"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid16",
 						590,
 						new List<Card>
@@ -1305,7 +1306,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Druid4",
 						570,
 						new List<Card>
@@ -1342,7 +1343,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid15",
 						530,
 						new List<Card>
@@ -1379,7 +1380,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Forest's Aid"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid16",
 						520,
 						new List<Card>
@@ -1416,7 +1417,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Heal_Druid2",
 						520,
 						new List<Card>
@@ -1453,7 +1454,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Lucentbark"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid17",
 						520,
 						new List<Card>
@@ -1490,7 +1491,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mulchmuncher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Druid5",
 						490,
 						new List<Card>
@@ -1527,7 +1528,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mulchmuncher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid17",
 						450,
 						new List<Card>
@@ -1564,7 +1565,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cenarius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid18",
 						450,
 						new List<Card>
@@ -1601,7 +1602,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid19",
 						440,
 						new List<Card>
@@ -1638,7 +1639,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Forest's Aid"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Quest_Druid18",
 						410,
 						new List<Card>
@@ -1675,7 +1676,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("King Phaoris"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.DRUID,
 						"Token_Druid20",
 						410,
 						new List<Card>

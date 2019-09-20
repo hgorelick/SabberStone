@@ -264,8 +264,20 @@ namespace SabberStoneCore.Model.Zones
 			{
 				var minion = card as Minion;
 				var weapon = card as Weapon;
+
 				string cStr = minion != null ? $"[{minion.AttackDamage}/{minion.Health}]" : (weapon != null ? $"[{weapon.AttackDamage}/{weapon.Durability}]" : "");
-				str.Append($"[{card.Cost}]{card.Card.Name}{cStr} | ");
+				string tStr = "";
+
+				if (cStr == "")
+					tStr = "[S]";
+
+				else if (minion != null)
+					tStr = "[M]";
+
+				else if (weapon != null)
+					tStr = "[W]";
+
+				str.Append($"{tStr}[{card.Cost}]{card.Card.Name}{cStr} | ");
 			}
 			//str.Append($"[ENCH {Enchants.Count}]");
 			//str.Append($"[TRIG {Triggers.Count}]");

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Data;
 using System.Data.SQLite;
 using System.Collections.Generic;
@@ -54,7 +55,8 @@ namespace SabberStoneCore.HearthQuery
 		//}
 		#endregion
 
-		const string connection = @"DataSource=C:\Users\hgore\SabberStone\SabberStoneCore\resources\Data\hearth_decks.db;";
+		static readonly string connection = $"DataSource={Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.Parent.FullName}" +
+											$"\\SabberStoneCore\\resources\\Data\\hearth_decks.db;";
 
 		public static Deck GetMostPopular(CardClass heroClass)
 		{
@@ -63,8 +65,8 @@ namespace SabberStoneCore.HearthQuery
 
 			using (var conn = new SQLiteConnection(connection))
 			{
-				var cmd = new SQLiteCommand(query, conn);
-				using (var adapter = new SQLiteDataAdapter { SelectCommand = cmd })
+				//var cmd = new SQLiteCommand(query, conn);
+				using (var adapter = new SQLiteDataAdapter { SelectCommand = new SQLiteCommand(query, conn) })
 				{
 					adapter.Fill(Deck);
 				}
@@ -96,8 +98,8 @@ namespace SabberStoneCore.HearthQuery
 			using (var conn = new SQLiteConnection(connection))
 			{
 				conn.Open();
-				var cmd = new SQLiteCommand(query, conn);
-				using (var adapter = new SQLiteDataAdapter { SelectCommand = cmd })
+				//var cmd = new SQLiteCommand(query, conn);
+				using (var adapter = new SQLiteDataAdapter { SelectCommand = new SQLiteCommand(query, conn) })
 				{
 					adapter.Fill(Deck);
 				}
@@ -139,8 +141,8 @@ namespace SabberStoneCore.HearthQuery
 					query = $"select card_name from deck_cards where deck_name = '{name}';";
 					var Deck = new DataTable();
 
-					var cmd = new SQLiteCommand(query, conn);
-					using (var adapter = new SQLiteDataAdapter { SelectCommand = cmd })
+					//var cmd = new SQLiteCommand(query, conn);
+					using (var adapter = new SQLiteDataAdapter { SelectCommand = new SQLiteCommand(query, conn) })
 					{
 						adapter.Fill(Deck);
 					}
@@ -178,8 +180,8 @@ namespace SabberStoneCore.HearthQuery
 			using (var conn = new SQLiteConnection(connection))
 			{
 				conn.Open();
-				var cmd = new SQLiteCommand(query, conn);
-				using (var adapter = new SQLiteDataAdapter { SelectCommand = cmd })
+				//var cmd = new SQLiteCommand(query, conn);
+				using (var adapter = new SQLiteDataAdapter { SelectCommand = new SQLiteCommand(query, conn) })
 				{
 					adapter.Fill(DeckNames);
 				}

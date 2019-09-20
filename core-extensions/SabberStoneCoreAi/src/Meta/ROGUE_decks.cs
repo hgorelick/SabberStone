@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCoreAi.Meta
 {
@@ -10,7 +11,7 @@ namespace SabberStoneCoreAi.Meta
 		public ROGUEDecks()
 		{
 			decks = new List<Deck> {
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue1",
 						16000,
 						new List<Card>
@@ -47,7 +48,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue1",
 						7900,
 						new List<Card>
@@ -84,7 +85,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Myra's Unstable Element"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue2",
 						7700,
 						new List<Card>
@@ -121,7 +122,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Thief_Rogue1",
 						7500,
 						new List<Card>
@@ -158,7 +159,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue3",
 						7200,
 						new List<Card>
@@ -195,7 +196,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Hooktusk_Rogue1",
 						5300,
 						new List<Card>
@@ -232,7 +233,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Captain Hooktusk"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue2",
 						4900,
 						new List<Card>
@@ -269,7 +270,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue3",
 						4600,
 						new List<Card>
@@ -306,7 +307,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue4",
 						4500,
 						new List<Card>
@@ -343,7 +344,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue4",
 						4300,
 						new List<Card>
@@ -380,7 +381,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue5",
 						3500,
 						new List<Card>
@@ -417,7 +418,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Rogue1",
 						2600,
 						new List<Card>
@@ -454,7 +455,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Myra's Unstable Element"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue5",
 						2500,
 						new List<Card>
@@ -491,7 +492,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue6",
 						2400,
 						new List<Card>
@@ -528,7 +529,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue6",
 						2100,
 						new List<Card>
@@ -565,7 +566,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue7",
 						2000,
 						new List<Card>
@@ -602,7 +603,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue7",
 						2000,
 						new List<Card>
@@ -639,7 +640,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Chef Nomi"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue8",
 						2000,
 						new List<Card>
@@ -676,7 +677,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue8",
 						1800,
 						new List<Card>
@@ -713,7 +714,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue9",
 						1700,
 						new List<Card>
@@ -750,7 +751,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue9",
 						1600,
 						new List<Card>
@@ -787,7 +788,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue10",
 						1500,
 						new List<Card>
@@ -824,7 +825,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Chef Nomi"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue11",
 						1500,
 						new List<Card>
@@ -861,7 +862,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Chef Nomi"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Hooktusk_Rogue2",
 						1500,
 						new List<Card>
@@ -898,7 +899,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Captain Hooktusk"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue12",
 						1400,
 						new List<Card>
@@ -935,7 +936,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue13",
 						1400,
 						new List<Card>
@@ -972,7 +973,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Myra's Unstable Element"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue10",
 						1300,
 						new List<Card>
@@ -1009,7 +1010,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Pogo_Rogue1",
 						1300,
 						new List<Card>
@@ -1046,7 +1047,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue14",
 						1300,
 						new List<Card>
@@ -1083,7 +1084,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue11",
 						1200,
 						new List<Card>
@@ -1120,7 +1121,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Hooktusk_Rogue3",
 						1100,
 						new List<Card>
@@ -1157,7 +1158,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Captain Hooktusk"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Hooktusk_Rogue4",
 						1000,
 						new List<Card>
@@ -1194,7 +1195,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Captain Hooktusk"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue12",
 						1000,
 						new List<Card>
@@ -1231,7 +1232,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue15",
 						1000,
 						new List<Card>
@@ -1268,7 +1269,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Pogo_Rogue2",
 						930,
 						new List<Card>
@@ -1305,7 +1306,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue13",
 						890,
 						new List<Card>
@@ -1342,7 +1343,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Hooktusk_Rogue5",
 						880,
 						new List<Card>
@@ -1379,7 +1380,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Captain Hooktusk"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue16",
 						870,
 						new List<Card>
@@ -1416,7 +1417,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Myra's Unstable Element"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue17",
 						860,
 						new List<Card>
@@ -1453,7 +1454,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Chef Nomi"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Hooktusk_Rogue6",
 						770,
 						new List<Card>
@@ -1490,7 +1491,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Captain Hooktusk"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Pogo_Rogue3",
 						740,
 						new List<Card>
@@ -1527,7 +1528,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Rogue2",
 						700,
 						new List<Card>
@@ -1564,7 +1565,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mechanical Whelp"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue14",
 						700,
 						new List<Card>
@@ -1601,7 +1602,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Vendetta"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue18",
 						700,
 						new List<Card>
@@ -1638,7 +1639,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Myra's Unstable Element"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue19",
 						690,
 						new List<Card>
@@ -1675,7 +1676,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Chef Nomi"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue20",
 						660,
 						new List<Card>
@@ -1712,7 +1713,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue21",
 						650,
 						new List<Card>
@@ -1749,7 +1750,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Thief_Rogue2",
 						650,
 						new List<Card>
@@ -1786,7 +1787,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Hooktusk_Rogue7",
 						650,
 						new List<Card>
@@ -1823,7 +1824,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Captain Hooktusk"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue22",
 						640,
 						new List<Card>
@@ -1860,7 +1861,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue15",
 						630,
 						new List<Card>
@@ -1897,7 +1898,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue23",
 						590,
 						new List<Card>
@@ -1934,7 +1935,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zilliax"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Hooktusk_Rogue8",
 						540,
 						new List<Card>
@@ -1971,7 +1972,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Captain Hooktusk"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Hooktusk_Rogue9",
 						540,
 						new List<Card>
@@ -2008,7 +2009,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Captain Hooktusk"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue24",
 						540,
 						new List<Card>
@@ -2045,7 +2046,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Rogue3",
 						540,
 						new List<Card>
@@ -2082,7 +2083,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue25",
 						540,
 						new List<Card>
@@ -2119,7 +2120,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Vendetta"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Thief_Rogue3",
 						530,
 						new List<Card>
@@ -2156,7 +2157,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Tempo_Rogue26",
 						500,
 						new List<Card>
@@ -2193,7 +2194,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Myra's Unstable Element"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue16",
 						490,
 						new List<Card>
@@ -2230,7 +2231,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue17",
 						490,
 						new List<Card>
@@ -2267,7 +2268,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Rogue4",
 						470,
 						new List<Card>
@@ -2304,7 +2305,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Siamat"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Thief_Rogue4",
 						470,
 						new List<Card>
@@ -2341,7 +2342,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tess Greymane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Quest_Rogue18",
 						470,
 						new List<Card>
@@ -2378,7 +2379,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Heistbaron Togwaggle"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Hooktusk_Rogue10",
 						440,
 						new List<Card>
@@ -2415,7 +2416,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Captain Hooktusk"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Rogue5",
 						430,
 						new List<Card>
@@ -2452,7 +2453,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Anubisath Warbringer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.ROGUE,
 						"Pogo_Rogue4",
 						410,
 						new List<Card>

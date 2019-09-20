@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCoreAi.Meta
 {
@@ -10,7 +11,7 @@ namespace SabberStoneCoreAi.Meta
 		public HUNTERDecks()
 		{
 			decks = new List<Deck> {
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Highlander_Hunter1",
 						21000,
 						new List<Card>
@@ -47,7 +48,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter1",
 						16000,
 						new List<Card>
@@ -84,7 +85,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter1",
 						14000,
 						new List<Card>
@@ -121,7 +122,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Boommaster Flark"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter1",
 						11000,
 						new List<Card>
@@ -158,7 +159,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter2",
 						7700,
 						new List<Card>
@@ -195,7 +196,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter2",
 						5900,
 						new List<Card>
@@ -232,7 +233,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Boommaster Flark"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter2",
 						4700,
 						new List<Card>
@@ -269,7 +270,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter3",
 						4600,
 						new List<Card>
@@ -306,7 +307,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter4",
 						4600,
 						new List<Card>
@@ -343,7 +344,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter3",
 						3800,
 						new List<Card>
@@ -380,7 +381,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Missile Launcher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Highlander_Hunter2",
 						3400,
 						new List<Card>
@@ -417,7 +418,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Quest_Hunter1",
 						3100,
 						new List<Card>
@@ -454,7 +455,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Swarm of Locusts"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter4",
 						3100,
 						new List<Card>
@@ -491,7 +492,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Missile Launcher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter5",
 						3100,
 						new List<Card>
@@ -528,7 +529,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Boommaster Flark"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter3",
 						3000,
 						new List<Card>
@@ -565,7 +566,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Quest_Hunter2",
 						3000,
 						new List<Card>
@@ -602,7 +603,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Swarm of Locusts"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter4",
 						2700,
 						new List<Card>
@@ -639,7 +640,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Highlander_Hunter3",
 						2700,
 						new List<Card>
@@ -676,7 +677,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter6",
 						2700,
 						new List<Card>
@@ -713,7 +714,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Boommaster Flark"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Highlander_Hunter4",
 						2600,
 						new List<Card>
@@ -750,7 +751,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter5",
 						2400,
 						new List<Card>
@@ -787,7 +788,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter6",
 						2300,
 						new List<Card>
@@ -824,7 +825,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter5",
 						2200,
 						new List<Card>
@@ -861,7 +862,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Highlander_Hunter5",
 						2100,
 						new List<Card>
@@ -898,7 +899,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter7",
 						2100,
 						new List<Card>
@@ -935,7 +936,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Missile Launcher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Highlander_Hunter6",
 						2000,
 						new List<Card>
@@ -972,7 +973,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter7",
 						1900,
 						new List<Card>
@@ -1009,7 +1010,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter8",
 						1900,
 						new List<Card>
@@ -1046,7 +1047,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Missile Launcher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter6",
 						1900,
 						new List<Card>
@@ -1083,7 +1084,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Swarm of Locusts"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter7",
 						1800,
 						new List<Card>
@@ -1120,7 +1121,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Highlander_Hunter7",
 						1600,
 						new List<Card>
@@ -1157,7 +1158,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter9",
 						1500,
 						new List<Card>
@@ -1194,7 +1195,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Reckless Rocketeer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Highlander_Hunter8",
 						1400,
 						new List<Card>
@@ -1231,7 +1232,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter8",
 						1400,
 						new List<Card>
@@ -1268,7 +1269,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter9",
 						1300,
 						new List<Card>
@@ -1305,7 +1306,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter10",
 						1300,
 						new List<Card>
@@ -1342,7 +1343,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter10",
 						1200,
 						new List<Card>
@@ -1379,7 +1380,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Missile Launcher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter8",
 						1200,
 						new List<Card>
@@ -1416,7 +1417,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter11",
 						1200,
 						new List<Card>
@@ -1453,7 +1454,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter12",
 						1200,
 						new List<Card>
@@ -1490,7 +1491,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter13",
 						1200,
 						new List<Card>
@@ -1527,7 +1528,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter14",
 						1200,
 						new List<Card>
@@ -1564,7 +1565,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter15",
 						1000,
 						new List<Card>
@@ -1601,7 +1602,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter11",
 						1000,
 						new List<Card>
@@ -1638,7 +1639,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Missile Launcher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter12",
 						1000,
 						new List<Card>
@@ -1675,7 +1676,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Missile Launcher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter16",
 						1000,
 						new List<Card>
@@ -1712,7 +1713,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Spell_Hunter",
 						970,
 						new List<Card>
@@ -1749,7 +1750,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter17",
 						870,
 						new List<Card>
@@ -1786,7 +1787,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter9",
 						870,
 						new List<Card>
@@ -1823,7 +1824,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter18",
 						860,
 						new List<Card>
@@ -1860,7 +1861,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Stranglethorn Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter19",
 						830,
 						new List<Card>
@@ -1897,7 +1898,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter10",
 						820,
 						new List<Card>
@@ -1934,7 +1935,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter20",
 						780,
 						new List<Card>
@@ -1971,7 +1972,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter13",
 						760,
 						new List<Card>
@@ -2008,7 +2009,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Missile Launcher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Hunter1",
 						750,
 						new List<Card>
@@ -2045,7 +2046,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Marked Shot"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter14",
 						730,
 						new List<Card>
@@ -2082,7 +2083,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter15",
 						730,
 						new List<Card>
@@ -2119,7 +2120,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Boommaster Flark"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter16",
 						720,
 						new List<Card>
@@ -2156,7 +2157,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Hunter2",
 						710,
 						new List<Card>
@@ -2193,7 +2194,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter17",
 						700,
 						new List<Card>
@@ -2230,7 +2231,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Missile Launcher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter21",
 						670,
 						new List<Card>
@@ -2267,7 +2268,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter11",
 						650,
 						new List<Card>
@@ -2304,7 +2305,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter12",
 						650,
 						new List<Card>
@@ -2341,7 +2342,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter22",
 						650,
 						new List<Card>
@@ -2378,7 +2379,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Unleash the Beast"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter23",
 						630,
 						new List<Card>
@@ -2415,7 +2416,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Unleash the Beast"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter24",
 						580,
 						new List<Card>
@@ -2452,7 +2453,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter13",
 						580,
 						new List<Card>
@@ -2489,7 +2490,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter14",
 						570,
 						new List<Card>
@@ -2526,7 +2527,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter15",
 						560,
 						new List<Card>
@@ -2563,7 +2564,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Quest_Hunter3",
 						560,
 						new List<Card>
@@ -2600,7 +2601,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Swarm of Locusts"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter18",
 						560,
 						new List<Card>
@@ -2637,7 +2638,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Boommaster Flark"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter25",
 						550,
 						new List<Card>
@@ -2674,7 +2675,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Highlander_Hunter9",
 						550,
 						new List<Card>
@@ -2711,7 +2712,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter26",
 						550,
 						new List<Card>
@@ -2748,7 +2749,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Savannah Highmane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter27",
 						520,
 						new List<Card>
@@ -2785,7 +2786,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter19",
 						520,
 						new List<Card>
@@ -2822,7 +2823,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Boommaster Flark"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter20",
 						520,
 						new List<Card>
@@ -2859,7 +2860,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Missile Launcher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter28",
 						520,
 						new List<Card>
@@ -2896,7 +2897,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter16",
 						510,
 						new List<Card>
@@ -2933,7 +2934,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter21",
 						510,
 						new List<Card>
@@ -2970,7 +2971,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Missile Launcher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter17",
 						500,
 						new List<Card>
@@ -3007,7 +3008,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter29",
 						500,
 						new List<Card>
@@ -3044,7 +3045,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zilliax"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter30",
 						500,
 						new List<Card>
@@ -3081,7 +3082,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter31",
 						500,
 						new List<Card>
@@ -3118,7 +3119,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter32",
 						490,
 						new List<Card>
@@ -3155,7 +3156,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Unleash the Beast"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter22",
 						480,
 						new List<Card>
@@ -3192,7 +3193,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Boommaster Flark"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter18",
 						480,
 						new List<Card>
@@ -3229,7 +3230,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Hunter3",
 						470,
 						new List<Card>
@@ -3266,7 +3267,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter19",
 						470,
 						new List<Card>
@@ -3303,7 +3304,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter20",
 						450,
 						new List<Card>
@@ -3340,7 +3341,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter33",
 						450,
 						new List<Card>
@@ -3377,7 +3378,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Hunter4",
 						450,
 						new List<Card>
@@ -3414,7 +3415,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter23",
 						440,
 						new List<Card>
@@ -3451,7 +3452,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Missile Launcher"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Secret_Hunter21",
 						440,
 						new List<Card>
@@ -3488,7 +3489,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter34",
 						440,
 						new List<Card>
@@ -3525,7 +3526,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter35",
 						430,
 						new List<Card>
@@ -3562,7 +3563,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter36",
 						430,
 						new List<Card>
@@ -3599,7 +3600,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Savannah Highmane"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter37",
 						420,
 						new List<Card>
@@ -3636,7 +3637,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Midrange_Hunter38",
 						420,
 						new List<Card>
@@ -3673,7 +3674,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zul'jin"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.HUNTER,
 						"Mech_Hunter24",
 						410,
 						new List<Card>

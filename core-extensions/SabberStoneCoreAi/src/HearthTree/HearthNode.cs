@@ -75,7 +75,7 @@ namespace SabberStoneCoreAi.HearthNodes
 			_root = root;
 			_parent = parent;
 			_action = action;
-			_endTurn = Action.PlayerTaskType == PlayerTaskType.END_TURN;
+			_endTurn = Action?.PlayerTaskType == PlayerTaskType.END_TURN;
 
 			_game = game.Clone();
 			_logging = Game.Logging;
@@ -83,7 +83,11 @@ namespace SabberStoneCoreAi.HearthNodes
 			//_powerHistory = new PowerHistory();
 			//IsRoot = isRoot;
 
-			Process();
+			if (IsRoot)
+				GenPossibleActions();
+
+			else
+				Process();
 			//PowerHistory.AddRange(game.PowerHistory);
 		}
 

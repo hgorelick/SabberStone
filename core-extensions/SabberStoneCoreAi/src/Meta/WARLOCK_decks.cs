@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCoreAi.Meta
 {
@@ -10,7 +11,7 @@ namespace SabberStoneCoreAi.Meta
 		public WARLOCKDecks()
 		{
 			decks = new List<Deck> {
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock1",
 						6700,
 						new List<Card>
@@ -47,7 +48,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Leeroy Jenkins"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock2",
 						5300,
 						new List<Card>
@@ -84,7 +85,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock3",
 						4500,
 						new List<Card>
@@ -121,7 +122,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Dark Pharaoh Tekahn"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock4",
 						3500,
 						new List<Card>
@@ -158,7 +159,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock5",
 						3000,
 						new List<Card>
@@ -195,7 +196,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Diseased Vulture"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock6",
 						2900,
 						new List<Card>
@@ -232,7 +233,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock7",
 						2800,
 						new List<Card>
@@ -269,7 +270,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mecha'thun"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Quest_Warlock1",
 						2400,
 						new List<Card>
@@ -306,7 +307,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Twisting Nether"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock8",
 						2100,
 						new List<Card>
@@ -343,7 +344,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Leeroy Jenkins"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Mech_Zoo_Warlock1",
 						2100,
 						new List<Card>
@@ -380,7 +381,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Wargear"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock9",
 						1900,
 						new List<Card>
@@ -417,7 +418,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock10",
 						1700,
 						new List<Card>
@@ -454,7 +455,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Diseased Vulture"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Mech_Zoo_Warlock2",
 						1700,
 						new List<Card>
@@ -491,7 +492,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock11",
 						1600,
 						new List<Card>
@@ -528,7 +529,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Leeroy Jenkins"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Plot_Twist_Warlock1",
 						1400,
 						new List<Card>
@@ -565,7 +566,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Quest_Warlock2",
 						1300,
 						new List<Card>
@@ -602,7 +603,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Twisting Nether"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock12",
 						1200,
 						new List<Card>
@@ -639,7 +640,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock13",
 						1200,
 						new List<Card>
@@ -676,7 +677,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock14",
 						1200,
 						new List<Card>
@@ -713,7 +714,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock15",
 						1100,
 						new List<Card>
@@ -750,7 +751,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Leeroy Jenkins"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Handlock1",
 						1000,
 						new List<Card>
@@ -787,7 +788,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Plot_Twist_Warlock2",
 						1000,
 						new List<Card>
@@ -824,7 +825,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Twisting Nether"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Warlock1",
 						1000,
 						new List<Card>
@@ -861,7 +862,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mecha'thun"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Warlock2",
 						1000,
 						new List<Card>
@@ -898,7 +899,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Demonbolt"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock16",
 						960,
 						new List<Card>
@@ -935,7 +936,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Quest_Warlock3",
 						860,
 						new List<Card>
@@ -972,7 +973,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Hakkar, the Soulflayer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock17",
 						860,
 						new List<Card>
@@ -1009,7 +1010,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Dark Pharaoh Tekahn"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock18",
 						840,
 						new List<Card>
@@ -1046,7 +1047,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zilliax"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock19",
 						810,
 						new List<Card>
@@ -1083,7 +1084,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock20",
 						810,
 						new List<Card>
@@ -1120,7 +1121,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Dark Pharaoh Tekahn"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock21",
 						800,
 						new List<Card>
@@ -1157,7 +1158,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Handlock2",
 						780,
 						new List<Card>
@@ -1194,7 +1195,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock22",
 						720,
 						new List<Card>
@@ -1231,7 +1232,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock23",
 						700,
 						new List<Card>
@@ -1268,7 +1269,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Dark Pharaoh Tekahn"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Mech_Zoo_Warlock3",
 						640,
 						new List<Card>
@@ -1305,7 +1306,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Wargear"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock24",
 						550,
 						new List<Card>
@@ -1342,7 +1343,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock25",
 						540,
 						new List<Card>
@@ -1379,7 +1380,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sea Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Warlock3",
 						490,
 						new List<Card>
@@ -1416,7 +1417,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Mech_Zoo_Warlock4",
 						440,
 						new List<Card>
@@ -1453,7 +1454,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Wargear"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARLOCK,
 						"Zoo_Warlock26",
 						420,
 						new List<Card>

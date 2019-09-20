@@ -136,9 +136,7 @@ namespace SabberStoneCore.Model
 		{
 			_heroClass = heroClass;
 
-			var deckQuery = new DeckQuery(heroClass);
-
-			var deck = new Deck(deckQuery.GetMostPopular());
+			var deck = new Deck(DeckQuery.GetMostPopular(heroClass));
 
 			_archetype = deck.Archetype;
 			_deckName = deck.DeckName;
@@ -181,8 +179,6 @@ namespace SabberStoneCore.Model
 		/// <param name="deckName"></param>
 		public Deck FromDB(CardClass heroClass, Deck deck = null, bool max = false, string deckName = "none")
 		{
-			var deckQuery = new DeckQuery(heroClass);
-
 			if (deck != null)
 			{
 				//try { return deckQuery.AddToDB(deck); }
@@ -194,10 +190,10 @@ namespace SabberStoneCore.Model
 			}
 
 			else if (max)
-				return new Deck(deckQuery.GetMostPopular());
+				return new Deck(DeckQuery.GetMostPopular(heroClass));
 
 			else if (deckName != "none")
-				return deckQuery.DeckFromName(deckName);
+				return DeckQuery.DeckFromName(deckName, heroClass);
 
 			throw new Exception($"There was a problem retrieving the deck from the database, or the arguments are incorrect");
 		}

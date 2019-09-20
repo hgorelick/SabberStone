@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCoreAi.Meta
 {
@@ -10,7 +11,7 @@ namespace SabberStoneCoreAi.Meta
 		public PRIESTDecks()
 		{
 			decks = new List<Deck> {
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Quest_Priest1",
 						8700,
 						new List<Card>
@@ -47,7 +48,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("King Phaoris"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Quest_Priest2",
 						5600,
 						new List<Card>
@@ -84,7 +85,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zilliax"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Priest1",
 						3600,
 						new List<Card>
@@ -121,7 +122,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Plague of Death"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Quest_Priest3",
 						3200,
 						new List<Card>
@@ -158,7 +159,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zilliax"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Quest_Priest4",
 						3100,
 						new List<Card>
@@ -195,7 +196,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zilliax"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Priest2",
 						2900,
 						new List<Card>
@@ -232,7 +233,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Psychopomp"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Mech_Priest1",
 						2500,
 						new List<Card>
@@ -269,7 +270,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zilliax"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Silence_Priest1",
 						2500,
 						new List<Card>
@@ -306,7 +307,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Quartz Elemental"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Combo_Priest1",
 						2500,
 						new List<Card>
@@ -343,7 +344,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sandhoof Waterbearer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Silence_Priest2",
 						2200,
 						new List<Card>
@@ -380,7 +381,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Unsleeping Soul"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Resurrect_Priest1",
 						2200,
 						new List<Card>
@@ -417,7 +418,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mass Resurrection"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Quest_Priest5",
 						2000,
 						new List<Card>
@@ -454,7 +455,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Octosari"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Combo_Priest2",
 						1500,
 						new List<Card>
@@ -491,7 +492,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Stormwind Knight"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Combo_Priest3",
 						1400,
 						new List<Card>
@@ -528,7 +529,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Resurrect_Priest2",
 						1100,
 						new List<Card>
@@ -565,7 +566,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mass Resurrection"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Combo_Priest4",
 						1000,
 						new List<Card>
@@ -602,7 +603,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Psychopomp"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Combo_Priest5",
 						970,
 						new List<Card>
@@ -639,7 +640,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Resurrect_Priest3",
 						870,
 						new List<Card>
@@ -676,7 +677,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mass Resurrection"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Resurrect_Priest4",
 						810,
 						new List<Card>
@@ -713,7 +714,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mass Resurrection"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Mech_Priest2",
 						810,
 						new List<Card>
@@ -750,7 +751,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zilliax"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Nomi_Priest1",
 						810,
 						new List<Card>
@@ -787,7 +788,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Grave Horror"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Quest_Priest6",
 						780,
 						new List<Card>
@@ -824,7 +825,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zilliax"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Resurrect_Priest5",
 						760,
 						new List<Card>
@@ -861,7 +862,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mass Resurrection"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Priest3",
 						720,
 						new List<Card>
@@ -898,7 +899,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Grave Horror"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Combo_Priest6",
 						720,
 						new List<Card>
@@ -935,7 +936,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Combo_Priest7",
 						690,
 						new List<Card>
@@ -972,7 +973,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zilliax"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Resurrect_Priest6",
 						690,
 						new List<Card>
@@ -1009,7 +1010,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Plague of Death"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Nomi_Priest2",
 						690,
 						new List<Card>
@@ -1046,7 +1047,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Grave Horror"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Mech_Priest3",
 						680,
 						new List<Card>
@@ -1083,7 +1084,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Zilliax"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Mech_Priest4",
 						650,
 						new List<Card>
@@ -1120,7 +1121,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Witchwood Grizzly"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Silence_Priest3",
 						610,
 						new List<Card>
@@ -1157,7 +1158,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Unsleeping Soul"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Silence_Priest4",
 						610,
 						new List<Card>
@@ -1194,7 +1195,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Witchwood Grizzly"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Combo_Priest8",
 						600,
 						new List<Card>
@@ -1231,7 +1232,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sandhoof Waterbearer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Resurrect_Priest7",
 						580,
 						new List<Card>
@@ -1268,7 +1269,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mass Resurrection"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Resurrect_Priest8",
 						500,
 						new List<Card>
@@ -1305,7 +1306,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("King Phaoris"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Resurrect_Priest9",
 						500,
 						new List<Card>
@@ -1342,7 +1343,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mass Resurrection"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Priest4",
 						440,
 						new List<Card>
@@ -1379,7 +1380,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Da Undatakah"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Quest_Priest7",
 						440,
 						new List<Card>
@@ -1416,7 +1417,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Plague of Death"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Resurrect_Priest10",
 						420,
 						new List<Card>
@@ -1453,7 +1454,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mass Resurrection"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PRIEST,
 						"Quest_Priest8",
 						410,
 						new List<Card>

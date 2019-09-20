@@ -134,7 +134,7 @@ namespace SabberStoneCoreAi.Stats
 		public void Write(string filename)
 		{
 			string newfile = filename;
-			string dir = @"C:\Users\hgore\SabberStone\core-extensions\SabberStoneCoreAi\src\Meta\";
+			string dir = $"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName}\\src\\Meta\\";
 			string path = dir + newfile + ".stats";
 			int count = 1;
 

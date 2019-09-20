@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCoreAi.Meta
 {
@@ -10,7 +11,7 @@ namespace SabberStoneCoreAi.Meta
 		public MAGEDecks()
 		{
 			decks = new List<Deck> {
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage1",
 						21000,
 						new List<Card>
@@ -47,7 +48,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage1",
 						17000,
 						new List<Card>
@@ -84,7 +85,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage2",
 						12000,
 						new List<Card>
@@ -121,7 +122,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Puzzle Box of Yogg-Saron"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Highlander_Mage1",
 						12000,
 						new List<Card>
@@ -158,7 +159,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage2",
 						10000,
 						new List<Card>
@@ -195,7 +196,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage3",
 						10000,
 						new List<Card>
@@ -232,7 +233,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage3",
 						9800,
 						new List<Card>
@@ -269,7 +270,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Big_Spell_Mage1",
 						6100,
 						new List<Card>
@@ -306,7 +307,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Pyroblast"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Big_Spell_Mage2",
 						5700,
 						new List<Card>
@@ -343,7 +344,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Pyroblast"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage4",
 						4500,
 						new List<Card>
@@ -380,7 +381,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Highlander_Mage2",
 						4400,
 						new List<Card>
@@ -417,7 +418,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage4",
 						3800,
 						new List<Card>
@@ -454,7 +455,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage5",
 						3400,
 						new List<Card>
@@ -491,7 +492,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage6",
 						3100,
 						new List<Card>
@@ -528,7 +529,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Mage1",
 						2900,
 						new List<Card>
@@ -565,7 +566,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Puzzle Box of Yogg-Saron"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage5",
 						2800,
 						new List<Card>
@@ -602,7 +603,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage7",
 						2600,
 						new List<Card>
@@ -639,7 +640,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cloud Prince"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage8",
 						2600,
 						new List<Card>
@@ -676,7 +677,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Big_Spell_Mage3",
 						2300,
 						new List<Card>
@@ -713,7 +714,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Pyroblast"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Mage2",
 						2300,
 						new List<Card>
@@ -750,7 +751,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Puzzle Box of Yogg-Saron"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage6",
 						2200,
 						new List<Card>
@@ -787,7 +788,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Secret_Mage1",
 						2100,
 						new List<Card>
@@ -824,7 +825,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Subject 9"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage9",
 						2100,
 						new List<Card>
@@ -861,7 +862,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Secret_Mage2",
 						2000,
 						new List<Card>
@@ -898,7 +899,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cloud Prince"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage10",
 						2000,
 						new List<Card>
@@ -935,7 +936,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Mage3",
 						2000,
 						new List<Card>
@@ -972,7 +973,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Secret_Mage3",
 						1800,
 						new List<Card>
@@ -1009,7 +1010,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archmage Antonidas"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage7",
 						1700,
 						new List<Card>
@@ -1046,7 +1047,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Dragon_Mage1",
 						1600,
 						new List<Card>
@@ -1083,7 +1084,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage8",
 						1600,
 						new List<Card>
@@ -1120,7 +1121,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Mage4",
 						1600,
 						new List<Card>
@@ -1157,7 +1158,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage9",
 						1500,
 						new List<Card>
@@ -1194,7 +1195,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Big_Spell_Mage4",
 						1400,
 						new List<Card>
@@ -1231,7 +1232,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Pyroblast"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Highlander_Mage3",
 						1400,
 						new List<Card>
@@ -1268,7 +1269,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Puzzle Box of Yogg-Saron"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Highlander_Mage4",
 						1400,
 						new List<Card>
@@ -1305,7 +1306,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Kalecgos"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage10",
 						1400,
 						new List<Card>
@@ -1342,7 +1343,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Highlander_Mage5",
 						1200,
 						new List<Card>
@@ -1379,7 +1380,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Puzzle Box of Yogg-Saron"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Highlander_Mage6",
 						1200,
 						new List<Card>
@@ -1416,7 +1417,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage11",
 						1200,
 						new List<Card>
@@ -1453,7 +1454,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage11",
 						1100,
 						new List<Card>
@@ -1490,7 +1491,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Highlander_Quest_Mage",
 						1100,
 						new List<Card>
@@ -1527,7 +1528,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Puzzle Box of Yogg-Saron"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage12",
 						1000,
 						new List<Card>
@@ -1564,7 +1565,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage13",
 						960,
 						new List<Card>
@@ -1601,7 +1602,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage14",
 						830,
 						new List<Card>
@@ -1638,7 +1639,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage15",
 						820,
 						new List<Card>
@@ -1675,7 +1676,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage16",
 						790,
 						new List<Card>
@@ -1712,7 +1713,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage17",
 						780,
 						new List<Card>
@@ -1749,7 +1750,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage12",
 						770,
 						new List<Card>
@@ -1786,7 +1787,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage18",
 						770,
 						new List<Card>
@@ -1823,7 +1824,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archmage Antonidas"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage19",
 						770,
 						new List<Card>
@@ -1860,7 +1861,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage20",
 						760,
 						new List<Card>
@@ -1897,7 +1898,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archmage Antonidas"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage13",
 						740,
 						new List<Card>
@@ -1934,7 +1935,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Dragon_Mage2",
 						730,
 						new List<Card>
@@ -1971,7 +1972,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage14",
 						720,
 						new List<Card>
@@ -2008,7 +2009,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage21",
 						700,
 						new List<Card>
@@ -2045,7 +2046,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Dragon_Mage3",
 						700,
 						new List<Card>
@@ -2082,7 +2083,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage15",
 						680,
 						new List<Card>
@@ -2119,7 +2120,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Secret_Mage4",
 						670,
 						new List<Card>
@@ -2156,7 +2157,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cloud Prince"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Dragon_Mage4",
 						660,
 						new List<Card>
@@ -2193,7 +2194,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Dragon_Mage5",
 						640,
 						new List<Card>
@@ -2230,7 +2231,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Big_Spell_Mage5",
 						630,
 						new List<Card>
@@ -2267,7 +2268,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Pyroblast"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage16",
 						620,
 						new List<Card>
@@ -2304,7 +2305,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage22",
 						620,
 						new List<Card>
@@ -2341,7 +2342,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Mage5",
 						590,
 						new List<Card>
@@ -2378,7 +2379,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archmage Antonidas"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Mage6",
 						590,
 						new List<Card>
@@ -2415,7 +2416,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Puzzle Box of Yogg-Saron"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Mage7",
 						540,
 						new List<Card>
@@ -2452,7 +2453,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Cloud Prince"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Mage8",
 						540,
 						new List<Card>
@@ -2489,7 +2490,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage17",
 						540,
 						new List<Card>
@@ -2526,7 +2527,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage23",
 						530,
 						new List<Card>
@@ -2563,7 +2564,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage24",
 						500,
 						new List<Card>
@@ -2600,7 +2601,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage18",
 						500,
 						new List<Card>
@@ -2637,7 +2638,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage19",
 						490,
 						new List<Card>
@@ -2674,7 +2675,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Kalecgos"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage25",
 						480,
 						new List<Card>
@@ -2711,7 +2712,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage26",
 						480,
 						new List<Card>
@@ -2748,7 +2749,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage27",
 						480,
 						new List<Card>
@@ -2785,7 +2786,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Mage9",
 						470,
 						new List<Card>
@@ -2822,7 +2823,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage28",
 						460,
 						new List<Card>
@@ -2859,7 +2860,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Mage10",
 						450,
 						new List<Card>
@@ -2896,7 +2897,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Pyroblast"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage29",
 						450,
 						new List<Card>
@@ -2933,7 +2934,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Big_Spell_Mage6",
 						440,
 						new List<Card>
@@ -2970,7 +2971,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Pyroblast"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Freeze_Mage20",
 						440,
 						new List<Card>
@@ -3007,7 +3008,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Dragon_Mage6",
 						430,
 						new List<Card>
@@ -3044,7 +3045,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Big_Spell_Mage7",
 						420,
 						new List<Card>
@@ -3081,7 +3082,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Pyroblast"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Dragon_Mage7",
 						420,
 						new List<Card>
@@ -3118,7 +3119,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Dragon_Mage8",
 						420,
 						new List<Card>
@@ -3155,7 +3156,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Cyclone_Mage30",
 						420,
 						new List<Card>
@@ -3192,7 +3193,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mountain Giant"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.MAGE,
 						"Mage11",
 						410,
 						new List<Card>

@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCoreAi.Meta
 {
@@ -10,7 +11,7 @@ namespace SabberStoneCoreAi.Meta
 		public WARRIORDecks()
 		{
 			decks = new List<Deck> {
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior1",
 						46000,
 						new List<Card>
@@ -47,7 +48,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior2",
 						45000,
 						new List<Card>
@@ -84,7 +85,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior1",
 						14000,
 						new List<Card>
@@ -121,7 +122,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Dr. Boom, Mad Genius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior3",
 						10000,
 						new List<Card>
@@ -158,7 +159,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior2",
 						5900,
 						new List<Card>
@@ -195,7 +196,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Aggro_Warrior1",
 						4700,
 						new List<Card>
@@ -232,7 +233,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Grommash Hellscream"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior3",
 						4100,
 						new List<Card>
@@ -269,7 +270,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior4",
 						3900,
 						new List<Card>
@@ -306,7 +307,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Aggro_Warrior2",
 						3500,
 						new List<Card>
@@ -343,7 +344,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Grommash Hellscream"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior4",
 						3500,
 						new List<Card>
@@ -380,7 +381,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior5",
 						3200,
 						new List<Card>
@@ -417,7 +418,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tomb Warden"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior6",
 						2700,
 						new List<Card>
@@ -454,7 +455,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Warrior1",
 						2600,
 						new List<Card>
@@ -491,7 +492,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Leeroy Jenkins"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior7",
 						2600,
 						new List<Card>
@@ -528,7 +529,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior8",
 						2400,
 						new List<Card>
@@ -565,7 +566,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior9",
 						2100,
 						new List<Card>
@@ -602,7 +603,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior10",
 						2100,
 						new List<Card>
@@ -639,7 +640,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior11",
 						2000,
 						new List<Card>
@@ -676,7 +677,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior5",
 						2000,
 						new List<Card>
@@ -713,7 +714,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Dr. Boom, Mad Genius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior12",
 						1900,
 						new List<Card>
@@ -750,7 +751,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior13",
 						1500,
 						new List<Card>
@@ -787,7 +788,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior14",
 						1500,
 						new List<Card>
@@ -824,7 +825,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Aggro_Warrior3",
 						1500,
 						new List<Card>
@@ -861,7 +862,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Grommash Hellscream"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior15",
 						1500,
 						new List<Card>
@@ -898,7 +899,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior6",
 						1400,
 						new List<Card>
@@ -935,7 +936,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior7",
 						1300,
 						new List<Card>
@@ -972,7 +973,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Dr. Boom, Mad Genius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior8",
 						1300,
 						new List<Card>
@@ -1009,7 +1010,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Mechathun_Warrior1",
 						1300,
 						new List<Card>
@@ -1046,7 +1047,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mecha'thun"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior9",
 						1200,
 						new List<Card>
@@ -1083,7 +1084,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Quest_Warrior1",
 						1200,
 						new List<Card>
@@ -1120,7 +1121,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sul'thraze"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior16",
 						1200,
 						new List<Card>
@@ -1157,7 +1158,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior10",
 						1100,
 						new List<Card>
@@ -1194,7 +1195,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Dr. Boom, Mad Genius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior17",
 						1100,
 						new List<Card>
@@ -1231,7 +1232,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tomb Warden"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior18",
 						1000,
 						new List<Card>
@@ -1268,7 +1269,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Mechathun_Warrior2",
 						1000,
 						new List<Card>
@@ -1305,7 +1306,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mecha'thun"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior11",
 						930,
 						new List<Card>
@@ -1342,7 +1343,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Batterhead"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior19",
 						910,
 						new List<Card>
@@ -1379,7 +1380,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior12",
 						840,
 						new List<Card>
@@ -1416,7 +1417,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior20",
 						800,
 						new List<Card>
@@ -1453,7 +1454,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Boom Reaver"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior13",
 						800,
 						new List<Card>
@@ -1490,7 +1491,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Dr. Boom, Mad Genius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior21",
 						800,
 						new List<Card>
@@ -1527,7 +1528,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior22",
 						790,
 						new List<Card>
@@ -1564,7 +1565,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior23",
 						760,
 						new List<Card>
@@ -1601,7 +1602,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior24",
 						750,
 						new List<Card>
@@ -1638,7 +1639,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Quest_Warrior2",
 						740,
 						new List<Card>
@@ -1675,7 +1676,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sul'thraze"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior25",
 						730,
 						new List<Card>
@@ -1712,7 +1713,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior14",
 						700,
 						new List<Card>
@@ -1749,7 +1750,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Grommash Hellscream"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Quest_Warrior3",
 						660,
 						new List<Card>
@@ -1786,7 +1787,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sul'thraze"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Mechathun_Warrior3",
 						630,
 						new List<Card>
@@ -1823,7 +1824,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mecha'thun"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior26",
 						610,
 						new List<Card>
@@ -1860,7 +1861,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior27",
 						610,
 						new List<Card>
@@ -1897,7 +1898,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Warrior2",
 						600,
 						new List<Card>
@@ -1934,7 +1935,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Sul'thraze"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior28",
 						590,
 						new List<Card>
@@ -1971,7 +1972,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Boom Reaver"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Warrior3",
 						560,
 						new List<Card>
@@ -2008,7 +2009,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Ysera"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior15",
 						550,
 						new List<Card>
@@ -2045,7 +2046,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Dr. Boom, Mad Genius"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Warrior4",
 						540,
 						new List<Card>
@@ -2082,7 +2083,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Aggro_Warrior4",
 						520,
 						new List<Card>
@@ -2119,7 +2120,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Leeroy Jenkins"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior29",
 						510,
 						new List<Card>
@@ -2156,7 +2157,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior16",
 						510,
 						new List<Card>
@@ -2193,7 +2194,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior17",
 						510,
 						new List<Card>
@@ -2230,7 +2231,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Grommash Hellscream"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior30",
 						490,
 						new List<Card>
@@ -2267,7 +2268,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Bomb_Warrior18",
 						480,
 						new List<Card>
@@ -2304,7 +2305,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior31",
 						460,
 						new List<Card>
@@ -2341,7 +2342,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior32",
 						460,
 						new List<Card>
@@ -2378,7 +2379,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior33",
 						450,
 						new List<Card>
@@ -2415,7 +2416,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Aggro_Warrior5",
 						440,
 						new List<Card>
@@ -2452,7 +2453,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Kor'kron Elite"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior34",
 						410,
 						new List<Card>
@@ -2489,7 +2490,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior35",
 						410,
 						new List<Card>
@@ -2526,7 +2527,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tomb Warden"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior36",
 						410,
 						new List<Card>
@@ -2563,7 +2564,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Archivist Elysiana"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.WARRIOR,
 						"Control_Warrior37",
 						410,
 						new List<Card>

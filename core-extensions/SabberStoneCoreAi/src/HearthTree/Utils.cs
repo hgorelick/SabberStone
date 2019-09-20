@@ -3,6 +3,9 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
+
+
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
@@ -216,7 +219,7 @@ namespace SabberStoneCoreAi.Utils
 					sw.Write(state.PrintCreateGame());
 
 				else if (board)
-					sw.Write(state.PrintBoard(true));
+					sw.Write(state.PrintBoard());
 
 				else if (move)
 					sw.Write(state.PrintAction(true));
@@ -249,26 +252,46 @@ namespace SabberStoneCoreAi.Utils
 		/// </summary>
 		/// <param name="state"></param>
 		/// <returns></returns>
-		public static string PrintBoard(this HearthNode state, bool json = false)
-		{
+		public static string PrintBoard(this HearthNode state, string mode = "")
+        {
 			var str = new StringBuilder();
 
-			if (json)
+			if (mode == "json")
 			{
 				str.AppendLine("\t\t\"play\": {");
 				str.AppendLine($"\t\t\t\"turn\": \"{state.Game.Turn}\",");
-				str.Append(state.Game.FullPrint(false));
+				str.Append(state.Game.PrintJson(false));
 				str.AppendLine("\t\t\t}");
 				str.AppendLine("\t\t},");
 				return str.ToString();
 			}
 
+			else
+			{
+				str.AppendLine("------------");
+				str.AppendLine($"| Turn {state.Game.Turn} |");
+				//str.AppendLine("------------");
+				str.AppendLine("-----------------------------------------------------------------------------------------------------");
+				str.AppendLine(state.Game.FullPrint() + "-----------------------------------------------------------------------------------------------------");
+				str.AppendLine($"{(state.Game.CurrentPlayer == state.Game.Player1 ? $"{state.Game.Player1.Hero.Card.Name}" : $"{state.Game.Player2.Hero.Card.Name}")} is thinking...");
+			}
+			
+			return str.ToString();
+		}
+
+		public static string PrintBoard(this HearthNode state, XmlWriter x)
+		{
+			var str = new StringBuilder();
+
+			x.WriteTurn(state.Game);
+			
 			str.AppendLine("------------");
 			str.AppendLine($"| Turn {state.Game.Turn} |");
 			str.AppendLine("------------");
 			str.AppendLine("-----------------------------------------------------------------------------------------------------");
 			str.AppendLine(state.Game.FullPrint() + "-----------------------------------------------------------------------------------------------------");
 			str.AppendLine($"{(state.Game.CurrentPlayer == state.Game.Player1 ? $"{state.Game.Player1.Hero.Card.Name}" : $"{state.Game.Player2.Hero.Card.Name}")} is thinking...");
+
 			return str.ToString();
 		}
 
@@ -331,10 +354,45 @@ namespace SabberStoneCoreAi.Utils
 		}
 	}
 
+	// TODO: Finish this...
+	internal static class XMLPrinter
+	{
+		internal static void WriteTurn(this XmlWriter x, Game game)
+		{
+			x.WriteStartElement("turn");
+			x.WriteAttributeString("value", $"{game.Turn}");
+
+			str.Append(game.CurrentPlayer.Hero.WriteCurrent());
+			str.Append(game.CurrentOpponent.Hero.WriteOpp());
+		}
+
+		internal static string WriteCurrent(this Hero h)
+		{
+			var str = new StringBuilder();
+			str.AppendLine($"Current:{h.Card.Name}");
+
+			return str.ToString();
+		}
+
+		internal static string WriteOpp(this Hero h)
+		{
+			var str = new StringBuilder();
+
+			return str.ToString();
+		}
+
+		internal static string WriteZone(this Zone<IPlayable> z)
+		{
+			var str = new StringBuilder();
+
+			return str.ToString();
+		}
+	}
+
 	/// <summary>
-	/// Extends Game.FullPrint()
+	/// Extends Game.FullPrint() for Json fromatting
 	/// </summary>
-	internal static class Printers
+	internal static class JsonPrinter
 	{
 		static string oneTab = "\t";
 		static string twoTabs = oneTab + oneTab;
@@ -351,7 +409,7 @@ namespace SabberStoneCoreAi.Utils
 		/// <param name="game"></param>
 		/// <param name="json"></param>
 		/// <returns></returns>
-		internal static string FullPrint(this Game game, bool create = false)
+		internal static string PrintJson(this Game game, bool create = false)
 		{
 			var str = new StringBuilder();
 			str.Append(game.Player1.Hero.FullPrint(create));

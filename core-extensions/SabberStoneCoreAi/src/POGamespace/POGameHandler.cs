@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Xml;
 using System.Diagnostics;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
@@ -15,7 +16,7 @@ namespace SabberStoneCoreAi.POGamespace
 {
 	class POGameHandler
 	{
-		bool _debug;
+		readonly string _debugMode;
 
 		//public readonly int NumGames;
 		//public readonly int GamesPlayed;
@@ -29,8 +30,8 @@ namespace SabberStoneCoreAi.POGamespace
 		private GameStats gameStats;
 		private static readonly Random Rnd = new Random();
 
-		public POGameHandler(GameConfig gameConfig, AbstractAgent player1, AbstractAgent player2, int option=0, bool setupHeroes=true, bool debug=false)
-		{
+		public POGameHandler(GameConfig gameConfig, AbstractAgent player1, AbstractAgent player2, bool setupHeroes = true, string debugMode = "")
+        {
 			//NumGames = numGames;
 			//GamesPlayed = gamesPlayed;
 			_gameConfig = gameConfig;
@@ -42,7 +43,7 @@ namespace SabberStoneCoreAi.POGamespace
 			_player2.InitializeAgent();
 
 			gameStats = new GameStats(gameConfig.Player1Name, gameConfig.Player2Name);
-			_debug = debug;
+			_debugMode = debugMode;
 		}
 
 		public bool PlayGame(int gameNumber, bool addToGameStats=true)
@@ -62,12 +63,26 @@ namespace SabberStoneCoreAi.POGamespace
 
 			var state = new HearthNode(_masterRoot, null, _masterGame, null);
 
+			XmlWriter xml = null;
+			if (_debugMode != "")
+			{
+				if (_debugMode == "python")
+				{
+					xml = XmlWriter.Create("sabberstats.xml",
+						new XmlWriterSettings() { Indent = true, IndentChars = "\t", });
+					xml.WriteStartDocument();
+				}
+			}
+
 			try
 			{
 				while (state.Game.State != State.COMPLETE && state.Game.State != State.INVALID)
 				{
-					if (_debug)
-						Console.WriteLine(state.PrintBoard(false));
+					if (_debugMode == "")
+						Console.WriteLine(state.PrintBoard());
+
+					else if (_debugMode == "python")
+						Console.WriteLine(state.PrintBoard(xml));
 
 					//state.Write("Sabber", false, true);
 
@@ -79,7 +94,7 @@ namespace SabberStoneCoreAi.POGamespace
 					if (moveNode.Action.PlayerTaskType == PlayerTaskType.PLAY_CARD)
 						gameStats.AddCard(state.Game.CurrentPlayer.PlayerId);
 
-					if (_debug)
+					if (_debugMode != null)
 						Console.Write(moveNode.PrintAction());
 
 					state = new HearthNode(moveNode.Root, null, moveNode.Game, moveNode.Action);
@@ -135,14 +150,16 @@ namespace SabberStoneCoreAi.POGamespace
 			return true;
 		}
 
-		public void PlayGames(int NumGames, bool addToGameStats=true)
+		public void PlayGames(int NumGames, bool addToGameStats=false)
 		{
 			for (int i = 0; i < NumGames; i++)
 			{
 				if (!PlayGame(i, addToGameStats))
 					i -= 1;		// invalid _game
 			}
-			gameStats.FinalizeResults("GameStats_MCTSvsTyche" + DateTime.Now.ToString().Replace('/', '_').Replace(':', '_'));
+
+			if (addToGameStats)
+				gameStats.FinalizeResults("GameStats_MCTSvsTyche" + DateTime.Now.ToString().Replace('/', '_').Replace(':', '_'));
 		}
 
 		public GameStats getGameStats() { return gameStats; }

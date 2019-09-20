@@ -17,7 +17,6 @@ using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
 using SabberStoneCore.Model;
-using SabberStoneGui.Deck;
 using SabberStoneCoreGui.Score;
 using SabberStoneCoreGui.Meta;
 
@@ -25,17 +24,17 @@ namespace SabberStoneGui.Core
 {
 	public class GuiHelper
 	{
-		public static GameConfig CreateGameConfig(MetaDeck deck1, MetaDeck deck2)
+		public static GameConfig CreateGameConfig(SabberStoneCore.Model.Deck deck1, SabberStoneCore.Model.Deck deck2)
 		{
 			return new GameConfig()
 			{
 				StartPlayer = 1,
 				Player1Name = "FitzVonGerald",
 				Player1HeroClass = deck1.HeroClass,
-				Player1Deck = deck1.CardIds.Select(Cards.FromId).ToList(),
+				Player1Deck = deck1, //.CardIds.Select(Cards.FromId).ToList(),
 				Player2Name = "RehHausZuckFuchs",
 				Player2HeroClass = deck2.HeroClass,
-				Player2Deck = deck2.CardIds.Select(Cards.FromId).ToList(),
+				Player2Deck = deck2, //.CardIds.Select(Cards.FromId).ToList(),
 				FillDecks = false,
 				Shuffle = true
 			};

@@ -70,8 +70,8 @@ namespace SabberStonePowerLog.src.Sync
 					return false;
 				return a.Data["CARDTYPE"] == "MINION" || a.Data["CARDTYPE"] == "SPELL";
 			});
-			Player1.Deck.AddRange(cards.Where(a => a.Data["CONTROLLER"] == Player1.PlayerId.ToString()).Select(a => Cards.FromId(a.Data["CARD_ID"])));
-			Player2.Deck.AddRange(cards.Where(a => a.Data["CONTROLLER"] == Player2.PlayerId.ToString()).Select(a => Cards.FromId(a.Data["CARD_ID"])));
+			Player1.Deck.AddRange(cards.Where(a => a.Data["CONTROLLER"] == Player1.PlayerId.ToString()).Select(a => Cards.FromId(a.Data["CARD_ID"])).ToList());
+			Player2.Deck.AddRange(cards.Where(a => a.Data["CONTROLLER"] == Player2.PlayerId.ToString()).Select(a => Cards.FromId(a.Data["CARD_ID"])).ToList());
 		}
 	}
 }

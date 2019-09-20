@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCoreAi.Meta
 {
@@ -10,7 +11,7 @@ namespace SabberStoneCoreAi.Meta
 		public SHAMANDecks()
 		{
 			decks = new List<Deck> {
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman1",
 						19000,
 						new List<Card>
@@ -47,7 +48,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman1",
 						12000,
 						new List<Card>
@@ -84,7 +85,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman1",
 						11000,
 						new List<Card>
@@ -121,7 +122,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Doomhammer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman2",
 						10000,
 						new List<Card>
@@ -158,7 +159,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Doomhammer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman2",
 						9500,
 						new List<Card>
@@ -195,7 +196,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman3",
 						8000,
 						new List<Card>
@@ -232,7 +233,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman4",
 						5100,
 						new List<Card>
@@ -269,7 +270,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman2",
 						4100,
 						new List<Card>
@@ -306,7 +307,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Bloodlust"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman3",
 						3600,
 						new List<Card>
@@ -343,7 +344,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Doomhammer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman4",
 						3300,
 						new List<Card>
@@ -380,7 +381,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mogu Fleshshaper"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman3",
 						2600,
 						new List<Card>
@@ -417,7 +418,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman5",
 						2300,
 						new List<Card>
@@ -454,7 +455,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman5",
 						2300,
 						new List<Card>
@@ -491,7 +492,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mogu Fleshshaper"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman6",
 						2200,
 						new List<Card>
@@ -528,7 +529,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman4",
 						2200,
 						new List<Card>
@@ -565,7 +566,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman5",
 						2200,
 						new List<Card>
@@ -602,7 +603,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Bloodlust"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman7",
 						2000,
 						new List<Card>
@@ -639,7 +640,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Doomhammer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Big_Shaman1",
 						2000,
 						new List<Card>
@@ -676,7 +677,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Big Bad Archmage"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman8",
 						2000,
 						new List<Card>
@@ -713,7 +714,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Storm Bringer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman6",
 						1900,
 						new List<Card>
@@ -750,7 +751,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman7",
 						1900,
 						new List<Card>
@@ -787,7 +788,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Shaman1",
 						1800,
 						new List<Card>
@@ -824,7 +825,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman6",
 						1700,
 						new List<Card>
@@ -861,7 +862,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman9",
 						1600,
 						new List<Card>
@@ -898,7 +899,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Mogu Fleshshaper"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman8",
 						1500,
 						new List<Card>
@@ -935,7 +936,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Shaman2",
 						1400,
 						new List<Card>
@@ -972,7 +973,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman10",
 						1300,
 						new List<Card>
@@ -1009,7 +1010,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Doomhammer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman9",
 						1300,
 						new List<Card>
@@ -1046,7 +1047,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman7",
 						1300,
 						new List<Card>
@@ -1083,7 +1084,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Bloodlust"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman10",
 						1200,
 						new List<Card>
@@ -1120,7 +1121,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman11",
 						1200,
 						new List<Card>
@@ -1157,7 +1158,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman12",
 						1200,
 						new List<Card>
@@ -1194,7 +1195,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman11",
 						1000,
 						new List<Card>
@@ -1231,7 +1232,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Rain of Toads"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman13",
 						1000,
 						new List<Card>
@@ -1268,7 +1269,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Shaman3",
 						1000,
 						new List<Card>
@@ -1305,7 +1306,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman14",
 						1000,
 						new List<Card>
@@ -1342,7 +1343,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman15",
 						970,
 						new List<Card>
@@ -1379,7 +1380,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman16",
 						930,
 						new List<Card>
@@ -1416,7 +1417,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman8",
 						860,
 						new List<Card>
@@ -1453,7 +1454,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Storm Bringer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman12",
 						800,
 						new List<Card>
@@ -1490,7 +1491,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Doomhammer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Big_Shaman2",
 						690,
 						new List<Card>
@@ -1527,7 +1528,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Big Bad Archmage"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman13",
 						680,
 						new List<Card>
@@ -1564,7 +1565,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Hagatha the Witch"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman9",
 						670,
 						new List<Card>
@@ -1601,7 +1602,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman17",
 						650,
 						new List<Card>
@@ -1638,7 +1639,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman10",
 						600,
 						new List<Card>
@@ -1675,7 +1676,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Big_Shaman3",
 						580,
 						new List<Card>
@@ -1712,7 +1713,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Big Bad Archmage"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman18",
 						580,
 						new List<Card>
@@ -1749,7 +1750,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman11",
 						570,
 						new List<Card>
@@ -1786,7 +1787,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Storm Bringer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman19",
 						540,
 						new List<Card>
@@ -1823,7 +1824,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Quest_Shaman20",
 						540,
 						new List<Card>
@@ -1860,7 +1861,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman14",
 						530,
 						new List<Card>
@@ -1897,7 +1898,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Doomhammer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman12",
 						530,
 						new List<Card>
@@ -1934,7 +1935,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Hagatha the Witch"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman13",
 						530,
 						new List<Card>
@@ -1971,7 +1972,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman15",
 						520,
 						new List<Card>
@@ -2008,7 +2009,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Bloodlust"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Shaman4",
 						460,
 						new List<Card>
@@ -2045,7 +2046,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shudderwock"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Aggro_Overload_Shaman16",
 						440,
 						new List<Card>
@@ -2082,7 +2083,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("The Storm Bringer"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Murloc_Shaman14",
 						420,
 						new List<Card>
@@ -2119,7 +2120,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Hagatha the Witch"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.SHAMAN,
 						"Shaman5",
 						410,
 						new List<Card>

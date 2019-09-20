@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Model;
+using SabberStoneCore.Enums;
 
 namespace SabberStoneCoreAi.Meta
 {
@@ -10,7 +11,7 @@ namespace SabberStoneCoreAi.Meta
 		public PALADINDecks()
 		{
 			decks = new List<Deck> {
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin1",
 						26000,
 						new List<Card>
@@ -47,7 +48,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin2",
 						10000,
 						new List<Card>
@@ -84,7 +85,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Quest_Paladin1",
 						8100,
 						new List<Card>
@@ -121,7 +122,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Da Undatakah"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin3",
 						6700,
 						new List<Card>
@@ -158,7 +159,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Mech_Paladin1",
 						6000,
 						new List<Card>
@@ -195,7 +196,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Kangor's Endless Army"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Quest_Paladin2",
 						5900,
 						new List<Card>
@@ -232,7 +233,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Da Undatakah"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin4",
 						5900,
 						new List<Card>
@@ -269,7 +270,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Mech_Paladin2",
 						4400,
 						new List<Card>
@@ -306,7 +307,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Kangor's Endless Army"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin5",
 						3900,
 						new List<Card>
@@ -343,7 +344,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Paladin1",
 						2900,
 						new List<Card>
@@ -380,7 +381,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("King Phaoris"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Holy_Wrath_Paladin1",
 						2900,
 						new List<Card>
@@ -417,7 +418,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Mech_Paladin3",
 						2700,
 						new List<Card>
@@ -454,7 +455,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Kangor's Endless Army"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Quest_Paladin3",
 						2400,
 						new List<Card>
@@ -491,7 +492,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Siamat"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Mech_Paladin4",
 						2200,
 						new List<Card>
@@ -528,7 +529,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tirion Fordring"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin6",
 						2200,
 						new List<Card>
@@ -565,7 +566,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Holy_Wrath_Paladin2",
 						2100,
 						new List<Card>
@@ -602,7 +603,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Mech_Paladin5",
 						1900,
 						new List<Card>
@@ -639,7 +640,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Kangor's Endless Army"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Big_Paladin1",
 						1800,
 						new List<Card>
@@ -676,7 +677,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Mech_Paladin6",
 						1700,
 						new List<Card>
@@ -713,7 +714,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Kangor's Endless Army"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin7",
 						1600,
 						new List<Card>
@@ -750,7 +751,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin8",
 						1400,
 						new List<Card>
@@ -787,7 +788,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Paladin2",
 						1300,
 						new List<Card>
@@ -824,7 +825,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Pharaoh's Blessing"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin9",
 						1300,
 						new List<Card>
@@ -861,7 +862,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin10",
 						1200,
 						new List<Card>
@@ -898,7 +899,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Holy_Wrath_Paladin3",
 						1200,
 						new List<Card>
@@ -935,7 +936,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Paladin3",
 						1200,
 						new List<Card>
@@ -972,7 +973,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Paladin4",
 						1100,
 						new List<Card>
@@ -1009,7 +1010,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Quest_Paladin4",
 						1100,
 						new List<Card>
@@ -1046,7 +1047,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Countess Ashmore"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Holy_Wrath_Paladin4",
 						1100,
 						new List<Card>
@@ -1083,7 +1084,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin11",
 						1100,
 						new List<Card>
@@ -1120,7 +1121,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin12",
 						1000,
 						new List<Card>
@@ -1157,7 +1158,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin13",
 						1000,
 						new List<Card>
@@ -1194,7 +1195,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Holy_Wrath_Paladin5",
 						1000,
 						new List<Card>
@@ -1231,7 +1232,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin14",
 						1000,
 						new List<Card>
@@ -1268,7 +1269,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Paladin5",
 						1000,
 						new List<Card>
@@ -1305,7 +1306,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin15",
 						980,
 						new List<Card>
@@ -1342,7 +1343,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin16",
 						960,
 						new List<Card>
@@ -1379,7 +1380,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin17",
 						950,
 						new List<Card>
@@ -1416,7 +1417,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin18",
 						920,
 						new List<Card>
@@ -1453,7 +1454,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Mech_Paladin7",
 						920,
 						new List<Card>
@@ -1490,7 +1491,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tirion Fordring"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Mech_Paladin8",
 						920,
 						new List<Card>
@@ -1527,7 +1528,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tirion Fordring"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin19",
 						910,
 						new List<Card>
@@ -1564,7 +1565,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Holy_Wrath_Paladin6",
 						900,
 						new List<Card>
@@ -1601,7 +1602,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Holy_Wrath_Paladin7",
 						890,
 						new List<Card>
@@ -1638,7 +1639,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Holy_Wrath_Paladin8",
 						860,
 						new List<Card>
@@ -1675,7 +1676,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin20",
 						810,
 						new List<Card>
@@ -1712,7 +1713,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Mech_Paladin9",
 						800,
 						new List<Card>
@@ -1749,7 +1750,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Kangor's Endless Army"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin21",
 						780,
 						new List<Card>
@@ -1786,7 +1787,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Big_Paladin2",
 						780,
 						new List<Card>
@@ -1823,7 +1824,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin22",
 						750,
 						new List<Card>
@@ -1860,7 +1861,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin23",
 						690,
 						new List<Card>
@@ -1897,7 +1898,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Secret_Paladin",
 						660,
 						new List<Card>
@@ -1934,7 +1935,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Pharaoh's Blessing"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Mech_Paladin10",
 						630,
 						new List<Card>
@@ -1971,7 +1972,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Kangor's Endless Army"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Big_Paladin3",
 						630,
 						new List<Card>
@@ -2008,7 +2009,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Big_Paladin4",
 						630,
 						new List<Card>
@@ -2045,7 +2046,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin24",
 						620,
 						new List<Card>
@@ -2082,7 +2083,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin25",
 						610,
 						new List<Card>
@@ -2119,7 +2120,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Big_Paladin5",
 						600,
 						new List<Card>
@@ -2156,7 +2157,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin26",
 						560,
 						new List<Card>
@@ -2193,7 +2194,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Big_Paladin6",
 						550,
 						new List<Card>
@@ -2230,7 +2231,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Paladin6",
 						540,
 						new List<Card>
@@ -2267,7 +2268,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Holy_Wrath_Paladin9",
 						520,
 						new List<Card>
@@ -2304,7 +2305,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Mech_Paladin11",
 						510,
 						new List<Card>
@@ -2341,7 +2342,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Kangor's Endless Army"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Mech_Paladin12",
 						510,
 						new List<Card>
@@ -2378,7 +2379,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Lay on Hands"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin27",
 						510,
 						new List<Card>
@@ -2415,7 +2416,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Paladin7",
 						510,
 						new List<Card>
@@ -2452,7 +2453,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Holy_Wrath_Paladin10",
 						460,
 						new List<Card>
@@ -2489,7 +2490,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Shirvallah, the Tiger"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Mech_Paladin13",
 						440,
 						new List<Card>
@@ -2526,7 +2527,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Kangor's Endless Army"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Murloc_Paladin28",
 						410,
 						new List<Card>
@@ -2563,7 +2564,7 @@ namespace SabberStoneCoreAi.Meta
 							Cards.FromName("Tip the Scales"),
 						}
 						),
-				new Deck(
+				new Deck(CardClass.PALADIN,
 						"Holy_Wrath_Paladin11",
 						410,
 						new List<Card>

@@ -75,8 +75,7 @@ namespace SabberStoneCoreAi
 
 			void TestRemove()
 			{
-				var deckQuery = new DeckQuery(CardClass.WARRIOR);
-				testDeck = deckQuery.DeckFromName("IceFireWarrior");
+				testDeck = DeckQuery.DeckFromName("IceFireWarrior", CardClass.WARRIOR);
 
 				testDeck.Remove(c => c.Name == "Fire Plume's Heart");
 
@@ -275,7 +274,7 @@ namespace SabberStoneCoreAi
 				//var molten = (IPlayable)testGame.CurrentPlayer.HandZone.Find(c => c.Type == CardType.WEAPON);
 				//if (molten?.Cost != molten?.Card.Cost)
 				//	check = false;
-				var root = new RootNode(null, null, testGame, null);
+				var root = new HearthNode(null, null, testGame, null);
 
 				//molten = (IPlayable)root.Game.CurrentPlayer.HandZone.Find(c => c.Type == CardType.WEAPON);
 				//if (molten.Cost != molten.Card.Cost)
