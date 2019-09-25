@@ -63,16 +63,16 @@ namespace SabberStoneCoreAi.POGamespace
 
 			var state = new HearthNode(_masterRoot, null, _masterGame, null);
 
-			XmlWriter xml = null;
-			if (_debugMode != "")
-			{
-				if (_debugMode == "python")
-				{
-					xml = XmlWriter.Create("sabberstats.xml",
-						new XmlWriterSettings() { Indent = true, IndentChars = "\t", });
-					xml.WriteStartDocument();
-				}
-			}
+			//XmlWriter xml = null;
+			//if (_debugMode != "")
+			//{
+			//	if (_debugMode == "python")
+			//	{
+			//		xml = XmlWriter.Create("sabberstats.xml",
+			//			new XmlWriterSettings() { Indent = true, IndentChars = "\t", });
+			//		xml.WriteStartDocument();
+			//	}
+			//}
 
 			try
 			{
@@ -82,7 +82,7 @@ namespace SabberStoneCoreAi.POGamespace
 						Console.WriteLine(state.PrintBoard());
 
 					else if (_debugMode == "python")
-						Console.WriteLine(state.PrintBoard(xml));
+						Console.WriteLine(state.PrintBoard());
 
 					//state.Write("Sabber", false, true);
 

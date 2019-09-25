@@ -270,7 +270,7 @@ namespace SabberStoneCoreAi.Utils
 			{
 				str.AppendLine("------------");
 				str.AppendLine($"| Turn {state.Game.Turn} |");
-				//str.AppendLine("------------");
+				str.AppendLine("------------");
 				str.AppendLine("-----------------------------------------------------------------------------------------------------");
 				str.AppendLine(state.Game.FullPrint() + "-----------------------------------------------------------------------------------------------------");
 				str.AppendLine($"{(state.Game.CurrentPlayer == state.Game.Player1 ? $"{state.Game.Player1.Hero.Card.Name}" : $"{state.Game.Player2.Hero.Card.Name}")} is thinking...");
@@ -351,41 +351,6 @@ namespace SabberStoneCoreAi.Utils
 			}
 			b.Write(str.ToString());
 			b.Close();
-		}
-	}
-
-	// TODO: Finish this...
-	internal static class XMLPrinter
-	{
-		internal static void WriteTurn(this XmlWriter x, Game game)
-		{
-			x.WriteStartElement("turn");
-			x.WriteAttributeString("value", $"{game.Turn}");
-
-			str.Append(game.CurrentPlayer.Hero.WriteCurrent());
-			str.Append(game.CurrentOpponent.Hero.WriteOpp());
-		}
-
-		internal static string WriteCurrent(this Hero h)
-		{
-			var str = new StringBuilder();
-			str.AppendLine($"Current:{h.Card.Name}");
-
-			return str.ToString();
-		}
-
-		internal static string WriteOpp(this Hero h)
-		{
-			var str = new StringBuilder();
-
-			return str.ToString();
-		}
-
-		internal static string WriteZone(this Zone<IPlayable> z)
-		{
-			var str = new StringBuilder();
-
-			return str.ToString();
 		}
 	}
 
