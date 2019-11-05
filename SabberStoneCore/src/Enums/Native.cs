@@ -329,14 +329,18 @@ namespace SabberStoneCore.Enums
 		TIMEOUT = 7,
 		TURN_START = 8,
 		TURN_TIMER_SLUSH = 9,
+		//NO_DUPE_IN_ZONE = 10,
+		//NO_ODD_COST_IN_DECK = 11,
 		//10 GameTag, seems set to 85 always seconds?
 		//11 MinionTag, Controller, ??? used with Potion of Madness  (11 newController,Charge,333 oldController)
 		PREMIUM = 12,
 		GOLD_REWARD_STATE = 13,
+		//NO_EVEN_COST_IN_DECK = 14,
 		PLAYSTATE = 17,
 		LAST_AFFECTED_BY = 18,
 		STEP = 19,
 		TURN = 20,
+		//REMAINING_RESOURCES = 21,
 		FATIGUE = 22,
 		CURRENT_PLAYER = 23,
 		FIRST_PLAYER = 24,
@@ -671,6 +675,7 @@ namespace SabberStoneCore.Enums
 		REVEAL_CHOICES = 792,
 		HERO_DECK_ID = 793,
 		HIDDEN_CHOICE = 813,
+		AMOUNT_HERO_DAMAGED_THIS_TURN = 820,
 		AMOUNT_HERO_HEALED_THIS_TURN = 821, // more or less guessed gametags
 		ZOMBEAST = 823,
 		HERO_EMOTE_SILENCED = 832,
@@ -1099,6 +1104,12 @@ namespace SabberStoneCore.Enums
 		DRAGON = 24,
 		BLANK = 25,
 		ALL = 26,
+		//SILVERHAND_RECRUIT = 27,
+		//TREANT = 28,
+		//LACKEY = 29,
+		//BOOM_BOT = 30,
+		//ANCIENT_ONE = 31,
+		//CTHUN = 32,
 		EGG = 38
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

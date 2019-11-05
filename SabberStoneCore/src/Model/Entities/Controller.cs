@@ -377,7 +377,7 @@ namespace SabberStoneCore.Model.Entities
 			Character[] allFriendly = null;
 			Character[] allEnemies = null;
 
-			var handSpan = HandZone.GetSpan();
+			ReadOnlySpan<IPlayable> handSpan = HandZone.GetSpan();
 			for (int i = 0; i < handSpan.Length; i++)
 			{
 				if (!handSpan[i].ChooseOne || ChooseBoth)
@@ -425,7 +425,7 @@ namespace SabberStoneCore.Model.Entities
 			#region MinionAttackTasks
 			Minion[] attackTargets = null;
 			bool isOpHeroValidAttackTarget = false;
-			var boardSpan = BoardZone.GetSpan();
+			ReadOnlySpan<Minion> boardSpan = BoardZone.GetSpan();
 			for (int j = 0; j < boardSpan.Length; j++)
 			{
 				Minion minion = boardSpan[j];
@@ -821,8 +821,6 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int BaseMana
 		{
-			//get { return this[GameTag.RESOURCES]; }
-			//set { this[GameTag.RESOURCES] = value; }
 			get { return this[GameTag.RESOURCES]; }
 			set { this[GameTag.RESOURCES] = value; }
 		}
@@ -1051,6 +1049,16 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public int NumDiscardedThisGame => DiscardedEntities.Count;
+
+		public int AmountHeroDamagedThisTurn
+		{
+			get
+			{
+				_data.TryGetValue(GameTag.AMOUNT_HERO_DAMAGED_THIS_TURN, out int value);
+				return value;
+			}
+			set => this[GameTag.AMOUNT_HERO_DAMAGED_THIS_TURN] = value;
+		}
 
 		public int AmountHeroHealedThisTurn
 		{
