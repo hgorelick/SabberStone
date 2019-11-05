@@ -27,7 +27,8 @@ namespace SabberStoneCore.Tasks
 	[DebuggerDisplay("{DebuggerDisplay, nq}")]
 	public class StateTaskList : ISimpleTask
 	{
-		private readonly ISimpleTask[] _tasks;
+        readonly ISimpleTask[] _tasks;
+        public ISimpleTask[] TaskList => _tasks;
 
 		private StateTaskList(ISimpleTask[] list)
 		{
@@ -76,7 +77,7 @@ namespace SabberStoneCore.Tasks
 			get
 			{
 				var sb = new StringBuilder();
-				foreach (var task in _tasks)
+				foreach (ISimpleTask task in _tasks)
 				{
 					sb.Append($"[{task.GetType().Name}]");
 				}

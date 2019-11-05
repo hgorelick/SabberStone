@@ -29,9 +29,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class MathNumberIndexTask : SimpleTask
 	{
 		private readonly int _indexA;
+		public int IndexA => _indexA;
+
 		private readonly int _indexB;
+		public int IndexB => _indexB;
+
 		private readonly MathOperation _mathOperation;
+		public MathOperation MathOperation => _mathOperation;
+
 		private readonly int _resultIndex;
+		public int ResultIndex => _resultIndex;
 
 		public MathNumberIndexTask(int indexA, int indexB, MathOperation mathOperation, int resultIndex = 0)
 		{
@@ -166,14 +173,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 	}
 
-	public class MathSubstractionTask : SimpleTask
+	public class MathSubtractionTask : SimpleTask
 	{
-		public MathSubstractionTask(int amount)
+		public MathSubtractionTask(int amount)
 		{
 			Amount = amount;
 		}
 
-		public MathSubstractionTask(GameTag tag, EntityType type)
+		public MathSubtractionTask(GameTag tag, EntityType type)
 		{
 			Tag = tag;
 			Type = type;

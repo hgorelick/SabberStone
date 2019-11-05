@@ -19,6 +19,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class ReplaceWeaponTask : SimpleTask
 	{
 		private readonly Card _weaponCard;
+		public int AssetId => _weaponCard.AssetId;
 
 		public ReplaceWeaponTask(Card cardWeapon)
 		{

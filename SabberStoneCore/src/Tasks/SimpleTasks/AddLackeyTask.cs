@@ -25,9 +25,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Lackeys = Cards.All.Where(card => card[GameTag.MARK_OF_EVIL] == 1).ToArray();
 
 		private readonly int _amount;
+		public int Amount => _amount;
+		private readonly IPlayable[] _entities;
+		public IPlayable[] Entities => _entities;
 		public AddLackeyTask(int amount)
 		{
 			_amount = amount;
+			_entities = new IPlayable[_amount];
 		}
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
@@ -36,7 +40,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			game.OnRandomHappened(true);
 
 			for (int i = 0; i < _amount && !controller.HandZone.IsFull; i++)
-				Entity.FromCard(in controller, Lackeys.Choose(game.Random), zone: controller.HandZone);
+				_entities[i] = Entity.FromCard(in controller, Lackeys.Choose(game.Random), zone: controller.HandZone);
 
 			return TaskState.COMPLETE;
 		}

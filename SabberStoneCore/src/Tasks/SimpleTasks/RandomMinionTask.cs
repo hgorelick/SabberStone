@@ -27,6 +27,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			new ConcurrentDictionary<int, List<Card>>();
 
 		private readonly bool _opponent;
+		public bool Opponent => _opponent;
+
+		public int Amount { get; set; }
+		public bool ClassAndMultiOnlyFlag { get; set; }
+		public bool MaxInDeckFlag { get; set; }
+		public RelaSign RelaSign { get; set; }
+		public GameTag Tag { get; set; }
+		public EntityType Type { get; set; }
+		public int Value { get; set; }
 
 		public RandomMinionTask(GameTag tag, EntityType type, int amount = 1, bool opponent = false)
 		{
@@ -52,14 +61,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			RelaSign = relaSign;
 			_opponent = opponent;
 		}
-
-		public GameTag Tag { get; set; }
-		public int Value { get; set; }
-		public EntityType Type { get; set; }
-		public int Amount { get; set; }
-		public bool ClassAndMultiOnlyFlag { get; set; }
-		public bool MaxInDeckFlag { get; set; }
-		public RelaSign RelaSign { get; set; }
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,

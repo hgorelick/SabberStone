@@ -373,7 +373,7 @@ namespace SabberStoneCore.Model.Zones
 			_count = zone._count;
 		}
 		public override bool IsFull => false;
-		public override int FreeSpace => int.MaxValue;
+		public override int FreeSpace => Int32.MaxValue;
 
 		public override void Add(IPlayable entity, int zonePosition = -1)
 		{

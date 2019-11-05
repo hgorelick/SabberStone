@@ -23,8 +23,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class RecruitTask : SimpleTask
 	{
 		private readonly SelfCondition[] _conditions;
+		public SelfCondition[] Conditions => _conditions;
+
 		private readonly int _amount;
+		public int Amount => _amount;
+
 		private readonly bool _addToStack;
+		public bool AddToStack => _addToStack;
 
 		/// <summary>
 		/// Recruits a random minion satisfying the given conditions.
@@ -49,7 +54,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (amount == 0) return TaskState.STOP;
 
-			var deck = controller.DeckZone.GetSpan();
+			ReadOnlySpan<IPlayable> deck = controller.DeckZone.GetSpan();
 			SelfCondition[] conditions = _conditions;
 			var indices = new List<int>();
 

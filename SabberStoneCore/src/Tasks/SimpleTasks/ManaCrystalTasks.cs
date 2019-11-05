@@ -21,6 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class ManaCrystalFullTask : SimpleTask
 	{
 		private readonly bool _both;
+		public bool Both => _both;
 
 		public ManaCrystalFullTask(int amount, bool both = false)
 		{
@@ -45,8 +46,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class ManaCrystalEmptyTask : SimpleTask
 	{
 		private readonly int _amount;
+		public int Amount => _amount;
+
 		private readonly bool _opponent;
+		public bool Opponent => _opponent;
+
 		private readonly bool _useNumber;
+		public bool UseNumber => _useNumber;
 
 		public ManaCrystalEmptyTask(int amount, bool opponent = false, bool useNumber = false)
 		{
@@ -70,12 +76,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class ManaCrystalSetTask : SimpleTask
 	{
 		private readonly int _amount;
+		public int Amount => _amount;
+
 		private readonly bool _both;
+		public bool Both => _both;
+
 		public ManaCrystalSetTask(int amount, bool both = true)
 		{
 			_amount = amount;
 			_both = both;
 		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
 			in TaskStack stack = null)
 		{

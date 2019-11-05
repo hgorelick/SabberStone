@@ -19,7 +19,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class DestroyTask : SimpleTask
 	{
 		private readonly bool _forcedDeathPhase;
+		public bool ForcedDeathPhase => _forcedDeathPhase;
 		private readonly EntityType _type;
+		public EntityType Type => _type;
 
 		public DestroyTask(EntityType entityType, bool forcedDeathPhase = false)
 		{

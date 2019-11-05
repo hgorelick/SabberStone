@@ -329,7 +329,7 @@ namespace SabberStoneCore.Enchants
 		{
 			unchecked
 			{
-				var hashCode = (int) Tag;
+				int hashCode = (int) Tag;
 				hashCode = (hashCode * 397) ^ (int) Operator;
 				hashCode = (hashCode * 397) ^ Value;
 				return hashCode;

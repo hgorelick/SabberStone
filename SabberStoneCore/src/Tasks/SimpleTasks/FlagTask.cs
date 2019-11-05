@@ -19,7 +19,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class FlagTask : SimpleTask
 	{
 		private readonly bool _checkFlag;
+		public bool CheckFlag => _checkFlag;
 		private readonly ISimpleTask _taskToDo;
+		public ISimpleTask TaskToDo => _taskToDo;
 
 		public FlagTask(bool checkFlag, ISimpleTask taskToDo)
 		{

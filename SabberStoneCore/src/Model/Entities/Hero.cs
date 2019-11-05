@@ -179,7 +179,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				if (AuraEffects?.CannotAttackHeroes ?? false)
+				if (AuraEffects?.CantAttackHeroes ?? false)
 					return true;
 
 				return base.CantAttackHeroes;

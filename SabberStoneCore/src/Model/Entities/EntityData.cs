@@ -36,7 +36,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public EntityData()
 		{
-			var buckets = new int[_initSize << 1];
+			int[] buckets = new int[_initSize << 1];
 			for (int i = 0; i < buckets.Length; i += 2)
 				buckets[i] = -1;
 			_buckets = buckets;
@@ -408,7 +408,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				var values = new int[_count];
+				int[] values = new int[_count];
 				int[] buckets = _buckets;
 				for (int i = 0, j = 0; i < buckets.Length; i += 2)
 				{

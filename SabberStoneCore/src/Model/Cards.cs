@@ -265,7 +265,7 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static IEnumerable<Card> HeroCards()
 		{
-			return All.Where(c => c.Type == CardType.HERO && c.Id.StartsWith("HERO"));
+			return All.Where(c => c.Type == CardType.HERO && c.Id.StartsWith("HERO", StringComparison.CurrentCulture));
 		}
 
 		/// <summary>
@@ -320,11 +320,11 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Card FromId(string cardId)
 		{
-			try { Card c = Data.Cards[cardId]; }
-			catch (Exception)
-			{
-				Console.Write("Why");
-			}
+			//try { Card c = Data.Cards[cardId]; }
+			//catch (Exception)
+			//{
+			//	Console.Write("Why");
+			//}
 			return Data.Cards[cardId];
 		}
 

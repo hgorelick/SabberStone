@@ -24,10 +24,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class CopyTask : SimpleTask
 	{
 		private readonly EntityType _entityType;
+		public EntityType Type => _entityType;
 		private readonly Zone _zoneType;
+		public Zone Zone => _zoneType;
 		private readonly int _amount;
+		public int Amount => _amount;
 		private readonly bool _addToStack;
 		private readonly bool _toOpponent;
+		public bool ToOpponent => _toOpponent;
 
 		public CopyTask(EntityType type, Zone targetZone, int amount = 1, bool addToStack = false, bool toOpponent = false)
 		{

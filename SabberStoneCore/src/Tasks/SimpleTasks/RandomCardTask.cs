@@ -26,16 +26,29 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private static readonly ConcurrentDictionary<(int, CardClass), Card[]> CachedCardLists =
 			new ConcurrentDictionary<(int, CardClass), Card[]>();
 
+		private readonly CardClass _cardClass;
+		public CardClass CardClass => _cardClass;
+
 		private readonly CardSet _cardSet;
+		public CardSet CardSet => _cardSet;
+
 		private readonly CardType _cardType;
+		public CardType CardType => _cardType;
+
 		private readonly GameTag[] _gameTagFilter;
+		public GameTag[] GameTagFilter => _gameTagFilter;
+
 		private readonly bool _opposite;
+		public bool Opposite => _opposite;
+
 		private readonly Race _race;
+		public Race Race => _race;
+
 		private readonly Rarity _rarity;
+		public Rarity Rarity => _rarity;
 
 		private readonly EntityType _type;
-		private readonly CardClass _cardClass;
-
+		public EntityType Type => _type;
 
 		/// <summary>
 		/// Choose a random card that fits the criterias.

@@ -22,7 +22,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class DamageWeaponTask : SimpleTask
 	{
 		private readonly bool _opponent;
+		public bool Opponent => _opponent;
 		private int _amount;
+		public int Amount => _amount;
 
 		/// <summary>
 		///     A task that deals specific amount of damage to one of the equipped weapons.

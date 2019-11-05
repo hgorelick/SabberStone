@@ -79,10 +79,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class NumberConditionTask : SimpleTask
 	{
 		private readonly int _reference;
+		public int Reference => _reference;
 		private readonly RelaSign _sign;
+		public RelaSign Sign => _sign;
 
 		/// <summary>
-		///     Create Task that compares the stored stack.Number and the given reference value.
+		/// Create Task that compares the stored stack.Number and the given reference value.
 		/// </summary>
 		public NumberConditionTask(int referenceValue, RelaSign sign)
 		{
@@ -91,7 +93,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		/// <summary>
-		///     Create Task that compares stack.Number and stack.Number1 in the stack.
+		/// Create Task that compares stack.Number and stack.Number1 in the stack.
 		/// </summary>
 		/// <param name="sign"></param>
 		public NumberConditionTask(RelaSign sign)

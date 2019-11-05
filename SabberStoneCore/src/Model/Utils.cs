@@ -396,7 +396,7 @@ namespace SabberStoneCore.Model
 			public SmallFastCollection(SmallFastCollection other)
 			{
 				int s = other._size;
-				var array = new int[s];
+				int[] array = new int[s];
 				Array.Copy(other._array, array, s);
 
 				_size = s;
@@ -529,7 +529,7 @@ namespace SabberStoneCore.Model
 			{
 				int s = _size;
 				int newSize = s * 2;
-				var newArray = new int[newSize];
+				int[] newArray = new int[newSize];
 				Array.Copy(_array, newArray, s);
 				_array = newArray;
 				_size = newSize;

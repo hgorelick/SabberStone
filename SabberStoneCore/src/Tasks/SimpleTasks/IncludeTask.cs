@@ -205,8 +205,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private const int SingleTypesRange = 9;
 
 		private readonly bool _addFlag;
+		public bool AddFlag => _addFlag;
 		private readonly EntityType[] _excludeTypeArray;
+		public EntityType[] ExcludeTypes => _excludeTypeArray;
 		private readonly EntityType _includeType;
+		public EntityType IncludeType => _includeType;
 
 		public IncludeTask(EntityType includeType, EntityType[] excludeTypeArray = null, bool addFlag = false)
 		{
@@ -430,7 +433,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class IncludeAdjacentTask : SimpleTask
 	{
 		private readonly EntityType _type;
-		private readonly bool _includeCentre;
+		public EntityType Type => _type;
+
+		private readonly bool _includeCenter;
+		public bool IncludeCenter => _includeCenter;
 
 		/// <summary>
 		/// Get minions adjacent to the minion of the given entity type
@@ -440,7 +446,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public IncludeAdjacentTask(EntityType entityType, bool includeCentre = false)
 		{
 			_type = entityType;
-			_includeCentre = includeCentre;
+			_includeCenter = includeCentre;
 		}
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
@@ -475,7 +481,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				minions = new Minion[0];
 			else
 			{
-				bool l = false, c = _includeCentre, r = false;
+				bool l = false, c = _includeCenter, r = false;
 				int count = c ? 1 : 0;
 				int pos = centre.ZonePosition;
 

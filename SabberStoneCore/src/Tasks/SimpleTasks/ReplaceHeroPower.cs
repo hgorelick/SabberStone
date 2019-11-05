@@ -20,6 +20,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class ReplaceHeroPower : SimpleTask
 	{
 		private readonly Card _heroPowerCard;
+		public int AssetId => _heroPowerCard.AssetId;
 
 		public ReplaceHeroPower()
 		{

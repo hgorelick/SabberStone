@@ -46,7 +46,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class SummonTask : SimpleTask
 	{
 		private readonly bool _addToStack;
+		public bool AddToStack => _addToStack;
+
 		private readonly int _amount = 1;
+		public int Amount => _amount;
+
+		public Card Card { get; set; }
+
+		public bool RemoveFromStack { get; set; }
+
+		public SummonSide Side { get; set; }
 
 		public SummonTask(SummonSide side = SummonSide.DEFAULT, Card card = null, bool removeFromStack = false,
 			bool addToStack = false, int amount = 1)
@@ -72,12 +81,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_amount = amount;
 			Side = side;
 		}
-
-		public Card Card { get; set; }
-
-		public bool RemoveFromStack { get; set; }
-
-		public SummonSide Side { get; set; }
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
@@ -190,14 +193,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class SummonNumberTask : SimpleTask
 	{
 		private readonly Card _card;
+		public int AssetId => _card.AssetId;
+
 		private readonly bool _op;
+		public bool Op => _op;
 
 		public SummonNumberTask(string cardId, bool opponent)
 		{
 			_card = Cards.FromId(cardId);
 			_op = opponent;
 		}
-
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
 			in TaskStack stack = null)

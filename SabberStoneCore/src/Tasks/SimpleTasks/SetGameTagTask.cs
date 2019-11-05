@@ -91,7 +91,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class ApplyEffectTask : SimpleTask
 	{
 		private readonly EntityType _type;
+		public EntityType Type => _type;
+
 		private readonly IEffect[] _effs;
+		public IEffect[] Effects => _effs;
 
 		public ApplyEffectTask(EntityType entityType, params IEffect[] effects)
 		{

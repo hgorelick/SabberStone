@@ -22,7 +22,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class RemoveFromDeck : SimpleTask
 	{
 		private readonly EntityType _type;
+		public EntityType Type => _type;
+
 		private readonly bool _addToStack;
+		public bool AddToStack => _addToStack;
 
 		public RemoveFromDeck(EntityType type, bool addToStack = true)
 		{

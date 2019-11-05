@@ -23,6 +23,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class TransformCopyTask : SimpleTask
 	{
 		private readonly bool _addToStack;
+		public bool AddToStack => _addToStack;
 
 		public TransformCopyTask(bool addToStack = false)
 		{

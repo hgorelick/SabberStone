@@ -22,9 +22,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class FilterStackTask : SimpleTask
 	{
 		private readonly RelaCondition[] _relaConditions;
+		public RelaCondition[] RelaConditions => _relaConditions;
 		private readonly SelfCondition[] _selfConditions;
+		public SelfCondition[] SelfConditions => _selfConditions;
 
 		private readonly EntityType _type;
+		public EntityType Type => _type;
 
 		private FilterStackTask(EntityType type, SelfCondition[] selfConditions, RelaCondition[] relaConditions)
 		{

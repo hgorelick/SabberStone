@@ -138,9 +138,9 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool IsOneTurnActive { get; private set; }
 
-		public int ScriptTag1 => this[GameTag.TAG_SCRIPT_DATA_NUM_1];
+		public int ScriptTagValue1 => this[GameTag.TAG_SCRIPT_DATA_NUM_1];
 
-		public int ScriptTag2 => this[GameTag.TAG_SCRIPT_DATA_NUM_2];
+		public int ScriptTagValue2 => this[GameTag.TAG_SCRIPT_DATA_NUM_2];
 
 		/// <summary>
 		/// Creates and adds a new Enchantment entity to the given Controller's Game.

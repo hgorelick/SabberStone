@@ -100,6 +100,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class GetEventNumberTask : SimpleTask
 	{
 		private readonly int _numberIndex;
+		public int NumberIndex => _numberIndex;
 
 		public GetEventNumberTask(int numberIndex = 0)
 		{

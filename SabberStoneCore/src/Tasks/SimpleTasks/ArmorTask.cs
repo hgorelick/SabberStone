@@ -19,8 +19,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class ArmorTask : SimpleTask
 	{
 		private readonly bool _useNumber;
+		public bool UseNumber => _useNumber;
 		private readonly int _amount;
+		public int Amount => _amount;
 		private readonly bool _op;
+		public bool Op => _op;
 
 		/// <summary>
 		///     Adding the amount as Armor.

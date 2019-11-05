@@ -62,7 +62,7 @@ namespace SabberStoneCore.Tasks
 					ReadOnlySpan<Minion> minions = p.Controller.BoardZone.GetSpan();
 					Span<int> notContained = stackalloc int[4];
 					int k = 0;
-					var entourage = p.Card.Entourage;
+					string[] entourage = p.Card.Entourage;
 					for (int i = 0; i < entourage.Length; i++)
 					{
 						string id = entourage[i];
@@ -835,7 +835,7 @@ namespace SabberStoneCore.Tasks
 			new FuncNumberTask(p =>
 			{
 				Controller c = p.Controller;
-				var deck = c.DeckZone.GetSpan();
+				ReadOnlySpan<IPlayable> deck = c.DeckZone.GetSpan();
 				List<int> minions = new List<int>();
 				List<int> spells = new List<int>();
 				for (int i = 0; i < deck.Length; i++)
@@ -878,7 +878,7 @@ namespace SabberStoneCore.Tasks
 			new FuncNumberTask(p =>
 			{
 				Controller c = p.Controller;
-				var deck = c.DeckZone.GetSpan();
+				ReadOnlySpan<IPlayable> deck = c.DeckZone.GetSpan();
 				List<IPlayable> minions = new List<IPlayable>();
 				List<int> indices = new List<int>();
 				for (int i = 0; i < deck.Length; i++)
@@ -1115,7 +1115,7 @@ namespace SabberStoneCore.Tasks
 				controller.SetasideZone.Add(controller.Hero.HeroPower);
 				controller.Hero.HeroPower = heroPower;
 
-				var cards = Cards.FormatTypeClassCards(game.FormatType)[randClass].Where(p => p.Class == randClass && !p.IsQuest).ToArray();
+				Card[] cards = Cards.FormatTypeClassCards(game.FormatType)[randClass].Where(p => p.Class == randClass && !p.IsQuest).ToArray();
 
 				// replace cards in hand
 				for (int i = 0; i < controller.HandZone.Count; i++)

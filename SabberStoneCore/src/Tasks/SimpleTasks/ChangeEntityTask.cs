@@ -22,12 +22,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class ChangeEntityTask : SimpleTask
 	{
 		private readonly Card _card;
+		public int AssetId => _card.AssetId;
 		private readonly CardType _cardType;
+		//public CardType CardType => _cardType;
 		private readonly bool _opClass;
+		//public bool OpClass => _opClass;
 		private readonly Rarity _rarity;
 		private readonly Race _race;
 		private readonly EntityType _type;
+		public EntityType Type => _type;
 		private readonly EntityType _protoType;
+		//public EntityType ProtoType => _protoType;
 		private readonly bool _useRandomCard;
 		private readonly bool _removeEnchantments;
 		private CardClass _cardClass;

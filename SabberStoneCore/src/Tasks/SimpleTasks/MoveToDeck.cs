@@ -21,7 +21,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class MoveToDeck : SimpleTask
 	{
 		private readonly EntityType _type;
+		public EntityType Type => _type;
+
 		private readonly bool _opponent;
+		public bool Opponent => _opponent;
 
 		public MoveToDeck(EntityType type, bool opponent = false)
 		{
@@ -33,7 +36,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			var c = _opponent ? controller.Opponent : controller;
+			Controller c = _opponent ? controller.Opponent : controller;
 
 			foreach (IPlayable p in IncludeTask.GetEntities(in _type, in controller, source, target, stack?.Playables))
 			{

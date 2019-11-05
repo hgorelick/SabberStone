@@ -21,6 +21,18 @@ namespace SabberStoneCore.Enums
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		EQ, GEQ, LEQ
+		//NEG = -1,
+		//EQ = 1,
+		//GT,
+		//GEQ,
+		//LT,
+		//LEQ,
 	}
+
+	//public enum Conj
+	//{
+	//	AND = 1,
+	//	OR
+	//}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

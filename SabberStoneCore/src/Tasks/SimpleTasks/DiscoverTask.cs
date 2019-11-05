@@ -85,14 +85,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			CachedDiscoverySetsByCriteria = new ConcurrentDictionary<(DiscoverCriteria, CardClass), Card[][]>();
 
 		private readonly DiscoverType _discoverType;
+		public DiscoverType DiscoverType => _discoverType;
 		//private readonly Card _enchantmentCard;
 		private readonly int _numberOfChoices = 3;
+		public int NumberOfChoices => _numberOfChoices;
 		private readonly ISimpleTask _taskTodo;
 		private readonly Predicate<Card[]> _keepAllCondition;
 
 		private readonly DiscoverCriteria _discoverCriteria;
 		private readonly ChoiceAction _choiceAction;
+		public ChoiceAction ChoiceAction => _choiceAction;
 		private readonly int _repeat;
+		public int Repeat => _repeat;
 
 		private ref readonly DiscoverCriteria Criteria => ref _discoverCriteria;
 
@@ -916,7 +920,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				unchecked
 				{
-					var hashCode = (int) CardType;
+					int hashCode = (int) CardType;
 					hashCode = (hashCode * 397) ^ (int) CardClass;
 					hashCode = (hashCode * 397) ^ (int) Tag;
 					hashCode = (hashCode * 397) ^ (int) RelaSign;

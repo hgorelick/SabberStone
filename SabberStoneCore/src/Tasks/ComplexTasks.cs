@@ -154,7 +154,7 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask RemoveFromGameTag(GameTag tag, int amount, EntityType type)
 			=> Create(
 				new GetGameTagTask(tag, type),
-				new MathSubstractionTask(amount),
+				new MathSubtractionTask(amount),
 				new SetGameTagNumberTask(tag, type));
 
 		public static ISimpleTask ExcessManaCheck
@@ -407,7 +407,7 @@ namespace SabberStoneCore.Tasks
 						return list;
 					list[0].Game.OnRandomHappened(true);
 					list.Shuffle(list[0].Game.Random);
-					int min = int.MaxValue;
+					int min = Int32.MaxValue;
 					int minArg = -1;
 					for (int i = 0; i < list.Count; i++)
 					{

@@ -145,7 +145,7 @@ namespace SabberStoneCore.Enchants
 		}
 
 		// Only for Hero entities
-		public bool CannotAttackHeroes
+		public bool CantAttackHeroes
 		{
 			get
 			{
@@ -233,7 +233,7 @@ namespace SabberStoneCore.Enchants
 					case GameTag.ECHO:
 						return Echo ? 1 : 0;
 					case GameTag.CANNOT_ATTACK_HEROES:
-						return CannotAttackHeroes ? 1 : 0;
+						return CantAttackHeroes ? 1 : 0;
 					case GameTag.HEROPOWER_DAMAGE:
 						return HeroPowerDamage;
 					default:
@@ -279,7 +279,7 @@ namespace SabberStoneCore.Enchants
 						Echo = value > 0;
 						return;
 					case GameTag.CANNOT_ATTACK_HEROES:
-						CannotAttackHeroes = value > 0;
+						CantAttackHeroes = value > 0;
 						return;
 					case GameTag.HEROPOWER_DAMAGE:
 						HeroPowerDamage = value;
@@ -313,17 +313,40 @@ namespace SabberStoneCore.Enchants
 	public class ControllerAuraEffects
 	{
 		private int _timeOut;
+		public int TimeOut => _timeOut;
+
 		private int _spellPowerDouble;
+		public int SpellPowerDouble => _spellPowerDouble;
+
 		private int _heroPowerDouble;
+		public int HeroPowerDouble => _heroPowerDouble;
+
 		private int _restoreToDamage;
-		private int _extraBattecry;
+		public int RestoreToDamage => _restoreToDamage;
+
+		private int _extraBattlecry;
+		public int ExtraBattlecry => _extraBattlecry;
+
 		private int _chooseBoth;
+		public int ChooseBoth => _chooseBoth;
+
 		private int _spellsCostHealth;
+		public int SpellsCostHealth => _spellsCostHealth;
+
 		private int _extraEndTurnEffect;
+		public int ExtraEndTurnEffect => _extraEndTurnEffect;
+
 		private int _heroPowerDisabled;
+		public int HeroPowerDisabled => _heroPowerDisabled;
+
 		private int _allHealingDouble;
+		public int AllHealingDouble => _allHealingDouble;
+
 		private int _extraBattlecryAndCombo;
+		public int ExtraBattlecryAndCombo => _extraBattlecryAndCombo;
+
 		private int _spellPower;
+		public int SpellPower => _spellPower;
 
 		public int this[GameTag t]
 		{
@@ -345,7 +368,7 @@ namespace SabberStoneCore.Enchants
 					case GameTag.SPELLS_COST_HEALTH:
 						return _spellsCostHealth >= 1 ? 1 : 0;
 					case GameTag.EXTRA_BATTLECRIES_BASE:
-						return _extraBattecry;
+						return _extraBattlecry;
 					case GameTag.EXTRA_END_TURN_EFFECT:
 						return _extraEndTurnEffect;
 					case GameTag.HERO_POWER_DISABLED:
@@ -384,7 +407,7 @@ namespace SabberStoneCore.Enchants
 						_spellsCostHealth = value;
 						return;
 					case GameTag.EXTRA_BATTLECRIES_BASE:
-						_extraBattecry = value;
+						_extraBattlecry = value;
 						return;
 					case GameTag.EXTRA_END_TURN_EFFECT:
 						_extraEndTurnEffect = value;
@@ -419,7 +442,7 @@ namespace SabberStoneCore.Enchants
 			sb.Append(_spellPowerDouble);
 			sb.Append(_heroPowerDouble);
 			sb.Append(_restoreToDamage);
-			sb.Append(_extraBattecry);
+			sb.Append(_extraBattlecry);
 			sb.Append(_chooseBoth);
 			sb.Append(_spellsCostHealth);
 			sb.Append(_extraEndTurnEffect);

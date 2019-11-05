@@ -20,7 +20,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class SummonOpTask : SimpleTask
 	{
 		private readonly Card _card;
+		public int AssetId => _card.AssetId;
+
 		private readonly int _amount;
+		public int Amount => _amount;
 
 		/// <summary>
 		/// Creates a task that summons an entity of the given card or

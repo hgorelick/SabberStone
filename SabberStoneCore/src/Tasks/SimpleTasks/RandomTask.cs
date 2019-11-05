@@ -86,7 +86,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class RandomTask : SimpleTask
 	{
 		private readonly int _amount;
+		public int Amount => _amount;
+
 		private readonly EntityType _type;
+		public EntityType Type => _type;
 
 		public RandomTask(int amount, EntityType type)
 		{

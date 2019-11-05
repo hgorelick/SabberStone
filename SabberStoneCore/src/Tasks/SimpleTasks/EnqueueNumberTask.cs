@@ -20,7 +20,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class EnqueueNumberTask : SimpleTask
 	{
 		private readonly bool _spellDmg;
+		public bool SpellDmg => _spellDmg;
 		private readonly ISimpleTask _task;
+		public ISimpleTask Task => _task;
 
 		public EnqueueNumberTask(ISimpleTask task, bool spellDmg = false)
 		{

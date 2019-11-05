@@ -374,6 +374,7 @@ namespace SabberStoneCore.Model.Entities
 				Game.TaskQueue.Enqueue(in task, Controller, this, target);
 		}
 
+#pragma warning disable RECS0081 // Validate Xml docs
 		/// <summary>
 		/// Stores the next Order Of Play index held by the <see cref="T:SabberStoneCore.Model.Game" /> instance.
 		/// Order of play is important because it's the order in which effects are resolved.
@@ -389,6 +390,7 @@ namespace SabberStoneCore.Model.Entities
 		//		OrderOfPlay = Game.NextOop;
 		//	}
 		//}
+#pragma warning restore RECS0081 // Validate Xml docs
 
 		/// <summary>Mark this entity for destruction.</summary>
 		/// <returns>Returns itself.</returns>

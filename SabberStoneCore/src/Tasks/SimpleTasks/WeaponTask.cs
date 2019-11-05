@@ -20,7 +20,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class WeaponTask : SimpleTask
 	{
 		private readonly Card _card;
+		public int AssetId => _card.AssetId;
+
 		private readonly bool _op;
+		public bool Op => _op;
 
 		public WeaponTask(string cardId = null, bool opponent = false)
 		{

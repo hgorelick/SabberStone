@@ -23,8 +23,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private readonly int _numberIndex;
 		private readonly Zone _zone;
+		public Zone Zone => _zone;
 		private readonly bool _getFreeSpace;
 		private readonly bool _opponent;
+		public bool Opponent => _opponent;
 
 		public CountTask(EntityType type, int numberIndex = 0)
 		{
@@ -66,8 +68,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					stack.Number = IncludeTask.GetEntities(Type, in controller, source, target, stack.Playables).Count;
 					break;
 				case 1:
-					stack.Number1 = IncludeTask.GetEntities(Type, in controller, source, target, stack.Playables)
-						.Count;
+					stack.Number1 = IncludeTask.GetEntities(Type, in controller, source, target, stack.Playables).Count;
 					break;
 				case 2:
 					stack.Number2 = IncludeTask.GetEntities(Type, in controller, source, target, stack.Playables)
@@ -82,7 +83,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						.Count;
 					break;
 				default:
-					throw new ArgumentOutOfRangeException("Number Index must be in range [0, 4]");
+					throw new ArgumentException("Number Index must be in range [0, 4]");
 			}
 
 			return TaskState.COMPLETE;

@@ -23,6 +23,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		//private readonly string _questRewardId;
 		private readonly Card _card;
+		public int AssetId => _card.AssetId;
 
 		public QuestProgressTask(string questRewardId)
 		{

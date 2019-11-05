@@ -34,7 +34,7 @@ namespace SabberStoneCore.Enchants
 				TriggerSource = TriggerSource.ENCHANTMENT_TARGET,
 				SingleTask = RemoveEnchantmentTask.Task,
 				RemoveAfterTriggered = true,
-				IsAncillaryTrigger = true,
+				_isAncillaryTrigger = true,
 			};
 
 		public readonly IEffect[] Effects;

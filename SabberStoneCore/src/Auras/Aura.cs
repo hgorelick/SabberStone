@@ -72,8 +72,8 @@ namespace SabberStoneCore.Auras
 
 		private IPlayable _owner;
 
-		protected bool On = true;
-		protected IEffect[] Effects;
+		public bool On = true;
+		public IEffect[] Effects;
 
 		public readonly Game Game;
 		public readonly AuraType Type;

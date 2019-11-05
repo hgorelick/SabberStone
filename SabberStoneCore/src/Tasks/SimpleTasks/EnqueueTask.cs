@@ -22,8 +22,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class EnqueueTask : SimpleTask
 	{
 		private readonly int _amount;
+		public int Amount => _amount;
 		private readonly bool _spellDmg;
+		public bool SpellDmg => _spellDmg;
 		private readonly ISimpleTask _task;
+		public ISimpleTask Task => _task;
 
 		public EnqueueTask(int amount, ISimpleTask task, bool spellDmg = false)
 		{
@@ -56,7 +59,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class EnqueuePendingTask : SimpleTask
 	{
 		private readonly ISimpleTask _task;
+		public ISimpleTask Task => _task;
+
 		private readonly EntityType _targetType;
+		public EntityType TargetType => _targetType;
 
 		public EnqueuePendingTask(ISimpleTask task, EntityType targetType)
 		{

@@ -28,18 +28,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class SummonCopyTask : SimpleTask
 	{
 		private readonly bool _addToStack;
+		public bool AddToStack => _addToStack;
 
 		/// <summary>
 		/// If there are multiple entities to summon it will randomly summon them.
 		/// </summary>
 		private readonly bool _randomFlag;
+		public bool RandomFlag => _randomFlag;
 
 		private readonly SummonSide _side;
+		public SummonSide SummonSide => _side;
 
 		/// <summary>
 		/// Entities to summon.
 		/// </summary>
 		private readonly EntityType _type;
+		public EntityType Type => _type;
 
 		/// <summary>
 		/// Summons a copy of the chosen entitytype.

@@ -17,9 +17,9 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-	public class ReturnHandTask : SimpleTask
+	public class ReturnToHandTask : SimpleTask
 	{
-		public ReturnHandTask(EntityType type)
+		public ReturnToHandTask(EntityType type)
 		{
 			Type = type;
 		}

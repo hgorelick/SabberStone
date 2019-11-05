@@ -126,7 +126,9 @@ namespace SabberStoneCore.Actions
 			};
 
 		public static Func<Controller, IPlayable, ICharacter, int, int, bool> PrePlayPhase
+#pragma warning disable RECS0154 // Parameter is never used
 			=> delegate (Controller c, IPlayable source, ICharacter target, int zonePosition, int chooseOne)
+#pragma warning restore RECS0154 // Parameter is never used
 			{
 				// can't play because we got already board full
 				if (source is Minion && c.BoardZone.IsFull)
@@ -392,7 +394,9 @@ namespace SabberStoneCore.Actions
 			};
 
 		public static Func<Controller, Game, Weapon, ICharacter, int, bool> PlayWeapon
+#pragma warning disable RECS0154 // Parameter is never used
 			=> delegate (Controller c, Game game, Weapon weapon, ICharacter target, int chooseOne)
+#pragma warning restore RECS0154 // Parameter is never used
 			{
 				game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !game.Logging ? "" : $"{c.Hero} gets Weapon {c.Hero.Weapon}.");
 

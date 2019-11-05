@@ -30,8 +30,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class PlayTask : SimpleTask
 	{
 		private readonly PlayType _playType;
+		public PlayType PlayType => _playType;
+
 		private readonly bool _randTarget;
+		public bool RandTarget => _randTarget;
+
 		private readonly EntityType _targetType;
+		public EntityType Type => _targetType;
 
 		/// <summary>
 		/// Create a PlayTask to play a card as a task.

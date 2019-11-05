@@ -24,8 +24,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private readonly Race _race;
 		private readonly int _amount;
+		public int Amount => _amount;
 		private readonly bool _addToStack;
 		private readonly bool _lowestCost;
+		public bool LowestCost => _lowestCost;
 
 		public DrawMinionTask(Race race, int amount, bool addToStack)
 		{
@@ -44,7 +46,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
 			in TaskStack stack = null)
 		{
-			var deck = controller.DeckZone.GetSpan();
+			ReadOnlySpan<IPlayable> deck = controller.DeckZone.GetSpan();
 
 			if (deck.Length == 0)
 				return TaskState.STOP;

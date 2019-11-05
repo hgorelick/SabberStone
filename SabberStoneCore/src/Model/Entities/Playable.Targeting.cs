@@ -190,7 +190,7 @@ namespace SabberStoneCore.Model.Entities
 
 				if (friendlyMinions)
 				{
-					var span = Controller.BoardZone.GetSpan();
+					ReadOnlySpan<Minion> span = Controller.BoardZone.GetSpan();
 					for (int i = 0; i < span.Length; i++)
 						if (TargetingRequirements(span[i]))
 							return true;
@@ -198,7 +198,7 @@ namespace SabberStoneCore.Model.Entities
 
 				if (enemyMinions)
 				{
-					var span = Controller.Opponent.BoardZone.GetSpan();
+					ReadOnlySpan<Minion> span = Controller.Opponent.BoardZone.GetSpan();
 					for (int i = 0; i < span.Length; i++)
 						if (TargetingRequirements(span[i]))
 							return true;

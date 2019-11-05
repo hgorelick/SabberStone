@@ -21,7 +21,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class RandomEntourageTask : SimpleTask
 	{
 		private readonly int _count;
+		public int Count => _count;
+
 		private readonly bool _opponent;
+		public bool Opponent => _opponent;
 
 		public RandomEntourageTask(int count = 1, bool opponent = false)
 		{
@@ -41,7 +44,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				if (_count > playable.Card.Entourage.Length)
 					throw new ArgumentOutOfRangeException();
 
-				var ids = new string[_count];
+				string[] ids = new string[_count];
 				int i = 0;
 				do
 				{

@@ -22,6 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class SwapAttackHealthTask : SimpleTask
 	{
 		private readonly Card _enchantmentCard;
+		public int AssetId => _enchantmentCard.AssetId;
 
 		/// <summary>
 		///     Changes the attack attribute of the given entity.

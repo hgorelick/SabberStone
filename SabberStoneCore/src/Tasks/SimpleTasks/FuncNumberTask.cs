@@ -22,7 +22,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private readonly Action<IPlayable, int> _action;
 		private readonly Func<IPlayable, int> _function;
+		public Func<IPlayable, int> Function => _function;
 		private readonly Func<IList<IPlayable>, int> _stackFunction;
+		public Func<IList<IPlayable>, int> StackFunction => _stackFunction;
 
 		/// <summary>
 		///     Process a custom delegate which takes <see cref="ISimpleTask.source" /> entity as a parameter and save the

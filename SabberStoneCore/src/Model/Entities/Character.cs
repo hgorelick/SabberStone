@@ -263,7 +263,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				var span = Controller.Opponent.BoardZone.GetSpan();
+				ReadOnlySpan<Minion> span = Controller.Opponent.BoardZone.GetSpan();
 				for (int i = 0; i < span.Length; i++)
 				{
 					if (!(span[i].HasStealth || span[i].IsImmune))

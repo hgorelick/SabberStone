@@ -21,6 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class DrawTask : SimpleTask
 	{
 		private readonly int _count;
+		public int Count => _count;
 		private readonly bool _toStack;
 
 		public DrawTask(bool toStack = false, int count = 1)

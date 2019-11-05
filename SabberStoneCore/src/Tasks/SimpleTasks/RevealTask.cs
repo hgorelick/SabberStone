@@ -22,8 +22,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class RevealTask : SimpleTask
 	{
 		private readonly ISimpleTask _failedJoustTask;
+		public ISimpleTask FailedJoustTask => _failedJoustTask;
+
 		private readonly ISimpleTask _successJoustTask;
+		public ISimpleTask SuccessJoustTask => _successJoustTask;
+
 		private readonly CardType _type;
+		public CardType CardType => _type;
 
 		public RevealTask(ISimpleTask successJoustTask, ISimpleTask failedJoustTask = null,
 			CardType type = CardType.MINION)

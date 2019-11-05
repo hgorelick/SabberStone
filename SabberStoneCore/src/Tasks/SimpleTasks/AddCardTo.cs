@@ -22,8 +22,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class AddCardTo : SimpleTask
 	{
 		private readonly int _amount;
+		public int Amount => _amount;
 		private readonly Card _card;
+		public Card Card => _card;
 		private readonly EntityType _type;
+		public EntityType Type => _type;
 
 		public AddCardTo(Card card, EntityType type, int amount = 1)
 		{

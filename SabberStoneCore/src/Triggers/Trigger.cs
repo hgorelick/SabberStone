@@ -24,15 +24,29 @@ namespace SabberStoneCore.Triggers
     public class Trigger
 	{ 
 		private readonly TriggerManager.TriggerHandler _processHandler;
+
 		private readonly int _sourceId;
+		public int SourceId => _sourceId;
+
 		private readonly TriggerType _triggerType;
+		public TriggerType TriggerType => _triggerType;
+
 		private readonly SequenceType _sequenceType;
+		public SequenceType SequenceType => _sequenceType;
+
 		private readonly bool _isSecret;
+		public bool IsSecret => _isSecret;
+
 		private bool _removed;
+		public bool Removed => _removed;
 
 		protected readonly IPlayable _owner;
+		public IPlayable Owner => _owner;
 
-	    internal bool IsAncillaryTrigger;
+		public bool Validated { get; set; }
+
+		internal bool _isAncillaryTrigger;
+		internal bool IsAncillaryTrigger => _isAncillaryTrigger;
 
 		public readonly Game Game;
 		/// <summary>
@@ -52,11 +66,13 @@ namespace SabberStoneCore.Triggers
 	    public SelfCondition Condition;
 
 		/// <summary> 
-		/// This option is only meaningful when this the type of this trigger is <see cref="TriggerType.TURN_END"/> or <see cref="TriggerType.TURN_START"/>.
+		/// This option is only meaningful when this the type of this
+		/// trigger is <see cref="TriggerType.TURN_END"/> or <see cref="TriggerType.TURN_START"/>.
 		/// </summary>
 		/// <value>	true means the effect can be triggered at both player's turn.</value>
 		public bool EitherTurn;
 	    public bool FastExecution;
+
 		/// <value> true means this trigger will be immediately disposed after triggered.</value>
 	    public bool RemoveAfterTriggered;
 
@@ -104,12 +120,10 @@ namespace SabberStoneCore.Triggers
 			FastExecution = prototype.FastExecution;
 			RemoveAfterTriggered = prototype.RemoveAfterTriggered;
 		    _isSecret = prototype.Game == null ? owner.Card.IsSecret : prototype._isSecret;
-		    IsAncillaryTrigger = prototype.IsAncillaryTrigger;
+		    _isAncillaryTrigger = prototype.IsAncillaryTrigger;
 
 			_processHandler = Process;
 	    }
-
-		public bool Validated { get; set; }
 
 		/// <summary>
 		/// Create a new instance of <see cref="Trigger"/> object in source's Game. During activation, the instance's <see cref="Process(IEntity)"/> subscribes to the events in <see cref="TriggerManager"/>.
@@ -131,7 +145,7 @@ namespace SabberStoneCore.Triggers
 			var instance = new Trigger(this, source);
 
 			if (asAncillary)
-				instance.IsAncillaryTrigger = true;
+				instance._isAncillaryTrigger = true;
 			else if (!IsAncillaryTrigger)
 				source.ActivatedTrigger = instance;
 

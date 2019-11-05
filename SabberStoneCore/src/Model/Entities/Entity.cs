@@ -166,8 +166,6 @@ namespace SabberStoneCore.Model.Entities
 			_toBeDestroyed = entity._toBeDestroyed;
 		}
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
 		public virtual string Hash(params GameTag[] ignore)
 		{
 			var str = new StringBuilder();
@@ -185,8 +183,6 @@ namespace SabberStoneCore.Model.Entities
 			}
 			return str.ToString();
 		}
-
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 		/// <summary>
 		/// Gets the tag value without any auras applied.
@@ -356,8 +352,7 @@ namespace SabberStoneCore.Model.Entities
 						[GameTag.CREATOR] = result.Id,
 						[GameTag.PARENT_CARD] = result.Id
 					};
-					IPlayable[] playables = new[]
-					{
+					IPlayable[] playables = {
 						FromCard(in controller, Cards.FromId("TRL_343at1"), data, controller.SetasideZone),
 						FromCard(in controller, Cards.FromId("TRL_343ct1"), data, controller.SetasideZone),
 						FromCard(in controller, Cards.FromId("TRL_343dt1"), data, controller.SetasideZone),
@@ -397,8 +392,6 @@ namespace SabberStoneCore.Model.Entities
 			return result;
 		}
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
 		public override string ToString()
 		{
 			return $"'{Card.Name}[{Id}]'";
@@ -420,8 +413,6 @@ namespace SabberStoneCore.Model.Entities
 		{
 			return GetEnumerator();
 		}
-
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
 	public partial class Entity
@@ -429,7 +420,6 @@ namespace SabberStoneCore.Model.Entities
 		protected readonly bool _history;
 		protected readonly bool _logging;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		public int Id { get; }
 
 		public bool TurnStart
@@ -480,10 +470,6 @@ namespace SabberStoneCore.Model.Entities
 			get { return this[GameTag.CARD_TARGET]; }
 			set { this[GameTag.CARD_TARGET] = value; }
 		}
-
-
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-
 	}
 
 	public partial class Entity

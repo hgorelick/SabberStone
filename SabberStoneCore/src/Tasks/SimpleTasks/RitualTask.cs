@@ -31,11 +31,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		private static readonly Card BuffEnchantmentCard = Cards.FromId("OG_281e");
+		public int BuffEnchantmentAssetId => BuffEnchantmentCard.AssetId;
+
 		private static readonly Card BladeofCThunEnchantmentCard = Cards.FromId("OG_282e");
+		public int BladeofCThunEnchantmentAssetId => BladeofCThunEnchantmentCard.AssetId;
+
 		private static readonly Card TauntEnchantmentCard = Cards.FromId("OG_284e");
+		public int TauntEnchantmentAssetId => TauntEnchantmentCard.AssetId;
+
 		private readonly int _amount;
+		public int Amount => _amount;
 
 		private readonly RitualType _type;
+		public RitualType Type => _type;
 
 		public RitualTask(RitualType type = RitualType.Check)
 		{
