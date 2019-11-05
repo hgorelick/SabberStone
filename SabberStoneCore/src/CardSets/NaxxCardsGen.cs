@@ -190,7 +190,7 @@ namespace SabberStoneCore.CardSets
 				// TODO AnubarAmbusher_FP1_026 test
 				DeathrattleTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.MINIONS),
-					new ReturnHandTask(EntityType.STACK))
+					new ReturnToHandTask(EntityType.STACK))
 			});
 
 		}

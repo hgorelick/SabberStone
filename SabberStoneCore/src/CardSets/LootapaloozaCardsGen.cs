@@ -1575,7 +1575,7 @@ namespace SabberStoneCore.CardSets
 				{
 					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = ComplexTask.Secret(
-						new ReturnHandTask(EntityType.TARGET),
+						new ReturnToHandTask(EntityType.TARGET),
 						new AddEnchantmentTask("LOOT_204e", EntityType.TARGET))
 				}
 			});
@@ -1779,7 +1779,7 @@ namespace SabberStoneCore.CardSets
 				InfoCardId = "LOOT_358e",
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS_NOSOURCE),
-					new ReturnHandTask(EntityType.STACK),
+					new ReturnToHandTask(EntityType.STACK),
 					new AddEnchantmentTask("LOOT_358e", EntityType.STACK))
 			});
 
@@ -1810,15 +1810,15 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOOT_518", new Power {
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, new SelfCondition(p =>
-					{
-						BoardZone board = p.Controller.BoardZone;
-						if (board.Count < 5) return false;
-						string[] ids = board.Select(x => x.Card.Id).OrderBy(x => x).ToArray();
-						if (!ids.Contains("NEW1_009")) return false;
-						int index = Array.IndexOf(ids, "CS2_050");
-						if (index < 0) return false;
-						return ids[index + 2] == "CS2_052";
-					})),
+                    {
+                        BoardZone board = p.Controller.BoardZone;
+                        if (board.Count < 5) return false;
+                        string[] ids = board.Select(x => x.Card.Id).OrderBy(x => x).ToArray();
+                        if (!ids.Contains("NEW1_009")) return false;
+                        int index = Array.IndexOf(ids, "CS2_050");
+                        if (index < 0) return false;
+                        return ids[index + 2] == "CS2_052";
+                    })),
 					new FlagTask(true, new SummonTask("NEW1_010")))
 			});
 
@@ -3618,7 +3618,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("LOOT_278t4e", new Power {
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("LOOT_278t4e"),
-				DeathrattleTask = new ReturnHandTask(EntityType.SOURCE)
+				DeathrattleTask = new ReturnToHandTask(EntityType.SOURCE)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

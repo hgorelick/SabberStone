@@ -1094,7 +1094,7 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new SummonCopyTask(EntityType.TARGET, false, true),
 					new GetGameTagTask(GameTag.HEALTH, EntityType.STACK),
-					new MathSubstractionTask(1),
+					new MathSubtractionTask(1),
 					new SetGameTagNumberTask(GameTag.DAMAGE, EntityType.STACK))
 			});
 
@@ -1799,7 +1799,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_580", new Power {
-				PowerTask = ComplexTask.DrawFromDeck(1, SelfCondition.HasRush)
+				PowerTask = ComplexTask.DrawFromDeck(1, SelfCondition.IsRushMinion)
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -1885,7 +1885,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_653", new Power {
 				DeathrattleTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
-					new FilterStackTask(SelfCondition.HasRush),
+					new FilterStackTask(SelfCondition.IsRushMinion),
 					new RandomTask(1, EntityType.STACK),
 					new AddEnchantmentTask("GIL_653e", EntityType.STACK))
 			});
@@ -2252,7 +2252,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("GIL_578", new Power {
 				PowerTask = ComplexTask.Create(
-					ComplexTask.DrawFromDeck(1, SelfCondition.HasRush),
+					ComplexTask.DrawFromDeck(1, SelfCondition.IsRushMinion),
 					ComplexTask.DrawFromDeck(1, SelfCondition.IsLifestealCard),
 					ComplexTask.DrawFromDeck(1, SelfCondition.IsDeathrattleCard))
 			});

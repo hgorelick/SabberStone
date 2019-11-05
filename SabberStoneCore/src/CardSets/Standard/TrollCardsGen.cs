@@ -452,7 +452,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_349", new Power {
-				PowerTask = ComplexTask.Conditional(SelfCondition.IsWeaponEquiped,
+				PowerTask = ComplexTask.Conditional(SelfCondition.IsWeaponEquipped,
 					new DiscoverTask(DiscoverType.SPELL))
 			});
 
@@ -1495,7 +1495,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("TRL_059", new Power {
 				PowerTask = ComplexTask.Create(
-					new ReturnHandTask(EntityType.TARGET),
+					new ReturnToHandTask(EntityType.TARGET),
 					new AddEnchantmentTask("TRL_059e", EntityType.TARGET))
 			});
 
@@ -1988,7 +1988,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("TRL_329", new Power {
 				OverkillTask = ComplexTask.Create(
 					new IncludeTask(EntityType.DECK),
-					new FilterStackTask(SelfCondition.HasRush),
+					new FilterStackTask(SelfCondition.IsRushMinion),
 					new RandomTask(1, EntityType.STACK),
 					new DrawStackTask(),
 					new AddEnchantmentTask("TRL_329e", EntityType.STACK))

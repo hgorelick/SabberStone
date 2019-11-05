@@ -990,7 +990,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_13p", new Power {
-				PowerTask = new ReturnHandTask(EntityType.TARGET)
+				PowerTask = new ReturnToHandTask(EntityType.TARGET)
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL

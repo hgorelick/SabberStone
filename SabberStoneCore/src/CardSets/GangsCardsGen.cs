@@ -1069,7 +1069,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_693", new Power
 			{
-				ComboTask = new ReturnHandTask(EntityType.TARGET)
+				ComboTask = new ReturnToHandTask(EntityType.TARGET)
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1640,7 +1640,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_752", new Power
 			{
-				PowerTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_752e", SelfCondition.HasTaunt)
+				PowerTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_752e", SelfCondition.IsTauntMinion)
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -1724,8 +1724,8 @@ namespace SabberStoneCore.CardSets
 				{
 					TriggerSource = TriggerSource.SELF,
 					Condition = new SelfCondition(
-						p => !p.ToBeDestroyed
-						     && p.Game.CurrentEventData.EventTarget is Minion),
+                        p => !p.ToBeDestroyed
+                             && p.Game.CurrentEventData.EventTarget is Minion),
 					SingleTask = new DrawTask()
 				}
 			});

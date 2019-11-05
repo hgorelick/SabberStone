@@ -1328,7 +1328,7 @@ namespace SabberStoneCore.CardSets
 				InfoCardId = "UNG_063e",
 				ComboTask = ComplexTask.Create(
 					new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
-					new MathSubstractionTask(1),
+					new MathSubtractionTask(1),
 					new AddEnchantmentTask("UNG_063e", EntityType.SOURCE, true))
 			});
 
@@ -1738,7 +1738,7 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Deathrattle:</b> Return to your hand.
 			// --------------------------------------------------------
 			cards.Add("UNG_956e", new Power {
-				DeathrattleTask = new ReturnHandTask(EntityType.SOURCE)
+				DeathrattleTask = new ReturnToHandTask(EntityType.SOURCE)
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -2247,7 +2247,7 @@ namespace SabberStoneCore.CardSets
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
-					Condition = SelfCondition.HasTaunt,
+					Condition = SelfCondition.IsTauntMinion,
 					SingleTask = new QuestProgressTask("UNG_934t1")
 				}
 			});

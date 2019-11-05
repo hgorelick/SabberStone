@@ -1350,7 +1350,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_581", new Power {
-				PowerTask = new ReturnHandTask(EntityType.TARGET)
+				PowerTask = new ReturnToHandTask(EntityType.TARGET)
 			});
 
 			// ----------------------------------------- WEAPON - ROGUE

@@ -1067,7 +1067,7 @@ namespace SabberStoneCore.CardSets.Standard
 							foreach (Enchantment magneticUpgrade in deadMech.AppliedEnchantments)
 							{	// copy magnetic enchantments
 								Generic.AddEnchantmentBlock(in g, magneticUpgrade.Card, (IPlayable) s, copied,
-									magneticUpgrade.ScriptTag1, magneticUpgrade.ScriptTag2);
+									magneticUpgrade.ScriptTagValue1, magneticUpgrade.ScriptTagValue2);
 							}
 						}
 					}))
@@ -2934,7 +2934,7 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE,
 						new SelfCondition(p =>
-							p.Controller.BoardZone.Count(m => m.Health == 7) == 3)),
+                            p.Controller.BoardZone.Count(m => m.Health == 7) == 3)),
 					new FlagTask(true, new DamageTask(7, EntityType.ENEMIES)))
 			});
 

@@ -1315,7 +1315,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("AT_036", new Power {
 				// TODO Check powerlog
 				DeathrattleTask = ComplexTask.Create(
-					new ReturnHandTask(EntityType.SOURCE),
+					new ReturnToHandTask(EntityType.SOURCE),
 					new SummonTask("AT_036t"))
 			});
 
@@ -1918,7 +1918,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("AT_068", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
-					new FilterStackTask(SelfCondition.HasTaunt),
+					new FilterStackTask(SelfCondition.IsTauntMinion),
 					new AddEnchantmentTask("AT_068e", EntityType.STACK))
 			});
 
@@ -2421,7 +2421,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("AT_110", new Power {
 				Trigger = TriggerBuilder
 					.Type(TriggerType.INSPIRE)
-					.SetTask(new ReturnHandTask(EntityType.SOURCE))
+					.SetTask(new ReturnToHandTask(EntityType.SOURCE))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

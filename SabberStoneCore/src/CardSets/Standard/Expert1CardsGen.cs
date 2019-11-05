@@ -309,7 +309,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_578", new Power {
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.HERO),
-					new DamageNumberTask(EntityType.TARGET))
+					new DamageNumberTask(EntityType.TARGET, true))
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -924,7 +924,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
 						new FlagTask(true, ComplexTask.Secret(
-							new ReturnHandTask(EntityType.TARGET),
+							new ReturnToHandTask(EntityType.TARGET),
 							new AddAuraEffect(Effects.AddCost(2), EntityType.TARGET))))
 				}
 			});
@@ -2115,7 +2115,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_613", new Power {
 				ComboTask = ComplexTask.Create(
 					new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
-					new MathSubstractionTask(1),
+					new MathSubtractionTask(1),
 					new MathMultiplyTask(2),
 					new AddEnchantmentTask("EX1_613e", EntityType.SOURCE, true))
 			});
@@ -2134,7 +2134,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("NEW1_005", new Power {
-				ComboTask = new ReturnHandTask(EntityType.TARGET)
+				ComboTask = new ReturnToHandTask(EntityType.TARGET)
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -2273,7 +2273,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_144", new Power {
 				PowerTask = ComplexTask.Create(
-					new ReturnHandTask(EntityType.TARGET),
+					new ReturnToHandTask(EntityType.TARGET),
 					new AddAuraEffect(Effects.ReduceCost(2), EntityType.TARGET))
 			});
 
@@ -3175,7 +3175,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_409", new Power {
 				PowerTask = ComplexTask.Create(
-					new ConditionTask(EntityType.HERO, SelfCondition.IsAnyWeaponEquiped),
+					new ConditionTask(EntityType.HERO, SelfCondition.IsAnyWeaponEquipped),
 					new FlagTask(true, new AddEnchantmentTask("EX1_409e", EntityType.WEAPON)),
 					new FlagTask(false, new WeaponTask("EX1_409t")))
 			});
@@ -3454,7 +3454,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("DREAM_04", new Power {
-				PowerTask = new ReturnHandTask(EntityType.TARGET)
+				PowerTask = new ReturnToHandTask(EntityType.TARGET)
 			});
 
 			// ------------------------------------------ SPELL - DREAM
@@ -3512,7 +3512,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CHARGE = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_146", new Power {
-				Aura = new AdaptiveEffect(SelfCondition.IsWeaponEquiped, GameTag.CHARGE)
+				Aura = new AdaptiveEffect(SelfCondition.IsWeaponEquipped, GameTag.CHARGE)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3723,7 +3723,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new RandomTask(1, EntityType.STACK),
 						new RemoveFromHand(EntityType.STACK),
 						new GetGameTagTask(GameTag.ZONE_POSITION, EntityType.SOURCE),
-						new ReturnHandTask(EntityType.SOURCE),
+						new ReturnToHandTask(EntityType.SOURCE),
 						new SummonTask(SummonSide.NUMBER))
 				}
 			});
@@ -3994,7 +3994,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_049", new Power {
-				PowerTask = new ReturnHandTask(EntityType.TARGET)
+				PowerTask = new ReturnToHandTask(EntityType.TARGET)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -4027,7 +4027,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NONSELF_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_057", new Power {
-				PowerTask = new ReturnHandTask(EntityType.TARGET)
+				PowerTask = new ReturnToHandTask(EntityType.TARGET)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

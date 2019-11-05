@@ -2584,7 +2584,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("PART_002", new Power {
-				PowerTask = new ReturnHandTask(EntityType.TARGET)
+				PowerTask = new ReturnToHandTask(EntityType.TARGET)
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL

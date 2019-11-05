@@ -276,15 +276,15 @@ namespace SabberStoneCore.CardSets
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					Condition = new SelfCondition(p =>
-					{
-						if (p.Controller.BoardZone.Count < 4)
-							return false;
-						string[] boards = p.Controller.BoardZone.Select(m => m.Card.Id).OrderBy(x => x).ToArray();
-						for (int i = 0; i < boards.Length - 3; i++)
-							if (boards[i] == "ICC_829t2")
-								return boards[i + 3] == "ICC_829t5";
-						return false;
-					}),
+                    {
+                        if (p.Controller.BoardZone.Count < 4)
+                            return false;
+                        string[] boards = p.Controller.BoardZone.Select(m => m.Card.Id).OrderBy(x => x).ToArray();
+                        for (int i = 0; i < boards.Length - 3; i++)
+                            if (boards[i] == "ICC_829t2")
+                                return boards[i + 3] == "ICC_829t5";
+                        return false;
+                    }),
 					SingleTask = new DestroyTask(EntityType.OP_HERO)
 				}
 			});
@@ -652,7 +652,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("ICC_054", new Power {
 				PowerTask = ComplexTask.RecursiveTask(
-					new ConditionTask(EntityType.SOURCE, SelfCondition.DoesOpHasMoresMinions),
+					new ConditionTask(EntityType.SOURCE, SelfCondition.DoesOpHaveMoreMinions),
 					new SummonTask("ICC_832t4"))
 			});
 
@@ -1781,7 +1781,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("ICC_910", new Power {
 				ComboTask = ComplexTask.Create(
 					new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
-					new MathSubstractionTask(1),
+					new MathSubtractionTask(1),
 					new DamageNumberTask(EntityType.TARGET))
 			});
 

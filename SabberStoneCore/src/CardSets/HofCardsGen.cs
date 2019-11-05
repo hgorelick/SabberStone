@@ -135,7 +135,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("NEW1_004", new Power
 			{
-				PowerTask = new ReturnHandTask(EntityType.ALLMINIONS)
+				PowerTask = new ReturnToHandTask(EntityType.ALLMINIONS)
 			});
 		}
 

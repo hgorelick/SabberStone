@@ -603,7 +603,7 @@ namespace SabberStoneCore.CardSets.Standard
 								c.BoardZone, zonePos: t.ZonePosition + 1, creator: in s);
 						}))
 					.SetCondition(new SelfCondition(p => p.Game.CurrentEventData.EventSource != p
-					                                     && p[GameTag.COPIED_BY_KHADGAR] != 1))
+                                                         && p[GameTag.COPIED_BY_KHADGAR] != 1))
 					.SetSource(TriggerSource.FRIENDLY_EVENT_SOURCE)
 			});
 
@@ -1392,7 +1392,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Return all friendly minions to your hand.
 			// --------------------------------------------------------
 			cards.Add("DAL_728", new Power {
-				PowerTask = new ReturnHandTask(EntityType.MINIONS)
+				PowerTask = new ReturnToHandTask(EntityType.MINIONS)
 			});
 
 			// ----------------------------------------- WEAPON - ROGUE
@@ -1411,7 +1411,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_720", new Power {
 				DeathrattleTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.MINIONS),
-					new ReturnHandTask(EntityType.STACK),
+					new ReturnToHandTask(EntityType.STACK),
 					new ApplyEffectTask(EntityType.STACK, Effects.ReduceCost(2)))
 			});
 
