@@ -11,14 +11,14 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Loader;
+using SabberStoneCore.Model.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Enchants;
-using SabberStoneCore.Enums;
-using System;
-using SabberStoneCore.Loader;
 
 namespace SabberStoneCore.Model
 {
@@ -56,33 +56,33 @@ namespace SabberStoneCore.Model
 		public TargetingType TargetingType { get; private set; }
 
 		public int ATK { get; private set; }
-		public int Health { get; private set; }
-		public int SpellPower { get; private set; }
-		public bool Taunt { get; private set; }
-		public bool Charge { get; private set; }
-		public bool Stealth { get; internal set; }
-		public bool Poisonous { get; private set; }
-		public bool DivineShield { get; private set; }
-		public bool Windfury { get; private set; }
-		public bool LifeSteal { get; private set; }
-		public bool Echo { get; private set; }
-		public bool Rush { get; private set; }
-		public bool CantBeTargetedBySpells { get; private set; }
-		public bool CantBeTargetedByHeroPowers => CantBeTargetedBySpells;
 		public bool CantAttack { get; private set; }
-		public bool Modular { get; private set; }
+		public bool CantBeTargetedByHeroPowers => CantBeTargetedBySpells;
+		public bool CantBeTargetedBySpells { get; private set; }
+		public bool Charge { get; private set; }
 		public bool ChooseOne { get; private set; }
 		public bool Combo { get; private set; }
-		public bool IsSecret { get; private set; }
-		public bool IsQuest { get; private set; }
 		public bool Deathrattle { get; }
-		public bool Untouchable { get; private set; }
-		public bool HideStat { get; private set; }
-		public bool ReceivesDoubleSpelldamageBonus { get; private set; }
+		public bool DivineShield { get; private set; }
+		public bool Echo { get; private set; }
 		public bool Freeze { get; }
+		public int Health { get; private set; }
+		public bool HideStat { get; private set; }
+		public bool IsQuest { get; private set; }
+		public bool IsSecret { get; private set; }
+		public bool LifeSteal { get; private set; }
+		public bool Magnetic { get; private set; }
 		public bool Overkill { get; }
-
+		public bool Poisonous { get; private set; }
+		public bool ReceivesDoubleSpelldamageBonus { get; private set; }
+		public bool Rush { get; private set; }
+		public int SpellPower { get; private set; }
+		public bool Stealth { get; internal set; }
+		public bool Taunt { get; private set; }
 		public bool TwinSpell { get; }
+		public bool Untouchable { get; private set; }
+		public bool Windfury { get; private set; }
+
 		private Card()
 		{
 
@@ -168,7 +168,7 @@ namespace SabberStoneCore.Model
 							CantAttack = true;
 							break;
 						case GameTag.MODULAR:
-							Modular = true;
+							Magnetic = true;
 							break;
 						case GameTag.SECRET:
 							IsSecret = true;
@@ -202,18 +202,64 @@ namespace SabberStoneCore.Model
 							break;
 					}
 				}
-				else if
-					(tag.TagValue.HasBoolValue)
+				else if (tag.TagValue.HasBoolValue)
 				{
 					tagDict.Add(tag.GameTag, tag.TagValue ? 1 : 0);
 				}
-				else if
-					(tag.TagValue.HasStringValue)
+				else if (tag.TagValue.HasStringValue)
 				{
 					switch (tag.GameTag)
 					{
 						case GameTag.CARDNAME:
 							Name = tag.TagValue;
+							//if (Name.ToLower().Contains("treant"))
+							//{
+							//	if (tagDict.ContainsKey(GameTag.CARDRACE))
+							//		if (tagDict[GameTag.CARDRACE] != (int)Race.TREANT)
+							//			tagDict[GameTag.CARDRACE] = (int)Race.TREANT;
+							//	else
+							//		tagDict.Add(GameTag.CARDRACE, (int)Race.TREANT);
+
+							//	if (Race != Race.TREANT)
+							//		Race = Race.TREANT;
+							//}
+
+							//else if (Name.ToLower().Contains("boom bot"))
+							//{
+							//	if (tagDict.ContainsKey(GameTag.CARDRACE))
+							//		if (tagDict[GameTag.CARDRACE] != (int)Race.BOOM_BOT)
+							//			tagDict[GameTag.CARDRACE] = (int)Race.BOOM_BOT;
+							//		else
+							//			tagDict.Add(GameTag.CARDRACE, (int)Race.BOOM_BOT);
+
+							//	if (Race != Race.BOOM_BOT)
+							//		Race = Race.BOOM_BOT;
+							//}
+
+							//else if (Name.ToLower().Contains("ancient one"))
+							//{
+							//	if (tagDict.ContainsKey(GameTag.CARDRACE))
+							//		if (tagDict[GameTag.CARDRACE] != (int)Race.ANCIENT_ONE)
+							//			tagDict[GameTag.CARDRACE] = (int)Race.ANCIENT_ONE;
+							//		else
+							//			tagDict.Add(GameTag.CARDRACE, (int)Race.ANCIENT_ONE);
+
+							//	if (Race != Race.ANCIENT_ONE)
+							//		Race = Race.ANCIENT_ONE;
+							//}
+
+							//else if (Name.ToLower() == ("c'thun"))
+							//{
+							//	if (tagDict.ContainsKey(GameTag.CARDRACE))
+							//		if (tagDict[GameTag.CARDRACE] != (int)Race.CTHUN)
+							//			tagDict[GameTag.CARDRACE] = (int)Race.CTHUN;
+							//		else
+							//			tagDict.Add(GameTag.CARDRACE, (int)Race.CTHUN);
+
+							//	if (Race != Race.CTHUN)
+							//		Race = Race.CTHUN;
+							//}
+
 							break;
 						case GameTag.CARDTEXT:
 							Text = tag.TagValue;
@@ -347,7 +393,7 @@ namespace SabberStoneCore.Model
 						break;
 					case PlayReq.REQ_FRIENDLY_MINION_OF_RACE_DIED_THIS_TURN:
 						PlayAvailabilityPredicate +=
-							TargetingPredicates.ReqFriendlyMinionOfRaceDiedThisTurn((Race) requirement.Value);
+							TargetingPredicates.ReqFriendlyMinionOfRaceDiedThisTurn((Race)requirement.Value);
 						break;
 					case PlayReq.REQ_MUST_PLAY_OTHER_CARD_FIRST:
 						PlayAvailabilityPredicate += (c, card) => false;
@@ -546,7 +592,7 @@ namespace SabberStoneCore.Model
 		/// Requires a target if available
 		/// </summary>
 		public bool RequiresTargetIfAvailable => PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE) ||
-		                                         PlayRequirements.ContainsKey(PlayReq.REQ_DRAG_TO_PLAY);
+												 PlayRequirements.ContainsKey(PlayReq.REQ_DRAG_TO_PLAY);
 
 		/// <summary>
 		/// Requires a target if available and dragon in hand
@@ -615,7 +661,7 @@ namespace SabberStoneCore.Model
 
 				bool flag = true;
 				foreach (Delegate predicate in PlayAvailabilityPredicate.GetInvocationList())
-					flag &= ((AvailabilityPredicate) predicate).Invoke(c, this);
+					flag &= ((AvailabilityPredicate)predicate).Invoke(c, this);
 				return flag;
 			}
 			return true;
@@ -690,7 +736,7 @@ namespace SabberStoneCore.Model
 
 			if (friendlyMinions)
 			{
-				var span = c.BoardZone.GetSpan();
+				ReadOnlySpan<Minion> span = c.BoardZone.GetSpan();
 				for (int i = 0; i < span.Length; i++)
 					if (TargetingRequirements(in c, span[i]))
 						output.Add(span[i]);
@@ -698,7 +744,7 @@ namespace SabberStoneCore.Model
 
 			if (enemyMinions)
 			{
-				var span = c.Opponent.BoardZone.GetSpan();
+				ReadOnlySpan<Minion> span = c.Opponent.BoardZone.GetSpan();
 				for (int i = 0; i < span.Length; i++)
 					if (TargetingRequirements(in c, span[i]))
 						output.Add(span[i]);
@@ -853,7 +899,9 @@ namespace SabberStoneCore.Model
 			return zombeast;
 		}
 
+#pragma warning disable RECS0154 // Parameter is never used
 		public static Card CreateKazakusPotion(in Card firstCard, in Card secondCard, in Card thirdCard, bool modifyTags)
+#pragma warning restore RECS0154 // Parameter is never used
 		{
 			// TODO: Use placeholders
 			Card potion = firstCard.Clone();

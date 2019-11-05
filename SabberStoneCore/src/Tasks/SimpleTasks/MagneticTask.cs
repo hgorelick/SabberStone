@@ -27,7 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			var s = (Minion) source;
 
-			if (s == null || !s.Card.Modular)
+			if (s == null || !s.Card.Magnetic)
 			{
 				game.Log(LogLevel.ERROR, BlockType.POWER, "Magnetic", $"{source}'s not a Magnetic Minion");
 				return TaskState.STOP;

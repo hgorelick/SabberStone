@@ -70,7 +70,7 @@ namespace SabberStoneCore.Enchants
 			bool oneTurn = false;
 			bool mod = false;
 
-			if (card.Modular)
+			if (card.Magnetic)
 			{	// generate magnetic enchants
 				effects.AddRange(Effects.AttackHealth_N(0));
 				mod = true;

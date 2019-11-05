@@ -39,7 +39,7 @@ namespace SabberStoneCore.Model.Zones
 			{
 				Enchantment e = enchantments[i];
 				e.Remove();
-				if (e.Card.Modular)
+				if (e.Card.Magnetic)
 					enchantments.Add(e);
 			}
 		}
