@@ -266,3 +266,4 @@ __pycache__/
 *.pyc
 /core-extensions/SabberStoneCoreGui/SabberStoneCoreGui.csproj
 /core-extensions/SabberStoneCoreGui
+/SabberStoneCore/GlobalSuppressions.cs
