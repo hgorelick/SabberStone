@@ -3,11 +3,16 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {
-	internal readonly struct GenericEffect<TAttr, T> : IEffect where TAttr : Attr<T> where T : Playable
+	public readonly struct GenericEffect<TAttr, T> : IEffect where TAttr : Attr<T> where T : Playable
 	{
 		private readonly TAttr _attr;
+		public TAttr Attr => _attr;
+
 		private readonly EffectOperator _operator;
+		public EffectOperator Operator => _operator;
+
 		private readonly int _value;
+		public int Value => _value;
 
 		internal GenericEffect(TAttr attr, EffectOperator @operator, int value)
 		{
@@ -82,7 +87,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	internal abstract class Attr<T> where T : Playable
+	public abstract class Attr<T> where T : Playable
 	{
 		public abstract void Apply(T entity, EffectOperator @operator, int value);
 		public abstract void ApplyAura(T entity, EffectOperator @operator, int value);
@@ -92,7 +97,7 @@ namespace SabberStoneCore.Enchants
 		protected abstract ref int GetAuraRef(AuraEffects auraEffects);
 	}
 
-	internal abstract class IntAttr<T> : Attr<T> where T : Playable
+	public abstract class IntAttr<T> : Attr<T> where T : Playable
 	{
 		protected abstract ref int? GetRef(T entity);
 
@@ -198,7 +203,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	internal abstract class BoolAttr<T> : Attr<T> where T : Playable
+	public abstract class BoolAttr<T> : Attr<T> where T : Playable
 	{
 		protected abstract ref bool? GetRef(T entity);
 
@@ -237,7 +242,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	internal abstract class SelfContainedIntAttr<TSelf, TTarget> : IntAttr<TTarget>
+	public abstract class SelfContainedIntAttr<TSelf, TTarget> : IntAttr<TTarget>
 		where TSelf : SelfContainedIntAttr<TSelf, TTarget>, new() where TTarget : Playable
 	{
 		private static readonly TSelf _singleton = new TSelf();
@@ -248,7 +253,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	internal abstract class SelfContainedBoolAttr<TSelf, TTarget> : BoolAttr<TTarget>
+	public abstract class SelfContainedBoolAttr<TSelf, TTarget> : BoolAttr<TTarget>
 		where TSelf : SelfContainedBoolAttr<TSelf, TTarget>, new() where TTarget : Playable
 	{
 		private static readonly TSelf _singleton = new TSelf();
@@ -259,7 +264,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	internal class Cost : SelfContainedIntAttr<Cost, Playable>
+	public class Cost : SelfContainedIntAttr<Cost, Playable>
 	{
 		protected override ref int? GetRef(Playable entity)
 		{
@@ -301,7 +306,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	internal class ATK : SelfContainedIntAttr<ATK, Playable>
+	public class ATK : SelfContainedIntAttr<ATK, Playable>
 	{
 		protected override ref int? GetRef(Playable entity)
 		{
@@ -355,7 +360,7 @@ namespace SabberStoneCore.Enchants
 		//}
 	}
 
-	internal class Health : SelfContainedIntAttr<Health, Character>
+	public class Health : SelfContainedIntAttr<Health, Character>
 	{
 		protected override ref int? GetRef(Character entity)
 		{
@@ -405,7 +410,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	internal class Stealth : SelfContainedBoolAttr<Stealth, Character>
+	public class Stealth : SelfContainedBoolAttr<Stealth, Character>
 	{
 		protected override ref bool? GetRef(Character entity)
 		{
@@ -418,7 +423,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	internal class Taunt : SelfContainedBoolAttr<Taunt, Minion>
+	public class Taunt : SelfContainedBoolAttr<Taunt, Minion>
 	{
 		protected override ref bool? GetRef(Minion entity)
 		{
@@ -431,7 +436,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	internal class CantBeTargetedBySpells : SelfContainedBoolAttr<CantBeTargetedBySpells, Character>
+	public class CantBeTargetedBySpells : SelfContainedBoolAttr<CantBeTargetedBySpells, Character>
 	{
 		protected override ref int GetAuraRef(AuraEffects auraEffects)
 		{
