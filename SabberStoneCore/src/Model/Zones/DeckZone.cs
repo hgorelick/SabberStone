@@ -17,9 +17,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 using SabberStoneCore.Exceptions;
-using SabberStoneCore.HearthVector;
-using System.Collections.Specialized;
-using System.Collections;
+
 
 namespace SabberStoneCore.Model.Zones
 {
@@ -28,65 +26,11 @@ namespace SabberStoneCore.Model.Zones
 		public const int StartingCards = 30;
 		public const int DeckMaximumCapcity = 60;
 
-		public override string Prefix()
-		{
-			return "DeckZone.";
-		}
+		public bool DrawWithRandom { get; set; }
 
 		// TODO: Barnabus the Stomper
 		public bool NoEvenCostCards { get; private set; } = true;
 		public bool NoOddCostCards { get; private set; } = true;
-
-		public override OrderedDictionary Vector()
-		{
-			OrderedDictionary v = base.Vector();
-
-			v.Add($"{Prefix()}NoEvenCostCards", Convert.ToInt32(NoEvenCostCards));
-			v.Add($"{Prefix()}NoOddCostCards", Convert.ToInt32(NoOddCostCards));
-
-			// v.Add(TopCard.Card.AssetId);
-			//this.AddRange(TopCard.Vector);
-
-			//if (Count > 0)
-			for (int i = Count - 1; i > -1; --i)
-			{
-				v.AddRange(_entities[i].Vector(), Prefix());
-				//if (_entities[i] != null)
-				//{
-				//	int j = 2;
-				//	string prefix = _entities[i].Prefix;
-				//	OrderedDictionary dup = _entities[i].Vector;
-				//	if (v.Contains(s => s.Contains(prefix)))
-				//	{
-				//		prefix = prefix.Remove(prefix.Length - 1, 1) + j.ToString();
-				//		while (v.Contains(s => s.Contains(prefix)))
-				//		{
-				//			j++;
-				//			prefix = prefix.Remove(prefix.Length - 1, 1) + j.ToString();
-				//		}
-				//		dup = ReplacePrefix(i, prefix);
-				//	}
-				//	v.AddRange(dup, Prefix);
-				//}
-				//else
-				//	v.AddRange(Playable.NullVector, Prefix);
-			}
-
-			return v;
-		}
-
-		private OrderedDictionary ReplacePrefix(int i, string prefix)
-		{
-			var dup = new OrderedDictionary();
-			foreach (DictionaryEntry kv in _entities[i].Vector())
-			{
-				var kvKeyParts = kv.Key.ToString().Split('.').ToList();
-				kvKeyParts[0] = prefix;
-				string kvKey = String.Join(".", kvKeyParts);
-				dup.Add(kvKey, kv.Value);
-			}
-			return dup;
-		}
 
 		public DeckZone(Controller controller) : base(Zone.DECK, DeckMaximumCapcity)
 		{
@@ -98,6 +42,18 @@ namespace SabberStoneCore.Model.Zones
 		{
 			NoEvenCostCards = zone.NoEvenCostCards;
 			NoOddCostCards = zone.NoOddCostCards;
+			DrawWithRandom = zone.DrawWithRandom;
+		}
+
+		public IPlayable Draw(IPlayable cardToDraw = null)
+		{
+			if (cardToDraw != null)
+				return Remove(cardToDraw);
+
+			if (DrawWithRandom)
+				return Remove(Game.Random.Next(Count));
+
+			return Remove(Count - 1);
 		}
 
 		public override bool IsFull => _count == DeckMaximumCapcity;
@@ -149,7 +105,7 @@ namespace SabberStoneCore.Model.Zones
 				if (this.Count(c => c.Card == card) >= card.MaxAllowedInDeck)
 					continue;
 
-				Controller.Deck.Add(card);
+				Controller.DeckCards.Add(card);
 
 				IPlayable entity = Entity.FromCard(Controller, card);
 				Add(entity, 0);
@@ -166,7 +122,7 @@ namespace SabberStoneCore.Model.Zones
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging ? "" : $"{Controller.Name} shuffles its deck.");
 
-			IPlayable[] entities = _entities;
+			var entities = _entities;
 			for (int i = 0; i < n; i++)
 			{
 				int r = rnd.Next(i, n);
@@ -174,14 +130,6 @@ namespace SabberStoneCore.Model.Zones
 				entities[i] = entities[r];
 				entities[r] = temp;
 			}
-
-			ResetPositions();
-		}
-
-		public void ResetPositions()
-		{
-			for (int i = 0; i < _count; i++)
-				_entities[_count - (i + 1)].ZonePosition = _count - (_count - i);
 		}
 
 		public void AddAtRandomPosition(IPlayable entity)

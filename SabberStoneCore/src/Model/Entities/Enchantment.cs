@@ -39,6 +39,9 @@ namespace SabberStoneCore.Model.Entities
 
 		private Enchantment(in Controller controller, in Card card, in EntityData tags, in int id)
 		{
+			_history = controller.Game.History;
+			_logging = controller.Game.Logging;
+
 			Game = controller.Game;
 			Controller = controller;
 			Card = card;
@@ -48,6 +51,9 @@ namespace SabberStoneCore.Model.Entities
 
 		private Enchantment(in Controller c, in Enchantment e)
 		{
+			_history = c.Game.History;
+			_logging = c.Game.Logging;
+
 			Game = c.Game;
 			Card = e.Card;
 			Id = e.Id;
@@ -63,7 +69,10 @@ namespace SabberStoneCore.Model.Entities
 			//Game.IdEntityDic.Add(Id, this);
 			Game.IdEntityDic[Id] = this;
 			if (e.IsOneTurnActive)
+			{
 				c.Game.OneTurnEffectEnchantments.Add(this);
+				IsOneTurnActive = true;
+			}
 
 			//if (c.Game.History)
 			//{
@@ -83,7 +92,13 @@ namespace SabberStoneCore.Model.Entities
 		public int this[GameTag t]
 		{
 			get => _tags.TryGetValue(t, out int value) ? value : 0;
-			set => _tags[t] = value;
+			set
+			{
+				if (_history && (int)t < 1000)
+					if (value != this[t])
+						Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, t, value));
+				_tags[t] = value;
+			}
 		}
 
 		/// <summary>
@@ -152,7 +167,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="target">The entity who is subjected to the enchantment.</param>
 		/// <param name="card">The card from which the enchantment must be derived.</param>
 		/// <returns>The resulting enchantment entity.</returns>
-		public static Enchantment GetInstance(in Controller controller, in IPlayable creator, in IEntity target, in Card card)
+		public static Enchantment GetInstance(in Controller controller, in IPlayable creator, in IEntity target, in Card card, int num1 = 0, int num2 = 0)
 		{
 			int id = controller.Game.NextId;
 
@@ -183,6 +198,7 @@ namespace SabberStoneCore.Model.Entities
 					Entity = new PowerHistoryEntity
 					{
 						Id = instance.Id,
+						Name = "",
 						Tags = tags.ToDictionary(k => k.Key, k => k.Value)
 					}
 				});
@@ -210,7 +226,7 @@ namespace SabberStoneCore.Model.Entities
 						Entity = new PowerHistoryEntity
 						{
 							Id = instance.Id,
-							Name = instance.Card.Name,
+							Name = instance.Card.Id,
 							Tags = gameTags
 						}
 					});
@@ -235,6 +251,13 @@ namespace SabberStoneCore.Model.Entities
 
 			controller.Game.Log(LogLevel.VERBOSE, BlockType.ACTION, "Enchantment",
 				!controller.Game.Logging ? "" : $"Enchantment {card} created by {creator} is added to {target}.");
+
+			if (num1 > 0)
+			{
+				tags.Add(GameTag.TAG_SCRIPT_DATA_NUM_1, num1);
+				if (num2 > 0)
+					tags.Add(GameTag.TAG_SCRIPT_DATA_NUM_2, num2);
+			}
 
 			return instance;
 		}
@@ -341,6 +364,9 @@ namespace SabberStoneCore.Model.Entities
 
 	public partial class Enchantment
 	{
+		protected readonly bool _history;
+		protected readonly bool _logging;
+
 		public int Id { get; }
 		public int OrderOfPlay { get; set; }
 		public Game Game { get; set; }

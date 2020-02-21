@@ -358,7 +358,7 @@ namespace SabberStoneCore.Model.Entities
 
 			ControlledZones = new ControlledZones(this);
 
-			ControllerAuraEffects = new ControllerAuraEffects();
+			ControllerAuraEffects = new ControllerAuraEffects(in game, this);
 
 			DiscardedEntities = new List<int>();
 			CardsPlayedThisTurn = new List<Card>(10);
@@ -402,7 +402,7 @@ namespace SabberStoneCore.Model.Entities
 			BaseClass = controller.BaseClass;
 
 			ControlledZones = new ControlledZones(this);
-			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();
+			ControllerAuraEffects = controller.ControllerAuraEffects.Clone(this);
 
 			PlayHistory = new List<PlayHistoryEntry>(controller.PlayHistory);
 			DiscardedEntities = new List<int>(controller.DiscardedEntities);

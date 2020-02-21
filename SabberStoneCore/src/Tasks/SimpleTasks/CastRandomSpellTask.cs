@@ -13,11 +13,9 @@
 #endregion
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Specialized;
 using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
-using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -27,15 +25,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private static readonly ConcurrentDictionary<int, Card[]> CachedCardLists =
 			new ConcurrentDictionary<int, Card[]>();
-
-		public override OrderedDictionary Vector()
-		{
-			return new OrderedDictionary
-		{
-			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
-			{ $"{Prefix()}PhaseShift", Convert.ToInt32(_phaseShift) }
-		};
-		}
 
 		private readonly Func<Card, bool> _condition;
 		private readonly bool _phaseShift;
@@ -50,8 +39,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			AddSourceAndTargetToVector(source, target);
-
 			if (_condition != null && !CachedCardLists.TryGetValue(source.Card.AssetId, out Card[] cards))
 			{
 				cards = Cards.FormatTypeCards(game.FormatType)
@@ -78,7 +65,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			game.OnRandomHappened(true);
 
 			Spell spellToCast = (Spell) target ?? (Spell) Entity.FromCard(c, randCard);
-			Vector().Add($"{Prefix()}Process.SpellToCast.AssetId", spellToCast.Card.AssetId);
 
 			game.Log(LogLevel.INFO, BlockType.POWER, "CastRandomSpellTask",
 				!game.Logging ? "" : $"{source} casted {c.Name}'s {spellToCast}.");
@@ -90,7 +76,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			ICharacter randTarget = spellToCast.GetRandomValidTarget();
-			Vector().Add($"{Prefix()}Process.RandomTarget.AssetId", randTarget.Card.AssetId);
 
 			int randChooseOne = rnd.Next(1, 3);
 
@@ -99,7 +84,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			game.TaskQueue.StartEvent();
 			Generic.CastSpell.Invoke(c, game, spellToCast, randTarget, randChooseOne);
-			Generic.OverloadBlock(c, spellToCast, game.History);
 			// forced death processing & AA (Yogg)
 			if (_phaseShift)
 				game.DeathProcessingAndAuraUpdate();

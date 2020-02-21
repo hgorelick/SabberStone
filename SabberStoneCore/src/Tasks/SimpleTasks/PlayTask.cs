@@ -13,7 +13,6 @@
 #endregion
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -31,24 +30,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class PlayTask : SimpleTask
 	{
 		private readonly PlayType _playType;
-		public PlayType PlayType => _playType;
-
 		private readonly bool _randTarget;
-		public bool RandTarget => _randTarget;
-
 		private readonly EntityType _targetType;
-		public EntityType Type => _targetType;
-
-		public override OrderedDictionary Vector()
-		{
-			return new OrderedDictionary
-		{
-			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
-			{ $"{Prefix()}PlayType", (int)PlayType },
-			{ $"{Prefix()}RandomTarget", Convert.ToInt32(RandTarget) },
-			{ $"{Prefix()}Type", (int)Type }
-		};
-		}
 
 		/// <summary>
 		/// Create a PlayTask to play a card as a task.
@@ -71,8 +54,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			AddSourceAndTargetToVector(source, target);
-
 			switch (_playType)
 			{
 				case PlayType.SPELL:
@@ -112,10 +93,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 						if (spell.Zone == null || Generic.RemoveFromZone(c, p))
 						{
-							Vector().Add($"{Prefix()}SpellPlayed.AssetId", spell.Card.AssetId);
-							Vector().Add($"{Prefix()}SpellTarget.AssetId", cardTarget.Card.AssetId);
 							Generic.CastSpell.Invoke(c, game, spell, cardTarget, 0);
-							Generic.OverloadBlock(c, spell, game.History);
 						}
 
 						while (c.Choice != null)

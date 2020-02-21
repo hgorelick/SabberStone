@@ -545,6 +545,7 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask LynessaSunsorrow
 			=> new FuncNumberTask(p =>
 			{
+				int original = p.Card.AssetId;
 				Controller c = p.Controller;
 				Game g = c.Game;
 				List<PlayHistoryEntry> history = c.PlayHistory;
@@ -559,10 +560,9 @@ namespace SabberStoneCore.Tasks
 				{
 					IPlayable spell = Entity.FromCard(c, spellCards[i].SourceCard);
 					Generic.CastSpell(c, g, (Spell)spell, (ICharacter)p, spellCards[i].SubOption);
-					Generic.OverloadBlock(c, spell, c.Game.History);
 					while (c.Choice != null)
 						Generic.ChoicePick(c, g, c.Choice.Choices.Choose(g.Random));
-					if (p.Zone?.Type != Zone.PLAY)
+					if (p.Zone?.Type != Zone.PLAY || p.Card.AssetId != original)
 						break;
 				}
 
@@ -644,7 +644,6 @@ namespace SabberStoneCore.Tasks
 							throw new NotImplementedException();
 					}
 
-					Generic.OverloadBlock(c, entity, g.History);
 					g.TaskQueue.EndEvent();
 
 					while (c.Choice != null)
@@ -662,6 +661,7 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask Shudderwock
 			=> new FuncNumberTask(p =>
 			{
+				int original = p.Card.AssetId;
 				Game game = p.Game;
 				Controller c = p.Controller;
 
@@ -697,7 +697,7 @@ namespace SabberStoneCore.Tasks
 
 					if (++count == 30) break;
 
-					if (p.ToBeDestroyed || p.Zone.Type != Zone.PLAY)
+					if (p.ToBeDestroyed || p.Zone.Type != Zone.PLAY || p.Card.AssetId != original)
 						break;
 				}
 
@@ -784,6 +784,7 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask GetRandomDrBoomHeroPower =>
 			new FuncNumberTask(source =>
 			{
+				string[] drBoomHeroPowerIds = DrBoomHeroPowerCard.Entourage;
 				string nextId;
 				Controller c = source.Controller;
 				Util.DeepCloneableRandom rnd = source.Game.Random;
@@ -792,12 +793,12 @@ namespace SabberStoneCore.Tasks
 				{
 					do
 					{
-						nextId = DrBoomHeroPowerIds.Choose(rnd);
+						nextId = drBoomHeroPowerIds.Choose(rnd);
 					} while (nextId == currentPower.Card.Id);
 				}
 				else
 				{
-					nextId = DrBoomHeroPowerIds.Choose(rnd);
+					nextId = drBoomHeroPowerIds.Choose(rnd);
 					currentPower = c.Hero.HeroPower;
 				}
 				c.SetasideZone.Add(currentPower);
@@ -807,7 +808,7 @@ namespace SabberStoneCore.Tasks
 
 				return 0;
 			});
-		private static readonly IReadOnlyList<string> DrBoomHeroPowerIds = Cards.FromId("BOT_238p").Entourage;
+		private static readonly Card DrBoomHeroPowerCard = Cards.FromId("BOT_238p");
 
 		public static readonly ISimpleTask Zuljin = new FuncNumberTask(ZuljinInternal);
 		private static int ZuljinInternal(IPlayable source)
@@ -1003,7 +1004,6 @@ namespace SabberStoneCore.Tasks
 				int randChooseOne = rnd.Next(1, 3);
 
 				Generic.CastSpell(c, g, spellToCast, randTarget, randChooseOne);
-				Generic.OverloadBlock(c, spellToCast, g.History);
 
 				while (c.Choice != null)
 					Generic.ChoicePick(c, g, c.Choice.Choices[rnd.Next(c.Choice.Choices.Count)]);
@@ -1153,6 +1153,8 @@ namespace SabberStoneCore.Tasks
 				for (int i = controller.DeckZone.Count - 1; i >= 0; i--)
 				{
 					IPlayable entity = controller.DeckZone[i];
+					controller.DeckZone.Remove(entity);
+					controller.SetasideZone.Add(entity);
 					if (entity.Card.Class != CardClass.WARLOCK) continue;
 
 					Card randCard = cards.Choose(rnd);
@@ -1161,8 +1163,6 @@ namespace SabberStoneCore.Tasks
 
 					//Enchantment.GetInstance(Controller, (IPlayable) Source, newEntity, EnchantmentCard);
 
-					controller.DeckZone.Remove(entity);
-					controller.SetasideZone.Add(entity);
 
 					newEntity.Cost = newEntity.Card.Cost - 1;
 				}

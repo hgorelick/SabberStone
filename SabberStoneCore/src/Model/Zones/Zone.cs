@@ -318,6 +318,11 @@ namespace SabberStoneCore.Model.Zones
 			Add((T)entity, zonePosition);
 		}
 
+		void IZone.MoveTo(IPlayable entity, int zonePosition)
+		{
+			MoveTo((T) entity, zonePosition);
+		}
+
 		IPlayable IZone.Remove(IPlayable entity)
 		{
 			return Remove((T)entity);
@@ -631,7 +636,7 @@ namespace SabberStoneCore.Model.Zones
 			}
 
 			T[] entities = _entities;
-			for (int i = _count - 1; i >= zonePosition; --i)
+			for (int i = zonePosition; i < _count; ++i)
 				entities[i].ZonePosition = i;
 		}
 

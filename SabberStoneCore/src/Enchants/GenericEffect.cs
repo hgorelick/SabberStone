@@ -1,49 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {
-	public readonly struct GenericEffect<TAttr, T> : IEffect where TAttr : Attr<T> where T : Playable
+	internal readonly struct GenericEffect<TAttr, T> : IEffect where TAttr : Attr<T> where T : Playable
 	{
-		public string Prefix()
-		{
-			return $"GenericEffect.{typeof(TAttr).Name}.";
-		}
-
-		public OrderedDictionary Vector()
-		{
-			var v = new OrderedDictionary { { $"{Prefix()}Operator", (int)Operator } };
-
-			if (typeof(TAttr) == typeof(Cost))
-				v.Add($"{Prefix()}Type", (int)GameTag.COST);
-
-			else if (typeof(TAttr) == typeof(ATK))
-				v.Add($"{Prefix()}Type", (int)GameTag.ATK);
-
-			else if (typeof(TAttr) == typeof(Health))
-				v.Add($"{Prefix()}Type", (int)GameTag.HEALTH);
-
-			else if (typeof(TAttr) == typeof(Taunt))
-				v.Add($"{Prefix()}Type", (int)GameTag.TAUNT);
-
-			else if (typeof(TAttr) == typeof(CantBeTargetedBySpells))
-				v.Add($"{Prefix()}Type", (int)GameTag.CANT_BE_TARGETED_BY_SPELLS);
-
-			v.Add($"{Prefix()}Value", Value);
-			return v;
-		}
-
 		private readonly TAttr _attr;
-		public TAttr Attr => _attr;
-
 		private readonly EffectOperator _operator;
-		public EffectOperator Operator => _operator;
-
 		private readonly int _value;
-		public int Value => _value;
 
 		internal GenericEffect(TAttr attr, EffectOperator @operator, int value)
 		{
@@ -112,23 +77,28 @@ namespace SabberStoneCore.Enchants
 			return new GenericEffect<TAttr, T>(_attr, _operator, newValue);
 		}
 
+		GameTag IEffect.Tag => _attr.Tag;
+		EffectOperator IEffect.Operator => _operator;
+		int IEffect.Value => _value;
+
 		public override string ToString()
 		{
 			return $"{_operator} {_attr} {_value}";
 		}
 	}
 
-	public abstract class Attr<T> where T : Playable
+	internal abstract class Attr<T> where T : Playable
 	{
 		public abstract void Apply(T entity, EffectOperator @operator, int value);
 		public abstract void ApplyAura(T entity, EffectOperator @operator, int value);
 		public abstract void Remove(T entity, EffectOperator @operator, int value);
 		public abstract void RemoveAura(T entity, EffectOperator @operator, int value);
+		public abstract GameTag Tag { get; }
 
 		protected abstract ref int GetAuraRef(AuraEffects auraEffects);
 	}
 
-	public abstract class IntAttr<T> : Attr<T> where T : Playable
+	internal abstract class IntAttr<T> : Attr<T> where T : Playable
 	{
 		protected abstract ref int? GetRef(T entity);
 
@@ -234,7 +204,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	public abstract class BoolAttr<T> : Attr<T> where T : Playable
+	internal abstract class BoolAttr<T> : Attr<T> where T : Playable
 	{
 		protected abstract ref bool? GetRef(T entity);
 
@@ -273,7 +243,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	public abstract class SelfContainedIntAttr<TSelf, TTarget> : IntAttr<TTarget>
+	internal abstract class SelfContainedIntAttr<TSelf, TTarget> : IntAttr<TTarget>
 		where TSelf : SelfContainedIntAttr<TSelf, TTarget>, new() where TTarget : Playable
 	{
 		private static readonly TSelf _singleton = new TSelf();
@@ -284,7 +254,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	public abstract class SelfContainedBoolAttr<TSelf, TTarget> : BoolAttr<TTarget>
+	internal abstract class SelfContainedBoolAttr<TSelf, TTarget> : BoolAttr<TTarget>
 		where TSelf : SelfContainedBoolAttr<TSelf, TTarget>, new() where TTarget : Playable
 	{
 		private static readonly TSelf _singleton = new TSelf();
@@ -295,8 +265,10 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	public class Cost : SelfContainedIntAttr<Cost, Playable>
+	internal class Cost : SelfContainedIntAttr<Cost, Playable>
 	{
+		public override GameTag Tag => GameTag.COST;
+
 		protected override ref int? GetRef(Playable entity)
 		{
 			return ref entity._modifiedCost;
@@ -337,8 +309,10 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	public class ATK : SelfContainedIntAttr<ATK, Playable>
+	internal class ATK : SelfContainedIntAttr<ATK, Playable>
 	{
+		public override GameTag Tag => GameTag.ATK;
+
 		protected override ref int? GetRef(Playable entity)
 		{
 			if (entity is Character c)
@@ -391,8 +365,10 @@ namespace SabberStoneCore.Enchants
 		//}
 	}
 
-	public class Health : SelfContainedIntAttr<Health, Character>
+	internal class Health : SelfContainedIntAttr<Health, Character>
 	{
+		public override GameTag Tag => GameTag.HEALTH;
+
 		protected override ref int? GetRef(Character entity)
 		{
 			return ref entity._modifiedHealth;
@@ -441,8 +417,10 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	public class Stealth : SelfContainedBoolAttr<Stealth, Character>
+	internal class Stealth : SelfContainedBoolAttr<Stealth, Character>
 	{
+		public override GameTag Tag => GameTag.STEALTH;
+
 		protected override ref bool? GetRef(Character entity)
 		{
 			return ref entity._modifiedStealth;
@@ -454,8 +432,10 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	public class Taunt : SelfContainedBoolAttr<Taunt, Minion>
+	internal class Taunt : SelfContainedBoolAttr<Taunt, Minion>
 	{
+		public override GameTag Tag => GameTag.TAUNT;
+
 		protected override ref bool? GetRef(Minion entity)
 		{
 			return ref entity._modifiedTaunt;
@@ -467,8 +447,10 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	public class CantBeTargetedBySpells : SelfContainedBoolAttr<CantBeTargetedBySpells, Character>
+	internal class CantBeTargetedBySpells : SelfContainedBoolAttr<CantBeTargetedBySpells, Character>
 	{
+		public override GameTag Tag => GameTag.CANT_BE_TARGETED_BY_SPELLS;
+
 		protected override ref int GetAuraRef(AuraEffects auraEffects)
 		{
 			return ref auraEffects._data[2];

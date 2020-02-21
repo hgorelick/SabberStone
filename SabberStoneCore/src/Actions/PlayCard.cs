@@ -106,12 +106,10 @@ namespace SabberStoneCore.Actions
 					c.Game.GhostlyCards.Add(echoPlayable.Id);
 				}
 
-				OverloadBlock(c, source, history);
-
-				c.NumOptionsPlayedThisTurn++;
-
 				if (!c.IsComboActive)
 					c.IsComboActive = true;
+
+				c.NumOptionsPlayedThisTurn++;
 
 				if (history)
 				{
@@ -126,9 +124,7 @@ namespace SabberStoneCore.Actions
 			};
 
 		public static Func<Controller, IPlayable, ICharacter, int, int, bool> PrePlayPhase
-#pragma warning disable RECS0154 // Parameter is never used
 			=> delegate (Controller c, IPlayable source, ICharacter target, int zonePosition, int chooseOne)
-#pragma warning restore RECS0154 // Parameter is never used
 			{
 				// can't play because we got already board full
 				if (source is Minion && c.BoardZone.IsFull)
@@ -288,12 +284,15 @@ namespace SabberStoneCore.Actions
 				}
 				else
 					minion.ActivateTask(PowerActivation.POWER, target, chooseOne);
+
 				// check if [LOE_077] Brann Bronzebeard aura is active
-				if (c.ExtraBattlecry && minion.HasBattlecry)
-				//if (minion[GameTag.BATTLECRY] == 2)
+				if (c.ExtraBattlecry && minion.HasBattleCry)
 				{
 					minion.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				}
+
+				OverloadBlock(c, minion, game.History);
+
 				game.ProcessTasks();
 				game.TaskQueue.EndEvent();
 
@@ -385,18 +384,17 @@ namespace SabberStoneCore.Actions
 				game.ProcessTasks();
 				game.TaskQueue.EndEvent();
 
-				game.DeathProcessingAndAuraUpdate();
-
 				c.NumSpellsPlayedThisGame++;
 				if (spell.IsSecret)
 					c.NumSecretsPlayedThisGame++;
+
+				game.DeathProcessingAndAuraUpdate();
+
 				return true;
 			};
 
 		public static Func<Controller, Game, Weapon, ICharacter, int, bool> PlayWeapon
-#pragma warning disable RECS0154 // Parameter is never used
 			=> delegate (Controller c, Game game, Weapon weapon, ICharacter target, int chooseOne)
-#pragma warning restore RECS0154 // Parameter is never used
 			{
 				game.Log(LogLevel.INFO, BlockType.ACTION, "PlayWeapon", !game.Logging ? "" : $"{c.Hero} gets Weapon {c.Hero.Weapon}.");
 
@@ -405,7 +403,6 @@ namespace SabberStoneCore.Actions
 				if (game.History)
 					weapon[GameTag.ZONE] = (int) Zone.PLAY;
 
-				///
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
 				game.TaskQueue.StartEvent();
@@ -425,6 +422,8 @@ namespace SabberStoneCore.Actions
 					if (target.Id != weapon.CardTarget)
 						target = (ICharacter) weapon.Game.IdEntityDic[weapon.CardTarget];
 				}
+
+				OverloadBlock(c, weapon, game.History);
 
 				// - Equipping Phase --> Resolve Battlecry, OnDeathTrigger
 				// activate battlecry

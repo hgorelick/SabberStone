@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Enchants;
-using SabberStoneCore.HearthVector;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
@@ -13,70 +11,12 @@ namespace SabberStoneCore.Auras
 {
 	public class AdjacentAura : IAura
 	{
-		public string Prefix()
-		{
-			return "AdjacentAura.";
-		}
-
-		public OrderedDictionary Vector()
-		{
-			var v = new OrderedDictionary
-				{
-					{ $"{Prefix()}BoardChanged", Convert.ToInt32(BoardChanged) },
-					{ $"{Prefix()}EnchantmentCard.AssetId", EnchantmentCard.AssetId }
-				};
-
-			if (Effects.Length > 0)
-				for (int i = 0; i < Effects.Length; ++i)
-					this.AddRange(Effects[i].Vector());
-			//else
-			//	this.AddRange(Effect.NullVector);
-
-			v.Add($"{Prefix()}Left", Convert.ToInt32(Left != null));
-			//v.Add($"{Prefix}Owner", Owner != null ? Owner.Card.AssetId : 0);
-			v.Add($"{Prefix()}Right", Convert.ToInt32(Right != null));
-			v.Add($"{Prefix()}ToBeRemoved", Convert.ToInt32(ToBeRemoved));
-
-			return v;
-		}
-
-		public static OrderedDictionary NullVector
-		{
-			get
-			{
-				string prefix = "NullAdjacentAura.";
-				var v = new OrderedDictionary
-				{
-					{ $"{prefix}BoardChanged", 0 },
-					{ $"{prefix}EnchantmentCard.AssetId", 0 }
-				};
-
-				v.AddRange(Effect.NullVector, prefix);
-				v.Add($"{prefix}Left", 0);
-				v.Add($"{prefix}Owner", 0);
-				v.Add($"{prefix}Right", 0);
-				v.Add("ToBeRemoved", 0);
-
-				return v;
-			}
-		}
-			
-
 		private Minion _left;
-		public Minion Left => _left;
-
 		private Minion _right;
-		public Minion Right => _right;
-
 		private bool _toBeRemoved;
-		public bool ToBeRemoved => _toBeRemoved;
 
 		private readonly IEffect[] _effects;
-		public IEffect[] Effects => _effects;
-
-		private readonly Minion _owner;
-		public Minion Owner => _owner;
-
+		private readonly Minion _owner; 
 		private readonly BoardZone _board;
 		private readonly bool _history;
 
@@ -137,71 +77,39 @@ namespace SabberStoneCore.Auras
 			// Check left-side
 			if (_left != null)
 			{
-				//if (!(_left.Zone is BoardZone) || _left.ZonePosition != pos - 1)
-				//{
-				//	DeApply(_left);
-				//	_left = null;
-				//}
-				if (!(_left.Zone is BoardZone))
-				{
-					_left = null;
-				}
-				else if
-					(_left.ZonePosition != pos - 1)
+				if (_left.Zone?.Type != Zone.PLAY || _left.ZonePosition != pos - 1)
 				{
 					DeApply(_left);
 					_left = null;
 				}
 			}
-
-			if (_left == null)
+			if (_left == null && pos > 0)
 			{
-				if (pos > 0)
+				Minion left = _board[pos - 1];
+				if (!left.Untouchable)
 				{
-					Minion left = _board[pos - 1];
-					if (!left.Untouchable)
-					{
-						Apply(left);
-						_left = left;
-					}
+					Apply(left);
+					_left = left;
 				}
-				else
-					_left = null;
 			}
 
 			// Check right-side
 			if (_right != null)
 			{
-				//if (!(_right.Zone is BoardZone) || _right.ZonePosition != pos + 1)
-				//{
-				//	DeApply(_right);
-				//	_right = null;
-				//}
-				if (!(_right.Zone is BoardZone))
-				{
-					_right = null;
-				}
-				else if
-					(_right.ZonePosition != pos - 1)
+				if (_right.Zone?.Type != Zone.PLAY || _right.ZonePosition != pos + 1)
 				{
 					DeApply(_right);
 					_right = null;
 				}
 			}
-
-			if (_right == null)
+			if (_right == null && pos < _board.Count - 1)
 			{
-				if (pos < _board.Count - 1)
+				Minion right = _board[pos + 1];
+				if (!right.Untouchable)
 				{
-					Minion right = _board[pos + 1];
-					if (!right.Untouchable)
-					{
-						Apply(right);
-						_right = right;
-					}
+					Apply(right);
+					_right = right;
 				}
-				else
-					_right = null;
 			}
 
 			BoardChanged = false;
@@ -228,7 +136,12 @@ namespace SabberStoneCore.Auras
 				_effects[i].ApplyAuraTo(m);
 
 			if (EnchantmentCard != null && _history)
+			{
 				Enchantment.GetInstance(m.Controller, _owner, m, in EnchantmentCard);
+				for (int i = 0; i < _effects.Length; i++)
+					_owner.Game.PowerHistory.Add(
+						PowerHistoryBuilder.TagChange(_owner.Id, _effects[i].Tag, _owner[_effects[i].Tag]));
+			}
 		}
 
 		private void DeApply(Minion m)
@@ -246,6 +159,11 @@ namespace SabberStoneCore.Auras
 						enchantments.RemoveAt(i);
 						break;
 					}
+
+				if (_history)
+					for (int i = 0; i < _effects.Length; i++)
+						_owner.Game.PowerHistory.Add(
+							PowerHistoryBuilder.TagChange(_owner.Id, _effects[i].Tag, _owner[_effects[i].Tag]));
 			}
 		}
 
