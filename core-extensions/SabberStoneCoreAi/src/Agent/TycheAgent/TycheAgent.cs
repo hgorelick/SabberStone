@@ -53,6 +53,13 @@ namespace SabberStoneCoreAi.Tyche2
 			hero = CardClass.SHAMAN;
 		}
 
+		public TycheAgentCompetition(CardClass heroClass, CardClass enemy, Deck d)
+			: this(TyStateWeights.GetHeroBased(heroClass, enemy), true, DEFAULT_NUM_EPISODES_MULTIPLIER, true)
+		{
+			deck = d;
+			hero = heroClass;
+		}
+
 		private TycheAgentCompetition(TyStateWeights weights, bool heroBasedWeights, int episodeMultiplier, bool adjustEpisodeMultiplier)
 		{
 			_defaultEpisodeMultiplier = episodeMultiplier;

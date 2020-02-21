@@ -425,7 +425,7 @@ namespace SabberStoneCoreAi.HearthNodes
 			List<PlayerTask> options = state.Game.CurrentPlayer.Options();
 			for (int i = 0; i < options.Count; ++i)
 			{
-				state.AddFrontier(new HearthNode(state.Root, state, state.Game, options[i]));
+				state.AddFrontier(new HearthNode(state, state.Game, options[i]));
 			}
 		}
 

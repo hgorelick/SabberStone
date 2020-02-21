@@ -11,9 +11,12 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -21,6 +24,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DamageTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}SpellDmg", Convert.ToInt32(SpellDmg) },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public DamageTask(int amount, int randAmount, EntityType entityType, bool spellDmg = false)
 		{
 			Amount = amount;
@@ -49,6 +63,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (Amount < 1 && RandAmount < 1)
 				return TaskState.STOP;
 
@@ -68,6 +84,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				game.Log(LogLevel.WARNING, BlockType.ACTION, "DamageTask",
 					!game.Logging ? "" : $"Amount is {amount} damage of {source}.");
 
+				Vector().Add($"{Prefix()}Process.DamageTarget.AssetId", entities[i].Card.AssetId);
 				Generic.DamageCharFunc.Invoke(source as IPlayable, entities[i] as ICharacter, amount, SpellDmg);
 			}
 			return TaskState.COMPLETE;

@@ -14,11 +14,23 @@
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DrawOpTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Card.AssetId", Card.AssetId },
+			{ $"{Prefix()}ToStack", Convert.ToInt32(ToStack) }
+		};
+		}
+
 		public DrawOpTask(Card card = null, bool toStack = false)
 		{
 			Card = card;
@@ -33,10 +45,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			IPlayable drawedCard = Card != null
+			AddSourceAndTargetToVector(source, target);
+
+			IPlayable cardDrawn = Card != null
 				? Generic.DrawCardBlock.Invoke(controller.Opponent, Card)
 				: Generic.Draw(controller.Opponent);
-			if (ToStack && drawedCard != null) stack?.Playables.Add(drawedCard);
+
+			if (ToStack && cardDrawn != null)
+			{
+				Vector().Add($"{Prefix()}Process.cardDrawn.AssetId", cardDrawn.Card.AssetId);
+				stack?.Playables.Add(cardDrawn);
+			}
 
 			return TaskState.COMPLETE;
 		}

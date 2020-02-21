@@ -11,6 +11,9 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -28,6 +31,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}GameTag", (int)GameTag.STEALTH },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
@@ -39,6 +52,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				if (!(p is Minion minion))
 					continue;
 				minion.HasStealth = false;
+				Vector().Add($"{Prefix()}Process.StealthRemovedFrom.AssetId", minion.Card.AssetId);
 			}
 
 			return TaskState.COMPLETE;

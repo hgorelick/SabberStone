@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -25,6 +27,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly bool _op;
 		public bool Op => _op;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}{_card.Name}.AssetId", AssetId },
+			{ $"{Prefix()}Op", Convert.ToInt32(Op) }
+		};
+		}
+
 		public WeaponTask(string cardId = null, bool opponent = false)
 		{
 			if (cardId != null)
@@ -37,7 +49,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			if (_card == null && stack?.Playables.Count != 1) return TaskState.STOP;
+			AddSourceAndTargetToVector(source, target);
+
+			if (_card == null && stack?.Playables.Count != 1)
+				return TaskState.STOP;
 
 			Controller c = _op ? controller.Opponent : controller;
 
@@ -51,6 +66,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			weapon.Card.Power?.Aura?.Activate(weapon);
 			weapon.Card.Power?.Trigger?.Activate(weapon);
 			c.Hero.AddWeapon(weapon);
+
+			Vector().Add($"{Prefix()}Process.weapon.AssetId", weapon.Card.AssetId);
 
 			return TaskState.COMPLETE;
 		}

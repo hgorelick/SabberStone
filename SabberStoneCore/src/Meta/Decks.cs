@@ -1,11 +1,260 @@
-﻿using System.Collections.Generic;
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
-using SabberStoneCore.Enums;
+using System.Collections.Generic;
 
 namespace SabberStoneCore.Meta
 {
 	public class Decks
 	{
+		public static Deck BasicDruid =>
+			new Deck(CardClass.DRUID,
+					"BasicDruid",
+					0,
+					new List<Card>
+					{
+						Cards.FromName("Acornbearer"),
+						Cards.FromName("Acornbearer"),
+						Cards.FromName("Treenforcements"),
+						Cards.FromName("Treenforcements"),
+						Cards.FromName("Dendrologist"),
+						Cards.FromName("Dreamway Guardians"),
+						Cards.FromName("Dreamway Guardians"),
+						Cards.FromName("Power of the Wild"),
+						Cards.FromName("Power of the Wild"),
+						Cards.FromName("Shrubadier"),
+						Cards.FromName("Shrubadier"),
+						Cards.FromName("Blessing of the Ancients"),
+						Cards.FromName("Blessing of the Ancients"),
+						Cards.FromName("Landscaping"),
+						Cards.FromName("Landscaping"),
+						Cards.FromName("Savage Roar"),
+						Cards.FromName("Savage Roar"),
+						Cards.FromName("Garden Gnome"),
+						Cards.FromName("Garden Gnome"),
+						Cards.FromName("Soul of the Forest"),
+						Cards.FromName("Soul of the Forest"),
+						Cards.FromName("Swipe"),
+						Cards.FromName("Swipe"),
+						Cards.FromName("Aeroponics"),
+						Cards.FromName("Aeroponics"),
+						Cards.FromName("Overflow"),
+						Cards.FromName("The Forest's Aid"),
+						Cards.FromName("The Forest's Aid"),
+						Cards.FromName("Mulmuncher"),
+						Cards.FromName("Mulmuncher"),
+					});
+
+		public static Deck BasicHunter =>
+			new Deck(CardClass.HUNTER,
+					"BasicHunter",
+					0,
+					new List<Card>
+					{
+						Cards.FromName("Stonetusk Boar"),
+						Cards.FromName("Stonetusk Boar"),
+						Cards.FromName("Arcane Shot"),
+						Cards.FromName("Arcane Shot"),
+						Cards.FromName("Timber Wolf"),
+						Cards.FromName("Timber Wolf"),
+						Cards.FromName("Tracking"),
+						Cards.FromName("Hunter's Mark"),
+						Cards.FromName("Acidic Swamp Ooze"),
+						Cards.FromName("Acidic Swamp Ooze"),
+						Cards.FromName("Bloodfen Raptor"),
+						Cards.FromName("Bloodfen Raptor"),
+						Cards.FromName("Animal Companion"),
+						Cards.FromName("Animal Companion"),
+						Cards.FromName("Ironfur Grizzly"),
+						Cards.FromName("Ironfur Grizzly"),
+						Cards.FromName("Shattered Sun Cleric"),
+						Cards.FromName("Shattered Sun Cleric"),
+						Cards.FromName("Kill Command"),
+						Cards.FromName("Kill Command"),
+						Cards.FromName("Houndmaster"),
+						Cards.FromName("Houndmaster"),
+						Cards.FromName("Oasis Snapjaw"),
+						Cards.FromName("Oasis Snapjaw"),
+						Cards.FromName("Multi-Shot"),
+						Cards.FromName("Multi-Shot"),
+						Cards.FromName("Starving Buzzard"),
+						Cards.FromName("Starving Buzzard"),
+						Cards.FromName("Tundra Rhino"),
+						Cards.FromName("Tundra Rhino"),
+					});
+
+		public static Deck BasicMage =>
+			new Deck(CardClass.MAGE,
+					"BasicMage",
+					0,
+					new List<Card>
+					{
+						Cards.FromName("Arcane Missiles"),
+						Cards.FromName("Arcane Missiles"),
+						Cards.FromName("Arcane Explosion"),
+						Cards.FromName("Arcane Explosion"),
+						Cards.FromName("Murloc Raider"),
+						Cards.FromName("Murloc Raider"),
+						Cards.FromName("Bloodfen Raptor"),
+						Cards.FromName("Bloodfen Raptor"),
+						Cards.FromName("Novice Engineer"),
+						Cards.FromName("Novice Engineer"),
+						Cards.FromName("River Crocolisk"),
+						Cards.FromName("River Crocolisk"),
+						Cards.FromName("Arcane Intellect"),
+						Cards.FromName("Arcane Intellect"),
+						Cards.FromName("Raid Leader"),
+						Cards.FromName("Raid Leader"),
+						Cards.FromName("Wolfrider"),
+						Cards.FromName("Wolfrider"),
+						Cards.FromName("Fireball"),
+						Cards.FromName("Fireball"),
+						Cards.FromName("Oasis Snapjaw"),
+						Cards.FromName("Oasis Snapjaw"),
+						Cards.FromName("Polymorph"),
+						Cards.FromName("Polymorph"),
+						Cards.FromName("Sen'jin Shieldmasta"),
+						Cards.FromName("Sen'jin Shieldmasta"),
+						Cards.FromName("Nightblade"),
+						Cards.FromName("Nightblade"),
+						Cards.FromName("Boulderfist Ogre"),
+						Cards.FromName("Boulderfist Ogre")
+					});
+
+		public static Deck BasicPaladin =>
+			new Deck(CardClass.MAGE,
+					"BasicPaladin",
+					0,
+					new List<Card>
+					{
+						Cards.FromName("Blessing of Might"),
+						Cards.FromName("Blessing of Might"),
+						Cards.FromName("Goldshire Footman"),
+						Cards.FromName("Goldshire Footman"),
+						Cards.FromName("Hand of Protection"),
+						Cards.FromName("Hand of Protection"),
+						Cards.FromName("Light's Justice"),
+						Cards.FromName("Light's Justice"),
+						Cards.FromName("Stonetusk Boar"),
+						Cards.FromName("Stonetusk Boar"),
+						Cards.FromName("Holy Light"),
+						Cards.FromName("Holy Light"),
+						Cards.FromName("Ironforge Rifleman"),
+						Cards.FromName("Ironforge Rifleman"),
+						Cards.FromName("Raid Leader"),
+						Cards.FromName("Raid Leader"),
+						Cards.FromName("Gnomish Inventor"),
+						Cards.FromName("Gnomish Inventor"),
+						Cards.FromName("Hammer of Wrath"),
+						Cards.FromName("Hammer of Wrath"),
+						Cards.FromName("Stormwind Knight"),
+						Cards.FromName("Stormwind Knight"),
+						Cards.FromName("Nightblade"),
+						Cards.FromName("Nightblade"),
+						Cards.FromName("Stormpike Commando"),
+						Cards.FromName("Stormpike Commando"),
+						Cards.FromName("Lord of the Arena"),
+						Cards.FromName("Lord of the Arena"),
+						Cards.FromName("Stormwind Champion"),
+						Cards.FromName("Stormwind Champion")
+					});
+
+		public static Deck BasicPriest =>
+			new Deck(CardClass.PRIEST,
+					"BasicPriest",
+					0,
+					new List<Card>
+					{
+						Cards.FromName("Circle of Healing"),
+						Cards.FromName("Circle of Healing"),
+						Cards.FromName("Silence"),
+						Cards.FromName("Topsy Turvy"),
+						Cards.FromName("Inner Fire"),
+						Cards.FromName("Inner Fire"),
+						Cards.FromName("Northshire Cleric"),
+						Cards.FromName("Northshire Cleric"),
+						Cards.FromName("Power Word: Shield"),
+						Cards.FromName("Power Word: Shield"),
+						Cards.FromName("Beaming Sidekick"),
+						Cards.FromName("Beaming Sidekick"),
+						Cards.FromName("Lightwarden"),
+						Cards.FromName("Lightwarden"),
+						Cards.FromName("Divine Spirit"),
+						Cards.FromName("Divine Spirit"),
+						Cards.FromName("Injured Tol'vir"),
+						Cards.FromName("Injured Tol'vir"),
+						Cards.FromName("Neferset Ritualist"),
+						Cards.FromName("Neferset Ritualist"),
+						Cards.FromName("Wild Pyromancer"),
+						Cards.FromName("Wild Pyromancer"),
+						Cards.FromName("Extra Arms"),
+						Cards.FromName("Extra Arms"),
+						Cards.FromName("Acolyte of Pain"),
+						Cards.FromName("Acolyte of Pain"),
+						Cards.FromName("Injured Blademaster"),
+						Cards.FromName("Injured Blademaster"),
+						Cards.FromName("Hench-Clan Shadequill"),
+						Cards.FromName("Hench-Clan Shadequill"),
+						Cards.FromName("Mass Dispel"),
+					});
+
+		public static Deck BasicRogue =>
+			new Deck(CardClass.ROGUE,
+					"BasicRogue",
+					0,
+					new List<Card>
+					{
+
+					});
+
+		public static Deck SmallShaman =>
+			new Deck(CardClass.SHAMAN,
+					"SmallShaman",
+					0,
+					new List<Card>
+					{
+						Cards.FromName("Bluegill Warrior"),
+						Cards.FromName("Rockbiter Weapon"),
+						Cards.FromName("Underbelly Angler"),
+						Cards.FromName("Bluegill Warrior"),
+						Cards.FromName("Murloc Warleader")
+					});
+
+		public static Deck LiteBasicMage =>
+			new Deck(CardClass.MAGE,
+					"BasicMage",
+					0,
+					new List<Card>
+					{
+						Cards.FromName("Arcane Explosion"),
+						Cards.FromName("Murloc Raider"),
+						Cards.FromName("Bloodfen Raptor"),
+						Cards.FromName("Novice Engineer"),
+						Cards.FromName("River Crocolisk"),
+						Cards.FromName("Arcane Intellect"),
+						Cards.FromName("Wolfrider"),
+						Cards.FromName("Fireball"),
+						Cards.FromName("Sen'jin Shieldmasta"),
+						Cards.FromName("Boulderfist Ogre")
+					});
+
+		public static Deck LiteBasicPaladin =>
+			new Deck(CardClass.MAGE,
+					"BasicMage",
+					0,
+					new List<Card>
+					{
+						Cards.FromName("Blessing of Might"),
+						Cards.FromName("Goldshire Footman"),
+						Cards.FromName("Hand of Protection"),
+						Cards.FromName("Light's Justice"),
+						Cards.FromName("Stonetusk Boar"),
+						Cards.FromName("Ironforge Rifleman"),
+						Cards.FromName("Raid Leader"),
+						Cards.FromName("Gnomish Inventor"),
+						Cards.FromName("Lord of the Arena"),
+						Cards.FromName("Stormwind Champion")
+					});
+
 		public static Deck IceFireWarrior =>
 			new Deck(CardClass.WARRIOR,
 					"IceFireWarrior",
@@ -65,6 +314,45 @@ namespace SabberStoneCore.Meta
 							//Cards.FromName("Conceal"),
 							//Cards.FromName("Conceal"),
 							Cards.FromName("Swashburglar"),
+							Cards.FromName("Eviscerate"),
+							Cards.FromName("Eviscerate"),
+							Cards.FromName("Sap"),
+							Cards.FromName("Sap"),
+							Cards.FromName("Edwin VanCleef"),
+							Cards.FromName("Fan of Knives"),
+							Cards.FromName("Fan of Knives"),
+							Cards.FromName("Tomb Pillager"),
+							Cards.FromName("Tomb Pillager"),
+							Cards.FromName("Patches the Pirate"),
+							Cards.FromName("Small-Time Buccaneer"),
+							Cards.FromName("Small-Time Buccaneer"),
+							Cards.FromName("Bloodmage Thalnos"),
+							Cards.FromName("Questing Adventurer"),
+							Cards.FromName("Questing Adventurer"),
+							Cards.FromName("Azure Drake"),
+							Cards.FromName("Azure Drake"),
+							Cards.FromName("Leeroy Jenkins"),
+							Cards.FromName("Gadgetzan Auctioneer"),
+							Cards.FromName("Gadgetzan Auctioneer")
+					 });
+
+		public static Deck MiraclePirateRogue_NoRandom =>
+			new Deck(CardClass.ROGUE,
+					 Archetype.QUEST,
+					 "MiraclePirateRogue",
+					 0,
+					 new List<Card>()
+					 {
+							Cards.FromName("Backstab"),
+							Cards.FromName("Backstab"),
+							Cards.FromName("Counterfeit Coin"),
+							//Cards.FromName("Preparation"),
+							//Cards.FromName("Preparation"),
+							Cards.FromName("Cold Blood"),
+							Cards.FromName("Cold Blood"),
+							//Cards.FromName("Conceal"),
+							//Cards.FromName("Conceal"),
+							Cards.FromName("Abusive Sergeant"),
 							Cards.FromName("Eviscerate"),
 							Cards.FromName("Eviscerate"),
 							Cards.FromName("Sap"),
@@ -210,39 +498,83 @@ namespace SabberStoneCore.Meta
 		/// Kolento's Midrange Buff Paladin (January 2017, Season 34)
 		/// http://www.hearthstonetopdecks.com/decks/kolentos-midrange-buff-paladin-january-2017-season-34/
 		/// </summary>
-		public static List<Card> MidrangeBuffPaladin => new List<Card>()
-		{
-			Cards.FromName("Smuggler's Run"),
-			Cards.FromName("Smuggler's Run"),
-			Cards.FromName("Argent Lance"),
-			Cards.FromName("Grimestreet Outfitter"),
-			Cards.FromName("Grimestreet Outfitter"),
-			Cards.FromName("Aldor Peacekeeper"),
-			Cards.FromName("Aldor Peacekeeper"),
-            //Cards.FromName("Wickerflame Burnbristle"),
-            Cards.FromName("Truesilver Champion"),
-			Cards.FromName("Truesilver Champion"),
-			Cards.FromName("Grimestreet Enforcer"),
-			Cards.FromName("Grimestreet Enforcer"),
-			Cards.FromName("Tirion Fordring"),
-			Cards.FromName("Sir Finley Mrrgglton"),
-			Cards.FromName("Worgen Infiltrator"),
-			Cards.FromName("Worgen Infiltrator"),
-            //Cards.FromName("Flame Juggler"),
-            //Cards.FromName("Flame Juggler"),
-            Cards.FromName("Acolyte of Pain"),
-			Cards.FromName("Acolyte of Pain"),
-			Cards.FromName("Argent Horserider"),
-			Cards.FromName("Argent Horserider"),
-			Cards.FromName("Sen'jin Shieldmasta"),
-			Cards.FromName("Sen'jin Shieldmasta"),
-            //Cards.FromName("Psych-o-Tron"),
-            //Cards.FromName("Second-Rate Bruiser"),
-            //Cards.FromName("Second-Rate Bruiser"),
-            Cards.FromName("Argent Commander"),
-			Cards.FromName("Argent Commander"),
-			Cards.FromName("Don Han'Cho")
-		};
+		public static Deck MidrangeBuffPaladin =>
+			new Deck(CardClass.PALADIN,
+					Archetype.MIDRANGE,
+					"MidrangeBuffPaladin",
+					0,
+					new List<Card>()
+					{
+						Cards.FromName("Smuggler's Run"),
+						Cards.FromName("Smuggler's Run"),
+						Cards.FromName("Argent Lance"),
+						Cards.FromName("Grimestreet Outfitter"),
+						Cards.FromName("Grimestreet Outfitter"),
+						Cards.FromName("Aldor Peacekeeper"),
+						Cards.FromName("Aldor Peacekeeper"),
+						//Cards.FromName("Wickerflame Burnbristle"),
+						Cards.FromName("Truesilver Champion"),
+						Cards.FromName("Truesilver Champion"),
+						Cards.FromName("Grimestreet Enforcer"),
+						Cards.FromName("Grimestreet Enforcer"),
+						Cards.FromName("Tirion Fordring"),
+						Cards.FromName("Sir Finley Mrrgglton"),
+						Cards.FromName("Worgen Infiltrator"),
+						Cards.FromName("Worgen Infiltrator"),
+						//Cards.FromName("Flame Juggler"),
+						//Cards.FromName("Flame Juggler"),
+						Cards.FromName("Acolyte of Pain"),
+						Cards.FromName("Acolyte of Pain"),
+						Cards.FromName("Argent Horserider"),
+						Cards.FromName("Argent Horserider"),
+						Cards.FromName("Sen'jin Shieldmasta"),
+						Cards.FromName("Sen'jin Shieldmasta"),
+						//Cards.FromName("Psych-o-Tron"),
+						//Cards.FromName("Second-Rate Bruiser"),
+						//Cards.FromName("Second-Rate Bruiser"),
+						Cards.FromName("Argent Commander"),
+						Cards.FromName("Argent Commander"),
+						Cards.FromName("Don Han'Cho")
+					});
+
+		public static Deck MidrangeBuffPaladin_NoRandom =>
+			new Deck(CardClass.PALADIN,
+					Archetype.MIDRANGE,
+					"MidrangeBuffPaladin_NoRandom",
+					0,
+					new List<Card>()
+					{
+						Cards.FromName("Smuggler's Run"),
+						Cards.FromName("Smuggler's Run"),
+						Cards.FromName("Sword of Justice"),
+						Cards.FromName("Grimestreet Outfitter"),
+						Cards.FromName("Grimestreet Outfitter"),
+						Cards.FromName("Aldor Peacekeeper"),
+						Cards.FromName("Aldor Peacekeeper"),
+						//Cards.FromName("Wickerflame Burnbristle"),
+						Cards.FromName("Truesilver Champion"),
+						Cards.FromName("Truesilver Champion"),
+						Cards.FromName("Grimestreet Enforcer"),
+						Cards.FromName("Grimestreet Enforcer"),
+						Cards.FromName("Tirion Fordring"),
+						Cards.FromName("Wickerflame Burnbristle"),
+						Cards.FromName("Worgen Infiltrator"),
+						Cards.FromName("Worgen Infiltrator"),
+						//Cards.FromName("Flame Juggler"),
+						//Cards.FromName("Flame Juggler"),
+						Cards.FromName("Acolyte of Pain"),
+						Cards.FromName("Acolyte of Pain"),
+						Cards.FromName("Argent Horserider"),
+						Cards.FromName("Argent Horserider"),
+						Cards.FromName("Sen'jin Shieldmasta"),
+						Cards.FromName("Sen'jin Shieldmasta"),
+						//Cards.FromName("Psych-o-Tron"),
+						//Cards.FromName("Second-Rate Bruiser"),
+						//Cards.FromName("Second-Rate Bruiser"),
+						Cards.FromName("Argent Commander"),
+						Cards.FromName("Argent Commander"),
+						Cards.FromName("Bonemare")
+					});
 
 		/// <summary>
 		/// FENO'S MURLOC FINJA BEAST DRUID (DECEMBER 2016, SEASON 33)

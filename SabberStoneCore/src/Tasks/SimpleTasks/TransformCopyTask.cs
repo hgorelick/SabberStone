@@ -11,7 +11,9 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
@@ -25,6 +27,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly bool _addToStack;
 		public bool AddToStack => _addToStack;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}AddToStack", Convert.ToInt32(AddToStack) }
+		};
+		}
+
 		public TransformCopyTask(bool addToStack = false)
 		{
 			_addToStack = addToStack;
@@ -34,6 +45,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			var minionTarget = (Minion) target;
 			if (minionTarget == null)
 				return TaskState.STOP;
@@ -64,7 +77,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (minionTarget.AppliedEnchantments != null)
 				foreach (Enchantment e in minionTarget.AppliedEnchantments)
 				{
-					Enchantment instance = Enchantment.GetInstance(in controller, copy, copy, e.Card);
+					var instance = Enchantment.GetInstance(in controller, copy, copy, e.Card);
 					if (e[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
 					{
 						instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
@@ -110,6 +123,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (_addToStack)
 				stack.Playables = new []{copy};
+
+			Vector().Add($"{Prefix()}Process.Copy.AssetId", copy.Card.AssetId);
 
 			return TaskState.COMPLETE;
 		}

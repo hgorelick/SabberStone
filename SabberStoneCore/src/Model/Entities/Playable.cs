@@ -20,6 +20,8 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Triggers;
+using SabberStoneCore.HearthVector;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -221,6 +223,105 @@ namespace SabberStoneCore.Model.Entities
 	/// <seealso cref="Entity"/>
 	public abstract partial class Playable : Entity, IPlayable
 	{
+		public override string Prefix()
+		{
+			_prefix = Zone?.Type != Enums.Zone.INVALID && Zone?.Type != Enums.Zone.REMOVEDFROMGAME && Zone?.Type != Enums.Zone.SETASIDE
+				? $"Card{ZonePosition}." : base.Prefix();
+			return _prefix;
+		}
+
+		public override string GetPrefix()
+		{
+			_prefix = Prefix();
+			return _prefix;
+		}
+
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+
+			if (ActivatedTrigger != null)
+				v.AddRange(ActivatedTrigger.Vector(), Prefix());
+			//v.AddRange(ActivatedTrigger != null ? ActivatedTrigger.Vector : Trigger.GetNullVector("NullActivatedTrigger."), Prefix);
+
+			//if (AppliedEnchantments == null || AppliedEnchantments.Count == 0)
+			//	v.AddRange(Enchantment.NullVector, Prefix);
+
+			//if (AppliedEnchantments != null && AppliedEnchantments.Count > 0)
+			//	for (int i = 0; i < AppliedEnchantments.Count; ++i)
+			//		v.AddRange(AppliedEnchantments[i].Vector(), Prefix());
+
+
+			//if (AuraEffects != null) // && Zone.Type != Enums.Zone.PLAY)
+			//	v.AddRange(AuraEffects.Vector(), Prefix());
+			//v.AddRange(AuraEffects != null ? AuraEffects.Vector : AuraEffects.NullVector, Prefix);
+			v.Add($"{Prefix()}CardTarget.AssetId", CardTarget > 0 ? Game.IdEntityDic[CardTarget].Card.AssetId : 0);
+			v.Add($"{Prefix()}ChooseOne", Convert.ToInt32(ChooseOne));
+			v.Add($"{Prefix()}Combo", Convert.ToInt32(Combo));
+			v.Add($"{Prefix()}Cost", Cost);
+			v.Add($"{Prefix()}HasAnyValidPlayTargets", Convert.ToInt32(HasAnyValidPlayTargets));
+			v.Add($"{Prefix()}HasDeathrattle", Convert.ToInt32(HasDeathrattle));
+			v.Add($"{Prefix()}HasLifeSteal", Convert.ToInt32(HasLifeSteal));
+			v.Add($"{Prefix()}HasOverkill", Convert.ToInt32(HasOverkill));
+			v.Add($"{Prefix()}IsEcho", Convert.ToInt32(IsEcho));
+			v.Add($"{Prefix()}IsExhausted", Convert.ToInt32(IsExhausted));
+			v.Add($"{Prefix()}IsPlayable", Convert.ToInt32(IsPlayable));
+			v.Add($"{Prefix()}JadeGolem", JadeGolem);
+			//v.Add($"{Prefix()}_modifiedCost", _modifiedCost != null ? (int)_modifiedCost : 0);
+			v.Add($"{Prefix()}NeedsTargetList", Convert.ToInt32(NeedsTargetList));
+
+			if (OngoingEffect != null && Zone.Type != Enums.Zone.PLAY)
+				v.AddRange(OngoingEffect.Vector(), Prefix());
+			//v.AddRange(OngoingEffect != null ? OngoingEffect.Vector : Aura.NullVector, Prefix);
+			v.Add($"{Prefix()}Overload", Overload);
+
+			if (Power != null)
+				v.AddRange(Power.Vector(), Prefix());
+			//v.AddRange(Power != null ? Power.Vector : Power.NullVector, Prefix);
+			v.Add($"{Prefix()}ToBeDestroyed", Convert.ToInt32(ToBeDestroyed));
+			v.Add($"{Prefix()}ValidPlayTargets", ValidPlayTargets.ToList().Count);
+			v.Add($"{Prefix()}Zone.Type", Zone != null ? (int)Zone.Type : 0);
+			v.Add($"{Prefix()}ZonePosition", ZonePosition);
+
+			return v;
+		}
+
+		public static new OrderedDictionary NullVector
+		{
+			get
+			{
+				string Prefix = "NullPlayable.";
+				OrderedDictionary v = Entity.NullVector;
+
+				v.AddRange(Trigger.GetNullVector(), Prefix);
+				v.AddRange(Enchantment.NullVector, Prefix);
+				v.AddRange(AuraEffects.NullVector, Prefix);
+				v.Add($"{Prefix}CardTarget.AssetId", 0);
+				v.Add($"{Prefix}ChooseOne", 0);
+				v.Add($"{Prefix}Combo", 0);
+				v.Add($"{Prefix}Cost", 0);
+				v.Add($"{Prefix}HasAnyValidPlayTargets", 0);
+				v.Add($"{Prefix}HasDeathrattle", 0);
+				v.Add($"{Prefix}HasLifeSteal", 0);
+				v.Add($"{Prefix}HasOverkill", 0);
+				v.Add($"{Prefix}IsEcho", 0);
+				v.Add($"{Prefix}IsExhausted", 0);
+				v.Add($"{Prefix}IsPlayable", 0);
+				v.Add($"{Prefix}JadeGolem", 0);
+				v.Add($"{Prefix}_modifiedCost", 0);
+				v.Add($"{Prefix}NeedsTargetList", 0);
+				v.AddRange(Aura.NullVector, Prefix);
+				v.Add($"{Prefix}Overload", 0);
+				v.AddRange(Power.NullVector, Prefix);
+				v.Add($"{Prefix}ToBeDestroyed", 0);
+				v.Add($"{Prefix}ValidPlayTargets", 0);
+				v.Add($"{Prefix}Zone.Type", 0);
+				v.Add($"{Prefix}ZonePosition", 0);
+
+				return v;
+			}
+		}
+
 		/// <summary>Initializes a new instance of the <see cref="Playable"/> class.</summary>
 		/// <param name="controller">The controller.</param>
 		/// <param name="card">The card.</param>
@@ -641,6 +742,7 @@ namespace SabberStoneCore.Model.Entities
 				_zonePosition = value;
 				if (_history)
 					this[GameTag.ZONE_POSITION] = value + 1;
+				GetPrefix();
 			}
 		}
 

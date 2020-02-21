@@ -463,7 +463,7 @@ namespace SabberStoneCore.Conditions
 			new SelfCondition(me => me is Minion && ((Minion)me).HasDeathrattle);
 
 		public static readonly SelfCondition IsBattlecryMinion =
-			new SelfCondition(me => me is Minion && ((Minion)me).HasBattleCry);
+			new SelfCondition(me => me is Minion && ((Minion)me).HasBattlecry);
 
 		public static readonly SelfCondition IsRushMinion =
 			new SelfCondition(me => me is Minion && ((Minion)me).IsRush);
@@ -799,7 +799,7 @@ namespace SabberStoneCore.Conditions
 
 		#region Vectorization Methods (UNUSED FOR NOW)
 		//      #region Vectorize
-		//      static List<int> Vectorize(RelaSign r1, GameTag tag1)
+		//      static Dictionary<string, int> Vectorize(RelaSign r1, GameTag tag1)
 		//      {
 		//          return new List<int>
 		//          {
@@ -808,7 +808,7 @@ namespace SabberStoneCore.Conditions
 		//          };
 		//      }
 
-		//      //private static List<int> Vectorize(RelaSign r1, int tag1)
+		//      //private static Dictionary<string, int> Vectorize(RelaSign r1, int tag1)
 		//      //{
 		//      //	return new List<int>
 		//      //	{
@@ -817,7 +817,7 @@ namespace SabberStoneCore.Conditions
 		//      //	};
 		//      //}
 
-		//      static List<int> Vectorize(GameTag tag1, RelaSign r, int tag1Value, GameTag tag2)
+		//      static Dictionary<string, int> Vectorize(GameTag tag1, RelaSign r, int tag1Value, GameTag tag2)
 		//      {
 		//          return new List<int>
 		//          {
@@ -828,7 +828,7 @@ namespace SabberStoneCore.Conditions
 		//          };
 		//      }
 
-		//      //private static List<int> Vectorize(RelaSign r1, GameTag tag1, Conj conj, GameTag tag2, CardType c)
+		//      //private static Dictionary<string, int> Vectorize(RelaSign r1, GameTag tag1, Conj conj, GameTag tag2, CardType c)
 		//      //{
 		//      //	return new List<int>
 		//      //	{
@@ -840,7 +840,7 @@ namespace SabberStoneCore.Conditions
 		//      //	};
 		//      //}
 
-		//      static List<int> Vectorize(RelaSign r1, GameTag tag1, Zone zone, GameTag tag2)
+		//      static Dictionary<string, int> Vectorize(RelaSign r1, GameTag tag1, Zone zone, GameTag tag2)
 		//      {
 		//          return new List<int>
 		//          {
@@ -851,7 +851,7 @@ namespace SabberStoneCore.Conditions
 		//          };
 		//      }
 
-		//      static List<int> Vectorize(RelaSign r, GameTag tag, Zone zone, GRVs grvs)
+		//      static Dictionary<string, int> Vectorize(RelaSign r, GameTag tag, Zone zone, GRVs grvs)
 		//      {
 		//          var l = new List<int>
 		//          {
@@ -870,7 +870,7 @@ namespace SabberStoneCore.Conditions
 		//          return l;
 		//      }
 
-		//      //static List<int> Vectorize(RelaSign r, GameTag tag, Zone zone, GRVls grvls)
+		//      //static Dictionary<string, int> Vectorize(RelaSign r, GameTag tag, Zone zone, GRVls grvls)
 		//      //{
 		//      //    var l = new List<int>
 		//      //    {
@@ -889,7 +889,7 @@ namespace SabberStoneCore.Conditions
 		//      //    return l;
 		//      //}
 
-		//      static List<int> Vectorize(RelaSign r1, GameTag tag, Zone zone, RelaSign r2, int value)
+		//      static Dictionary<string, int> Vectorize(RelaSign r1, GameTag tag, Zone zone, RelaSign r2, int value)
 		//      {
 		//          return new List<int>
 		//          {
@@ -901,7 +901,7 @@ namespace SabberStoneCore.Conditions
 		//          };
 		//      }
 
-		//      static List<int> Vectorize(GameTag tag, RelaSign r, int value)
+		//      static Dictionary<string, int> Vectorize(GameTag tag, RelaSign r, int value)
 		//      {
 		//          return new List<int>
 		//          {
@@ -911,7 +911,7 @@ namespace SabberStoneCore.Conditions
 		//          };
 		//      }
 
-		//      static List<int> Vectorize(GameTag tag, RelaSign r, int value, GRVs grvs)
+		//      static Dictionary<string, int> Vectorize(GameTag tag, RelaSign r, int value, GRVs grvs)
 		//      {
 		//          var l = new List<int>
 		//          {
@@ -930,7 +930,7 @@ namespace SabberStoneCore.Conditions
 		//          return l;
 		//      }
 
-		//      static List<int> Vectorize(RelaSign r, GameTag tag, GRVs grvs)
+		//      static Dictionary<string, int> Vectorize(RelaSign r, GameTag tag, GRVs grvs)
 		//      {
 		//          var l = new List<int>
 		//          {
@@ -948,7 +948,7 @@ namespace SabberStoneCore.Conditions
 		//          return l;
 		//      }
 
-		//      static List<int> Vectorize(RelaSign r, GameTag tag, Zone zone, GRV grv, RG rg)
+		//      static Dictionary<string, int> Vectorize(RelaSign r, GameTag tag, Zone zone, GRV grv, RG rg)
 		//      {
 		//          var l = new List<int>
 		//          {

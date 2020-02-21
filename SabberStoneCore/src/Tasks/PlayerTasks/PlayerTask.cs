@@ -21,6 +21,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 {
 	public enum PlayerTaskType
 	{
+		ROOT = -1,
 		CHOOSE, CONCEDE, END_TURN, HERO_ATTACK, HERO_POWER, MINION_ATTACK, PLAY_CARD
 	}
 
@@ -63,7 +64,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
 		public override string ToString()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			switch (this)
 			{
 				case ChooseTask choose:

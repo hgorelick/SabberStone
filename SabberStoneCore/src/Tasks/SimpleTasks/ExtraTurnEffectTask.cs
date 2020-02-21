@@ -12,6 +12,7 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -25,6 +26,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (controller == game.CurrentPlayer)
 				controller.NumTurnsLeft++;
 			else

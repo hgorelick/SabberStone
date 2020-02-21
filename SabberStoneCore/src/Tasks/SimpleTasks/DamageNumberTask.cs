@@ -12,13 +12,26 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Actions;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DamageNumberTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}SpellDmg", Convert.ToInt32(SpellDmg) },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public DamageNumberTask(EntityType type, bool spellDmg = false)
 		{
 			Type = type;
@@ -33,11 +46,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			if (stack.Number < 1) return TaskState.STOP;
+			AddSourceAndTargetToVector(source, target);
+
+			if (stack.Number < 1)
+				return TaskState.STOP;
 
 
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
+			{
+				Vector().Add($"{Prefix()}Process.DamageTarget.AssetId", p.Card.AssetId);
 				Generic.DamageCharFunc.Invoke(source as IPlayable, p as ICharacter, stack.Number, SpellDmg);
+			}
 
 			return TaskState.COMPLETE;
 		}

@@ -3515,7 +3515,7 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new DamageTask(5, EntityType.HERO),
 					new DrawTask()),
-				TopdeckTask = ComplexTask.Create(
+				TopDeckTask = ComplexTask.Create(
 					new DamageTask(5, EntityType.HERO),
 					new DrawTask())
             });

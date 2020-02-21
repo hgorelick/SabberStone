@@ -13,13 +13,30 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model.Zones
 {
 	public class GraveyardZone : UnlimitedZone
 	{
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+
+			//if (Count > 0)
+			for (int i = 0; i < Count; ++i)
+				v.AddRange(_entities[i].Vector(), Prefix());
+			// v.Add(_entites[i].Card.AssetId);
+
+			//else
+			//	v.AddRange(Playable.NullVector, Prefix);
+
+			return v;
+		}
+
 		public GraveyardZone(Controller controller) : base(controller, Zone.GRAVEYARD)
 		{
 		}
@@ -30,6 +47,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
+			entity.ZonePosition = Count - 1;
 			base.Add(entity, zonePosition);
 
 			// Add enchantments here.

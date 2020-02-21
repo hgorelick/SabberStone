@@ -13,8 +13,10 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -22,6 +24,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ConditionTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		private ConditionTask(EntityType entityType,
 			SelfCondition[] selfConditions,
 			RelaCondition[] relaConditions)
@@ -53,6 +64,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			IList<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 			if (entities.Count == 0)
 				return TaskState.STOP;
@@ -71,6 +84,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			stack.Flag = flag;
+			Vector().Add($"{Prefix()}Process.stack.Flag", Convert.ToInt32(flag));
 
 			return TaskState.COMPLETE;
 		}
@@ -78,6 +92,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class NumberConditionTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Reference", Reference == Int32.MinValue ? -1 : Reference },
+			{ $"{Prefix()}Sign", (int)Sign }
+		};
+		}
+
 		private readonly int _reference;
 		public int Reference => _reference;
 		private readonly RelaSign _sign;
@@ -106,12 +130,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (_reference == Int32.MinValue)
 			{
+				Vector()[0] = stack.Number;
+
 				stack.Flag =
 					_sign == RelaSign.GEQ ? stack.Number >= stack.Number1 :
 					_sign == RelaSign.LEQ ? stack.Number <= stack.Number1 :
 					stack.Number == stack.Number1;
+
+				Vector().Add($"{Prefix()}Process.stack.Flag", Convert.ToInt32(stack.Flag));
 
 				return TaskState.COMPLETE;
 			}
@@ -120,6 +150,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				_sign == RelaSign.GEQ ? stack.Number >= _reference :
 				_sign == RelaSign.LEQ ? stack.Number <= _reference :
 				stack.Number == _reference;
+
+			Vector().Add($"{Prefix()}Process.stack.Flag", Convert.ToInt32(stack.Flag));
 
 			return TaskState.COMPLETE;
 		}

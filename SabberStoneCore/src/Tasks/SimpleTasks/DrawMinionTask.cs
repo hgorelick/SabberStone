@@ -13,6 +13,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -22,6 +23,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DrawMinionTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}LowestCost", Convert.ToInt32(LowestCost) },
+			{ $"{Prefix()}Race", (int)_race }
+		};
+		}
+
 		private readonly Race _race;
 		private readonly int _amount;
 		public int Amount => _amount;
@@ -46,12 +58,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			ReadOnlySpan<IPlayable> deck = controller.DeckZone.GetSpan();
 
 			if (deck.Length == 0)
 				return TaskState.STOP;
 
-			List<int> indices = new List<int>();
+			var indices = new List<int>();
 			bool addToStack = _addToStack;
 			//int count = 0;
 			if (addToStack)
@@ -59,7 +73,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (_lowestCost)
 			{
-				int minVal = int.MaxValue;
+				int minVal = Int32.MaxValue;
 				for (int i = 0; i < deck.Length; i++)
 				{
 					if (deck[i].Card.Type != CardType.MINION) continue;
@@ -100,14 +114,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					if (addToStack)
 						stack.Playables.Add(deck[indices[i]]);
-					Generic.Draw(controller, indices[i]);
+					Vector().Add($"{Prefix()}Process.CardDrawn.AssetId", Generic.Draw(controller, indices[i]).Card.AssetId);
 				}
 			else if (_amount == 1)
 			{
 				int pick = indices[game.Random.Next(indices.Count)];
 				if (addToStack)
 					stack.Playables.Add(deck[pick]);
-				Generic.Draw(controller, pick);
+				Vector().Add($"{Prefix()}Process.CardDrawn.AssetId", Generic.Draw(controller, pick).Card.AssetId);
 			}
 			else
 			{
@@ -124,7 +138,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						if (addToStack)
 							stack.Playables.Add(deck[indices[i]]);
-						Generic.Draw(controller, indices[i]);
+						Vector().Add($"{Prefix()}Process.CardDrawn.AssetId", Generic.Draw(controller, indices[i]).Card.AssetId);
 						if (--amountLeft == 0)
 							break;
 						total--;

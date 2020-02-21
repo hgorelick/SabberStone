@@ -12,13 +12,25 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Actions;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DiscardTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Type", (int)Type }}
+;
+		}
+
 		public DiscardTask(EntityType entityType)
 		{
 			Type = entityType;
@@ -30,8 +42,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
+			{
+				Vector().Add($"{Prefix()}Process.Discarded.AssetId", p.Card.AssetId);
 				Generic.DiscardBlock.Invoke(controller, p);
+			}
 			return TaskState.COMPLETE;
 		}
 	}

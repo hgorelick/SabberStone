@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -26,10 +28,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public int Amount { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			Generic.AddTempMana.Invoke(controller, Amount);
 
 			return TaskState.COMPLETE;

@@ -11,16 +11,17 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Loader;
-using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Tasks.PlayerTasks;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Text;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -30,6 +31,176 @@ namespace SabberStoneCore.Model.Entities
 	/// </summary>
 	public partial class Controller : Entity
 	{
+		public override string Prefix()
+		{
+			return $"Player{Id - 1}.";
+		}
+
+		//public override OrderedDictionary Vector()
+		//{
+		//	OrderedDictionary v = base.Vector();
+
+		//	v.Add($"{Prefix()}AmountHeroHealedThisTurn", AmountHeroHealedThisTurn);
+		//	v.Add($"{Prefix()}BaseClass", (int)BaseClass);
+		//	v.AddRange(BoardZone.Vector(), Prefix());
+		//	v.Add($"{Prefix()}ChooseBoth", Convert.ToInt32(ChooseBoth));
+
+		//	if (ControllerAuraEffects != null)
+		//		v.AddRange(ControllerAuraEffects.Vector(), Prefix());
+		//	//v.AddRange(ControllerAuraEffects != null
+		//	//	? ControllerAuraEffects.Vector
+		//	//	: ControllerAuraEffects.NullVector, Prefix);
+
+		//	v.Add($"{Prefix()}CurrentSpellPower", CurrentSpellPower);
+		//	v.AddRange(DeckZone.Vector(), Prefix());
+		//	v.Add($"{Prefix()}DragonInHand", Convert.ToInt32(DragonInHand));
+		//	v.Add($"{Prefix()}ExtraBattlecry", Convert.ToInt32(ExtraBattlecry));
+		//	v.Add($"{Prefix()}ExtraEndTurnEffect", Convert.ToInt32(ExtraEndTurnEffect));
+		//	v.AddRange(GraveyardZone.Vector(), Prefix());
+		//	v.AddRange(HandZone.Vector(), Prefix());
+		//	//v.AddRange(Hero != null ? Hero.Vector : Hero.NullVector);
+		//	v.AddRange(Hero.Vector(), Prefix());
+		//	//v.Add($"{Prefix}HeroId", HeroId);
+		//	v.Add($"{Prefix()}HeroPowerActivationsThisTurn", HeroPowerActivationsThisTurn);
+		//	v.Add($"{Prefix()}HeroPowerDisabled", Convert.ToInt32(HeroPowerDisabled));
+		//	v.Add($"{Prefix()}IsComboActive", Convert.ToInt32(IsComboActive));
+		//	v.Add($"{Prefix()}JadeGolem", JadeGolem);
+		//	try { v.Add($"{Prefix()}LastCardDiscarded.AssetId", Game.IdEntityDic[LastCardDiscarded].Card.AssetId); } catch { v.Add($"{Prefix()}LastCardDiscarded.AssetId", 0); }
+		//	try { v.Add($"{Prefix()}LastCardDrawn.AssetId", Game.IdEntityDic[LastCardDrawn].Card.AssetId); } catch { v.Add($"{Prefix()}LastCardDrawn.AssetId", 0); }
+		//	try { v.Add($"{Prefix()}LastCardPlayed.AssetId", Game.IdEntityDic[LastCardPlayed].Card.AssetId); } catch { v.Add($"{Prefix()}LastCardPlayed.AssetId", 0); }
+		//	v.Add($"{Prefix()}NumAttacksThisTurn", NumAttacksThisTurn);
+		//	v.Add($"{Prefix()}NumCardsDrawnThisTurn", NumCardsDrawnThisTurn);
+		//	v.Add($"{Prefix()}NumCardsPlayedThisTurn", NumCardsPlayedThisTurn);
+		//	v.Add($"{Prefix()}NumDiscardedThisGame", NumDiscardedThisGame);
+		//	v.Add($"{Prefix()}NumElementalsPlayedLastTurn", NumElementalsPlayedLastTurn);
+		//	v.Add($"{Prefix()}NumElementalsPlayedThisTurn", NumElementalsPlayedThisTurn);
+		//	v.Add($"{Prefix()}NumFriendlyMinionsThatAttackedThisTurn", NumFriendlyMinionsThatAttackedThisTurn);
+		//	v.Add($"{Prefix()}NumFriendlyMinionsThatDiedThisGame", NumFriendlyMinionsThatDiedThisGame);
+		//	v.Add($"{Prefix()}NumFriendlyMinionsThatDiedThisTurn", NumFriendlyMinionsThatDiedThisTurn);
+		//	v.Add($"{Prefix()}NumHeroPowerDamageThisGame", NumHeroPowerDamageThisGame);
+		//	v.Add($"{Prefix()}NumMinionsPlayedThisTurn", NumMinionsPlayedThisTurn);
+		//	v.Add($"{Prefix()}NumMinionsPlayerKilledThisTurn", NumMinionsPlayerKilledThisTurn);
+		//	v.Add($"{Prefix()}NumMurlocsPlayedThisGame", NumMurlocsPlayedThisGame);
+		//	v.Add($"{Prefix()}NumOptionsPlayedThisTurn", NumOptionsPlayedThisTurn);
+		//	v.Add($"{Prefix()}NumSecretsPlayedThisGame", NumSecretsPlayedThisGame);
+		//	v.Add($"{Prefix()}NumSpellsPlayedThisGame", NumSpellsPlayedThisGame);
+		//	v.Add($"{Prefix()}NumTimesHeroPowerUsedThisGame", NumTimesHeroPowerUsedThisGame);
+		//	v.Add($"{Prefix()}NumTotemSummonedThisGame", NumTotemSummonedThisGame);
+		//	v.Add($"{Prefix()}NumTurnsLeft", NumTurnsLeft);
+		//	v.Add($"{Prefix()}NumWeaponsPlayedThisGame", NumWeaponsPlayedThisGame);
+		//	v.Add($"{Prefix()}OverloadLocked", OverloadLocked);
+		//	v.Add($"{Prefix()}OverloadOwed", OverloadOwed);
+		//	v.Add($"{Prefix()}OverloadThisGame", OverloadThisGame);
+		//	v.Add($"{Prefix()}PlayerId", PlayerId);
+		//	v.Add($"{Prefix()}PlayState", (int)PlayState);
+		//	if (Game.IdEntityDic.ContainsKey(ProxyCthun))
+		//		v.AddRange(Game.IdEntityDic[ProxyCthun].Vector(), $"{Prefix()}ProxyCthun");
+		//	//try { v.AddRange(Game.IdEntityDic[ProxyCthun].Vector, $"{Prefix}ProxyCthun"); } catch { v.AddRange(Minion.NullVector, $"{Prefix}ProxyCthun"); }
+		//	v.Add($"{Prefix()}RemainingMana", RemainingMana);
+		//	v.Add($"{Prefix()}RestoreToDamage", Convert.ToInt32(RestoreToDamage));
+		//	v.AddRange(SecretZone.Vector(), Prefix());
+		//	v.Add($"{Prefix()}SeenCthun", Convert.ToInt32(SeenCthun));
+		//	v.Add($"{Prefix()}TemporaryMana", TemporaryMana);
+		//	v.Add($"{Prefix()}TemporusFlag", Convert.ToInt32(TemporusFlag));
+		//	v.Add($"{Prefix()}TimeOut", TimeOut);
+		//	v.Add($"{Prefix()}TotalManaSpentThisGame", TotalManaSpentThisGame);
+		//	v.Add($"{Prefix()}UsedMana", UsedMana);
+
+		//	return v;
+		//}
+
+		//public static new OrderedDictionary NullVector
+		//{
+		//	get
+		//	{
+		//		string prefix = "NullController.";
+		//		OrderedDictionary v = Entity.NullVector;
+
+		//		v.AddRange(new OrderedDictionary
+		//		{
+		//			{ $"{prefix}AmountHeroHealedThisTurn", 0 },
+		//			{ $"{prefix}BaseClass", 0 }
+		//		}, prefix);
+
+		//		v.AddRange(BoardZone.NullVector, prefix);
+		//		v.Add($"{prefix}ChooseBoth", 0);
+		//		v.AddRange(ControllerAuraEffects.NullVector, prefix);
+		//		v.Add($"{prefix}CurrentSpellPower", 0);
+		//		v.AddRange(DeckZone.NullVector, prefix);
+
+		//		v.AddRange(new OrderedDictionary
+		//		{
+		//			{ $"{prefix}DragonInHand", 0 },
+		//			{ $"{prefix}ExtraBattlecry", 0 },
+		//			{ $"{prefix}ExtraEndTurnEffect", 0 }
+		//		}, prefix);
+
+		//		v.AddRange(GraveyardZone.NullVector, prefix);
+		//		v.AddRange(HandZone.NullVector, prefix);
+		//		//v.AddRange(Hero.NullVector, prefix);
+		//		v.AddRange(Hero.NullVector, prefix);
+
+		//		v.AddRange(new OrderedDictionary
+		//		{
+		//			{ $"{prefix}HeroId", 0 },
+		//			{ $"{prefix}HeroPowerActivationsThisTurn", 0 },
+		//			{ $"{prefix}HeroPowerDisabled", 0 },
+		//			{ $"{prefix}IsComboActive", 0 },
+		//			{ $"{prefix}JadeGolem", 0 },
+		//			{ $"{prefix}LastCardDiscarded.AssetId", 0 },
+		//			{ $"{prefix}LastCardDrawn.AssetId", 0 },
+		//			{ $"{prefix}LastCardPlayed.AssetId", 0 },
+		//			{ $"{prefix}NumAttacksThisTurn", 0 },
+		//			{ $"{prefix}NumCardsDrawnThisTurn", 0 },
+		//			{ $"{prefix}NumCardsPlayedThisTurn", 0 },
+		//			{ $"{prefix}NumDiscardedThisGame", 0 },
+		//			{ $"{prefix}NumElementalsPlayedLastTurn", 0 },
+		//			{ $"{prefix}NumElementalsPlayedThisTurn", 0 },
+		//			{ $"{prefix}NumFriendlyMinionsThatAttackedThisTurn", 0 },
+		//			{ $"{prefix}NumFriendlyMinionsThatDiedThisGame", 0 },
+		//			{ $"{prefix}NumFriendlyMinionsThatDiedThisTurn", 0 },
+		//			{ $"{prefix}NumHeroPowerDamageThisGame", 0 },
+		//			{ $"{prefix}NumMinionsPlayedThisTurn", 0 },
+		//			{ $"{prefix}NumMinionsPlayerKilledThisTurn", 0 },
+		//			{ $"{prefix}NumMurlocsPlayedThisGame", 0 },
+		//			{ $"{prefix}NumOptionsPlayedThisTurn", 0 },
+		//			{ $"{prefix}NumSecretsPlayedThisGame", 0 },
+		//			{ $"{prefix}NumSpellsPlayedThisGame", 0 },
+		//			{ $"{prefix}NumTimesHeroPowerUsedThisGame", 0 },
+		//			{ $"{prefix}NumTotemSummonedThisGame", 0 },
+		//			{ $"{prefix}NumTurnsLeft", 0 },
+		//			{ $"{prefix}NumWeaponsPlayedThisGame", 0 },
+		//			{ $"{prefix}OverloadLocked", 0 },
+		//			{ $"{prefix}OverloadOwed", 0 },
+		//			{ $"{prefix}OverloadThisGame", 0 },
+		//			{ $"{prefix}PlayerId", 0 },
+		//			{ $"{prefix}PlayState", 0 },
+		//		}, prefix);
+
+		//		v.AddRange(Minion.NullVector, $"{prefix}ProxyCthun");
+
+		//		v.AddRange(new OrderedDictionary
+		//		{
+		//			{ $"{prefix}RemainingMana", 0 },
+		//			{ $"{prefix}RestoreToDamage", 0 },
+		//		}, prefix);
+
+		//		v.AddRange(SecretZone.NullVector, prefix);
+
+		//		v.AddRange(new OrderedDictionary
+		//		{
+		//			{ $"{prefix}SeenCthun", 0 },
+		//			{ $"{prefix}TemporaryMana", 0 },
+		//			{ $"{prefix}TemporusFlag", 0 },
+		//			{ $"{prefix}TimeOut", 0 },
+		//			{ $"{prefix}TotalManaSpentThisGame", 0 },
+		//			{ $"{prefix}UsedMana", 0 },
+		//		}, prefix);
+
+		//		return v;
+		//	}
+		//}
+
 		private readonly int _playerId;
 
 		/// <summary>
@@ -80,7 +251,6 @@ namespace SabberStoneCore.Model.Entities
 
 		public readonly List<int> DiscardedEntities;
 
-
 		public readonly List<Card> CardsPlayedThisTurn;
 		public readonly List<PlayHistoryEntry> PlayHistory;
 
@@ -92,13 +262,12 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Initial cards that are in the deck of the controller.
 		/// </summary>
-		public Deck Deck { get; set; } = new Deck();
+		public Deck Deck { get; set; } // = new Deck();
 
 		/// <summary>
 		/// Base class of the controller.
 		/// </summary>
 		public CardClass BaseClass { get; internal set; }
-
 
 		/// <summary>
 		/// The hero entity representing this player.
@@ -195,8 +364,8 @@ namespace SabberStoneCore.Model.Entities
 			CardsPlayedThisTurn = new List<Card>(10);
 			//cardsPlayedThisGame = new List<Card>(30);
 			PlayHistory = new List<PlayHistoryEntry>(30);
-		
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "Controller", !Game.Logging? "":$"Created Controller '{name}'");
+
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "Controller", !Game.Logging ? "" : $"Created Controller '{name}'");
 		}
 
 		/// <summary>
@@ -282,7 +451,7 @@ namespace SabberStoneCore.Model.Entities
 			// remove hero and place it to the setaside zone
 			Weapon weapon = null;
 			AuraEffects auraEffects = null;
-			if  (Hero != null)
+			if (Hero != null)
 			{
 				SetasideZone.MoveTo(Hero, SetasideZone.Count);
 				SetasideZone.MoveTo(Hero.HeroPower, SetasideZone.Count);
@@ -299,8 +468,8 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 
-			Hero = (Hero) FromCard(this, in heroCard, tags, null, id);
-			Hero[GameTag.ZONE] = (int) Enums.Zone.PLAY;
+			Hero = (Hero)FromCard(this, in heroCard, tags, null, id);
+			Hero[GameTag.ZONE] = (int)Enums.Zone.PLAY;
 			HeroId = Hero.Id;
 			Hero.HeroPower = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
 				new EntityData { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
@@ -351,7 +520,7 @@ namespace SabberStoneCore.Model.Entities
 
 					case ChoiceType.MULLIGAN:
 						IEnumerable<IEnumerable<int>> choices = Util.GetPowerSet(Choice.Choices);
-						return choices.Select(p => (PlayerTask) ChooseTask.Mulligan(this, p.ToList())).ToList();
+						return choices.Select(p => (PlayerTask)ChooseTask.Mulligan(this, p.ToList())).ToList();
 
 					default:
 						throw new NotImplementedException();
@@ -395,7 +564,7 @@ namespace SabberStoneCore.Model.Entities
 			HeroPower power = Hero.HeroPower;
 			Card heroPowerCard = power.Card;
 			if (!power.IsExhausted && mana >= power.Cost &&
-			    !HeroPowerDisabled && !heroPowerCard.HideStat)
+				!HeroPowerDisabled && !heroPowerCard.HideStat)
 			{
 				if (heroPowerCard.ChooseOne)
 				{
@@ -449,7 +618,7 @@ namespace SabberStoneCore.Model.Entities
 			Hero hero = Hero;
 
 			if ((!hero.IsExhausted || (hero.ExtraAttacksThisTurn > 0 && hero.ExtraAttacksThisTurn >= hero.NumAttacksThisTurn))
-			    && hero.AttackDamage > 0 && !hero.IsFrozen)
+				&& hero.AttackDamage > 0 && !hero.IsFrozen)
 			{
 				GenerateAttackTargets();
 
@@ -472,7 +641,7 @@ namespace SabberStoneCore.Model.Entities
 					spellCostHealth = ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1;
 
 				bool healthCost = (playable.AuraEffects?.CardCostHealth ?? false) ||
-				                  (spellCostHealth.Value && playable.Card.Type == CardType.SPELL);
+								  (spellCostHealth.Value && playable.Card.Type == CardType.SPELL);
 
 				if (!healthCost && (playable.Cost > mana || playable.Card.HideStat))
 					return;
@@ -484,19 +653,19 @@ namespace SabberStoneCore.Model.Entities
 					case CardType.MINION when BoardZone.IsFull:
 						return;
 					case CardType.SPELL:
-					{
-						if (card.IsSecret)
 						{
-							if (SecretZone.IsFull) // REQ_SECRET_CAP
-								return;
-							if (SecretZone.Any(p => p.Card.AssetId == card.AssetId)) // REQ_UNIQUE_SECRET
-								return;
-						}
+							if (card.IsSecret)
+							{
+								if (SecretZone.IsFull) // REQ_SECRET_CAP
+									return;
+								if (SecretZone.Any(p => p.Card.AssetId == card.AssetId)) // REQ_UNIQUE_SECRET
+									return;
+							}
 
-						if (card.IsQuest && SecretZone.Quest != null)
-							return;
-						break;
-					}
+							if (card.IsQuest && SecretZone.Quest != null)
+								return;
+							break;
+						}
 				}
 
 				{
@@ -625,7 +794,7 @@ namespace SabberStoneCore.Model.Entities
 				{
 					if (card.Type == CardType.SPELL || card.Type == CardType.HERO_POWER)
 					{
-						Character[] buffer = new Character[targets.Length];
+						var buffer = new Character[targets.Length];
 						int i = 0;
 						for (int j = 0; j < targets.Length; ++j)
 						{
@@ -636,7 +805,7 @@ namespace SabberStoneCore.Model.Entities
 
 						if (i != targets.Length)
 						{
-							Character[] result = new Character[i];
+							var result = new Character[i];
 							Array.Copy(buffer, result, i);
 							return result;
 						}
@@ -647,7 +816,7 @@ namespace SabberStoneCore.Model.Entities
 						if (!card.TargetingAvailabilityPredicate?.Invoke(this, card) ?? false)
 							return null;
 
-						Character[] buffer = new Character[targets.Length];
+						var buffer = new Character[targets.Length];
 						int i = 0;
 						for (int j = 0; j < targets.Length; ++j)
 						{
@@ -658,7 +827,7 @@ namespace SabberStoneCore.Model.Entities
 
 						if (i != targets.Length)
 						{
-							Character[] result = new Character[i];
+							var result = new Character[i];
 							Array.Copy(buffer, result, i);
 							return result;
 						}
@@ -667,7 +836,7 @@ namespace SabberStoneCore.Model.Entities
 				}
 				else if (card.Type == CardType.SPELL || card.Type == CardType.HERO_POWER)
 				{
-					Character[] buffer = new Character[targets.Length];
+					var buffer = new Character[targets.Length];
 					int i = 0;
 					for (int j = 0; j < targets.Length; ++j)
 					{
@@ -678,7 +847,7 @@ namespace SabberStoneCore.Model.Entities
 
 					if (i != targets.Length)
 					{
-						Character[] result = new Character[i];
+						var result = new Character[i];
 						Array.Copy(buffer, result, i);
 						return result;
 					}
@@ -865,7 +1034,7 @@ namespace SabberStoneCore.Model.Entities
 				_data.TryGetValue(GameTag.COMBO_ACTIVE, out int value);
 				return value == 1;
 			}
-			set { this[GameTag.COMBO_ACTIVE] =  value ? 1 : 0; }
+			set { this[GameTag.COMBO_ACTIVE] = value ? 1 : 0; }
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -1195,7 +1364,7 @@ namespace SabberStoneCore.Model.Entities
 		public bool ExtraBattlecry
 		{
 			get => ControllerAuraEffects[GameTag.EXTRA_BATTLECRIES_BASE] > 0 ||
-			       ControllerAuraEffects[GameTag.EXTRA_MINION_BATTLECRIES_BASE] == 1;
+				   ControllerAuraEffects[GameTag.EXTRA_MINION_BATTLECRIES_BASE] == 1;
 			set => ControllerAuraEffects[GameTag.EXTRA_BATTLECRIES_BASE] = value ? 1 : 0;
 		}
 
@@ -1236,7 +1405,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get => BoardZone.Sum(m => m.SpellPower)
 				+ (Hero.NativeTags.ContainsKey(GameTag.SPELLPOWER) ? Hero.NativeTags[GameTag.SPELLPOWER] : 0)
-				+ (NativeTags.ContainsKey(GameTag.SPELLPOWER) ? NativeTags [GameTag.SPELLPOWER] : 0)
+				+ (NativeTags.ContainsKey(GameTag.SPELLPOWER) ? NativeTags[GameTag.SPELLPOWER] : 0)
 				+ ControllerAuraEffects[GameTag.SPELLPOWER];
 		}
 
@@ -1253,5 +1422,64 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		private Controller _opponent;
+	}
+
+	public partial class Controller
+	{
+		public int BoardCountAdvantage => BoardZone.Count - Opponent.BoardZone.Count;
+
+		public int BoardManaAdvantage => BoardZone.Sum(m => m.Cost) - Opponent.BoardZone.Sum(m => m.Cost);
+
+		public double DeckManaEfficiency
+		{
+			get
+			{
+				if (DeckZone.Count > 0)
+					return RemainingMana - DeckZone.Average(p => p.Cost);
+				return -RemainingMana;
+			}
+		}
+
+		public int NumCardsDrawnThisGame
+		{
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_CARDS_DRAWN_THIS_GAME, out int value);
+				return value;
+			}
+			set { this[GameTag.NUM_CARDS_DRAWN_THIS_GAME] = value; }
+		}
+
+		public int DrawAdvantage => NumCardsDrawnThisGame - Opponent.NumCardsDrawnThisGame;
+
+		public double HandManaEfficiency
+		{
+			get
+			{
+				if (HandZone.Count > 0)
+					return RemainingMana - HandZone.Average(p => p.Cost);
+				return -RemainingMana;
+			}
+		}
+
+		public int HandSizeAdvantage => HandZone.Count - Opponent.HandZone.Count;
+
+		public int HealthAdvantage => (Hero.Health + Hero.Armor) - (Opponent.Hero.Health + Opponent.Hero.Armor);
+
+		public int ManaAdvantage => TotalManaSpentThisGame - Opponent.TotalManaSpentThisGame;
+
+		public new List<double> Vector => new List<double>
+		{
+			Game.Turn,
+			PlayerId,
+			BoardCountAdvantage,
+			BoardManaAdvantage,
+			DeckManaEfficiency,
+			DrawAdvantage,
+			HandManaEfficiency,
+			HandSizeAdvantage,
+			HealthAdvantage,
+			ManaAdvantage
+		};
 	}
 }

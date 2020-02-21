@@ -1,11 +1,12 @@
-﻿using SabberStoneCore.Model.Entities;
+﻿using SabberStoneCore.HearthVector;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Auras
 {
 	/// <summary>
 	/// Interface for Ongoing Effects.
 	/// </summary>
-	public interface IAura
+	public interface IAura : IHearthVector
 	{
 		/// <summary> The entity who owns this effect. </summary>
 		IPlayable Owner { get; }

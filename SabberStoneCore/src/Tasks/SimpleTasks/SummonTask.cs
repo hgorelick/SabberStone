@@ -12,8 +12,10 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -57,6 +59,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public SummonSide Side { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}AddToStack", Convert.ToInt32(AddToStack) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}{Card?.Name ?? "Null Card"}.AssetId", Card?.AssetId ?? 0 },
+			{ $"{Prefix()}RemoveFromStack", Convert.ToInt32(RemoveFromStack) },
+			{ $"{Prefix()}Side", (int)Side }
+		};
+		}
+
 		public SummonTask(SummonSide side = SummonSide.DEFAULT, Card card = null, bool removeFromStack = false,
 			bool addToStack = false, int amount = 1)
 		{
@@ -86,6 +101,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (Card == null && stack?.Playables.Count == 0)
 				return TaskState.COMPLETE;
 
@@ -135,6 +152,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					controller.BoardZone.Add(summonEntity, summonPosition);
 				else
 					Generic.SummonBlock.Invoke(game, summonEntity, summonPosition, source);
+
+				Vector().Add($"{Prefix()}Process.MinionToSummon.AssetId", summonEntity.Card.AssetId);
 			}
 
 			return TaskState.COMPLETE;
@@ -198,6 +217,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly bool _op;
 		public bool Op => _op;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}{_card?.Name ?? "Null Card"}.AssetId", AssetId },
+			{ $"{Prefix()}Op", Convert.ToInt32(Op) }
+		};
+		}
+
 		public SummonNumberTask(string cardId, bool opponent)
 		{
 			_card = Cards.FromId(cardId);
@@ -207,12 +235,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
 			in TaskStack stack = null)
 		{
-			if (_op)
-				return new SummonOpTask(_card, stack.Number)
-					.Process(in game, in controller, in source, in target, in stack);
+			AddSourceAndTargetToVector(source, target);
 
-			return new SummonTask(card: _card, amount: stack.Number)
-				.Process(in game, in controller, in source, in target, in stack);
+			TaskState taskState;
+			if (_op)
+			{
+				var summonOpTask = new SummonOpTask(_card, stack.Number);
+				taskState = summonOpTask.Process(in game, in controller, in source, in target, in stack);
+				Vector().AddRange(summonOpTask.Vector(), $"{Prefix()}Process.");
+				return taskState;
+			}
+
+			var summonTask = new SummonTask(card: _card, amount: stack.Number);
+			taskState = summonTask.Process(in game, in controller, in source, in target, in stack);
+			Vector().AddRange(summonTask.Vector(), $"{Prefix()}Process.");
+			return taskState;
 		}
 	}
 }

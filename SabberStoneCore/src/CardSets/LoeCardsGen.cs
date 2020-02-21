@@ -1097,7 +1097,7 @@ namespace SabberStoneCore.CardSets
 			// - TOPDECK = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_110t", new Power {
-				TopdeckTask = ComplexTask.Create(
+				TopDeckTask = ComplexTask.Create(
 					new DamageTask(7, EntityType.HERO),
 					new DrawTask()),
 				PowerTask = ComplexTask.Create(

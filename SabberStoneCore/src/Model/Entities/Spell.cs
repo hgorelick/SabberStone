@@ -11,8 +11,12 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -22,6 +26,34 @@ namespace SabberStoneCore.Model.Entities
 	/// <seealso cref="Playable" />
 	public partial class Spell : Playable
 	{
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+
+			v.Add($"{Prefix()}IsAffectedBySpellpower", Convert.ToInt32(IsAffectedBySpellpower));
+			v.Add($"{Prefix()}IsCountered", Convert.ToInt32(IsCountered));
+			v.Add($"{Prefix()}IsQuest", Convert.ToInt32(IsQuest));
+			v.Add($"{Prefix()}IsSecret", Convert.ToInt32(IsSecret));
+			v.Add($"{Prefix()}IsTwinSpell", Convert.ToInt32(IsTwinSpell));
+			v.Add($"{Prefix()}QuestProgress", QuestProgress);
+			v.Add($"{Prefix()}QuestTotalProgress", QuestTotalProgress);
+			v.Add($"{Prefix()}ReceveivesDoubleSpellDamage", Convert.ToInt32(ReceveivesDoubleSpellDamage));
+
+			return v;
+		}
+
+		public static new OrderedDictionary NullVector = Playable.NullVector.AddRange(new OrderedDictionary
+		{
+			{ "NullSpell.IsAffectedBySpellpower", 0 },
+			{ "NullSpell.IsCountered", 0 },
+			{ "NullSpell.IsQuest", 0 },
+			{ "NullSpell.IsSecret", 0 },
+			{ "NullSpell.IsTwinSpell", 0 },
+			{ "NullSpell.QuestProgress", 0 },
+			{ "NullSpell.QuestTotalProgress", 0 },
+			{ "NullSpell.ReceveivesDoubleSpellDamage", 0 },
+		}, "NullSpell.");
+
 		/// <summary>Initializes a new instance of the <see cref="Spell"/> class.</summary>
 		/// <param name="controller">The controller.</param>
 		/// <param name="card">The card.</param>

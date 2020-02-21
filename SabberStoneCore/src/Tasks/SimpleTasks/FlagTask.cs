@@ -11,6 +11,9 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -18,6 +21,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class FlagTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}CheckFlag", Convert.ToInt32(CheckFlag) }
+		};
+		}
+
 		private readonly bool _checkFlag;
 		public bool CheckFlag => _checkFlag;
 		private readonly ISimpleTask _taskToDo;
@@ -34,6 +46,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (stack.Flag != _checkFlag) return TaskState.COMPLETE;
 
 			//if (_taskToDo is StateTaskList list)
@@ -47,7 +61,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//	_taskToDo.Flag = Flag;
 			//}
 
-			return _taskToDo.Process(in game, in controller, in source, in target, in stack);
+			TaskState result = _taskToDo.Process(in game, in controller, in source, in target, in stack);
+			Vector().AddRange(_taskToDo.Vector(), $"{Prefix()}Process.");
+			return result;
 		}
 
 		public override string ToString()

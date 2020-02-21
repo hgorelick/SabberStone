@@ -12,8 +12,11 @@
 // GNU Affero General Public License for more details.
 #endregion
 
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -21,6 +24,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class EnqueueTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary
+				{
+					{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+					{ $"{Prefix()}Amount", Amount },
+					{ $"{Prefix()}SpellDmg", Convert.ToInt32(SpellDmg) }
+				};
+			v.AddRange(Task.Vector(), Prefix());
+			return v;
+		}
+
 		private readonly int _amount;
 		public int Amount => _amount;
 		private readonly bool _spellDmg;
@@ -39,6 +54,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			int times = _spellDmg ? _amount + controller.CurrentSpellPower : _amount;
 
 			for (int i = 0; i < times; i++)
@@ -58,6 +75,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class EnqueuePendingTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary
+				{
+					{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+					{ $"{Prefix()}TargetType", (int)TargetType }
+				};
+			v.AddRange(Task.Vector(), Prefix());
+			return v;
+		}
+
 		private readonly ISimpleTask _task;
 		public ISimpleTask Task => _task;
 
@@ -78,6 +106,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			IList<IPlayable> targets = IncludeTask.GetEntities(in _targetType, in controller, source, target, stack?.Playables);
 
 			if (_task == null)
@@ -138,6 +168,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			Generic.OverloadBlock(controller, (IPlayable) source, game.History);
 			return TaskState.COMPLETE;
 		}

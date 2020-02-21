@@ -13,11 +13,13 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -30,7 +32,29 @@ namespace SabberStoneCore.Auras
 		private readonly TriggerManager.TriggerHandler _offHandler;
 		private readonly TriggerManager.TriggerHandler _onHandler;
 
-		private bool _removed;
+		private bool _removed
+		{
+			get => _removed;
+			set
+			{
+				_removed = value;
+				Vector()[$"{Prefix()}Removed"] = Convert.ToInt32(value);
+			}
+		}
+
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+			v.Add($"{Prefix()}OffTrigger", (int)_offTrigger);
+			v.Add($"{Prefix()}Removed", Convert.ToInt32(_removed));
+			return v;
+		}
+
+		public static new OrderedDictionary NullVector = Aura.NullVector.AddRange(new OrderedDictionary
+		{
+			{ "OffTrigger", 0 },
+			{ "Removed", 0 },
+		}, "NullSwitchingAura.");
 
 		public SwitchingAura(AuraType type, SelfCondition initCondition, TriggerType offTrigger, params IEffect[] effects) : base(type, effects)
 		{
@@ -139,7 +163,9 @@ namespace SabberStoneCore.Auras
 
 		private void TurnOff(IEntity source)
 		{
-			if (!On) return;
+			if (!On)
+				return;
+
 			On = false;
 			if (source.Game.Logging)
 				source.Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "SwitchingAura.TurnOff",
@@ -150,7 +176,8 @@ namespace SabberStoneCore.Auras
 
 		private void TurnOn(IEntity source)
 		{
-			if (On) return;
+			if (On)
+				return;
 
 			On = true;
 			AuraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(Instruction.AddAll), 1);

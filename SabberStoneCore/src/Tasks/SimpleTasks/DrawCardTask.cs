@@ -12,8 +12,11 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Actions;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -23,11 +26,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (stack?.Playables.Count != 1) return TaskState.STOP;
 
-			IPlayable drawedCard = Generic.Draw(controller, stack?.Playables[0]);
+			IPlayable cardDrawn = Generic.Draw(controller, stack?.Playables[0]);
+			Vector().Add($"{Prefix()}Process.cardDrawn.AssetId", cardDrawn.Card.AssetId);
 
-			if (drawedCard == null) return TaskState.STOP;
+			if (cardDrawn == null) return TaskState.STOP;
 
 			return TaskState.COMPLETE;
 		}

@@ -11,9 +11,12 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
@@ -45,6 +48,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly EntityType _type;
 		public EntityType Type => _type;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}AddToStack", Convert.ToInt32(AddToStack) },
+			{ $"{Prefix()}RandomFlag", Convert.ToInt32(RandomFlag) },
+			{ $"{Prefix()}SummonSide", (int)SummonSide },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		/// <summary>
 		/// Summons a copy of the chosen entitytype.
 		/// </summary>
@@ -70,13 +85,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			int alternateCount = 0;
 
 			if (controller.BoardZone.IsFull)
 				return TaskState.STOP;
 
 			IList<IPlayable> entities =
-				IncludeTask.GetEntities(_type, controller, source, target, stack?.Playables);
+				IncludeTask.GetEntities(_type, in controller, source, target, stack?.Playables);
 
 			if (entities.Count < 1) return TaskState.STOP;
 
@@ -108,6 +125,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						SummonTask.GetPosition(in source, _side, stack?.Number ?? 0, ref alternateCount),
 						source);
 
+					Vector().AddRange(minion.Vector(), $"{Prefix()}Process.");
+
 					if (_addToStack)
 						stack.AddPlayable(minion);
 				}
@@ -132,7 +151,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					if (minion.AppliedEnchantments != null)
 						foreach (Enchantment e in minion.AppliedEnchantments)
 						{
-							Enchantment instance = Enchantment.GetInstance(controller, copy, copy, e.Card);
+							var instance = Enchantment.GetInstance(controller, copy, copy, e.Card);
 							if (e[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
 							{
 								instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
@@ -148,6 +167,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 					if (minion.OngoingEffect != null && copy.OngoingEffect == null)
 						minion.OngoingEffect.Clone(copy);
+
+					Vector().AddRange(copy.Vector(), $"{Prefix()}Process.");
 
 					if (_addToStack)
 						stack.AddPlayable(copy);

@@ -13,15 +13,18 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Triggers
 {
-    public class Trigger
+    public class Trigger : IHearthVector
 	{ 
 		private readonly TriggerManager.TriggerHandler _processHandler;
 
@@ -38,6 +41,14 @@ namespace SabberStoneCore.Triggers
 		public bool IsSecret => _isSecret;
 
 		private bool _removed;
+		//{
+		//	get => _removed;
+		//	set
+		//	{
+		//		_removed = value;
+		//		Vector[$"{Prefix}Removed"] = Convert.ToInt32(value);
+		//	}
+		//}
 		public bool Removed => _removed;
 
 		protected readonly IPlayable _owner;
@@ -47,6 +58,64 @@ namespace SabberStoneCore.Triggers
 
 		internal bool _isAncillaryTrigger;
 		internal bool IsAncillaryTrigger => _isAncillaryTrigger;
+
+		public string Prefix()
+		{
+			return $"{GetType().Name}.";
+		}
+
+		public OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary
+				{
+					{ $"{Prefix()}EitherTurn", Convert.ToInt32(EitherTurn) },
+					{ $"{Prefix()}FastExecution", Convert.ToInt32(FastExecution) },
+					{ $"{Prefix()}RemoveAfterTriggered", Convert.ToInt32(RemoveAfterTriggered) },
+					{ $"{Prefix()}SequenceType", (int)SequenceType }
+				};
+
+			if (SingleTask != null)
+			{
+				if (SingleTask is StateTaskList stateTaskList)
+					for (int i = 0; i < stateTaskList.TaskList.Length; ++i)
+						v.AddRange(stateTaskList.TaskList[i].Vector(), $"{Prefix()}TaskList{i}.");
+				else
+					v.AddRange(SingleTask.Vector(), Prefix());
+			}
+
+			//else
+			//	v.AddRange(SimpleTask.NullVector, Prefix);
+
+			v.Add($"{Prefix()}Owner.AssetId", Owner != null ? Owner.Card.AssetId : 0);
+			v.Add($"{Prefix()}TriggerActivation", (int)TriggerActivation);
+			v.Add($"{Prefix()}TriggerSource", (int)TriggerSource);
+			v.Add($"{Prefix()}TriggerType", (int)TriggerType);
+			v.Add($"{Prefix()}Removed", Convert.ToInt32(Removed));
+			v.Add($"{Prefix()}Validated", Convert.ToInt32(Validated));
+
+			return v;
+		}
+
+		public static OrderedDictionary GetNullVector(string prefix = "NullTrigger.")
+		{
+			var v = new OrderedDictionary
+				{
+					{ $"{prefix}EitherTurn", 0 },
+					{ $"{prefix}FastExecution", 0 },
+					{ $"{prefix}RemoveAfterTriggered", 0 },
+					{ $"{prefix}SequenceType", 0 }
+				};
+
+			v.AddRange(SimpleTask.NullVector, prefix);
+			v.Add($"{prefix}Owner.AssetId", 0);
+			v.Add($"{prefix}TriggerActivation", 0);
+			v.Add($"{prefix}TriggerSource", 0);
+			v.Add($"{prefix}TriggerType", 0);
+			v.Add($"{prefix}Removed", 0);
+			v.Add($"{prefix}Validated", 0);
+
+			return v;
+		}
 
 		public readonly Game Game;
 		/// <summary>
@@ -126,12 +195,15 @@ namespace SabberStoneCore.Triggers
 	    }
 
 		/// <summary>
-		/// Create a new instance of <see cref="Trigger"/> object in source's Game. During activation, the instance's <see cref="Process(IEntity)"/> subscribes to the events in <see cref="TriggerManager"/>.
+		/// Create a new instance of <see cref="Trigger"/> object in source's Game.
+		/// During activation, the instance's <see cref="Process(IEntity)"/> subscribes to the events in <see cref="TriggerManager"/>.
 		/// </summary>
 		public virtual Trigger Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY, bool cloning = false, bool asAncillary = false)
 		{
 			if (source.ActivatedTrigger != null && !IsAncillaryTrigger && !asAncillary)
 				throw new Exceptions.EntityException($"{source} already has an activated trigger.");
+
+			Vector().Add($"{Prefix()}source.AssetId", source.Card.AssetId);
 
 			if (!cloning && activation != TriggerActivation)
 			{
@@ -342,7 +414,8 @@ namespace SabberStoneCore.Triggers
 		/// </summary>
 	    public virtual void Remove()
 		{
-			if (_removed) return;
+			if (_removed)
+				return;
 
 			switch (_triggerType)
 		    {
@@ -487,8 +560,9 @@ namespace SabberStoneCore.Triggers
 				Game.Triggers.Remove(this);
 
 			_removed = true;
+			Vector()[$"{Prefix()}Removed"] = Convert.ToInt32(_removed);
 
-		    Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger",
+			Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger",
 			    !Game.Logging ? "" : $"{_owner}'s {_triggerType} Trigger is removed.");
 	    }
 
@@ -499,24 +573,29 @@ namespace SabberStoneCore.Triggers
 	    {
 			List<Trigger> triggers = game.Triggers;
 			for (int i = 0; i < triggers.Count; i++)
+			{
 				if (triggers[i]._sequenceType == type)
 					triggers[i].Validate(source);
-	    }
+
+				if (triggers[i].Validated)
+					triggers[i].Vector()[triggers[i].Vector().Count - 1] = 1;
+			}
+		}
 
 	    public static void ValidateTriggers(Game game, IEntity source, TriggerType type)
 	    {
 		    List<Trigger> triggers = game.Triggers;
 			for (int i = 0; i < triggers.Count; i++)
-			    if (triggers[i]._triggerType == type)
-				    triggers[i].Validate(source);
+				if (triggers[i]._triggerType == type)
+					triggers[i].Validate(source);
 		}
 
 	    public static void Invalidate(Game game, SequenceType type)
 	    {
-		    game.Triggers.ForEach(p =>
+		    game.Triggers.ForEach(t =>
 		    {
-			    if (p._sequenceType == type)
-				    p.Validated = false;
+				if (t._sequenceType == type)
+					t.Validated = false;
 		    });
 
 			//if (game.TaskQueue.Count <= 0) return;
@@ -526,14 +605,18 @@ namespace SabberStoneCore.Triggers
 			//(game.TaskQueue.TaskList.Count > 0)
 			// game.TaskQueue.TaskList.Clear();
 
-			if (game.TaskQueue.IsEmpty) return;
+			if (game.TaskQueue.IsEmpty)
+				return;
+
 		    game.TaskQueue.ClearCurrentEvent();
 	    }
 
-	    public static void InvalidateAll(Game game)
-	    {
-			game.Triggers.ForEach(p => p.Validated = false);
-			if (game.TaskQueue.IsEmpty) return;
+		public static void InvalidateAll(Game game)
+		{
+			game.Triggers.ForEach(t => t.Validated = false);
+
+			if (game.TaskQueue.IsEmpty)
+				return;
 			game.TaskQueue.ClearCurrentEvent();
 	    }
 
@@ -619,6 +702,7 @@ namespace SabberStoneCore.Triggers
 				    return;
 		    }
 
+			Vector()[Vector().Count - 1] = 1;
 		    Validated = true;
 	    }
 

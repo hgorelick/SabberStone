@@ -13,8 +13,11 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using SabberStoneCore.Auras;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model.Zones
@@ -36,6 +39,32 @@ namespace SabberStoneCore.Model.Zones
 		public bool HasUntouchables => _hasUntouchables;
 
 		public override bool IsFull => _count == Game.MAX_MINIONS_ON_BOARD;
+
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+
+			// same as Game.Auras...
+			//if (AdjacentAuras.Count > 0)
+			for (int i = 0; i < AdjacentAuras.Count; ++i)
+				v.AddRange(AdjacentAuras[i].Vector(), Prefix());
+			//else
+			//	v.AddRange(AdjacentAura.NullVector, Prefix);
+
+			//v.Add($"{Prefix}HasUntouchables", Convert.ToInt32(HasUntouchables));
+
+			//if (Count > 0)
+			for (int i = 0; i < Count; ++i)
+				v.AddRange(_entities[i].Vector(), Prefix());
+
+			return v;
+		}
+
+		//public static new OrderedDictionary NullVector =
+		//	PositioningZone<Minion>.NullVector
+		//	.Concat(AdjacentAura.NullVector).ToList()
+		//	.Concat(new List<int>(1)).ToList()
+		//	.Concat(Minion.NullVector).ToList();
 
 		public override void Add(Minion entity, int zonePosition = -1)
 		{

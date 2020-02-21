@@ -12,13 +12,28 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Actions;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class AddEnchantmentTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}EnchantmentCard.AssetId", _enchantmentCard.AssetId },
+			{ $"{Prefix()}EntityType", (int)_entityType },
+			{ $"{Prefix()}UseEntityId", Convert.ToInt32(_useEntityId) },
+			{ $"{Prefix()}UseScriptTag", Convert.ToInt32(_useScriptTag) }
+		};
+		}
+
 		private readonly Card _enchantmentCard;
 		private readonly EntityType _entityType;
 		private readonly bool _useScriptTag;
@@ -36,9 +51,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			
+
 			//int n1 = stack?.Number ?? 0;
 			//int n2 = stack?.Number1 ?? 0;
+
+			AddSourceAndTargetToVector(source, target);
 
 			int n1 = 0, n2 = 0, entityId = 0;
 			if (_useScriptTag)
@@ -70,9 +87,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 
-			foreach (IPlayable p in IncludeTask.GetEntities(_entityType, in controller, source, target,
-				stack?.Playables))
-				Generic.AddEnchantmentBlock(game, _enchantmentCard, (IPlayable) source, p, n1, n2, entityId);
+			foreach (IPlayable p in IncludeTask.GetEntities(_entityType, in controller, source,
+				target, stack?.Playables))
+			{
+				Vector().Add($"{Prefix()}Process.AddEnchantmentToCard.AssetId", p.Card.AssetId);
+				Generic.AddEnchantmentBlock(game, _enchantmentCard, (IPlayable)source, p, n1, n2, entityId);
+			}
 
 			return TaskState.COMPLETE;
 		}

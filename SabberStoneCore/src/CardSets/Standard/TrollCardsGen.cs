@@ -3251,7 +3251,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CASTSWHENDRAWN = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_541t", new Power {
-				TopdeckTask = ComplexTask.Create(
+				TopDeckTask = ComplexTask.Create(
 					new DamageTask(3, EntityType.HERO),
 					new DrawTask(),
 					new CopyTask(EntityType.SOURCE, Zone.DECK, 2))

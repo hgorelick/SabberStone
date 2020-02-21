@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -20,6 +22,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private readonly Card _weaponCard;
 		public int AssetId => _weaponCard.AssetId;
+
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}NewWeapon.AssetId", AssetId }
+		};
+		}
 
 		public ReplaceWeaponTask(Card cardWeapon)
 		{
@@ -35,6 +46,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (!(source is IPlayable))
 				return TaskState.STOP;
 

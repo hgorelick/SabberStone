@@ -13,8 +13,10 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
@@ -23,6 +25,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class CopyTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}ToOpponent", Convert.ToInt32(ToOpponent) },
+			{ $"{Prefix()}Type", (int)Type },
+			{ $"{Prefix()}Zone", (int)Zone }
+		};
+		}
+
 		private readonly EntityType _entityType;
 		public EntityType Type => _entityType;
 		private readonly Zone _zoneType;
@@ -46,6 +60,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			Zone zone = _zoneType;
 			bool addToStack = _addToStack;
 			int amount = _amount;
@@ -68,6 +84,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					for (int i = 0; i < amount; i++)
 					{
 						IPlayable copied = Generic.Copy(in c, in source, in p, zone);
+						Vector().Add($"{Prefix()}Process.copied.AssetId", copied.Card.AssetId);
 						if (addToStack)
 							result.Add(copied);
 
@@ -122,7 +139,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				for (int i = 0; i < amount; i++)
 				{
 					IPlayable copied = Generic.Copy(in c, in source, in toBeCopied, zone, deathrattle);
-
+					Vector().Add($"{Prefix()}Process.copied.AssetId", copied.Card.AssetId);
 					if (addToStack)
 						result.Add(copied);
 

@@ -289,7 +289,7 @@ namespace SabberStoneCore.Actions
 				else
 					minion.ActivateTask(PowerActivation.POWER, target, chooseOne);
 				// check if [LOE_077] Brann Bronzebeard aura is active
-				if (c.ExtraBattlecry && minion.HasBattleCry)
+				if (c.ExtraBattlecry && minion.HasBattlecry)
 				//if (minion[GameTag.BATTLECRY] == 2)
 				{
 					minion.ActivateTask(PowerActivation.POWER, target, chooseOne);

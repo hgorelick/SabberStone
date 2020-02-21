@@ -11,8 +11,11 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -24,6 +27,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (!(source is IPlayable playableSource))
 				return TaskState.STOP;
 
@@ -41,8 +46,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				if (proxyCthun.AppliedEnchantments != null)
 					foreach (Enchantment e in proxyCthun.AppliedEnchantments)
 					{
-						Enchantment instance =
-							Enchantment.GetInstance(in controller, minionTarget, minionTarget, e.Card);
+						var instance = Enchantment.GetInstance(in controller, minionTarget, minionTarget, e.Card);
 						if (e[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
 						{
 							instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
@@ -57,6 +61,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			minionTarget.AttackDamage = proxyCthun.AttackDamage;
 			minionTarget.BaseHealth = proxyCthun.BaseHealth;
 			minionTarget.HasTaunt = proxyCthun.HasTaunt;
+
+			Vector().AddRange(minionTarget.Vector(), $"{Prefix()}Process.CopyCthun.");
 
 			return TaskState.COMPLETE;
 		}

@@ -11,7 +11,10 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model.Entities
@@ -22,6 +25,28 @@ namespace SabberStoneCore.Model.Entities
 	/// <seealso cref="Playable" />
 	public class HeroPower : Playable
 	{
+		public override string Prefix()
+		{
+			return "HeroPower.";
+		}
+
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+			v.Add($"{Prefix()}IsPassiveHeroPower", Convert.ToInt32(IsPassiveHeroPower));
+			return v;
+		}
+
+		public static new OrderedDictionary NullVector
+		{
+			get
+			{
+				OrderedDictionary v = Playable.NullVector;
+				v.Add($"NullHeroPower.IsPassiveHeroPower", 0);
+				return v;
+			}
+		}
+
 		/// <summary>Initializes a new instance of the <see cref="HeroPower"/> class.</summary>
 		/// <param name="controller">The controller.</param>
 		/// <param name="card">The card.</param>

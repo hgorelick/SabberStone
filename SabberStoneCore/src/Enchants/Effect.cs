@@ -12,7 +12,10 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
@@ -25,7 +28,7 @@ namespace SabberStoneCore.Enchants
 	/// <summary>
 	/// Defines methods for tags value variation.
 	/// </summary>
-	public interface IEffect
+	public interface IEffect : IHearthVector
 	{
 		void ApplyTo(IEntity entity, bool isOneTurnEffect = false);
 		void ApplyAuraTo(IPlayable playable);
@@ -45,12 +48,34 @@ namespace SabberStoneCore.Enchants
 	/// </summary>
 	public readonly struct Effect : IEffect, IEquatable<Effect>
 	{
+		public string Prefix()
+		{
+			return "Effect.";
+		}
+
+		public OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ "Operator", (int)Operator },
+			{ "Tag", (int)Tag },
+			{ "Value", Value }
+		};
+		}
+
+		public static OrderedDictionary NullVector = new OrderedDictionary
+		{
+			{ "Operator", 0 },
+			{ "Tag", 0 },
+			{ "Value", 0 }
+		};
+
 		public readonly GameTag Tag;
 		public readonly EffectOperator Operator;
 		public readonly int Value;
 
 		/// <summary>
-		/// Create a new Effect. An Effect consists of <see cref="GameTag"/>, <see cref="EffectOperator"/>, and <see cref="int"/> value.
+		/// Create a new Effect. An Effect consists of <see cref="GameTag"/>, <see cref="EffectOperator"/>, and <see cref="Int32"/> value.
 		/// </summary>
 		/// <param name="tag">The <see cref="GameTag"/> to be affected.</param>
 		/// <param name="operator">The operation this effect performs.</param>

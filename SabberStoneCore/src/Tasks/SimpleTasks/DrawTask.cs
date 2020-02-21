@@ -11,7 +11,9 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -20,6 +22,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DrawTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Count", Count },
+			{ $"{Prefix()}ToStack", Convert.ToInt32(_toStack) }
+		};
+		}
+
 		private readonly int _count;
 		public int Count => _count;
 		private readonly bool _toStack;
@@ -39,6 +51,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			//Model.Entities.IPlayable drawedCard = Generic.Draw(controller);
 			//bool nullFlag = false;
 			List<IPlayable> cards = _toStack ? new List<IPlayable>(_count) : null;
@@ -52,6 +66,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 
 				cards?.Add(draw);
+				Vector().Add($"{Prefix()}Process.CardDrawn.AssetId", draw.Card.AssetId);
 			}
 
 			if (cards != null)

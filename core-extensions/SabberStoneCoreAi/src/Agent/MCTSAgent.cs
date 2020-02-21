@@ -81,7 +81,7 @@ namespace SabberStoneCoreAi.Agent
 
 			UpdateOpponent(BlindGame.CurrentOpponent.HandZone.Count);
 
-			return new HearthNode(state.Root, state.Parent, BlindGame, state.Action);
+			return new HearthNode(state.Parent, BlindGame, state.Action);
 		}
 
 		/// <summary>
@@ -208,7 +208,7 @@ namespace SabberStoneCoreAi.Agent
 
 				else if (PossibleOpponentDecks.Count == 1)
 				{
-					if (PossibleOpponentDecks[0] == OpponentDeck.DeckName)
+					if (PossibleOpponentDecks[0] == OpponentDeck.Name)
 						return;
 
 					OpponentDeck = DeckQuery.DeckFromName(PossibleOpponentDecks[0], Opponent.HeroClass);

@@ -13,6 +13,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -26,6 +27,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly bool _opponent;
 		public bool Opponent => _opponent;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Count", Count },
+			{ $"{Prefix()}Opponent", Convert.ToInt32(Opponent) }
+		};
+		}
+
 		public RandomEntourageTask(int count = 1, bool opponent = false)
 		{
 			_count = count;
@@ -36,6 +47,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			var playable = source as IPlayable;
 			if (playable == null || playable.Card.Entourage.Length < 1) return TaskState.STOP;
 
@@ -68,6 +81,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					Cards.FromId(playable.Card.Entourage.Choose(game.Random)));
 				stack.Playables = new List<IPlayable> {randomCard};
 			}
+
+			AddStackToVector(stack);
 
 			game.OnRandomHappened(true);
 

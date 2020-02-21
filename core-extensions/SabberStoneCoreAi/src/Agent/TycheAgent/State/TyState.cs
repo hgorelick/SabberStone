@@ -265,7 +265,7 @@ namespace SabberStoneCoreAi.Tyche2
 				{
 					var sourceMinion = (source as Minion);
 
-					if (sourceMinion.HasBattleCry)
+					if (sourceMinion.HasBattlecry)
 					{
 						bool success = false;
 

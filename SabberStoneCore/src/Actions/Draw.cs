@@ -39,6 +39,8 @@ namespace SabberStoneCore.Actions
 				IPlayable playable = Entity.FromCard(c, card);
 				//c.NumCardsDrawnThisTurn++;
 				AddHandPhase.Invoke(c, playable);
+				c.DeckZone.ResetPositions();
+
 				return playable;
 			};
 
@@ -65,7 +67,7 @@ namespace SabberStoneCore.Actions
 						game.TaskQueue.EndEvent();
 					}
 
-					ISimpleTask task = playable.Power?.TopdeckTask;
+					ISimpleTask task = playable.Power?.TopDeckTask;
 					if (task != null)
 					{
 						if (game.History)
@@ -87,6 +89,8 @@ namespace SabberStoneCore.Actions
 								PowerHistoryBuilder.BlockEnd());
 					}
 				}
+
+				c.DeckZone.ResetPositions();
 
 				return playable;
 			};
@@ -111,6 +115,7 @@ namespace SabberStoneCore.Actions
 				c.Game.Log(LogLevel.INFO, BlockType.ACTION, "DrawPhase", !c.Game.Logging ? "" : $"{c.Name} draws {playable}");
 
 				c.NumCardsDrawnThisTurn++;
+				c.NumCardsDrawnThisGame++;
 				c.LastCardDrawn = playable.Id;
 
 				return playable;
@@ -122,6 +127,7 @@ namespace SabberStoneCore.Actions
 			c.Game.Log(LogLevel.INFO, BlockType.ACTION, "DrawPhase", !c.Game.Logging ? "" : $"{c.Name} draws {playable}");
 
 			c.NumCardsDrawnThisTurn++;
+			c.NumCardsDrawnThisGame++;
 			c.LastCardDrawn = playable.Id;
 
 			if (AddHandPhase.Invoke(c, playable))
@@ -135,7 +141,7 @@ namespace SabberStoneCore.Actions
 				game.ProcessTasks();
 				game.TaskQueue.EndEvent();
 				
-				ISimpleTask task = playable.Power?.TopdeckTask;
+				ISimpleTask task = playable.Power?.TopDeckTask;
 				if (task != null)
 				{
 					if (game.History)
@@ -157,6 +163,8 @@ namespace SabberStoneCore.Actions
 							PowerHistoryBuilder.BlockEnd());
 				}
 			}
+
+			c.DeckZone.ResetPositions();
 
 			return playable;
 		}

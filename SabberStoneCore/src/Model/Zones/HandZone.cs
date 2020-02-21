@@ -14,7 +14,10 @@
 
 using SabberStoneCore.Auras;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Model.Zones
 {
@@ -23,6 +26,17 @@ namespace SabberStoneCore.Model.Zones
 	/// </summary>
 	public class HandZone : PositioningZone<IPlayable>
 	{
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+
+			//if (Count > 0)
+			for (int i = 0; i < Count; ++i)
+				v.AddRange(_entities[i].Vector(), Prefix());
+
+			return v;
+		}
+
 		public HandZone(Controller controller) : base(Zone.HAND, Controller.MaxHandSize)
 		{
 			Game = controller.Game;

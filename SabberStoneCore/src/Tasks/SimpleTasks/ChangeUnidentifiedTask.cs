@@ -12,8 +12,11 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Actions;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -23,7 +26,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			Generic.ChangeEntityBlock(controller, (IPlayable) source, Cards.FromId(source.Card.Entourage.Choose(game.Random)), false);
+			AddSourceAndTargetToVector(source, target);
+			IPlayable p = Generic.ChangeEntityBlock(controller, (IPlayable)source, Cards.FromId(source.Card.Entourage.Choose(game.Random)), false);
+			Vector().Add($"{Prefix()}Process.ChangedTo.AssetId", p.Card.AssetId);
 			return TaskState.COMPLETE;
 		}
 	}

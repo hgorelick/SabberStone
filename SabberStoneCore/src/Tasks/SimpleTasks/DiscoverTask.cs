@@ -14,10 +14,12 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -84,6 +86,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private static readonly ConcurrentDictionary<(DiscoverCriteria, CardClass), Card[][]>
 			CachedDiscoverySetsByCriteria = new ConcurrentDictionary<(DiscoverCriteria, CardClass), Card[][]>();
 
+		public override OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary
+				{
+					{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+					{ $"{Prefix()}ChoiceAction", (int)ChoiceAction }
+				};
+
+			v.AddRange(_discoverCriteria.Vector(), Prefix());
+			v.Add($"{Prefix()}DiscoverType", (int)DiscoverType);
+			v.Add($"{Prefix()}NumberOfChoices", NumberOfChoices);
+			v.Add($"{Prefix()}Repeat", Repeat);
+			v.AddRange(_taskTodo.Vector(), Prefix());
+
+			return v;
+		}
+
 		private readonly DiscoverType _discoverType;
 		public DiscoverType DiscoverType => _discoverType;
 		//private readonly Card _enchantmentCard;
@@ -139,6 +158,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			Card[][] cardsToDiscover;
 			ChoiceAction choiceAction;
 
@@ -205,7 +226,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				current.AfterChooseTask = null;
 				for (int i = _repeat - 2; i >= 0; i--)
 				{
-					Choice choice = new Choice(controller, cardsToDiscover)
+					var choice = new Choice(controller, cardsToDiscover)
 					{
 						ChoiceAction = choiceAction,
 						ChoiceType = ChoiceType.GENERAL,
@@ -739,8 +760,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (criteria.CardClass == CardClass.INVALID)
 			{ // Use the player's Class
 				IReadOnlyList<Card> allCards = Cards.FormatTypeClassCards(format)[cls];
-				List<Card> classCards = new List<Card>();
-				List<Card> neutralCards = new List<Card>();
+				var classCards = new List<Card>();
+				var neutralCards = new List<Card>();
 				foreach (Card card in allCards)
 				{
 					if (!criteria.Evaluate(card)) continue;
@@ -762,7 +783,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				(criteria.CardClass == CardClass.ANOTHER_CLASS)
 			{
 				IEnumerable<Card> allCards = Cards.FormatTypeCards(format);
-				List<Card> matching = new List<Card>();
+				var matching = new List<Card>();
 				foreach (Card card in allCards)
 				{
 					if (!criteria.Evaluate(card)) continue;
@@ -777,7 +798,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{	// Use the given class criterion
 				IReadOnlyList<Card> allCards = Cards.FormatTypeClassCards(format)[criteria.CardClass];
 
-				List<Card> classCards = new List<Card>();
+				var classCards = new List<Card>();
 				foreach (Card card in allCards)
 				{
 					if (!criteria.Evaluate(card)) continue;
@@ -878,8 +899,25 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return result;
 		}
 
-		private readonly struct DiscoverCriteria : IEquatable<DiscoverCriteria>
+		private readonly struct DiscoverCriteria : IEquatable<DiscoverCriteria>, IHearthVector
 		{
+			public string Prefix()
+			{
+				return "DiscoverCriteria.";
+			}
+
+			public OrderedDictionary Vector()
+			{
+				return new OrderedDictionary
+			{
+				{ $"{Prefix()}CardClass", (int)CardClass },
+				{ $"{Prefix()}CardType", (int)CardType },
+				{ $"{Prefix()}RelaSign", (int)RelaSign },
+				{ $"{Prefix()}Tag", (int)Tag },
+				{ $"{Prefix()}Value", Value }
+			};
+			}
+
 			public readonly CardType CardType;
 			public readonly CardClass CardClass;
 			public readonly GameTag Tag;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -20,6 +21,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (stack == null)
 				throw new Exception($"{this} should contained in StateTaskList");
 
@@ -32,6 +35,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				throw new Exception($"{e} does not have any captured Card.");
 
 			IPlayable entity = Entity.FromCard(in controller, in c);
+			Vector().Add($"{Prefix()}Process.CapturedCard.AssetId", entity.Card.AssetId);
 
 			stack.Playables = new[] {entity};
 
@@ -55,10 +59,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (!(target is Enchantment e))
 				throw new Exception($"Target of {this} is not Enchantment.");
 
 			Card c = e.CapturedCard;
+			Vector().Add($"{Prefix()}Process.{c.Name}.AssetId", c.AssetId);
 
 			if (c == null)
 				throw new Exception($"{e} does not have any captured Card.");

@@ -14,6 +14,8 @@
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -23,8 +25,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			for (int i = 0; i < stack.Number; ++i)
-				Generic.Draw(controller);
+			{
+				IPlayable p = Generic.Draw(controller);
+				Vector().Add($"{Prefix()}Process.CardDrawn.AssetId", p.Card.AssetId);
+			}
 			return TaskState.COMPLETE;
 		}
 	}

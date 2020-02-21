@@ -14,10 +14,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Triggers;
@@ -272,6 +274,59 @@ namespace SabberStoneCore.Model.Entities
 
 		public Power Power => Card.Power;
 		public Trigger ActivatedTrigger { get; set; }
+
+		public string Prefix()
+		{
+			return $"Enchantment.{Card.AssetId}.";
+		}
+
+		public OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary();
+
+			if (ActivatedTrigger != null)
+				v.AddRange(ActivatedTrigger.Vector(), Prefix());
+			//v.AddRange(ActivatedTrigger != null ? ActivatedTrigger.Vector : Trigger.GetNullVector("NullActivatedTrigger."), Prefix);
+			v.Add($"{Prefix()}CapturedCard.AssetId", CapturedCard.AssetId);
+			v.Add($"{Prefix()}Card.AssetId", Card.AssetId);
+			v.Add($"{Prefix()}Creator.AssetId", Creator != null ? Creator.Card.AssetId : 0);
+			v.Add($"{Prefix()}IsOneTurnActive", Convert.ToInt32(IsOneTurnActive));
+
+			if (OngoingEffect != null)
+				v.AddRange(OngoingEffect.Vector(), Prefix());
+			//v.AddRange(OngoingEffect != null ? OngoingEffect.Vector : Aura.NullVector, Prefix);
+			if (Power != null)
+				v.AddRange(Power.Vector(), Prefix());
+			//v.AddRange(Power != null ? Power.Vector : Power.NullVector, Prefix);
+			v.Add($"{Prefix()}ScriptTagValue1", ScriptTagValue1);
+			v.Add($"{Prefix()}ScriptTagValue2", ScriptTagValue2);
+			v.Add($"{Prefix()}Target.AssetId", Target != null ? Target.Card.AssetId : 0);
+			v.Add($"{Prefix()}Zone.Type", (int)Zone.Type);
+
+			return v;
+		}
+
+		public static OrderedDictionary NullVector
+		{
+			get
+			{
+				string prefix = "NullEnchantment.";
+				OrderedDictionary v = new OrderedDictionary().AddRange(Trigger.GetNullVector(), prefix);
+
+				v.Add($"{prefix}CapturedCard.AssetId", 0);
+				v.Add($"{prefix}Card.AssetId", 0);
+				v.Add($"{prefix}Creator.AssetId", 0);
+				v.Add($"{prefix}IsOneTurnActive", 0);
+				v.AddRange(Aura.NullVector, prefix);
+				v.AddRange(Power.NullVector, prefix);
+				v.Add($"{prefix}ScriptTagValue1", 0);
+				v.Add($"{prefix}ScriptTagValue2", 0);
+				v.Add($"{prefix}Target.AssetId", 0);
+				v.Add($"{prefix}Zone.Type", 0);
+
+				return v;
+			}
+		} 
 
 		public void Reset()
 		{

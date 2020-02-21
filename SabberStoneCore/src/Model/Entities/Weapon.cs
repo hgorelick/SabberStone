@@ -12,7 +12,11 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -24,6 +28,43 @@ namespace SabberStoneCore.Model.Entities
 	/// <seealso cref="Playable" />
 	public partial class Weapon : Playable
 	{
+		public override string Prefix()
+		{
+			return Zone?.Type == Enums.Zone.DECK || Zone?.Type == Enums.Zone.HAND
+				? base.Prefix() : "Hero.Weapon.";
+		}
+
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+			v.Add($"{Prefix()}AttackDamage", AttackDamage);
+			v.Add($"{Prefix()}Damage", Damage);
+			v.Add($"{Prefix()}Durability", Durability);
+			v.Add($"{Prefix()}IsImmune", Convert.ToInt32(IsImmune));
+			v.Add($"{Prefix()}IsWindfury", Convert.ToInt32(IsWindfury));
+			v.Add($"{Prefix()}Poisonous", Convert.ToInt32(Poisonous));
+			return v;
+		}
+
+		public static new OrderedDictionary NullVector
+		{
+			get
+			{
+				OrderedDictionary v = Playable.NullVector;
+				v.AddRange(new OrderedDictionary
+				{
+					{ "AttackDamage", 0 },
+					{ "Damage", 0 },
+					{ "Durability", 0 },
+					{ "IsImmune", 0 },
+					{ "IsWindfury", 0 },
+					{ "Poisonous", 0 },
+				}, "NullWeapon.");
+
+				return v;
+			}
+		}
+
 		/// <summary>Initializes a new instance of the <see cref="Weapon"/> class.</summary>
 		/// <param name="controller">The controller.</param>
 		/// <param name="card">The card.</param>

@@ -12,12 +12,17 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks
 {
-	public interface ISimpleTask
+	public interface ISimpleTask : IHearthVector
 	{
 		TaskState State { get; set; }
 
@@ -29,7 +34,22 @@ namespace SabberStoneCore.Tasks
 
 	public abstract class SimpleTask : ISimpleTask
 	{
+		public string Prefix()
+		{
+			return $"{GetType().Name}.";
+		}
+
+		public virtual OrderedDictionary Vector()
+		{
+			return new OrderedDictionary { { $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) } };
+		}
+
+		public static OrderedDictionary NullVector = new OrderedDictionary { { "NullTask.IsTrigger", 0 } };
+
 		public TaskState State { get; set; } = TaskState.READY;
+		//public IEntity Source;
+		//public IPlayable Target;
+		//public TaskStack Stack;
 
 		public abstract TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target, in TaskStack stack = null);
@@ -44,6 +64,35 @@ namespace SabberStoneCore.Tasks
 		public override string ToString()
 		{
 			return GetType().Name;
+		}
+
+		public void AddSourceAndTargetToVector(IEntity source, IPlayable target)
+		{
+			Vector().Add($"{Prefix()}Process.source.AssetId", source?.Card.AssetId ?? 0);
+			Vector().Add($"{Prefix()}Process.target.AssetId", target?.Card.AssetId ?? 0);
+		}
+
+		public void AddStackToVector(TaskStack stack)
+		{
+			for (int i = 0; i < stack?.Playables.Count; ++i)
+				Vector().Add($"{Prefix()}Process.stack.Playables{i}.AssetId", stack.Playables[i].Card.AssetId);
+		}
+
+		public static OrderedDictionary GetVector(ISimpleTask simpleTask)
+		{
+			var v = new OrderedDictionary();
+			if (simpleTask is StateTaskList stateTaskList)
+				for (int i = 0; i < stateTaskList.TaskList.Length; ++i)
+					v.AddRange(stateTaskList.TaskList[i].Vector(), stateTaskList.TaskList[i].Prefix());
+			else
+				v.AddRange(simpleTask.Vector(), simpleTask.Prefix());
+
+			return v;
+		}
+
+		public static OrderedDictionary GetNullVector(string prefix = "NullTask.")
+		{
+			return new OrderedDictionary { { $"{prefix}IsTrigger", 0 } };
 		}
 	}
 }

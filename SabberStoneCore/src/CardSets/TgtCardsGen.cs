@@ -1398,7 +1398,7 @@ namespace SabberStoneCore.CardSets
 				PowerTask = ComplexTask.Create(
 					new SummonOpTask("AT_036t"),
 					new DrawTask()),
-				TopdeckTask = ComplexTask.Create(
+				TopDeckTask = ComplexTask.Create(
 					new SummonOpTask("AT_036t"),
 					new DrawTask())
 			});
@@ -1887,7 +1887,7 @@ namespace SabberStoneCore.CardSets
 			// - TOPDECK = 1
 			// --------------------------------------------------------
 			cards.Add("AT_130", new Power {
-				TopdeckTask = new DamageTask(1, EntityType.MINIONS)
+				TopDeckTask = new DamageTask(1, EntityType.MINIONS)
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR

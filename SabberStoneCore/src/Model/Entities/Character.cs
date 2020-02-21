@@ -13,9 +13,11 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Kettle;
 
 namespace SabberStoneCore.Model.Entities
@@ -97,6 +99,74 @@ namespace SabberStoneCore.Model.Entities
 	/// </summary>
 	public abstract partial class Character : Playable, ICharacter
 	{
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+
+			v.Add($"{Prefix()}Armor", Armor);
+			v.Add($"{Prefix()}AttackDamage", AttackDamage);
+			v.Add($"{Prefix()}BaseHealth", BaseHealth);
+			v.Add($"{Prefix()}CantAttack", Convert.ToInt32(CantAttack));
+			v.Add($"{Prefix()}CantAttackHeroes", Convert.ToInt32(CantAttackHeroes));
+			v.Add($"{Prefix()}CantBeTargetedByOpponents", Convert.ToInt32(CantBeTargetedByOpponents));
+			v.Add($"{Prefix()}CantBeTargetedBySpells", Convert.ToInt32(CantBeTargetedBySpells));
+			v.Add($"{Prefix()}Damage", Damage);
+			v.Add($"{Prefix()}HasAnyValidAttackTargets", Convert.ToInt32(HasAnyValidAttackTargets));
+			v.Add($"{Prefix()}HasStealth", Convert.ToInt32(HasStealth));
+			v.Add($"{Prefix()}HasTaunt", Convert.ToInt32(HasTaunt));
+			v.Add($"{Prefix()}HasWindfury", Convert.ToInt32(HasWindfury));
+			v.Add($"{Prefix()}Health", Health);
+			v.Add($"{Prefix()}IsAttacking", Convert.ToInt32(IsAttacking));
+			v.Add($"{Prefix()}IsDead", Convert.ToInt32(IsDead));
+			v.Add($"{Prefix()}IsDefending", Convert.ToInt32(IsDefending));
+			v.Add($"{Prefix()}IsFrozen", Convert.ToInt32(IsFrozen));
+			v.Add($"{Prefix()}IsImmune", Convert.ToInt32(IsImmune));
+			v.Add($"{Prefix()}IsSilenced", Convert.ToInt32(IsSilenced));
+			//v.Add($"{Prefix()}_modifiedATK", _modifiedATK != null ? (int)_modifiedATK : 0);
+			//v.Add($"{Prefix()}_modifiedCantBeTargetedBySpells", _modifiedCantBeTargetedBySpells != null ? Convert.ToInt32((bool)_modifiedCantBeTargetedBySpells) : 0);
+			//v.Add($"{Prefix()}_modifiedHealth", _modifiedHealth != null ? (int)_modifiedHealth : 0);
+			//v.Add($"{Prefix()}_modifiedImmune", _modifiedImmune != null ? Convert.ToInt32((bool)_modifiedImmune) : 0);
+			//v.Add($"{Prefix()}_modifiedStealth", _modifiedStealth != null ? Convert.ToInt32((bool)_modifiedStealth) : 0);
+			//v.Add($"{Prefix()}_modifiedTaunt", _modifiedTaunt != null ? Convert.ToInt32((bool)_modifiedTaunt) : 0);
+			v.Add($"{Prefix()}NumAttacksThisTurn", NumAttacksThisTurn);
+			try { v.Add($"{Prefix()}PreDamage", PreDamage); } catch { v.Add($"{Prefix()}PreDamage", 0); }
+			v.Add($"{Prefix()}ValidAttackTargets", ValidAttackTargets.ToList().Count);
+
+			return v;
+		}
+
+		public static new OrderedDictionary NullVector = Playable.NullVector.AddRange(new OrderedDictionary
+		{
+			{ "NullCharacter.Armor", 0 },
+			{ "NullCharacter.AttackDamage", 0 },
+			{ "NullCharacter.BaseHealth", 0 },
+			{ "NullCharacter.CantAttack", 0 },
+			{ "NullCharacter.CantAttackHeroes", 0 },
+			{ "NullCharacter.CantBeTargetedByOpponents", 0 },
+			{ "NullCharacter.CantBeTargetedBySpells", 0 },
+			{ "NullCharacter.Damage", 0 },
+			{ "NullCharacter.HasAnyValidAttackTargets", 0 },
+			{ "NullCharacter.HasStealth", 0 },
+			{ "NullCharacter.HasTaunt", 0 },
+			{ "NullCharacter.HasWindfury", 0 },
+			{ "NullCharacter.Health", 0 },
+			{ "NullCharacter.IsAttacking", 0 },
+			{ "NullCharacter.IsDead", 0 },
+			{ "NullCharacter.IsDefending", 0 },
+			{ "NullCharacter.IsFrozen", 0 },
+			{ "NullCharacter.IsImmune", 0 },
+			{ "NullCharacter.IsSilenced", 0 },
+			//{ "NullCharacter._modifiedATK", 0 },
+			//{ "NullCharacter._modifiedCantBeTargetedBySpells", 0 },
+			//{ "NullCharacter._modifiedHealth", 0 },
+			//{ "NullCharacter._modifiedImmune", 0 },
+			//{ "NullCharacter._modifiedStealth", 0 },
+			//{ "NullCharacter._modifiedTaunt", 0 },
+			{ "NullCharacter.NumAttacksThisTurn", 0 },
+			{ "NullCharacter.PreDamage", 0 },
+			{ "NullCharacter.ValidAttackTargets", 0 },
+		}, "NullCharacter.");
+
 		public event TriggerManager.TriggerHandler PreDamageTrigger;
 		public event TriggerManager.TriggerHandler TakeDamageTrigger;
 		public event TriggerManager.TriggerHandler AfterAttackTrigger;

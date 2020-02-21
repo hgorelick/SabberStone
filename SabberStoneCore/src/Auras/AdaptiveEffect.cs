@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Text;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
@@ -14,21 +17,74 @@ namespace SabberStoneCore.Auras
 	/// </summary>
 	public class AdaptiveEffect : IAura
 	{
+		public string Prefix()
+		{
+			return "AdaptiveEffect.";
+		}
+
+		public OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary
+				{
+					{ $"{Prefix()}IsSwitching", Convert.ToInt32(IsSwitching) },
+					{ $"{Prefix()}LastValue", LastValue },
+					{ $"{Prefix()}On", Convert.ToInt32(On) },
+					{ $"{Prefix()}Operator", (int)Operator }
+				};
+
+			//v.Add($"{Prefix}Owner.AssetId", Owner != null ? Owner.Card.AssetId : 0);
+
+			v.Add($"{Prefix()}GameTag", (int)Tag);
+			return v;
+		}
+
+		public static OrderedDictionary NullVector = new OrderedDictionary
+		{
+			{ "NullAdaptiveEffect.IsSwitching", 0 },
+			{ "NullAdaptiveEffect.LastValue", 0 },
+			{ "NullAdaptiveEffect.On", 0 },
+			{ "NullAdaptiveEffect.Operator", 0 },
+			{ "NullAdaptiveEffect.Ownder.AssetId", 0 },
+			{ "NullAdaptiveEffect.Tag", 0 },
+		};
+
 		private readonly bool _isSwitching;
+		public bool IsSwitching => _isSwitching;
+
 		private readonly Func<Playable, int> _valueFunction;
+		public Func<Playable, int> ValueFunction => _valueFunction;
+
 		private readonly SelfCondition _condition;
+
 		private readonly Playable _owner;
+		public Playable Owner => _owner;
+
 		private readonly GameTag _tag;
+		public GameTag Tag => _tag;
+
 		private readonly EffectOperator _operator;
+		public EffectOperator Operator => _operator;
 
 		private bool _on = true;
+		//{
+		//	get => _on;
+		//	set
+		//	{
+		//		_on = value;
+		//		Vector[$"{Prefix}On"] = Convert.ToInt32(value);
+		//	}
+		//}
+		public bool On => _on;
+
 		private int _lastValue;
+		public int LastValue => _lastValue;
 
 		/// <summary>
 		/// Defines a kind of effects in which the given tag varies with the value from the given function. (e.g. giants)
 		/// </summary>
 		public AdaptiveEffect(GameTag tag, EffectOperator @operator, Func<Playable, int> valueFunc)
 		{
+			//_on = true;
 			_tag = tag;
 			_operator = @operator;
 			_valueFunction = valueFunc;
@@ -39,6 +95,7 @@ namespace SabberStoneCore.Auras
 		/// </summary>
 		public AdaptiveEffect(SelfCondition condition, GameTag tag)
 		{
+			//_on = true;
 			_isSwitching = true;
 			_tag = tag;
 			_condition = condition;
@@ -47,6 +104,7 @@ namespace SabberStoneCore.Auras
 
 		private AdaptiveEffect(AdaptiveEffect prototype, Playable owner)
 		{
+			//_on = true;
 			_isSwitching = prototype._isSwitching;
 			_valueFunction = prototype._valueFunction;
 			_tag = prototype._tag;
@@ -168,6 +226,7 @@ namespace SabberStoneCore.Auras
 		{
 			_owner.OngoingEffect = null;
 			_on = false;
+			Vector()[$"{Prefix()}On"] = Convert.ToInt32(_on);
 		}
 
 		public void Clone(IPlayable clone)

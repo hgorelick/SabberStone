@@ -1706,7 +1706,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TOPDECK = 1
 			// --------------------------------------------------------
 			cards.Add("DAL_185", new Power {
-				TopdeckTask = new HealTask(4, EntityType.HERO)
+				TopDeckTask = new HealTask(4, EntityType.HERO)
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -3234,7 +3234,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CASTSWHENDRAWN = 1
 			// --------------------------------------------------------
 			cards.Add("DAL_582t", new Power {
-				TopdeckTask = new SummonTask("DAL_582t2"),
+				TopDeckTask = new SummonTask("DAL_582t2"),
 				PowerTask = new SummonTask("DAL_582t2")
 			});
 

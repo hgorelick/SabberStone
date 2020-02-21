@@ -11,8 +11,11 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Text;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -29,6 +32,25 @@ namespace SabberStoneCore.Tasks
 	{
         readonly ISimpleTask[] _tasks;
         public ISimpleTask[] TaskList => _tasks;
+
+		public string Prefix()
+		{
+			return "StateTaskList.";
+		}
+
+		public OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary
+				{
+					{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+					{ $"{Prefix()}State", (int)State }
+				};
+
+			for (int i = 0; i < TaskList.Length; ++i)
+				v.AddRange(TaskList[i].Vector(), Prefix());
+
+			return v;
+		}
 
 		private StateTaskList(ISimpleTask[] list)
 		{

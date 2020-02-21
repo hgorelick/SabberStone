@@ -479,7 +479,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("GVG_007", new Power {
 				// TODO Test: Flame Leviathan_GVG_007
-				TopdeckTask = new DamageTask(2, EntityType.ALLMINIONS)
+				TopDeckTask = new DamageTask(2, EntityType.ALLMINIONS)
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -1538,7 +1538,7 @@ namespace SabberStoneCore.CardSets
 				PowerTask = ComplexTask.Create(
 					new DamageTask(10, EntityType.HERO),
 					new DrawTask()),
-				TopdeckTask = ComplexTask.Create(
+				TopDeckTask = ComplexTask.Create(
 					new DamageTask(10, EntityType.HERO),
 					new DrawTask())
 			});

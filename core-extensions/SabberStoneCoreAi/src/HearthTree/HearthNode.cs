@@ -8,21 +8,23 @@ using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Kettle;
 using SabberStoneCoreAi.Utils;
+using SabberStoneCore.HearthVector;
+using System.Collections.Specialized;
 
 namespace SabberStoneCoreAi.HearthNodes
 {
 	/// <summary>
 	/// Constructors and defining members
 	/// </summary>
-	public partial class HearthNode
+	public partial class HearthNode : IHearthVector
 	{
-		protected HearthNode _root { get; set; }
-		public HearthNode Root => _root;
+		//protected HearthNode _root { get; set; }
+		//public HearthNode Root => _root;
 
 		public bool IsRoot => Parent == null; // || this is RootNode;
 
-		protected bool _endTurn = false;
-		public bool IsEndTurn => _endTurn;
+		protected bool _isEndTurn = false;
+		public bool IsEndTurn => _isEndTurn;
 
 		protected HearthNode _parent { get; set; }
 		public HearthNode Parent => _parent;
@@ -52,6 +54,7 @@ namespace SabberStoneCoreAi.HearthNodes
 
 		protected List<HearthNode> _frontier { get; } = new List<HearthNode>();
 		protected List<HearthNode> _children { get; set; } = new List<HearthNode>();
+		protected List<HearthNode> _endTurns { get; set; } = new List<HearthNode>();
 
 		/// <summary>
 		/// Actions that have yet to be applied to this HearthNode. Once expanded,
@@ -65,17 +68,33 @@ namespace SabberStoneCoreAi.HearthNodes
 		/// <value><see cref="ActionNode"/></value>
 		public List<HearthNode> Children => _children;
 
+		public List<HearthNode> EndTurns => _endTurns;
+
+		public string Prefix()
+		{
+			return $"{GetType().Name}.";
+		}
+
+		/// <summary>
+		/// Vectorization of the current Game state, along with some HearthNode info.
+		/// </summary>
+		/// <returns><see cref="Game.Vector()"/></returns>
+		public OrderedDictionary Vector()
+		{
+			return Game.Vector();
+		}
+
 		/// <summary>
 		/// Base class constructor
 		/// </summary>
 		/// <param name="root"></param>
 		/// <param name="game"></param>
-		public HearthNode(HearthNode root, HearthNode parent, Game game, PlayerTask action)//, bool isRoot = false)
-		{
-			_root = root;
+		public HearthNode(HearthNode parent, Game game, PlayerTask action)//, bool isRoot = false)
+        {
+			//_root = root;
 			_parent = parent;
 			_action = action;
-			_endTurn = Action?.PlayerTaskType == PlayerTaskType.END_TURN;
+			_isEndTurn = (Action?.PlayerTaskType ?? PlayerTaskType.ROOT) == PlayerTaskType.END_TURN;
 
 			_game = game.Clone();
 			_logging = Game.Logging;
@@ -97,7 +116,7 @@ namespace SabberStoneCoreAi.HearthNodes
 		/// <param name="other"></param>
 		protected HearthNode(HearthNode other)
 		{
-			_root = other.Root;
+			//_root = other.Root;
 			_parent = null;// other.Parent?.Clone() ?? null;
 			_logging = other.Logging;
 			_game = other.Game.Clone();
@@ -110,6 +129,14 @@ namespace SabberStoneCoreAi.HearthNodes
 
 			for (int i = 0; i < other.Children.Count; ++i)
 				AddChild(other.Children[i]);	
+		}
+
+
+		public static HearthNode CreateRoot(Game game)
+        {
+			var root = new HearthNode(null, game, null);
+			//root._root = root;
+			return root;
 		}
 
 		/// <summary>
@@ -191,7 +218,24 @@ namespace SabberStoneCoreAi.HearthNodes
 				//else
 				#endregion
 
-				AddFrontier(new HearthNode(Root, this, Game.Clone(), options[i]));
+				var possibleAction = new HearthNode(this, Game, options[i]);
+				AddFrontier(possibleAction);
+
+				//if (possibleAction.IsEndTurn)
+				//{
+				//	if (IsRoot)
+				//		EndTurns.Add(possibleAction);
+				//	else
+				//	{
+				//		HearthNode root = this;
+				//		while (!root.IsRoot)
+				//			root = root.Parent;
+				//		root.EndTurns.Add(possibleAction);
+				//	}
+				//}
+
+				//if (possibleAction.Game.Turn == Game.Turn && possibleAction.Game.State != State.COMPLETE)
+				//	possibleAction.GenPossibleActions();					
 			}
 		}
 	}

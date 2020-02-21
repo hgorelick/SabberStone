@@ -11,10 +11,13 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -25,6 +28,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		//private static readonly List<Card> TotalAdaptCards = Cards.All.Where(p => p.Id.StartsWith("UNG_999t") && p.Type == CardType.SPELL).ToList();
 		private static readonly Card[] TotalAdaptCards =
 			Cards.All.Where(p => p.Id.StartsWith("UNG_999t") && p.Type == CardType.SPELL).ToArray();
+
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
 
 		public AdaptTask(EntityType type)
 		{
@@ -69,6 +81,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//bool success = Generic.CreateChoiceCards.Invoke(controller, source, targets, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), null, null);
 			//if (!success)
 			//	return TaskState.STOP;
+
+			AddSourceAndTargetToVector(source, target);
 
 			IList<IPlayable> targets = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 

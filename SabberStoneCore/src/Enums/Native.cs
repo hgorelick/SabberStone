@@ -501,6 +501,7 @@ namespace SabberStoneCore.Enums
 		TAG_ONE_TURN_EFFECT = 338,
 		SILENCE = 339,
 		COUNTER = 340,
+		NUM_CARDS_DRAWN_THIS_GAME = 341,
 		//341 MinionTag, true/false
 		ARTISTNAME = 342,
 		LocalizationNotes = 344,

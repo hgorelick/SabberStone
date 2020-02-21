@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -26,6 +28,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly bool _opponent;
 		public bool Opponent => _opponent;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Opponent", Convert.ToInt32(Opponent) },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public MoveToDeck(EntityType type, bool opponent = false)
 		{
 			_type = type;
@@ -36,6 +48,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			Controller c = _opponent ? controller.Opponent : controller;
 
 			foreach (IPlayable p in IncludeTask.GetEntities(in _type, in controller, source, target, stack?.Playables))
@@ -53,6 +67,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToDeck",
 					!game.Logging ? "" : $"{controller.Name} is taking control of {p} and shuffled into his deck.");
 
+				Vector().Add($"{Prefix()}Process.MovedToDeck.AssetId", p.Card.AssetId);
 				Generic.ShuffleIntoDeck.Invoke(c, source, p);
 			}
 			return TaskState.COMPLETE;

@@ -12,6 +12,7 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 

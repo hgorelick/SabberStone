@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Text;
-using System.Xml;
 using System.Diagnostics;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
-using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCoreAi.Agent;
 using SabberStoneCoreAi.HearthNodes;
 using SabberStoneCoreAi.Utils;
 using SabberStoneCoreAi.Stats;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using SabberStoneCore.HearthVector;
 
 namespace SabberStoneCoreAi.POGamespace
 {
@@ -27,7 +27,7 @@ namespace SabberStoneCoreAi.POGamespace
 		private GameConfig _gameConfig;
 		private bool _setupHeroes = true;
 
-		private GameStats gameStats;
+		//private GameStats gameStats;
 		private static readonly Random Rnd = new Random();
 
 		public POGameHandler(GameConfig gameConfig, AbstractAgent player1, AbstractAgent player2, bool setupHeroes = true, string debugMode = "")
@@ -42,7 +42,7 @@ namespace SabberStoneCoreAi.POGamespace
 			_player2 = player2;
 			_player2.InitializeAgent();
 
-			gameStats = new GameStats(gameConfig.Player1Name, gameConfig.Player2Name);
+			//gameStats = new GameStats(gameConfig.Player1Name, gameConfig.Player2Name);
 			_debugMode = debugMode;
 		}
 
@@ -54,50 +54,54 @@ namespace SabberStoneCoreAi.POGamespace
 
 			_masterGame.StartGame();
 
-			var _masterRoot = new HearthNode(null, null, _masterGame, null);
+			var state = HearthNode.CreateRoot(_masterGame);
 
 			AbstractAgent _currentAgent;
 
 			Stopwatch currentStopwatch;
 			Stopwatch[] watches = new[] { new Stopwatch(), new Stopwatch() };
 
-			var state = new HearthNode(_masterRoot, null, _masterGame, null);
+			//var state = new HearthNode(_masterRoot, null, _masterGame, null);
 
-			//XmlWriter xml = null;
-			//if (_debugMode != "")
-			//{
-			//	if (_debugMode == "python")
-			//	{
-			//		xml = XmlWriter.Create("sabberstats.xml",
-			//			new XmlWriterSettings() { Indent = true, IndentChars = "\t", });
-			//		xml.WriteStartDocument();
-			//	}
-			//}
+			//List<int> gameStateVector = state.Vector();
+			//string dt = DateTime.Now.ToString("MM_dd_yyyy HH_mm");
+			//int turn = 1;
+			//int actionNum = 1;
+			var heroClasses = new CardClass[2] { state.Game.Player1.HeroClass, state.Game.Player2.HeroClass };
+			string filename = $"{state.Game.Player1.Deck.Name}_vs_{state.Game.Player2.Deck.Name}.csv";
 
 			try
 			{
 				while (state.Game.State != State.COMPLETE && state.Game.State != State.INVALID)
 				{
+					state.Game.WriteCSV((gameNumber + 1).ToString(), heroClasses, filename);
+
 					if (_debugMode == "")
 						Console.WriteLine(state.PrintBoard());
 
-					else if (_debugMode == "python")
-						Console.WriteLine(state.PrintBoard());
+					//else if (_debugMode == "python")
+					//	Console.WriteLine(state.PrintBoard());
 
-					//state.Write("Sabber", false, true);
 
 					_currentAgent = state.Game.CurrentPlayer == state.Game.Player1 ? _player1 : _player2;
+					//perspective = state.Game.CurrentPlayer == state.Game.Player1 ? 1 : 2;
 					currentStopwatch = state.Game.CurrentPlayer == state.Game.Player1 ? watches[0] : watches[1];
 
 					currentStopwatch.Start();
 					HearthNode moveNode = _currentAgent.PlayTurn(state);
-					if (moveNode.Action.PlayerTaskType == PlayerTaskType.PLAY_CARD)
-						gameStats.AddCard(state.Game.CurrentPlayer.PlayerId);
+					//moveNode.Game.WriteCSV(dt, heroClasses, filename);
+
+					//actionNum = moveNode.Game.Turn == turn ? actionNum + 1 : 1;
+
+					//if (moveNode.Action.PlayerTaskType == PlayerTaskType.PLAY_CARD)
+					//	gameStats.AddCard(state.Game.CurrentPlayer.PlayerId);
 
 					if (_debugMode != null)
 						Console.Write(moveNode.PrintAction());
 
-					state = new HearthNode(moveNode.Root, null, moveNode.Game, moveNode.Action);
+					state = new HearthNode(null, moveNode.Game, moveNode.Action);
+					//turn = state.Game.Turn;
+					//gameStateVector = state.Vector();
 					currentStopwatch.Stop();
 
 					state.Game.CurrentPlayer.Game = state.Game;
@@ -128,21 +132,31 @@ namespace SabberStoneCoreAi.POGamespace
 			{
 				Console.WriteLine(e.Message);
 				Console.WriteLine(e.StackTrace);
-				_masterRoot.Game.State = State.COMPLETE;
-				_masterRoot.Game.CurrentPlayer.PlayState = PlayState.CONCEDED;
-				_masterRoot.Game.CurrentOpponent.PlayState = PlayState.WON;
+				state.Game.State = State.COMPLETE;
+				state.Game.CurrentPlayer.PlayState = PlayState.CONCEDED;
+				state.Game.CurrentOpponent.PlayState = PlayState.WON;
 
-				if (addToGameStats && _masterRoot.Game.State != State.INVALID)
-					gameStats.registerException(_masterRoot.Game, e);
+				//if (addToGameStats && _masterRoot.Game.State != State.INVALID)
+				//	gameStats.registerException(_masterRoot.Game, e);
 			}
 
 			if (state.Game.State == State.INVALID)
 				return false;
 
-			if (addToGameStats)
-			{
-				gameStats.addGame(state.Game, watches);
-			}
+			//if (addToGameStats)
+			//{
+			//	gameStats.addGame(state.Game, watches);
+			//}
+
+			string winner = state.Game.Player1.PlayState == PlayState.WON ?
+				state.Game.Player1.Hero.Card.Name : state.Game.Player2.Hero.Card.Name;
+
+			Console.WriteLine($"{winner} won!");
+
+			int winnerId = state.Game.Player1.PlayState == PlayState.WON ?
+				state.Game.Player1.PlayerId : state.Game.Player2.PlayerId;
+
+			state.Game.WriteCSV((gameNumber + 1).ToString(), heroClasses, filename, winner: winnerId);
 
 			_player1.FinalizeGame();
 			_player2.FinalizeGame();
@@ -158,10 +172,10 @@ namespace SabberStoneCoreAi.POGamespace
 					i -= 1;		// invalid _game
 			}
 
-			if (addToGameStats)
-				gameStats.FinalizeResults("GameStats_MCTSvsTyche" + DateTime.Now.ToString().Replace('/', '_').Replace(':', '_'));
+			//if (addToGameStats)
+			//	gameStats.FinalizeResults("GameStats_MCTSvsTyche" + DateTime.Now.ToString().Replace('/', '_').Replace(':', '_'));
 		}
 
-		public GameStats getGameStats() { return gameStats; }
+		//public GameStats getGameStats() { return gameStats; }
 	}
 }

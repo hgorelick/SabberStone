@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -32,10 +34,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public bool OpFlag { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}OpFlag", Convert.ToInt32(OpFlag) },
+			{ $"{Prefix()}GameTag", (int)Tag }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			Controller c = OpFlag ? controller.Opponent : controller;
 
 			c[Tag] = Amount;

@@ -17,12 +17,29 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using SabberStoneCore.HearthVector;
 
 namespace SabberStoneCore.Model.Zones
 {
 	public class SecretZone : LimitedZone<Spell>
 	{
 		public const int SecretZoneMaxSize = 5;
+
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+
+			v.Add($"{Prefix()}Quest.AssetId", Quest?.Card.AssetId ?? 0);
+
+			//if (_entities.Length > 0)
+			for (int i = 0; i < Count; ++i)
+				v.AddRange(_entities[i].Vector(), Prefix());
+			//else
+			//	v.AddRange(Spell.NullVector, Prefix);
+
+			return v;
+		}
 
 		/// <summary>
 		/// An unique field for Quest.

@@ -274,7 +274,7 @@ namespace SabberStoneCoreAi
 				//var molten = (IPlayable)testGame.CurrentPlayer.HandZone.Find(c => c.Type == CardType.WEAPON);
 				//if (molten?.Cost != molten?.Card.Cost)
 				//	check = false;
-				var root = new HearthNode(null, null, testGame, null);
+				var root = new HearthNode(null, testGame, null);
 
 				//molten = (IPlayable)root.Game.CurrentPlayer.HandZone.Find(c => c.Type == CardType.WEAPON);
 				//if (molten.Cost != molten.Card.Cost)

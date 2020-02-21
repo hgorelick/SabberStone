@@ -13,6 +13,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -34,10 +35,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public int EntityIndex { get; set; }
 		public int NumberIndex { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			IList<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 			if (entities == null || entities.Count == 0 || entities.Count <= EntityIndex) return TaskState.STOP;
 
@@ -89,6 +101,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						break;
 				}
 
+			Vector().Add($"{Prefix()}Process.value", value);
 			return TaskState.COMPLETE;
 		}
 	}
@@ -102,6 +115,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly int _numberIndex;
 		public int NumberIndex => _numberIndex;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}NumberIndex", NumberIndex }
+		};
+		}
+
 		public GetEventNumberTask(int numberIndex = 0)
 		{
 			_numberIndex = numberIndex;
@@ -111,22 +133,29 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			switch (_numberIndex)
 			{
 				case 0:
 					stack.Number = game.CurrentEventData?.EventNumber ?? 0;
+					Vector().Add($"{Prefix()}stack.Number", stack.Number);
 					break;
 				case 1:
 					stack.Number1 = game.CurrentEventData?.EventNumber ?? 0;
+					Vector().Add($"{Prefix()}stack.Number1", stack.Number1);
 					break;
 				case 2:
 					stack.Number2 = game.CurrentEventData?.EventNumber ?? 0;
+					Vector().Add($"{Prefix()}stack.Number2", stack.Number2);
 					break;
 				case 3:
 					stack.Number3 = game.CurrentEventData?.EventNumber ?? 0;
+					Vector().Add($"{Prefix()}stack.Number3", stack.Number3);
 					break;
 				case 4:
 					stack.Number4 = game.CurrentEventData?.EventNumber ?? 0;
+					Vector().Add($"{Prefix()}stack.Number4", stack.Number4);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -149,10 +178,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_num = num;
 		}
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}_num", _num }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			game.CurrentEventData.EventNumber = _num > 0 ? _num : stack.Number;
 
 			return TaskState.COMPLETE;

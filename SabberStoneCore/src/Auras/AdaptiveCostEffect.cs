@@ -12,10 +12,14 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Text;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
@@ -29,25 +33,81 @@ namespace SabberStoneCore.Auras
 	/// </summary>
 	public class AdaptiveCostEffect : IAura
 	{
+		public string Prefix()
+		{
+			return "AdaptiveCostEffect.";
+		}
+
+		public OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary
+				{
+					{ $"{Prefix()}CachedValue", CachedValue },
+					{ $"{Prefix()}EffectType", (int)EffectType },
+					{ $"{Prefix()}IsAppliedThisTurn", Convert.ToInt32(IsAppliedThisTurn) },
+					{ $"{Prefix()}IsTriggered", Convert.ToInt32(IsTriggered) },
+					{ $"{Prefix()}Operator", (int)Operator }
+				};
+
+			v.Add($"{Prefix()}Owner.AssetId", Owner != null ? Owner.Card.AssetId : 0);
+
+			v.Add($"{Prefix()}TriggerSource", (int)TriggerSource);
+			v.Add($"{Prefix()}TriggerType", (int)TriggerType);
+			v.Add($"{Prefix()}Value", Value);
+
+			return v;
+		}
+
+		public static OrderedDictionary NullVector = new OrderedDictionary
+		{
+			{ "NullAdaptiveCostEffect.CachedValue", 0 },
+			{ "NullAdaptiveCostEffect.EffectType", 0 },
+			{ "NullAdaptiveCostEffect.IsAppliedThisTurn", 0 },
+			{ "NullAdaptiveCostEffect.IsTriggered", 0 },
+			{ "NullAdaptiveCostEffect.Operator", 0 },
+			{ "NullAdaptiveCostEffect.Owner.AssetId", 0 },
+			{ "NullAdaptiveCostEffect.TriggerSource", 0 },
+			{ "NullAdaptiveCostEffect.TriggerType", 0 },
+			{ "NullAdaptiveCostEffect.Value", 0 },
+		};
+
 		// Consider make these subclasses
 		private readonly Type _type;
+		public Type EffectType => _type;
 
 		private readonly Playable _owner;
+		public IPlayable Owner => _owner;
+
 		private readonly int _value;
+		public int Value => _value;
+
 		private readonly EffectOperator _operator;
+		public EffectOperator Operator => _operator;
+
 		private readonly Func<IPlayable, int> _costFunction;
+		public Func<IPlayable, int> CostFunction => _costFunction;
 
 		private readonly TriggerType _triggerType;
+		public TriggerType TriggerType => _triggerType;
+
 		private readonly TriggerSource _triggerSource;
+		public TriggerSource TriggerSource => _triggerSource;
+
 		private readonly SelfCondition _condition;
 		private readonly TriggerManager.TriggerHandler _updateHandler;
 		private readonly TriggerManager.TriggerHandler _removedHandler;
 
 		private readonly Func<Playable, int> _initialisationFunction;
+		public Func<Playable, int> InitialisationFunction => _initialisationFunction;
+
 		private int _cachedValue = -1;
+		public int CachedValue => _cachedValue;
 
 		private bool _isTriggered;
+		public bool IsTriggered => _isTriggered;
+
 		private bool _isAppliedThisTurn;
+		public bool IsAppliedThisTurn => _isAppliedThisTurn;
 
 		/// <summary>
 		/// Creates an Adaptive Cost Effect that varies the owner's cost.
@@ -132,8 +192,6 @@ namespace SabberStoneCore.Auras
 			_isTriggered = prototype._isTriggered;
 			_isAppliedThisTurn = prototype._isAppliedThisTurn;
 		}
-
-		public IPlayable Owner => _owner;
 
 		public void Activate(Playable owner, bool cloning = false)
 		{
@@ -314,7 +372,7 @@ namespace SabberStoneCore.Auras
 			_owner.Game.TriggerManager.EndTurnTrigger -= _removedHandler;
 		}
 
-		private enum Type
+		public enum Type
 		{
 			Variable,
 			Triggered,

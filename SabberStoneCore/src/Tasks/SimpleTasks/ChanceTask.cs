@@ -11,13 +11,25 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ChanceTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}UseFlag", Convert.ToInt32(UseFlag) }
+		};
+		}
+
 		public ChanceTask(bool useFlag = false)
 		{
 			UseFlag = useFlag;
@@ -29,6 +41,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			int random = game.Random.Next(0, 2);
 
 			if (!UseFlag) return random == 0 ? TaskState.COMPLETE : TaskState.STOP;

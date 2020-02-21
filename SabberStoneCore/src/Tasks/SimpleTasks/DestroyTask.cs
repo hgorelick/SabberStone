@@ -11,13 +11,26 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DestroyTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}ForcedDeathPhase", Convert.ToInt32(ForcedDeathPhase) },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		private readonly bool _forcedDeathPhase;
 		public bool ForcedDeathPhase => _forcedDeathPhase;
 		private readonly EntityType _type;
@@ -33,8 +46,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			foreach (IPlayable p in IncludeTask.GetEntities(_type, in controller, source, target, stack?.Playables))
+			{
+				Vector().Add($"{Prefix()}Process.Destroyed.AssetId", p.Card.AssetId);
 				p.Destroy();
+			}
 
 			if (_forcedDeathPhase) game.DeathProcessingAndAuraUpdate();
 

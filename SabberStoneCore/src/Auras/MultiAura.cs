@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Text;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Auras
@@ -11,14 +14,54 @@ namespace SabberStoneCore.Auras
 	/// </summary>
 	public class MultiAura : IAura, IReadOnlyList<IAura>
 	{
+		public string Prefix()
+		{
+			return "MultiAura.";
+		}
+
+		public OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary();
+
+			//if (Auras.Count > 0)
+			for (int i = 0; i < Auras.Count; ++i)
+				v.AddRange(Auras[i].Vector(), Prefix());
+
+			//else
+			//	v.AddRange(Aura.NullVector, Prefix);
+
+			v.Add($"{Prefix()}Count", Auras.Count);
+			v.Add($"{Prefix()}On", Convert.ToInt32(On));
+			//v.Add($"{Prefix}Owner.AssetId", Owner != null ? Owner.Card.AssetId : 0);
+
+			return v;
+		}
+
+		public static OrderedDictionary NullVector = Aura.NullVector.AddRange(new OrderedDictionary
+		{
+			{ "Count", 0 },
+			{ "On", 0 },
+			//{ "Owner.AssetId", 0 },
+		}, "NullMultiAura.");
+
 		private readonly IReadOnlyList<IAura> _auras;
+		public IReadOnlyList<IAura> Auras => _auras;
 
 		public IPlayable Owner { get; set; }
-		public bool On { get; set; } = true;
+		public bool On = true;
+		//{
+		//	get => On;
+		//	set
+		//	{
+		//		On = value;
+		//		Vector[$"{Prefix}On"] = Convert.ToInt32(value);
+		//	}
+		//}
 
 		public MultiAura(params IAura[] auras)
 		{
 			_auras = auras;
+			//On = true;
 		}
 
 		public void Update()
@@ -33,6 +76,7 @@ namespace SabberStoneCore.Auras
 		public void Remove()
 		{
 			On = false;
+			Vector()[$"{Prefix()}On"] = Convert.ToInt32(On);
 			Owner.OngoingEffect = null;
 			for (int i = 0; i < _auras.Count; i++)
 				_auras[i].Remove();

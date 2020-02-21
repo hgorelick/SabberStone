@@ -13,6 +13,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -31,10 +32,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			IList<IPlayable> results = Function(stack?.Playables);
 
 			if (stack != null)
+			{
 				stack.Playables = results;
+				AddStackToVector(stack);
+			}
 
 			return TaskState.COMPLETE;
 		}
@@ -51,6 +57,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			_func(game, controller, source, target, stack);
 			return TaskState.COMPLETE;
 		}

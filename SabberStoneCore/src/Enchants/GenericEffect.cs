@@ -1,10 +1,41 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {
 	public readonly struct GenericEffect<TAttr, T> : IEffect where TAttr : Attr<T> where T : Playable
 	{
+		public string Prefix()
+		{
+			return $"GenericEffect.{typeof(TAttr).Name}.";
+		}
+
+		public OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary { { $"{Prefix()}Operator", (int)Operator } };
+
+			if (typeof(TAttr) == typeof(Cost))
+				v.Add($"{Prefix()}Type", (int)GameTag.COST);
+
+			else if (typeof(TAttr) == typeof(ATK))
+				v.Add($"{Prefix()}Type", (int)GameTag.ATK);
+
+			else if (typeof(TAttr) == typeof(Health))
+				v.Add($"{Prefix()}Type", (int)GameTag.HEALTH);
+
+			else if (typeof(TAttr) == typeof(Taunt))
+				v.Add($"{Prefix()}Type", (int)GameTag.TAUNT);
+
+			else if (typeof(TAttr) == typeof(CantBeTargetedBySpells))
+				v.Add($"{Prefix()}Type", (int)GameTag.CANT_BE_TARGETED_BY_SPELLS);
+
+			v.Add($"{Prefix()}Value", Value);
+			return v;
+		}
+
 		private readonly TAttr _attr;
 		public TAttr Attr => _attr;
 

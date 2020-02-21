@@ -12,7 +12,9 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
@@ -21,6 +23,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class CountTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Opponent", Convert.ToInt32(Opponent) },
+			{ $"{Prefix()}Zone", (int)Zone }
+		};
+		}
+
 		private readonly int _numberIndex;
 		private readonly Zone _zone;
 		public Zone Zone => _zone;
@@ -47,6 +59,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (stack == null)
 				throw new ArgumentException();
 
@@ -58,6 +72,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				stack.Number = _getFreeSpace ? zone.FreeSpace : zone.Count;
 
+				Vector().Add($"{Prefix()}stack.Number", stack.Number);
 				return TaskState.COMPLETE;
 			}
 
@@ -66,21 +81,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				case 0:
 					stack.Number = IncludeTask.GetEntities(Type, in controller, source, target, stack.Playables).Count;
+					Vector().Add($"{Prefix()}stack.Number", stack.Number);
 					break;
 				case 1:
 					stack.Number1 = IncludeTask.GetEntities(Type, in controller, source, target, stack.Playables).Count;
+					Vector().Add($"{Prefix()}stack.Number1", stack.Number1);
 					break;
 				case 2:
-					stack.Number2 = IncludeTask.GetEntities(Type, in controller, source, target, stack.Playables)
-						.Count;
+					stack.Number2 = IncludeTask.GetEntities(Type, in controller, source, target, stack.Playables).Count;
+					Vector().Add($"{Prefix()}stack.Number2", stack.Number2);
 					break;
 				case 3:
-					stack.Number3 = IncludeTask.GetEntities(Type, in controller, source, target, stack.Playables)
-						.Count;
+					stack.Number3 = IncludeTask.GetEntities(Type, in controller, source, target, stack.Playables).Count;
+					Vector().Add($"{Prefix()}stack.Number3", stack.Number3);
 					break;
 				case 4:
-					stack.Number4 = IncludeTask.GetEntities(Type, in controller, source, target, stack.Playables)
-						.Count;
+					stack.Number4 = IncludeTask.GetEntities(Type, in controller, source, target, stack.Playables).Count;
+					Vector().Add($"{Prefix()}stack.Number4", stack.Number4);
 					break;
 				default:
 					throw new ArgumentException("Number Index must be in range [0, 4]");

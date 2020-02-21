@@ -13,9 +13,13 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Text;
 using SabberStoneCore.Auras;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -26,7 +30,7 @@ namespace SabberStoneCore.Enchants
 	/// <summary>
 	/// Class to store attributes of the <see cref="Power"/> of an Enchantment Card.
 	/// </summary>
-	public class Enchant
+	public class Enchant : IHearthVector
 	{
 		public static readonly Trigger RemoveWhenPlayedTrigger =
 			new Trigger(TriggerType.PLAY_CARD)
@@ -36,6 +40,37 @@ namespace SabberStoneCore.Enchants
 				RemoveAfterTriggered = true,
 				_isAncillaryTrigger = true,
 			};
+
+		public string Prefix()
+		{
+			return $"{GetType().Name}.";
+		}
+
+		public virtual OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary();
+			//if (Effects.Length > 0)
+			for (int i = 0; i < Effects.Length; ++i)
+				v.AddRange(Effects[i].Vector(), Prefix());
+			//else
+			//	v.AddRange(Effect.NullVector, Prefix);
+
+			v.Add($"{Prefix()}RemoveWhenPlayed", Convert.ToInt32(RemoveWhenPlayed));
+			v.Add($"{Prefix()}ScriptTagValue1", ScriptTagValue1);
+			v.Add($"{Prefix()}ScriptTagValue2", ScriptTagValue2);
+			v.Add($"{Prefix()}UseScriptTag", Convert.ToInt32(UseScriptTag));
+
+			return v;
+		}
+
+		public static OrderedDictionary NullVector =
+			Effect.NullVector.AddRange(new OrderedDictionary
+			{
+				{ "RemoveWhenPlayed", 0 },
+				{ "ScriptTagValue1", 0 },
+				{ "ScriptTagValue2", 0 },
+				{ "UseScriptTag", 0 },
+			}, "NullEnchant.");
 
 		public readonly IEffect[] Effects;
 		public bool UseScriptTag;
@@ -153,6 +188,20 @@ namespace SabberStoneCore.Enchants
 		//private IEntity _target;
 
 		IPlayable IAura.Owner => Target;
+
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+			v.Add($"{Prefix()}Count", _count);
+			v.Add($"{Prefix()}ToBeUpdated", Convert.ToInt32(_toBeUpdated));
+			return v;
+		}
+
+		public new static OrderedDictionary NullVector = Enchant.NullVector.AddRange(new OrderedDictionary
+		{
+			{ "Count", 0 },
+			{ "ToBeUpdated", 0 },
+		}, "NullOngoingEnchant.");
 
 		public OngoingEnchant(params IEffect[] effects) : base(effects) { }
 

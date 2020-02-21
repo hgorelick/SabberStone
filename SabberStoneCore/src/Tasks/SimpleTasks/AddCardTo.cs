@@ -12,8 +12,10 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -21,6 +23,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class AddCardTo : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}CardToAdd.AssetId", Card.AssetId },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		private readonly int _amount;
 		public int Amount => _amount;
 		private readonly Card _card;
@@ -47,6 +60,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			var entities = new IPlayable[_amount];
 
 			switch (_type)
@@ -59,7 +74,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 
 					for (int i = 0; i < entities.Length && !controller.DeckZone.IsFull; i++)
+					{
+						//Vector.Add(entities[i].Card.AssetId);
 						Generic.ShuffleIntoDeck.Invoke(controller, source, entities[i]);
+					}
 					return TaskState.COMPLETE;
 
 				case EntityType.HAND:
@@ -70,7 +88,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 
 					for (int i = 0; i < entities.Length; i++)
+					{
+						//Vector.Add(entities[i].Card.AssetId);
 						Generic.AddHandPhase.Invoke(controller, entities[i]);
+					}
 					return TaskState.COMPLETE;
 
 				case EntityType.OP_HAND:
@@ -81,7 +102,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 
 					for (int i = 0; i < entities.Length; i++)
+					{
+						//Vector.Add(entities[i].Card.AssetId);
 						Generic.AddHandPhase.Invoke(controller.Opponent, entities[i]);
+					}
 					return TaskState.COMPLETE;
 
 				case EntityType.OP_DECK:
@@ -92,7 +116,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 
 					for (int i = 0; i < entities.Length && !controller.Opponent.DeckZone.IsFull; i++)
+					{
+						//Vector.Add(entities[i].Card.AssetId);
 						Generic.ShuffleIntoDeck.Invoke(controller.Opponent, source, entities[i]);
+					}
 					return TaskState.COMPLETE;
 
 				default:

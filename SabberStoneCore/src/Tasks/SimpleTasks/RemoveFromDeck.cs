@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
@@ -27,6 +29,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly bool _addToStack;
 		public bool AddToStack => _addToStack;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}AddToStack", Convert.ToInt32(AddToStack) },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public RemoveFromDeck(EntityType type, bool addToStack = true)
 		{
 			_type = type;
@@ -37,13 +49,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (_addToStack)
+			{
 				stack.Playables = IncludeTask.GetEntities(_type, in controller, source, target, stack.Playables)
-					.Where(p => p.Zone.Type == Zone.DECK && Generic.RemoveFromZone.Invoke(p.Controller, p)).ToList();
+									.Where(p => p.Zone.Type == Zone.DECK && Generic.RemoveFromZone.Invoke(p.Controller, p)).ToList();
+				AddStackToVector(stack);
+			}
 			else
 				foreach(IPlayable p in IncludeTask.GetEntities(in _type, in controller, source, target, stack?.Playables))
 					if (p.Zone.Type == Zone.DECK)
+					{
 						Generic.RemoveFromZone(p.Controller, p);
+						Vector().Add($"{Prefix()}RemovedFromDeck.AssetId", p.Card.AssetId);
+					}
 			
 			return TaskState.COMPLETE;
 		}

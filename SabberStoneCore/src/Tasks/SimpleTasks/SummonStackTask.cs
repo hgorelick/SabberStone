@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -36,21 +38,36 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public bool RemoveFromStack { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}RemoveFromStack", Convert.ToInt32(RemoveFromStack) },
+			{ $"{Prefix()}RemoveFromZone", Convert.ToInt32(RemoveFromZone) }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (controller.BoardZone.IsFull || stack?.Playables.Count == 0) return TaskState.STOP;
 
 			for (int i = 0; i < stack?.Playables.Count; i++)
 			{
 				IPlayable p = stack.Playables[i];
 
-				if (p.Controller.BoardZone.IsFull) continue;
+				if (p.Controller.BoardZone.IsFull)
+					continue;
 
 				if (RemoveFromZone)
 					p.Zone.Remove(p);
+
 				Generic.SummonBlock(game, (Minion) p, -1, source);
+				Vector().Add($"{Prefix()}Process.SummonedMinion.AssetId", p.Card.AssetId);
 			}
 
 			return TaskState.COMPLETE;

@@ -11,8 +11,11 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -33,12 +36,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public int Amount { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}GameTag", (int)Tag },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			//System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
-			//entities.ForEach(p =>
+			AddSourceAndTargetToVector(source, target);
+
 			GameTag t = Tag;
 			int a = Amount;
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
@@ -82,6 +95,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				else if
 					(Tag == GameTag.FROZEN && Amount == 1)
 					game.TriggerManager.OnFreezeTrigger(p);
+
+				Vector().Add($"{Prefix()}Process.GameTagSetOn.AssetId", p.Card.AssetId);
 			}
 
 			return TaskState.COMPLETE;
@@ -96,6 +111,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly IEffect[] _effs;
 		public IEffect[] Effects => _effs;
 
+		public override OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary();
+			if (Effects.Length > 0)
+				for (int i = 0; i < Effects.Length; ++i)
+					v.AddRange(Effects[i].Vector(), Prefix());
+			else
+				v.AddRange(Effect.NullVector, Prefix());
+			v.Add($"{Prefix()}Type", (int)Type);
+			return v;
+		}
+
 		public ApplyEffectTask(EntityType entityType, params IEffect[] effects)
 		{
 			_type = entityType;
@@ -106,12 +133,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			IEffect[] effects = _effs;
 
 			foreach (IPlayable p in IncludeTask.GetEntities(in _type, in controller, source, target, stack?.Playables))
+			{
 				for (int i = 0; i < effects.Length; i++)
 					effects[i].ApplyTo(p);
-
+				Vector().Add($"{Prefix()}Process.AppliedTo.AssetId", p.Card.AssetId);
+			}
 			return TaskState.COMPLETE;
 		}
 	}

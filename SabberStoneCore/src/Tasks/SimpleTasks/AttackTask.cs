@@ -12,13 +12,25 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Actions;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class AttackTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}AttackerType", (int)_aType },
+			{ $"{Prefix()}DefenderType", (int)_dType }
+		};
+		}
+
 		private readonly EntityType _aType;
 		private readonly EntityType _dType;
 
@@ -32,6 +44,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			var attacker =
 				(ICharacter) IncludeTask.GetEntities(_aType, in controller, source, target, stack?.Playables)[0];
 			var defender =

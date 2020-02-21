@@ -12,25 +12,27 @@
 // GNU Affero General Public License for more details.
 #endregion
 
+using SabberStoneCore.Actions;
+using SabberStoneCore.Auras;
+using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Exceptions;
+using SabberStoneCore.HearthVector;
+using SabberStoneCore.Kettle;
+using SabberStoneCore.Model.Zones;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Enchants;
-using SabberStoneCore.Exceptions;
-using SabberStoneCore.Kettle;
 using System.Text;
-using SabberStoneCore.Actions;
-using SabberStoneCore.Auras;
-using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Model.Entities
 {
 	/// <summary>
 	/// Exposes the properties for each implementing entity.
 	/// </summary>
-	public interface IEntity : IEnumerable<KeyValuePair<GameTag, int>>
+	public interface IEntity : IEnumerable<KeyValuePair<GameTag, int>>, IHearthVector
 	{
 		/// <summary>Gets the identifier of this entity (EntityID).</summary>
 		/// <value>The identifier.</value>
@@ -93,8 +95,30 @@ namespace SabberStoneCore.Model.Entities
 	/// <seealso cref="Spell"/>
 	/// </summary>
 	/// <seealso cref="IEntity" />
-	public partial class Entity : IEntity
+	public partial class Entity : IEntity, IHearthVector
 	{
+		public string _prefix;
+		public virtual string Prefix()
+		{
+			return $"Card.";
+		}
+
+		public virtual string GetPrefix()
+		{
+			return _prefix;
+		}
+
+		public virtual OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+			{
+				{ $"{Prefix()}AssetId", Card.AssetId },
+				{ $"{Prefix()}CardType", (int)Card.Type }
+			};
+		}
+
+		public static OrderedDictionary NullVector = new OrderedDictionary { { "NullEntity.AssetId", 0 } };
+
 		/// <summary>
 		/// This object holds the original tag values, defined through the constructor 
 		/// of this instance.
@@ -148,6 +172,8 @@ namespace SabberStoneCore.Model.Entities
 				if (!tags.ContainsKey(GameTag.ENTITY_ID))
 					tags.Add(GameTag.ENTITY_ID, Id);
 			}
+
+			_prefix = Prefix();
 		}
 
 		/// <summary>
@@ -164,6 +190,7 @@ namespace SabberStoneCore.Model.Entities
 			OrderOfPlay = entity.OrderOfPlay;
 			AuraEffects = entity.AuraEffects?.Clone();
 			_toBeDestroyed = entity._toBeDestroyed;
+			_prefix = Prefix();
 		}
 
 		public virtual string Hash(params GameTag[] ignore)

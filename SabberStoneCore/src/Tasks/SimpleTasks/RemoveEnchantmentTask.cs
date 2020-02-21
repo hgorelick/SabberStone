@@ -12,7 +12,6 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -28,6 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
 			// Remove applied effects of this enchantment
 			//  if (_enchantmentCard != null &&
 			//      _enchantmentCard[Enums.GameTag.TAG_ONE_TURN_EFFECT] != 1 &&

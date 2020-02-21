@@ -273,7 +273,7 @@ namespace SabberStoneCoreAi.Utils
 				str.AppendLine("------------");
 				str.AppendLine("-----------------------------------------------------------------------------------------------------");
 				str.AppendLine(state.Game.FullPrint() + "-----------------------------------------------------------------------------------------------------");
-				str.AppendLine($"{(state.Game.CurrentPlayer == state.Game.Player1 ? $"{state.Game.Player1.Hero.Card.Name}" : $"{state.Game.Player2.Hero.Card.Name}")} is thinking...");
+				str.AppendLine($"{state.Game.CurrentPlayer.Hero.Card.Name} is thinking...");
 			}
 			
 			return str.ToString();
@@ -553,7 +553,7 @@ namespace SabberStoneCoreAi.Utils
 
 			str.AppendLine($"{sixTabs}\"deck-class\": \"{d.HeroClass.ToString()}\",");
 			str.AppendLine($"{sixTabs}\"archetype\": \"{d.Archetype.ToString()}\",");
-			str.AppendLine($"{sixTabs}\"deck-name\": \"{d.DeckName}\",");
+			str.AppendLine($"{sixTabs}\"deck-name\": \"{d.Name}\",");
 			str.AppendLine($"{sixTabs}\"num-games\": {d.NumGames},");
 			str.AppendLine($"{sixTabs}\"cards\": {{");
 

@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -32,12 +34,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public bool IgnoreDamage { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}GameTag", (int)Tag },
+			{ $"{Prefix()}Type", (int)Type}
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			//System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
+			AddSourceAndTargetToVector(source, target);
+
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
+			{
 				if (p is Character c)
 					switch (Tag)
 					{
@@ -61,7 +74,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				else
 					p[Tag] = stack.Number;
 
+				Vector().Add($"{Prefix()}Process.GameTagAppliedTo.AssetId", p.Card.AssetId);
+			}
 
+			Vector().Add($"{Prefix()}Process.ValueAppliedToGameTag", stack.Number);
 			return TaskState.COMPLETE;
 		}
 	}

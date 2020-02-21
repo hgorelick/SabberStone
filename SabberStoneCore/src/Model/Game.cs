@@ -27,6 +27,8 @@ using System.Linq;
 using System.Text;
 using SabberStoneCore.Auras;
 using SabberStoneCore.Triggers;
+using System.Collections.Specialized;
+using SabberStoneCore.HearthVector;
 
 // TODO check if event should be removed
 // TODO ... spellbender phase ??? and spell text ? wtf .. did you forget them???
@@ -260,6 +262,47 @@ namespace SabberStoneCore.Model
 		/// <value><see cref="LogEntry"/></value>
 		public Queue<LogEntry> Logs { get; set; } = new Queue<LogEntry>(); // public Queue<LogEntry> Logs { get; }
 
+		public override string Prefix()
+		{
+			return "Game.";
+		}
+
+		public override OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary { { $"{Prefix()}Turn", Turn } };
+			//v.AddRange(base.Vector, Prefix);
+
+			// possible that these will be included by their owners, therefore is a summary of auras in play, in other words don't need to include auras owned by cards in play
+			//if (Auras.Count > 0)
+			for (int i = 0; i < Auras.Count; ++i)
+				v.AddRange(Auras[i].Vector(), Prefix());
+
+			//else
+			//	v.AddRange(Aura.NullVector, Prefix);
+
+			v.AddRange(Player1.Vector(), Prefix());
+			v.AddRange(Player2.Vector(), Prefix());
+
+			//if (OneTurnEffectEnchantments.Count > 0)
+			for (int i = 0; i < OneTurnEffectEnchantments.Count; ++i)
+				v.AddRange(OneTurnEffectEnchantments[i].Vector(), Prefix());
+			//else
+			//	v.AddRange(Enchantment.NullVector, Prefix);
+
+			//if (OneTurnEffects.Count > 0)
+			for (int i = 0; i < OneTurnEffects.Count; ++i)
+				v.AddRange(OneTurnEffects[i].effect.Vector(), Prefix());
+			//else
+			//	v.AddRange(Effect.NullVector, Prefix);
+
+			//try { v.Add($"{Prefix}ProposedAttacker.AssetId", IdEntityDic[ProposedAttacker].Card.AssetId); } catch { v.Add($"{Prefix}ProposedAttacker.AssetId", 0); }
+			//try { v.Add($"{Prefix}ProposedDefender.AssetId", IdEntityDic[ProposedDefender].Card.AssetId); } catch { v.Add($"{Prefix}ProposedDefender.AssetId", 0); }
+			v.Add($"{Prefix()}State", (int)State);
+			v.Add($"{Prefix()}Step", (int)Step);
+
+			return v;
+		}
+
 		/// <summary>Initializes a new instance of the <see cref="Game"/> class.</summary>
 		/// <param name="gameConfig">The game configuration.</param>
 		/// <param name="setupHeroes"></param>
@@ -337,9 +380,13 @@ namespace SabberStoneCore.Model
 			{
 				_players[0].AddHeroAndPower(gameConfig.Player1HeroCard ?? Cards.HeroCard(gameConfig.Player1HeroClass));
 				_players[0].BaseClass = _players[0].HeroClass;
+				_players[0].Deck = _gameConfig.Player1Deck;
+				_players[0].Hero.Health = _gameConfig.Player1Health;
 
 				_players[1].AddHeroAndPower(gameConfig.Player2HeroCard ?? Cards.HeroCard(gameConfig.Player2HeroClass));
 				_players[1].BaseClass = _players[1].HeroClass;
+				_players[1].Deck = _gameConfig.Player2Deck;
+				_players[1].Hero.Health = _gameConfig.Player2Health;
 			}
 
 			TaskQueue = new TaskQueue(this);
@@ -354,16 +401,24 @@ namespace SabberStoneCore.Model
 			}
 
 			// setting up the decks ...
+			int i = _gameConfig.Player1Deck?.Count ?? 30;
 			_gameConfig.Player1Deck?.ForEach(p =>
 			{
-				Player1.Deck.Add(p);
-				FromCard(Player1, p, null, Player1.DeckZone);
+				//Player1.Deck.Add(p);
+				IPlayable pl = FromCard(Player1, p, null, Player1.DeckZone);
+				pl.ZonePosition = i;
+				--i;
 			});
+
+			i = _gameConfig.Player1Deck?.Count ?? 30; ;
 			_gameConfig.Player2Deck?.ForEach(p =>
 			{
-				Player2.Deck.Add(p);
-				FromCard(Player2, p, null, Player2.DeckZone);
+				//Player2.Deck.Add(p);
+				IPlayable pl = FromCard(Player2, p, null, Player2.DeckZone);
+				pl.ZonePosition = i;
+				--i;
 			});
+
 			if (_gameConfig.FillDecks)
 			{
 				Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably ? GameConfig.UnPredictableCardIDs : null);

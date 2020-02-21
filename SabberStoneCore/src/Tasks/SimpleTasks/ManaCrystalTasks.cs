@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
@@ -31,11 +33,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public int Amount { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}Both", Convert.ToInt32(Both) }
+		};
+		}
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (_both)
 				Generic.ChangeManaCrystal.Invoke(controller.Opponent, Amount, true);
 			bool success = Generic.ChangeManaCrystal.Invoke(controller, Amount, true);
@@ -54,6 +67,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly bool _useNumber;
 		public bool UseNumber => _useNumber;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}Opponent", Convert.ToInt32(Opponent) },
+			{ $"{Prefix()}UseNumber", Convert.ToInt32(UseNumber) }
+		};
+		}
+
 		public ManaCrystalEmptyTask(int amount, bool opponent = false, bool useNumber = false)
 		{
 			_amount = amount;
@@ -65,7 +89,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			int amount = _useNumber ? stack.Number : _amount;
+			Vector()[0] = amount;
 
 			bool success =
 				Generic.ChangeManaCrystal.Invoke(!_opponent ? controller : controller.Opponent, amount, false);
@@ -81,6 +108,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly bool _both;
 		public bool Both => _both;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}Both", Convert.ToInt32(Both) }
+		};
+		}
+
 		public ManaCrystalSetTask(int amount, bool both = true)
 		{
 			_amount = amount;
@@ -90,6 +127,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (game.History)
 			{
 				game.PowerHistory.Add(new PowerHistoryMetaData

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
@@ -64,6 +66,49 @@ namespace SabberStoneCore.Auras
 			}
 		}
 
+		public virtual string Prefix()
+		{
+			string prefix = $"{GetType().Name}";
+
+			if (Game == null)
+				return prefix + "0.";
+
+			for (int i = 0; i < Game?.Auras?.Count; ++i)
+				if (Game.Auras[i] == this)
+					prefix += $"{i.ToString()}.";
+			return prefix;
+		}
+
+		public virtual OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary { { $"{Prefix()}Type", (int)Type } };
+
+			//if (Effects.Length > 0)
+			for (int i = 0; i < Effects?.Length; ++i)
+				v.AddRange(Effects[i].Vector(), Prefix());
+			//else
+			//	v.AddRange(Effect.NullVector, Prefix);
+
+			v.Add($"{Prefix()}EnchantmentCard", EnchantmentCard.AssetId);
+			//v.Add($"{Prefix}Owner", Owner != null ? Owner.Card.AssetId : 0);
+			v.Add($"{Prefix()}On", Convert.ToInt32(_on)); // necessary? can it be on then turned off then back on?
+
+			return v;
+		}
+
+		public static OrderedDictionary NullVector
+		{
+			get
+			{
+				OrderedDictionary v = new OrderedDictionary().AddRange(Effect.NullVector, "NullAura.");
+				v.Add("NullAura.EnchantmentCard", 0);
+				v.Add("NullAura.Owner", 0);
+				v.Add("NullAura.On", 0);
+
+				return v;
+			}
+		}
+
 		private protected readonly Util.PriorityQueue<AuraUpdateInstruction> AuraUpdateInstructionsQueue;
 		private protected readonly Util.SmallFastCollection AppliedEntityIdCollection;
 
@@ -72,7 +117,16 @@ namespace SabberStoneCore.Auras
 
 		private IPlayable _owner;
 
-		public bool On = true;
+		private bool _on = true;
+		public bool On
+		{
+			get => _on;
+			set
+			{
+				_on = value;
+				//Vector()[Vector().Keys.Cast<string>().ToList().Where(s => s.Contains(".On")).ToList()[0]] = Convert.ToInt32(value);
+			}
+		}
 		public IEffect[] Effects;
 
 		public readonly Game Game;
@@ -507,7 +561,7 @@ namespace SabberStoneCore.Auras
 			if (Game.Logging)
 				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Aura.RemoveInternal",
 					$"{Owner}'s aura is removed from game and " +
-					$"{string.Join(",", AppliedEntityIdCollection.Select(i => Game.IdEntityDic[i]))})");
+					$"{String.Join(",", AppliedEntityIdCollection.Select(i => Game.IdEntityDic[i]))})");
 		}
 
 		private void TriggeredRemove(IEntity source)

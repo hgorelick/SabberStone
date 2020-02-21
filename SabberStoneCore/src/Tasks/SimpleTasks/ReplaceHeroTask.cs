@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -26,6 +28,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private readonly Card _weaponCard;
 		public int WeaponAssetId => _weaponCard.AssetId;
+
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Hero.AssetId", HeroAssetId },
+			{ $"{Prefix()}HeroPower.AssetId", PowerAssetId },
+			{ $"{Prefix()}Weapon.AssetId", WeaponAssetId }
+		};
+		}
 
 		public ReplaceHeroTask(Card cardHero, Card cardWeapon, Card cardPower)
 		{
@@ -51,13 +64,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			var playable = source as IPlayable;
-			if (playable == null || controller == null) return TaskState.STOP;
+			if (playable == null || controller == null)
+				return TaskState.STOP;
 
 			playable.Controller.SetasideZone.Add(playable.Zone.Remove(playable));
 			controller.AddHeroAndPower(_heroCard, _powerCard);
 			if (_weaponCard != null)
 				controller.Hero.AddWeapon(Entity.FromCard(in controller, in _weaponCard) as Weapon);
+
 			return TaskState.COMPLETE;
 		}
 	}

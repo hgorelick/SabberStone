@@ -13,6 +13,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Model;
@@ -30,6 +31,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private readonly bool _addToStack;
 		public bool AddToStack => _addToStack;
+
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}AddToStack", Convert.ToInt32(AddToStack) }
+		};
+		}
 
 		/// <summary>
 		/// Recruits a random minion satisfying the given conditions.
@@ -50,6 +61,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
 			int amount = Math.Min(_amount, controller.BoardZone.FreeSpace);
 
 			if (amount == 0) return TaskState.STOP;
@@ -74,7 +86,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			int[] results = indices.ChooseNElements(amount, game.Random);
 
-			IPlayable[] entities = new IPlayable[results.Length];
+			var entities = new IPlayable[results.Length];
 			for (int i = 0; i < entities.Length; i++)
 				entities[i] = deck[results[i]];
 
@@ -85,13 +97,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				Generic.RemoveFromZone.Invoke(controller, entities[i]);
 				Generic.SummonBlock.Invoke(game, (Minion)entities[i], -1, source);
-
+				Vector().Add($"{Prefix()}Recruited.AssetId", entities[i].Card.AssetId);
 				if (controller.BoardZone.IsFull)
 					break;
 			}
 
 			if (_addToStack)
+			{
 				stack.Playables = entities;
+				AddStackToVector(stack);
+			}
 
 			return TaskState.COMPLETE;
 		}

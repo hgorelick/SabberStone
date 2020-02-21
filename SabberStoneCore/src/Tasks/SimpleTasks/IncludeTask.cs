@@ -13,6 +13,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -211,6 +212,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly EntityType _includeType;
 		public EntityType IncludeType => _includeType;
 
+		public override OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary { { $"{Prefix()}AddFlag", Convert.ToInt32(AddFlag) } };
+
+			if (ExcludeTypes != null)
+				for (int i = 0; i < ExcludeTypes?.Length; ++i)
+					v.Add($"{Prefix()}ExcludeType{i}", (int)ExcludeTypes[i]);
+			else
+				v.Add($"{Prefix()}ExcludeType0", 0);
+
+			v.Add($"{Prefix()}IncludeType", (int)IncludeType);
+			return v;
+		}
+
 		public IncludeTask(EntityType includeType, EntityType[] excludeTypeArray = null, bool addFlag = false)
 		{
 			_includeType = includeType;
@@ -222,6 +237,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (stack == null)
 				throw new ArgumentException();
 
@@ -245,6 +262,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				stack.AddPlayables(boardGetAll);
 			else
 				stack.Playables = boardGetAll;
+
+			AddStackToVector(stack);
 
 			return TaskState.COMPLETE;
 		}
@@ -428,6 +447,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					throw new NotImplementedException();
 			}
 		}
+
+		internal static IEnumerable<IPlayable> GetEntities(EntityType type, Controller controller, IEntity source, IPlayable target, IList<IPlayable> playables)
+		{
+			throw new NotImplementedException();
+		}
 	}
 
 	public class IncludeAdjacentTask : SimpleTask
@@ -437,6 +461,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private readonly bool _includeCenter;
 		public bool IncludeCenter => _includeCenter;
+
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IncludeCenter", Convert.ToInt32(IncludeCenter) },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
 
 		/// <summary>
 		/// Get minions adjacent to the minion of the given entity type
@@ -453,37 +486,39 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			Minion left = null, right = null, centre;
+			AddSourceAndTargetToVector(source, target);
+
+			Minion left = null, right = null, center;
 			Minion[] minions;
 
 			switch (_type)
 			{
 				case EntityType.SOURCE:
-					centre = source as Minion;
+					center = source as Minion;
 					break;
 				case EntityType.TARGET:
-					centre = target as Minion;
+					center = target as Minion;
 					break;
 				case EntityType.EVENT_SOURCE:
-					centre = game.CurrentEventData?.EventSource as Minion;
+					center = game.CurrentEventData?.EventSource as Minion;
 					break;
 				case EntityType.EVENT_TARGET:
-					centre = game.CurrentEventData?.EventTarget as Minion;
+					center = game.CurrentEventData?.EventTarget as Minion;
 					break;
 				default:
 					throw new NotImplementedException();
 			}
 
-			if (centre == null)
+			if (center == null)
 				throw new Exception($"Can't obtain adjacent minions of non-minion. (Source:{source}, Target:{target}");
 
-			if (!(centre.Zone is BoardZone zone))
+			if (!(center.Zone is BoardZone zone))
 				minions = new Minion[0];
 			else
 			{
 				bool l = false, c = _includeCenter, r = false;
 				int count = c ? 1 : 0;
-				int pos = centre.ZonePosition;
+				int pos = center.ZonePosition;
 
 				if (pos > 0)
 				{
@@ -519,13 +554,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				if (r)
 					minions[--count] = right;
 				if (c)
-					minions[--count] = centre;
+					minions[--count] = center;
 				if (l)
 					minions[--count] = left;
 
 			}
 
 			stack.Playables = minions;
+
+			AddStackToVector(stack);
 
 			return TaskState.COMPLETE;
 		}

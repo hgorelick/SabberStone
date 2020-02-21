@@ -11,6 +11,7 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System.Collections.Specialized;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -26,6 +27,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (controller.Hero.Weapon == null)
 				return TaskState.STOP;
 
@@ -37,6 +40,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			game.Log(LogLevel.INFO, BlockType.PLAY, "MoveWeaponToSetaside",
 				!game.Logging ? "" : $"{controller.Name}'s {weapon} is moved to the setaside zone.");
 			controller.SetasideZone.Add(weapon);
+
+			Vector().Add($"{Prefix()}Process.weapon.AssetId", weapon.Card.AssetId);
 
 			return TaskState.COMPLETE;
 		}

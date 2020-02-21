@@ -11,7 +11,10 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -24,6 +27,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private readonly int _amount;
 		public int Amount => _amount;
+
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}SummonCard.AssetId", AssetId }
+		};
+		}
 
 		/// <summary>
 		/// Creates a task that summons an entity of the given card or
@@ -49,6 +61,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//if (controller.Opponent.BoardZone.IsFull)
 			//	return TaskState.STOP;
 
+			AddSourceAndTargetToVector(source, target);
+
 			if (_card == null && stack?.Playables.Count < 1)
 				return TaskState.STOP;
 
@@ -69,6 +83,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					summonEntity = (Minion) Entity.FromCard(controller.Opponent, in _card);
 
 				Generic.SummonBlock.Invoke(game, summonEntity, -1, source);
+				Vector().AddRange(summonEntity.Vector(), $"{Prefix()}Process.");
 			}
 
 			return TaskState.COMPLETE;

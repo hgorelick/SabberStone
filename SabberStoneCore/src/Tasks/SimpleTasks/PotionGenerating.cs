@@ -13,6 +13,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using SabberStoneCore.Actions;
@@ -206,7 +207,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class PotionGenerating : SimpleTask
 	{
 		#region Overrides of SimpleTask
-
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
 			in TaskStack stack = null)
 		{

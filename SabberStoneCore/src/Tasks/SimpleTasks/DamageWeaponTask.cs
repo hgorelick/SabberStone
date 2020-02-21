@@ -11,8 +11,11 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -21,6 +24,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	/// </summary>
 	public class DamageWeaponTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}Opponent", Convert.ToInt32(Opponent) }
+		};
+		}
+
 		private readonly bool _opponent;
 		public bool Opponent => _opponent;
 		private int _amount;
@@ -41,6 +54,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			Weapon weapon = _opponent ? source.Controller.Opponent.Hero.Weapon : source.Controller.Hero.Weapon;
 
 			if (weapon == null)

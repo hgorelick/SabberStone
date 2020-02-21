@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -21,6 +23,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private readonly Card _heroPowerCard;
 		public int AssetId => _heroPowerCard.AssetId;
+
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}HeroPower.AssetId", AssetId }
+		};
+		}
 
 		public ReplaceHeroPower()
 		{
@@ -35,13 +46,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			if (controller == null) return TaskState.STOP;
+			AddSourceAndTargetToVector(source, target);
+
+			if (controller == null)
+				return TaskState.STOP;
 
 			HeroPower power;
 
 			if (_heroPowerCard == null)
 			{
-				if (stack?.Playables.Count != 1 || !(stack.Playables[0] is HeroPower)) return TaskState.STOP;
+				if (stack?.Playables.Count != 1 || !(stack.Playables[0] is HeroPower))
+					return TaskState.STOP;
 
 				power = (HeroPower) stack.Playables[0];
 			}

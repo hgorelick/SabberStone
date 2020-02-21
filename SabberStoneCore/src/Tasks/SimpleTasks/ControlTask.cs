@@ -12,13 +12,26 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ControlTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Oppostie", Convert.ToInt32(Opposite) },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public ControlTask(EntityType type, bool opposite = false)
 		{
 			Type = type;
@@ -33,6 +46,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			//IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables).ForEach(p =>
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
 			{
@@ -41,11 +56,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				if (!Opposite && controller.BoardZone.IsFull || Opposite && controller.Opponent.BoardZone.IsFull)
 				{
+					Vector().Add($"{Prefix()}Process.ControlTargetDestroyed.AssetId", p.Card.AssetId);
 					p.Destroy();
 					continue; //return;
 				}
 
-				Minion removedEntity = (Minion) p.Zone.Remove(p);
+				var removedEntity = (Minion) p.Zone.Remove(p);
+				Vector().Add($"{Prefix()}Process.MinionControlChanged.AssetId", removedEntity.Card.AssetId);
 				game.AuraUpdate();
 				removedEntity.Controller = Opposite ? controller.Opponent : controller;
 				removedEntity[GameTag.CONTROLLER] = removedEntity.Controller.PlayerId;

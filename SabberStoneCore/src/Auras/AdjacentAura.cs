@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
@@ -9,12 +13,70 @@ namespace SabberStoneCore.Auras
 {
 	public class AdjacentAura : IAura
 	{
+		public string Prefix()
+		{
+			return "AdjacentAura.";
+		}
+
+		public OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary
+				{
+					{ $"{Prefix()}BoardChanged", Convert.ToInt32(BoardChanged) },
+					{ $"{Prefix()}EnchantmentCard.AssetId", EnchantmentCard.AssetId }
+				};
+
+			if (Effects.Length > 0)
+				for (int i = 0; i < Effects.Length; ++i)
+					this.AddRange(Effects[i].Vector());
+			//else
+			//	this.AddRange(Effect.NullVector);
+
+			v.Add($"{Prefix()}Left", Convert.ToInt32(Left != null));
+			//v.Add($"{Prefix}Owner", Owner != null ? Owner.Card.AssetId : 0);
+			v.Add($"{Prefix()}Right", Convert.ToInt32(Right != null));
+			v.Add($"{Prefix()}ToBeRemoved", Convert.ToInt32(ToBeRemoved));
+
+			return v;
+		}
+
+		public static OrderedDictionary NullVector
+		{
+			get
+			{
+				string prefix = "NullAdjacentAura.";
+				var v = new OrderedDictionary
+				{
+					{ $"{prefix}BoardChanged", 0 },
+					{ $"{prefix}EnchantmentCard.AssetId", 0 }
+				};
+
+				v.AddRange(Effect.NullVector, prefix);
+				v.Add($"{prefix}Left", 0);
+				v.Add($"{prefix}Owner", 0);
+				v.Add($"{prefix}Right", 0);
+				v.Add("ToBeRemoved", 0);
+
+				return v;
+			}
+		}
+			
+
 		private Minion _left;
+		public Minion Left => _left;
+
 		private Minion _right;
+		public Minion Right => _right;
+
 		private bool _toBeRemoved;
+		public bool ToBeRemoved => _toBeRemoved;
 
 		private readonly IEffect[] _effects;
-		private readonly Minion _owner; 
+		public IEffect[] Effects => _effects;
+
+		private readonly Minion _owner;
+		public Minion Owner => _owner;
+
 		private readonly BoardZone _board;
 		private readonly bool _history;
 

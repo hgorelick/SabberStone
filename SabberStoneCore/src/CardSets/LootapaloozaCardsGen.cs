@@ -804,7 +804,7 @@ namespace SabberStoneCore.CardSets
 				PowerTask = ComplexTask.Create(
 					new CastRandomSpellTask(phaseShift: false),
 					new DrawTask()),
-				TopdeckTask = ComplexTask.Create(
+				TopDeckTask = ComplexTask.Create(
 					new CastRandomSpellTask(phaseShift: false),
 					new DrawTask())
 			});
@@ -1701,7 +1701,7 @@ namespace SabberStoneCore.CardSets
 				PowerTask = ComplexTask.Create(
 					new SummonTask("LOOT_026t"),
 					new DrawTask()),
-				TopdeckTask = ComplexTask.Create(
+				TopDeckTask = ComplexTask.Create(
 					new SummonTask("LOOT_026t"),
 					new DrawTask())
 			});
@@ -3854,7 +3854,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("LOOT_526t", new Power {
 				PowerTask = SpecificTask.DarknessCandle,
-				TopdeckTask = SpecificTask.DarknessCandle
+				TopDeckTask = SpecificTask.DarknessCandle
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL

@@ -11,7 +11,9 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -29,10 +31,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			//List<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 
 			//if (entities.Count == 0)
@@ -78,7 +92,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			//stack.Playables = entities is List<IPlayable> list ? list : entities.ToList();
 			stack.Playables = entities;
-
+			AddStackToVector(stack);
 			return TaskState.COMPLETE;
 		}
 	}
@@ -91,6 +105,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly EntityType _type;
 		public EntityType Type => _type;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public RandomTask(int amount, EntityType type)
 		{
 			_amount = amount;
@@ -101,6 +125,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			//IEnumerable<IPlayable> temp =
 			//	IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 			//List<IPlayable> entities = temp is List<IPlayable> list ? list : temp.ToList();
@@ -127,6 +153,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			stack.Playables = _amount == 1 ?
 				new[] {entities[game.Random.Next(entities.Count)]} :
 				((IReadOnlyList<IPlayable>)entities).ChooseNElements(_amount, game.Random);
+
+			AddStackToVector(stack);
 
 			game.OnRandomHappened(true);
 

@@ -11,9 +11,12 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -21,6 +24,24 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ChangeEntityTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}ChangeEntityTo.AssetId", AssetId },
+			{ $"{Prefix()}CardClass", (int)_cardClass },
+			{ $"{Prefix()}CardType", (int)_cardType },
+			{ $"{Prefix()}OpClass", Convert.ToInt32(_opClass) },
+			{ $"{Prefix()}ProtoType", (int)_protoType },
+			{ $"{Prefix()}Race", (int)_race },
+			{ $"{Prefix()}Rarity", (int)_rarity },
+			{ $"{Prefix()}RemoveEnchantments", Convert.ToInt32(_removeEnchantments) },
+			{ $"{Prefix()}Type", (int)Type },
+			{ $"{Prefix()}UseRandomCard", Convert.ToInt32(_useRandomCard) }
+		};
+		}
+
 		private readonly Card _card;
 		public int AssetId => _card.AssetId;
 		private readonly CardType _cardType;
@@ -80,6 +101,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (_opClass)
 				_cardClass = controller.Opponent.HeroClass;
 
@@ -91,7 +114,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					Card pick = randCards.Choose(game.Random);
 
-					Generic.ChangeEntityBlock.Invoke(controller, p, pick, _removeEnchantments);
+					Vector().Add($"{Prefix()}Process.RandomChoice.AssetId", Generic.ChangeEntityBlock.Invoke(controller, p, pick, _removeEnchantments).Card.AssetId);
 
 					//TODO p[GameTag.DISPLAYED_CREATOR] = source.Id;
 				}
@@ -104,7 +127,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				: _card;
 
 			foreach (IPlayable p in IncludeTask.GetEntities(_type, in controller, source, target, stack?.Playables))
-				Generic.ChangeEntityBlock.Invoke(controller, p, card, _removeEnchantments);
+				Vector().Add($"{Prefix()}Process.EntityChangedTo.AssetId", Generic.ChangeEntityBlock.Invoke(controller, p, card, _removeEnchantments).Card.AssetId);
 
 			// TODO p[GameTag.DISPLAYED_CREATOR] = source.Id;
 

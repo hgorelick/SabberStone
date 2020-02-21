@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -36,6 +37,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public GameTag Tag { get; set; }
 		public EntityType Type { get; set; }
 		public int Value { get; set; }
+
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}ClassAndMultiOnlyFlag", Convert.ToInt32(ClassAndMultiOnlyFlag) },
+			{ $"{Prefix()}MaxInDeckFlag", Convert.ToInt32(MaxInDeckFlag) },
+			{ $"{Prefix()}RelaSign", (int)RelaSign },
+			{ $"{Prefix()}GameTag", (int)Tag },
+			{ $"{Prefix()}Type", (int)Type },
+			{ $"{Prefix()}Value", Value }
+		};
+		}
 
 		public RandomMinionTask(GameTag tag, EntityType type, int amount = 1, bool opponent = false)
 		{
@@ -66,6 +82,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			List<Card> cardsList = null;
 			if (Type != EntityType.INVALID)
 			{
@@ -133,6 +151,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 
 			stack.Playables = randomMinions;
+
+			AddStackToVector(stack);
 
 			game.OnRandomHappened(true);
 

@@ -5,7 +5,7 @@ using System;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
 
-namespace SabberStoneCoreAi.HearthVector
+namespace SabberStoneCore.HearthVector
 {
 	public class ValueGetter
 	{

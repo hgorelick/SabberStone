@@ -105,6 +105,14 @@ namespace SabberStoneCoreAi.Utils
 			return false;
 		}
 
+		public static bool Contains<T>(this T[] arr, Func<T, bool> func)
+		{
+			for (int i = 0; i < arr.Length; ++i)
+				if (func(arr[i]))
+					return true;
+			return false;
+		}
+
 		public static int IndexOf(this Zone<IPlayable> zone, IPlayable p)
 		{
 			for (int i = 0; i < zone.Count; ++i)

@@ -162,7 +162,7 @@ namespace SabberStoneCore.Visualizer
 						.Health(minion.Health)
 						.Spellpower(minion[GameTag.SPELLPOWER])
 						.Deathrattle(minion.HasDeathrattle)
-						.Battlecry(minion.HasBattleCry)
+						.Battlecry(minion.HasBattlecry)
 						.Inspire(minion.HasInspire)
 						.Poisonus(minion[GameTag.POISONOUS] == 1)
 						.Silenced(minion.IsSilenced)

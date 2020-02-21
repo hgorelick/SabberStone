@@ -12,6 +12,7 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -40,6 +41,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly int _resultIndex;
 		public int ResultIndex => _resultIndex;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}IndexA", IndexA },
+			{ $"{Prefix()}IndexB", IndexB },
+			{ $"{Prefix()}MathOperation", (int)MathOperation },
+			{ $"{Prefix()}ResultIndex", ResultIndex }
+		};
+		}
+
 		public MathNumberIndexTask(int indexA, int indexB, MathOperation mathOperation, int resultIndex = 0)
 		{
 			_indexA = indexA;
@@ -52,6 +65,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			int numberA = GetNumber(in _indexA, in stack);
 			int numberB = GetNumber(in _indexB, in stack);
 			int result;
@@ -94,6 +109,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					throw new ArgumentOutOfRangeException($"MathNumberIndexTask unknown {_resultIndex}");
 			}
 
+			Vector().Add($"{Prefix()}Process.result", result);
 			return TaskState.COMPLETE;
 		}
 
@@ -128,11 +144,24 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public int Min { get; set; }
 		public int Max { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Max", Max },
+			{ $"{Prefix()}Min", Min }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			stack.Number = game.Random.Next(Min, Max + 1);
+			Vector().Add($"{Prefix()}Process.stack.Number", stack.Number);
 			return TaskState.COMPLETE;
 		}
 	}
@@ -146,11 +175,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public int Amount { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			stack.Number *= Amount;
+			Vector().Add($"{Prefix()}Process.stack.Number", stack.Number);
 			return TaskState.COMPLETE;
 		}
 	}
@@ -164,11 +205,24 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public int Amount { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			stack.Number += Amount;
+			Vector().Add($"{Prefix()}stack.Number", stack.Number);
+
 			return TaskState.COMPLETE;
 		}
 	}
@@ -192,15 +246,29 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}GameTag", (int)Tag },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (Amount == 0)
 				stack.Number -= IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables)[0][Tag];
 			else
 				stack.Number -= Amount;
 
+			Vector().Add($"{Prefix()}stack.Number", stack.Number);
 			return TaskState.COMPLETE;
 		}
 	}

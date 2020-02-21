@@ -56,7 +56,7 @@ namespace SabberStoneCore.Model
 		public Archetype Archetype => _archetype;
 
 		string _deckName { get; set; }
-		public string DeckName => _deckName;
+		public string Name => _deckName;
 
 		int _numGames { get; set; }
 		public int NumGames => _numGames;
@@ -139,7 +139,7 @@ namespace SabberStoneCore.Model
 			var deck = new Deck(DeckQuery.GetMostPopular(heroClass));
 
 			_archetype = deck.Archetype;
-			_deckName = deck.DeckName;
+			_deckName = deck.Name;
 			_numGames = deck.NumGames;
 
 			Clear();
@@ -154,7 +154,7 @@ namespace SabberStoneCore.Model
 		{
 			_heroClass = other.HeroClass;
 			_archetype = other.Archetype;
-			_deckName = other.DeckName;
+			_deckName = other.Name;
 			_numGames = other.NumGames;
 
 			Clear();

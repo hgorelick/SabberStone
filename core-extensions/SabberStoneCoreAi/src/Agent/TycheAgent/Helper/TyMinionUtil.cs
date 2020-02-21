@@ -103,7 +103,7 @@ namespace SabberStoneCoreAi.Tyche2
 
 		public static float ComputeMinionValue(Minion minion)
 		{	
-			float value = ComputeMinionValue(minion.Health, minion.AttackDamage, minion.NumAttacksThisTurn, minion.HasTaunt, minion.Poisonous, minion.HasDeathrattle, minion.HasInspire, minion.HasDivineShield, minion.HasLifeSteal, minion.HasCharge, minion.HasStealth, minion.HasBattleCry, minion.IsFrozen);
+			float value = ComputeMinionValue(minion.Health, minion.AttackDamage, minion.NumAttacksThisTurn, minion.HasTaunt, minion.Poisonous, minion.HasDeathrattle, minion.HasInspire, minion.HasDivineShield, minion.HasLifeSteal, minion.HasCharge, minion.HasStealth, minion.HasBattlecry, minion.IsFrozen);
 			return value;
 		}
 

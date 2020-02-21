@@ -1,4 +1,7 @@
-﻿using SabberStoneCore.Model;
+﻿using System;
+using System.Collections.Specialized;
+using SabberStoneCore.HearthVector;
+using SabberStoneCore.Model;
 #region copyright
 // SabberStone, Hearthstone Simulator in C# .NET Core
 // Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
@@ -19,6 +22,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class EnqueueNumberTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary
+				{
+					{ $"{Prefix()}IsTrigger", IsTrigger },
+					{ $"{Prefix()}SpellDmg", Convert.ToInt32(SpellDmg) }
+				};
+			v.AddRange(Task.Vector(), Prefix());
+			return v;
+		}
+
 		private readonly bool _spellDmg;
 		public bool SpellDmg => _spellDmg;
 		private readonly ISimpleTask _task;
@@ -34,6 +48,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (stack.Number < 1) return TaskState.STOP;
 
 			int times = _spellDmg ? stack.Number + controller.CurrentSpellPower : stack.Number;

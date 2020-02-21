@@ -14,6 +14,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -27,6 +29,40 @@ namespace SabberStoneCore.Model.Entities
 	/// <seealso cref="Character" />
 	public partial class Minion : Character
 	{
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+
+			v.Add($"{Prefix()}AttackableByRush", Convert.ToInt32(AttackableByRush));
+			v.Add($"{Prefix()}Freeze", Convert.ToInt32(Freeze));
+			v.Add($"{Prefix()}HasBattlecry", Convert.ToInt32(HasBattlecry));
+			v.Add($"{Prefix()}HasDivineShield", Convert.ToInt32(HasDivineShield));
+			v.Add($"{Prefix()}HasInspire", Convert.ToInt32(HasInspire));
+			v.Add($"{Prefix()}IsEnraged", Convert.ToInt32(IsEnraged));
+			v.Add($"{Prefix()}IsRush", Convert.ToInt32(IsRush));
+			v.Add($"{Prefix()}Poisonous", Convert.ToInt32(Poisonous));
+			v.Add($"{Prefix()}SpellPower", SpellPower);
+			v.Add($"{Prefix()}Untouchable", Convert.ToInt32(Untouchable));
+
+			return v;
+		}
+
+		public static new OrderedDictionary NullVector =
+			new OrderedDictionary
+			{
+				{ "NullMinion.AttackableByRush", 0 },
+				{ "NullMinion.Freeze", 0 },
+				{ "NullMinion.HasBattleCry", 0 },
+				{ "NullMinion.HasDivineShield", 0 },
+				{ "NullMinion.HasInspire", 0 },
+				{ "NullMinion.IsEnraged", 0 },
+				{ "NullMinion.IsRush", 0 },
+				{ "NullMinion.Poisonous", 0 },
+				{ "NullMinion.SpellPower", 0 },
+				{ "NullMinion.Untouchable", 0 },
+			};
+			
+
 		/// <summary>Initializes a new instance of the <see cref="Minion"/> class.</summary>
 		/// <param name="controller">Owner of the character; not specifically limited to players.</param>
 		/// <param name="card">The card which this character embodies.</param>
@@ -63,7 +99,7 @@ namespace SabberStoneCore.Model.Entities
 			HasDivineShield = false;
 			HasStealth = false;
 			HasDeathrattle = false;
-			HasBattleCry = false;
+			HasBattlecry = false;
 			HasInspire = false;
 			HasLifeSteal = false;
 			//CantBeTargetedByHeroPowers = false;
@@ -295,7 +331,7 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.WINDFURY] = value ? 1 : 0; }
 		}
 
-		public bool HasBattleCry
+		public bool HasBattlecry
 		{
 			get { return Card[GameTag.BATTLECRY] != 0; }
 			set { this[GameTag.BATTLECRY] = value ? 1 : 0; }

@@ -12,13 +12,25 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ActivateDeathrattleTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Type", (int)_type }
+		};
+		}
+
 		private readonly EntityType _type;
 
 		public ActivateDeathrattleTask(EntityType type)
@@ -30,8 +42,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			foreach (IPlayable p in IncludeTask.GetEntities(_type, controller, source, target, stack?.Playables))
 			{
+				Vector().Add($"{Prefix()}Process.CardWithDeathrattle.AssetId", p.Card.AssetId);
 				p.ActivateTask(PowerActivation.DEATHRATTLE);
 				if (p.AppliedEnchantments != null)
 					foreach (Enchantment e in p.AppliedEnchantments)

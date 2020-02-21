@@ -12,8 +12,10 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -21,6 +23,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class AddStackTo : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public AddStackTo(EntityType type)
 		{
 			Type = type;
@@ -32,25 +43,43 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			foreach (IPlayable p in stack.Playables)
 				p[GameTag.DISPLAYED_CREATOR] = source.Id;
 
 			switch (Type)
 			{
 				case EntityType.DECK:
-					foreach (IPlayable p in stack.Playables) Generic.ShuffleIntoDeck.Invoke(p.Controller, source, p);
+					foreach (IPlayable p in stack.Playables)
+					{
+						Vector().Add($"{Prefix()}Process.CardToAddToFromStack.AssetId", p.Card.AssetId);
+						Generic.ShuffleIntoDeck.Invoke(p.Controller, source, p);
+					}
 					return TaskState.COMPLETE;
 
 				case EntityType.HAND:
-					foreach (IPlayable p in stack.Playables) Generic.AddHandPhase.Invoke(p.Controller, p);
+					foreach (IPlayable p in stack.Playables)
+					{
+						Vector().Add($"{Prefix()}Process.CardToAddToFromStack.AssetId", p.Card.AssetId);
+						Generic.AddHandPhase.Invoke(p.Controller, p);
+					}
 					return TaskState.COMPLETE;
 
 				case EntityType.OP_HAND:
-					foreach (IPlayable p in stack.Playables) Generic.AddHandPhase.Invoke(p.Controller, p);
+					foreach (IPlayable p in stack.Playables)
+					{
+						Vector().Add($"{Prefix()}Process.CardToAddToFromStack.AssetId", p.Card.AssetId);
+						Generic.AddHandPhase.Invoke(p.Controller, p);
+					}
 					return TaskState.COMPLETE;
 
 				case EntityType.OP_DECK:
-					foreach (IPlayable p in stack.Playables) Generic.ShuffleIntoDeck.Invoke(p.Controller, source, p);
+					foreach (IPlayable p in stack.Playables)
+					{
+						Vector().Add($"{Prefix()}Process.CardToAddToFromStack.AssetId", p.Card.AssetId);
+						Generic.ShuffleIntoDeck.Invoke(p.Controller, source, p);
+					}
 					return TaskState.COMPLETE;
 
 				default:

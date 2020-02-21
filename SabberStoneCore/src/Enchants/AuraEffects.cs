@@ -12,8 +12,11 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Text;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 
 // ReSharper disable InconsistentNaming
 
@@ -22,7 +25,7 @@ namespace SabberStoneCore.Enchants
 	/// <summary>
 	/// A simple container for saving tag value perturbations from external Auras. Call indexer to get value for a particular Tag.
 	/// </summary>
-	public class AuraEffects
+	public class AuraEffects : IHearthVector
 	{
 		private static readonly int _int32Size = sizeof(int);
 
@@ -31,6 +34,46 @@ namespace SabberStoneCore.Enchants
 		private const int CharacterLength = PlayableLength + 2;
 		private const int HeroLength = CharacterLength + 3;
 		private const int MinionLength = CharacterLength + 7;
+
+		public string Prefix()
+		{
+			return "AuraEffects.";
+		}
+
+		public OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}ATK", ATK },
+			{ $"{Prefix()}CantAttackHeroes", Convert.ToInt32(CantAttackHeroes) },
+			{ $"{Prefix()}CantBeTargetedBySpells", Convert.ToInt32(CantBeTargetedBySpells) },
+			{ $"{Prefix()}CardCostHealth", Convert.ToInt32(CardCostHealth) },
+			{ $"{Prefix()}Charge", Charge },
+			{ $"{Prefix()}Echo", Convert.ToInt32(Echo) },
+			{ $"{Prefix()}Health", Health },
+			{ $"{Prefix()}HeroPowerDamage", HeroPowerDamage },
+			{ $"{Prefix()}Immune", Immune },
+			{ $"{Prefix()}Lifesteal", Convert.ToInt32(Lifesteal) },
+			{ $"{Prefix()}Taunt", Convert.ToInt32(Taunt) },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
+		public static OrderedDictionary NullVector = new OrderedDictionary
+		{
+			{ $"NullAuraEffects.ATK", 0 },
+			{ $"NullAuraEffects.CantAttackHeroes", 0 },
+			{ $"NullAuraEffects.CantBeTargetedBySpells", 0 },
+			{ $"NullAuraEffects.CardCostHealth", 0 },
+			{ $"NullAuraEffects.Charge", 0 },
+			{ $"NullAuraEffects.Echo", 0 },
+			{ $"NullAuraEffects.Health", 0 },
+			{ $"NullAuraEffects.HeroPowerDamage", 0 },
+			{ $"NullAuraEffects.Immune", 0 },
+			{ $"NullAuraEffects.Lifesteal", 0 },
+			{ $"NullAuraEffects.Taunt", 0 },
+			{ $"NullAuraEffects.Type", 0 }
+		};
 
 		// Indices:
 		// Playables
@@ -310,8 +353,49 @@ namespace SabberStoneCore.Enchants
 	/// <summary>
 	/// A collecton of controller Tag increments from Auras. These tags tends to be checked when a player plays any cards.
 	/// </summary>
-	public class ControllerAuraEffects
+	public class ControllerAuraEffects : IHearthVector
 	{
+		public string Prefix()
+		{
+			return "ControllerAuraEffects.";
+		}
+
+		public OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}AllHealingDouble", AllHealingDouble },
+			{ $"{Prefix()}ChooseBoth", ChooseBoth },
+			{ $"{Prefix()}ExtraBattlecry", ExtraBattlecry },
+			{ $"{Prefix()}ExtraBattlecryAndCombo", ExtraBattlecryAndCombo },
+			{ $"{Prefix()}ExtraEndTurnEffect", ExtraEndTurnEffect },
+			{ $"{Prefix()}HeroPowerDisabled", HeroPowerDisabled },
+			{ $"{Prefix()}HeroPowerDouble", HeroPowerDouble },
+			{ $"{Prefix()}RestoreToDamage", RestoreToDamage },
+			{ $"{Prefix()}SpellPower", SpellPower },
+			{ $"{Prefix()}SpellPowerDouble", SpellPowerDouble },
+			{ $"{Prefix()}SpellsCostHealth", SpellsCostHealth },
+			{ $"{Prefix()}TimeOut", TimeOut }
+		};
+		}
+
+		public static OrderedDictionary NullVector =
+			new OrderedDictionary
+			{
+				{ $"NullControllerAuraEffects.ControllerAuraEffects.AllHealingDouble", 0 },
+				{ $"NullControllerAuraEffects.ControllerAuraEffects.ChooseBoth", 0 },
+				{ $"NullControllerAuraEffects.ControllerAuraEffects.ExtraBattlecry", 0 },
+				{ $"NullControllerAuraEffects.ControllerAuraEffects.ExtraBattlecryAndCombo", 0 },
+				{ $"NullControllerAuraEffects.ControllerAuraEffects.ExtraEndTurnEffect", 0 },
+				{ $"NullControllerAuraEffects.ControllerAuraEffects.HeroPowerDisabled", 0 },
+				{ $"NullControllerAuraEffects.ControllerAuraEffects.HeroPowerDouble", 0 },
+				{ $"NullControllerAuraEffects.ControllerAuraEffects.RestoreToDamage", 0 },
+				{ $"NullControllerAuraEffects.ControllerAuraEffects.SpellPower", 0 },
+				{ $"NullControllerAuraEffects.ControllerAuraEffects.SpellPowerDouble", 0 },
+				{ $"NullControllerAuraEffects.ControllerAuraEffects.SpellsCostHealth", 0 },
+				{ $"NullControllerAuraEffects.ControllerAuraEffects.TimeOut", 0 }
+			};
+
 		private int _timeOut;
 		public int TimeOut => _timeOut;
 

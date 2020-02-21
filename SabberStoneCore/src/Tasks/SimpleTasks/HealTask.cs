@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -28,10 +30,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Amount", Amount },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (Amount < 1) return TaskState.STOP;
 
 			var playable = source as IPlayable;
@@ -39,8 +53,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//entities.ForEach(p =>
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, playable, target, stack?.Playables))
 			{
-				var character = p as ICharacter;
-				character?.TakeHeal(playable, Amount);
+				if (p is ICharacter character)
+				{
+					character.TakeHeal(playable, Amount);
+					Vector().Add($"{Prefix()}HealedCharacter.AssetId", character.Card.AssetId);
+				}
 			}
 			return TaskState.COMPLETE;
 		}

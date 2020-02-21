@@ -11,10 +11,13 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -45,6 +48,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly RitualType _type;
 		public RitualType Type => _type;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}BladeofCThunEnchantmentAssetId", BladeofCThunEnchantmentAssetId },
+			{ $"{Prefix()}BuffEnchantmentAssetId", BuffEnchantmentAssetId },
+			{ $"{Prefix()}TauntEnchantmentAssetId", TauntEnchantmentAssetId }
+		};
+		}
+
 		public RitualTask(RitualType type = RitualType.Check)
 		{
 			_type = type;
@@ -67,6 +81,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			// (or maybe it's a card effect not a trigger? or even an aura style 
 			// effect ??) that copies the additional effect to c'thuns in your 
 			// hand and board that aren't silenced
+
+			AddSourceAndTargetToVector(source, target);
 
 			IPlayable proxyCthun;
 			if (!controller.SeenCthun)
@@ -133,6 +149,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					break;
 			}
 
+			Vector().AddRange(proxyCthun.Vector(), $"{Prefix()}Process.");
 			return TaskState.COMPLETE;
 		}
 	}

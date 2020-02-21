@@ -12,6 +12,8 @@
 // GNU Affero General Public License for more details.
 #endregion
 
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -25,6 +27,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly Card _card;
 		public int AssetId => _card.AssetId;
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Card.AssetId", AssetId }
+		};
+		}
+
 		public QuestProgressTask(string questRewardId)
 		{
 			_card = Cards.FromId(questRewardId);
@@ -34,6 +45,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			var spell = source as Spell;
 			if (spell == null)
 				return TaskState.STOP;
@@ -54,6 +67,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					!game.Logging ? "" : $"{controller} Quest finished, reward {reward}!");
 
 				// adding reward to hand
+				Vector().Add($"{Prefix()}Process.QuestReward.AssetId", reward.Card.AssetId);
 				Generic.AddHandPhase.Invoke(controller, reward);
 				spell[GameTag.REVEALED] = 1;
 

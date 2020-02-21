@@ -21,6 +21,7 @@ namespace SabberStoneCore.Triggers
 	public class MultiTrigger : Trigger, IReadOnlyList<Trigger>
 	{
 		private readonly IReadOnlyList<Trigger> _triggers;
+		public IReadOnlyList<Trigger> Triggers => _triggers;
 
 		public MultiTrigger(params Trigger[] triggers) : base(TriggerType.MULTITRIGGER)
 		{

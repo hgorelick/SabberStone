@@ -11,8 +11,10 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Triggers;
@@ -25,6 +27,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			var s = (Minion) source;
 
 			if (s == null || !s.Card.Magnetic)
@@ -70,7 +74,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			// Moves source to Setaside
 			s.Controller.SetasideZone.Add(s.Zone.Remove(s));
-
+			Vector().AddRange(s.Vector(), $"{Prefix()}Process.");
 			return TaskState.COMPLETE;
 		}
 	}

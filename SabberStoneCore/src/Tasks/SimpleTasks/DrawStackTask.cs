@@ -15,6 +15,7 @@
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -24,7 +25,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			if (stack?.Playables.Count == 0) return TaskState.STOP;
+			AddSourceAndTargetToVector(source, target);
+
+			if (stack?.Playables.Count == 0)
+				return TaskState.STOP;
 
 			//var list = new List<IPlayable>();
 			//foreach (IPlayable p in stack?.Playables) list.Add(Generic.DrawBlock(controller, p));
@@ -32,7 +36,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//stack.Playables = list;
 
 			for (int i = 0; i < stack.Playables.Count; i++)
-				Generic.DrawBlock(controller, stack.Playables[i]);
+				Vector().Add($"{Prefix()}Process.stack.Playables{i}.AssetId", Generic.DrawBlock(controller, stack.Playables[i]).Card.AssetId);
 
 			return TaskState.COMPLETE;
 		}

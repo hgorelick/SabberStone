@@ -84,7 +84,7 @@ namespace SabberStoneCore.Auras
 
 		private new static void DeApply(IPlayable playable)
 		{
-			Playable p = (Playable)playable;
+			var p = (Playable)playable;
 
 			if (p._modifiedCost == null) return;
 

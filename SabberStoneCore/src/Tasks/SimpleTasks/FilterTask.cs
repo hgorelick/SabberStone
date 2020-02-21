@@ -11,7 +11,9 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -21,6 +23,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class FilterStackTask : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		private readonly RelaCondition[] _relaConditions;
 		public RelaCondition[] RelaConditions => _relaConditions;
 		private readonly SelfCondition[] _selfConditions;
@@ -51,6 +62,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			if (_relaConditions != null)
 			{
 				IList<IPlayable> entities =
@@ -88,6 +101,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				stack.Playables = filtered;
 			}
+
+			AddStackToVector(stack);
 
 			return TaskState.COMPLETE;
 		}

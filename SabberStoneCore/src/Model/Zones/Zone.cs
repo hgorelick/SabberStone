@@ -21,6 +21,8 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Auras;
+using SabberStoneCore.HearthVector;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Model.Zones
 {
@@ -31,9 +33,37 @@ namespace SabberStoneCore.Model.Zones
 	/// <typeparam name="T"></typeparam>
 	/// <seealso cref="T:SabberStoneCore.Model.Zones.IZone" />
 	/// <seealso cref="T:System.Collections.Generic.IEnumerable`1" />
-	public abstract class Zone<T> : IZone, IEnumerable<T> where T : IPlayable
+	public abstract class Zone<T> : IZone, IHearthVector, IEnumerable<T> where T : IPlayable
 	{
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public virtual string Prefix()
+		{
+			return $"{GetType().Name}.";
+		}
+
+		public virtual OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}Count", Count },
+			{ $"{Prefix()}FreeSpace", FreeSpace },
+			//{ $"{Prefix}IsEmpty", Convert.ToInt32(IsEmpty) },
+			//{ $"{Prefix}IsFull", Convert.ToInt32(IsFull) },
+			//{ $"{Prefix}Random", Random?.Card.AssetId ?? 0 },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
+		public static OrderedDictionary NullVector = new OrderedDictionary
+		{
+			{ "NullZone.Count", 0 },
+			{ "NullZone.FreeSpace", 0 },
+			{ "NullZone.IsEmpty", 0 },
+			{ "NullZone.IsFull", 0 },
+			{ "NullZone.Random", 0 },
+			{ "NullZone.Type", 0 }
+		};
+
+		//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		protected T[] _entities;
 		protected int _count;
 
@@ -66,8 +96,6 @@ namespace SabberStoneCore.Model.Zones
 		/// Gets the size of available space of this zone.
 		/// </summary>
 		public abstract int FreeSpace { get; }
-
-
 
 		/// <summary>Gets the game which contains the zone.</summary>
 		/// <value><see cref="Model.Game"/></value>
@@ -269,15 +297,15 @@ namespace SabberStoneCore.Model.Zones
 				string tStr = "";
 
 				if (cStr == "")
-					tStr = "[S]";
+					tStr = "S";
 
 				else if (minion != null)
-					tStr = "[M]";
+					tStr = "M";
 
 				else if (weapon != null)
-					tStr = "[W]";
+					tStr = "W";
 
-				str.Append($"{tStr}[{card.Cost}]{card.Card.Name}{cStr} | ");
+				str.Append($"{tStr}{card.Cost}{cStr} | ");
 			}
 			//str.Append($"[ENCH {Enchants.Count}]");
 			//str.Append($"[TRIG {Triggers.Count}]");
@@ -570,6 +598,26 @@ namespace SabberStoneCore.Model.Zones
 	public abstract class PositioningZone<T> : LimitedZone<T> where T : IPlayable
 	{
 		public readonly List<Aura> Auras = new List<Aura>();
+
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+
+			//if (Auras.Count > 0)
+			for (int i = 0; i < Auras.Count; ++i)
+				v.AddRange(Auras[i].Vector(), Prefix());
+			//else
+			//	v.AddRange(Aura.NullVector, Prefix);
+
+			return v;
+		}
+
+		public static OrderedDictionary GetNullVector(PositioningZone<T> zone)
+		{
+			OrderedDictionary v = NullVector;
+			v.AddRange(Aura.NullVector, $"{zone.GetType().Name}.");
+			return v;
+		}
 
 		protected PositioningZone(Zone type, int maxSize) : base(type, maxSize) { }
 		protected PositioningZone(Controller c, PositioningZone<T> zone) : base(c, zone) { }

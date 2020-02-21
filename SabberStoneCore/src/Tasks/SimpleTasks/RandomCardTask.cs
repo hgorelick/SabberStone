@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -49,6 +50,28 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private readonly EntityType _type;
 		public EntityType Type => _type;
+
+		public override OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary
+				{
+					{ $"{Prefix()}CardClass", (int)CardClass },
+					{ $"{Prefix()}CardSet", (int)CardSet },
+					{ $"{Prefix()}CardType", (int)CardType }
+				};
+
+			//for (int i = 0; i < GameTagFilter.Length; ++i)
+			//	v.Add($"{Prefix()}GameTagFilter.{Enum.GetName(typeof(GameTag), GameTagFilter[i])}", (int)GameTagFilter[i]);
+			//if (GameTagFilter.Length == 0)
+			//	v.Add($"{Prefix()}GameTagFilter.None", 0);
+
+			v.Add($"{Prefix()}Opposite", Convert.ToInt32(Opposite));
+			v.Add($"{Prefix()}Race", (int)Race);
+			v.Add($"{Prefix()}Rarity", (int)Rarity);
+			v.Add($"{Prefix()}, Type", (int)Type);
+
+			return v;
+		}
 
 		/// <summary>
 		/// Choose a random card that fits the criterias.
@@ -105,6 +128,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			CardClass cardClass;
 
 			switch (_type)
@@ -131,6 +156,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Entity.FromCard(_opposite ? controller.Opponent : controller, cardsList.Choose(game.Random));
 			stack.Playables = new []{randomCard};
 
+			Vector().Add($"{Prefix()}Process.randomCard.AssetId", randomCard.Card.AssetId);
 			game.OnRandomHappened(true);
 
 			return TaskState.COMPLETE;

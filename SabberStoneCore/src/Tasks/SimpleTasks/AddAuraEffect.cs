@@ -12,13 +12,24 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Enchants;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using System;
+using System.Collections.Specialized;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class AddAuraEffect : SimpleTask
 	{
+		public override OrderedDictionary Vector()
+		{
+			var v = new OrderedDictionary { { $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) } };
+			v.AddRange(_effect.Vector(), Prefix());
+			v.Add($"{Prefix()}Type", (int)_type);
+			return v;
+		}
+
 		private readonly IEffect _effect;
 		private readonly EntityType _type;
 
@@ -32,8 +43,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			AddSourceAndTargetToVector(source, target);
+
 			foreach (IPlayable p in IncludeTask.GetEntities(_type, in controller, source, target, stack?.Playables))
+			{
+				Vector().Add($"{Prefix()}Process.CardToAddAura.AssetId", p.Card.AssetId);
 				_effect.ApplyAuraTo(p);
+			}
 
 			return TaskState.COMPLETE;
 		}

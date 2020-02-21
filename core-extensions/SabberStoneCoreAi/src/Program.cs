@@ -23,39 +23,97 @@ namespace SabberStoneCoreAi
 			//	var tests = new Testing();
 			//}
 
+			CardClass p1 = CardClass.INVALID;
+			Deck d1;
+
+			CardClass p2 = CardClass.INVALID;
+			Deck d2;
+
+			args[0] = args[0].ToLower();
+			switch (args[0])
+			{
+				case "druid":
+					p1 = CardClass.DRUID;
+					d1 = Decks.BasicDruid;
+					break;
+				case "hunter":
+					p1 = CardClass.HUNTER;
+					d1 = Decks.BasicHunter;
+					break;
+				case "mage":
+					p1 = CardClass.MAGE;
+					d1 = Decks.BasicMage;
+					break;
+				case "paladin":
+					p1 = CardClass.PALADIN;
+					d1 = Decks.BasicPaladin;
+					break;
+				case "priest":
+					p1 = CardClass.PRIEST;
+					d1 = Decks.BasicPriest;
+					break;
+				case "rogue":
+					p1 = CardClass.ROGUE;
+					break;
+				case "shaman":
+					p1 = CardClass.SHAMAN;
+					break;
+				case "warlock":
+					p1 = CardClass.WARLOCK;
+					break;
+				case "warrior":
+					p1 = CardClass.WARRIOR;
+					break;
+				default:
+					throw new ArgumentException($"Player1 Hero Class is invalid, must be either:\n" +
+						$"Druid\n" +
+						$"Hunter\n" +
+						$"Mage\n" +
+						$"Paladin\n" +
+						$"Priest\n" +
+						$"Rogue\n" +
+						$"Shaman\n" +
+						$"Warlock\n" +
+						$"Warrior");
+			}
+
 			Console.WriteLine("Setup gameConfig");
 
-			AbstractAgent player1 = new MCTSAgent();
+			//AbstractAgent player1 = new MCTSAgent();
+			AbstractAgent player1 = new TycheAgentCompetition(p1, p2, Decks.BasicPaladin);
 			//AbstractAgent player1 = new RandomAgent();
-			AbstractAgent player2 = new TycheAgentCompetition();
+			AbstractAgent player2 = new TycheAgentCompetition(p2, p1, Decks.BasicMage);
 
 			var rnd = new Random();
 			var gameConfig = new GameConfig
 			{
 				StartPlayer = rnd.Next(1, 2),
-				Player1HeroClass = CardClass.WARRIOR,
-				Player1Name = "Monte Carlo Hellscream",
-				Player1Deck = Decks.IceFireWarrior,
+				Player1HeroClass = CardClass.PALADIN,
+				Player1Name = "Tyche Paladin",
+				Player1Deck = Decks.BasicPaladin,
+				Player1Health = 30,
 				//Player1HeroClass = CardClass.HUNTER,
 				//Player1Deck = Decks.MidrangeSecretHunter,
-				Player2HeroClass = CardClass.SHAMAN,
-				Player2Deck = Decks.MidrangeJadeShaman,
+				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = Decks.BasicMage,
+				Player2Name = "Tyche Mage",
+				Player2Health = 30,
 				Shuffle = true,
 				Logging = true,
-				History = true
+				History = false
 				//SkipMulligan = false
 			};
 
 			Console.WriteLine("Setup POGameHandler");
 
-			var gameHandler = new POGameHandler(gameConfig, player1, player2, debug: true);
+			var gameHandler = new POGameHandler(gameConfig, player1, player2);
 
 			Console.WriteLine("PlayGame");
 			//gameHandler.PlayGame();
-			gameHandler.PlayGames(1);
-			GameStats gameStats = gameHandler.getGameStats();
+			gameHandler.PlayGames(10);
+			//GameStats gameStats = gameHandler.getGameStats();
 
-			gameStats.printResults();
+			//gameStats.printResults();
 
 			Console.WriteLine("Test successful");
 			Console.ReadLine();

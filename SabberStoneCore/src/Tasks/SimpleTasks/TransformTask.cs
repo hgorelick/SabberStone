@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
+using System.Collections.Specialized;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -34,12 +36,29 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public Card Card { get; set; }
 		public EntityType Type { get; set; }
 
+		public override OrderedDictionary Vector()
+		{
+			return new OrderedDictionary
+		{
+			{ $"{Prefix()}IsTrigger", Convert.ToInt32(IsTrigger) },
+			{ $"{Prefix()}Card.AssetId", Card.AssetId },
+			{ $"{Prefix()}Type", (int)Type }
+		};
+		}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
+			{
+				int before = p.Card.AssetId;
+				Vector().Add($"{Prefix()}Process.BeforeTransform.AssetId", before);
 				Generic.TransformBlock.Invoke(p.Controller, Card, p as Minion);
+
+				//if (before != p.Card.AssetId)
+				Vector().Add($"{Prefix()}Process.AfterTransform.AssetId", p.Card.AssetId);
+			}
 
 			return TaskState.COMPLETE;
 		}

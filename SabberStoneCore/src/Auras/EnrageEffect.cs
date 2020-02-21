@@ -1,7 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Text;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.HearthVector;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Auras
@@ -11,9 +15,40 @@ namespace SabberStoneCore.Auras
 	/// </summary>
 	public class EnrageEffect : Aura
 	{
-		private bool _enraged;
+		private bool _enraged
+		{
+			get
+			{
+				return _enraged;
+			}
+
+			set
+			{
+				_enraged = value;
+				Vector()[$"{Prefix()}Enraged"] = Convert.ToInt32(value);
+			}
+		}
+
+		public bool Enraged => _enraged;
+
 		private IPlayable _target;
 		private Enchantment _currentInstance;
+
+		public override OrderedDictionary Vector()
+		{
+			OrderedDictionary v = base.Vector();
+			v.Add($"{Prefix()}CurrentInstance.AssetId", _currentInstance != null ? _currentInstance.Card.AssetId : 0);
+			v.Add($"{Prefix()}Target.AssetId", _target != null ? _target.Card.AssetId : 0);
+			//v.Add($"{Prefix()}Enraged", Convert.ToInt32(Enraged));
+			return v;
+		}
+
+		public static new OrderedDictionary NullVector = Aura.NullVector.AddRange(new OrderedDictionary
+		{
+			{ "CurrentInstance.AssetId", 0 },
+			{ "Target.AssetId", 0 },
+			{ "Enraged", 0 },
+		}, "NullEnrageEffect.");
 
 		public EnrageEffect(AuraType type, params IEffect[] effects) : base(type, effects)
 		{
@@ -59,7 +94,8 @@ namespace SabberStoneCore.Auras
 			{
 				Game.Auras.Remove(this);
 
-				if (!_enraged) return;
+				if (!_enraged)
+					return;
 
 				// Spiteful Smith
 				if (Type == AuraType.WEAPON)
