@@ -498,7 +498,7 @@ namespace SabberStoneCore.Auras
 			if (Game.Logging)
 				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Aura.RemoveInternal",
 					$"{Owner}'s aura is removed from game and " +
-					$"{String.Join(",", AppliedEntityIdCollection.Select(i => Game.IdEntityDic[i]))})");
+					$"{string.Join(",", AppliedEntityIdCollection.Select(i => Game.IdEntityDic[i]))})");
 		}
 
 		private void TriggeredRemove(IEntity source)

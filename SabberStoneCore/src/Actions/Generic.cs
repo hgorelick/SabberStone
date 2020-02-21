@@ -155,8 +155,8 @@ namespace SabberStoneCore.Actions
 			{
 				IPlayable card, cardOp;
 				{
-					Util.DeepCloneableRandom rnd = c.Game.Random;
-					ReadOnlySpan<IPlayable> span = c.DeckZone.GetSpan();
+					var rnd = c.Game.Random;
+					var span = c.DeckZone.GetSpan();
 					Span<int> buffer = stackalloc int[Math.Max(c.DeckZone.Count, c.Opponent.DeckZone.Count)];
 					int k = 0;
 					for (int i = 0; i < span.Length; i++)
@@ -306,7 +306,7 @@ namespace SabberStoneCore.Actions
 				return;
 			}
 
-			if (g.History || power.Aura != null || power.Trigger != null || power.DeathrattleTask != null || enchantmentCard.Modular)
+			if (g.History || power.Aura != null || power.Trigger != null || power.DeathrattleTask != null || enchantmentCard.Magnetic)
 			{	// Create Enchantment instance Only when it is needed.
 				// As an owner entity for Auras, Triggers or Deathrattle tasks.
 				// We also maintain Modular (Magnetic) Enchantments for Kangor's Endless Army.
