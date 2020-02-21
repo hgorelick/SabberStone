@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
-using SabberStoneCore.HearthVector;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
@@ -66,49 +65,6 @@ namespace SabberStoneCore.Auras
 			}
 		}
 
-		public virtual string Prefix()
-		{
-			string prefix = $"{GetType().Name}";
-
-			if (Game == null)
-				return prefix + "0.";
-
-			for (int i = 0; i < Game?.Auras?.Count; ++i)
-				if (Game.Auras[i] == this)
-					prefix += $"{i.ToString()}.";
-			return prefix;
-		}
-
-		public virtual OrderedDictionary Vector()
-		{
-			var v = new OrderedDictionary { { $"{Prefix()}Type", (int)Type } };
-
-			//if (Effects.Length > 0)
-			for (int i = 0; i < Effects?.Length; ++i)
-				v.AddRange(Effects[i].Vector(), Prefix());
-			//else
-			//	v.AddRange(Effect.NullVector, Prefix);
-
-			v.Add($"{Prefix()}EnchantmentCard", EnchantmentCard.AssetId);
-			//v.Add($"{Prefix}Owner", Owner != null ? Owner.Card.AssetId : 0);
-			v.Add($"{Prefix()}On", Convert.ToInt32(_on)); // necessary? can it be on then turned off then back on?
-
-			return v;
-		}
-
-		public static OrderedDictionary NullVector
-		{
-			get
-			{
-				OrderedDictionary v = new OrderedDictionary().AddRange(Effect.NullVector, "NullAura.");
-				v.Add("NullAura.EnchantmentCard", 0);
-				v.Add("NullAura.Owner", 0);
-				v.Add("NullAura.On", 0);
-
-				return v;
-			}
-		}
-
 		private protected readonly Util.PriorityQueue<AuraUpdateInstruction> AuraUpdateInstructionsQueue;
 		private protected readonly Util.SmallFastCollection AppliedEntityIdCollection;
 
@@ -117,17 +73,8 @@ namespace SabberStoneCore.Auras
 
 		private IPlayable _owner;
 
-		private bool _on = true;
-		public bool On
-		{
-			get => _on;
-			set
-			{
-				_on = value;
-				//Vector()[Vector().Keys.Cast<string>().ToList().Where(s => s.Contains(".On")).ToList()[0]] = Convert.ToInt32(value);
-			}
-		}
-		public IEffect[] Effects;
+		protected bool On = true;
+		protected IEffect[] Effects;
 
 		public readonly Game Game;
 		public readonly AuraType Type;
@@ -221,7 +168,7 @@ namespace SabberStoneCore.Auras
 				}
 			}
 
-			if (!cloning)
+			if (!cloning && !Restless)
 				instance.AuraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(Instruction.AddAll), 1);
 
 			#region WIP: Correct History
@@ -287,26 +234,16 @@ namespace SabberStoneCore.Auras
 		/// </summary>
 		public virtual void Update()
 		{
+			bool addAllProcessed = false;
+
 			if (Restless)
 			{
-				if (!On)
-				{
-					RemoveInternal();
-					return;
-				}
-
-				AuraUpdateInstructionsQueue.Clear();
-
-				AppliedEntityIdCollection.ForEach(Game.IdEntityDic, this,
-					(i, dict, aura) => aura.DeApply(dict[i]));
-
-				UpdateInternal();
-
-				return;
+				RenewAll();
+				addAllProcessed = true;
 			}
 
 			Util.PriorityQueue<AuraUpdateInstruction> queue = AuraUpdateInstructionsQueue;
-			bool addAllProcessed = false;
+
 			while (queue.Count != 0)
 			{
 				AuraUpdateInstruction inst = queue.Dequeue();
@@ -587,6 +524,13 @@ namespace SabberStoneCore.Auras
 				Effects[i].RemoveAuraFrom(entity);
 			}
 
+			if (Game.History)
+			{
+				for (int i = 0; i < Effects.Length; i++)
+					Game.PowerHistory.Add(
+						PowerHistoryBuilder.TagChange(entity.Id, Effects[i].Tag, entity[Effects[i].Tag]));
+			}
+
 			if (EnchantmentCard != null && (Game.History || EnchantmentCard.Power.Trigger != null))
 			{
 				int cardId = EnchantmentCard.AssetId;
@@ -621,6 +565,14 @@ namespace SabberStoneCore.Auras
 			for (int i = 0; i < effects.Length; i++)
 				effects[i].ApplyAuraTo(entity);
 
+			if (Game.History)
+			{
+				for (int i = 0; i < effects.Length; i++)
+					Game.PowerHistory.Add(
+						PowerHistoryBuilder.TagChange(entity.Id, effects[i].Tag, entity[effects[i].Tag]));
+			}
+			
+
 			if (EnchantmentCard != null && ((Game.History /*&& _tempList == null*/) || EnchantmentCard.Power.Trigger != null))
 			{
 				Enchantment instance = Enchantment.GetInstance(entity.Controller, Owner, entity, in EnchantmentCard);
@@ -631,6 +583,48 @@ namespace SabberStoneCore.Auras
 
 			if (Game.Logging)
 				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Aura.Apply", $"{Owner}'s aura is applied to {entity}.");
+		}
+
+		private void RenewAll()
+		{
+			SelfCondition condition = Condition;
+			Util.SmallFastCollection collection = AppliedEntityIdCollection;
+			void Renew(IPlayable p)
+			{
+				if (condition.Eval(p))
+				{
+					if (!collection.Contains(p.Id))
+						Apply(p);
+				}
+				else
+				{
+					if (collection.Contains(p.Id))
+						DeApply(p);
+				}
+			}
+
+			switch (Type)
+			{
+				case AuraType.BOARD:
+					Owner.Controller.BoardZone.ForEach(Renew);
+					break;
+				case AuraType.HANDS:
+					Owner.Controller.HandZone.ForEach(Renew);
+					Owner.Controller.Opponent.HandZone.ForEach(Renew);
+					break;
+				case AuraType.WEAPON:
+					if (Owner.Controller.Hero.Weapon == null) break;
+					Renew(Owner.Controller.Hero.Weapon);
+					break;
+				case AuraType.HERO:
+					Renew(Owner.Controller.Hero);
+					break;
+				case AuraType.SELF:
+					Renew(Owner);
+					break;
+				default:
+					throw new NotImplementedException($"Restless aura of type {Type} is not implemented.");
+			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -20,5 +20,19 @@ namespace SabberStoneGui
 	/// </summary>
 	public partial class App : Application
 	{
+		public App()
+		{
+			System.Windows.Threading.Dispatcher dispatcher = Dispatcher;
+			if (dispatcher != null)
+			{
+				dispatcher.UnhandledException += Dispatcher_UnhandledException;
+			}
+		}
+
+		private void Dispatcher_UnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+		{
+			MessageBox.Show(e.Exception.ToString());
+			e.Handled = true;
+		}
 	}
 }

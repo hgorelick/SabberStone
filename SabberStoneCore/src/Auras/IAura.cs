@@ -6,7 +6,7 @@ namespace SabberStoneCore.Auras
 	/// <summary>
 	/// Interface for Ongoing Effects.
 	/// </summary>
-	public interface IAura : IHearthVector
+	public interface IAura
 	{
 		/// <summary> The entity who owns this effect. </summary>
 		IPlayable Owner { get; }

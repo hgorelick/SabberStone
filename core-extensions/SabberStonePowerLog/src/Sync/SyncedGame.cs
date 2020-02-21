@@ -63,8 +63,8 @@ namespace SabberStonePowerLog.src.Sync
 
 				});
 
-			var entities = _powerGame.Entities.Values;
-			var cards = entities.Where(a =>
+			Dictionary<int, PowerEntity>.ValueCollection entities = _powerGame.Entities.Values;
+			IEnumerable<PowerEntity> cards = entities.Where(a =>
 			{
 				if (!a.Data.ContainsKey("CARDTYPE"))
 					return false;

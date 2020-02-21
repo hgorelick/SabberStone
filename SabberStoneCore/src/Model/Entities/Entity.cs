@@ -88,7 +88,7 @@ namespace SabberStoneCore.Model.Entities
 	/// <summary>
 	/// The base class of all data-holding/action-performing/visible or invisible objects in a SabberStone game.
 	/// An entity is defined as a collection of properties, called Tags.
-	/// 
+	///
 	/// <seealso cref="HeroPower"/>
 	/// <seealso cref="Hero"/>
 	/// <seealso cref="Minion"/>
@@ -120,7 +120,7 @@ namespace SabberStoneCore.Model.Entities
 		public static OrderedDictionary NullVector = new OrderedDictionary { { "NullEntity.AssetId", 0 } };
 
 		/// <summary>
-		/// This object holds the original tag values, defined through the constructor 
+		/// This object holds the original tag values, defined through the constructor
 		/// of this instance.
 		/// These tags are usefull when values are needed without any buffs/debuffs applied.
 		/// </summary>
@@ -336,9 +336,12 @@ namespace SabberStoneCore.Model.Entities
 			// add entity to the game dic
 			game.IdEntityDic[result.Id] = result;
 
-			// add power history full entity 
+			// add power history full entity
 			if (game.History)
 			{
+				if (zone != null)
+					tags[GameTag.ZONE] = (int)zone.Type;
+
 				if (zone is DeckZone)
 				{
 					controller.Game.PowerHistory.Add(new PowerHistoryFullEntity
@@ -347,7 +350,7 @@ namespace SabberStoneCore.Model.Entities
 						{
 							Id = result.Id,
 							Name = "",
-							Tags = new Dictionary<GameTag, int>(tags)
+							Tags = new EntityData(tags)
 						}
 					});
 				}
@@ -444,8 +447,8 @@ namespace SabberStoneCore.Model.Entities
 
 	public partial class Entity
 	{
-		protected readonly bool _history;
-		protected readonly bool _logging;
+		protected bool _history;
+		protected bool _logging;
 
 		public int Id { get; }
 

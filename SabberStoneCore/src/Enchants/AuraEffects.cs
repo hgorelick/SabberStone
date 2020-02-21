@@ -12,11 +12,11 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Text;
 using SabberStoneCore.Enums;
-using SabberStoneCore.HearthVector;
+using SabberStoneCore.Kettle;
+using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 // ReSharper disable InconsistentNaming
 
@@ -25,55 +25,13 @@ namespace SabberStoneCore.Enchants
 	/// <summary>
 	/// A simple container for saving tag value perturbations from external Auras. Call indexer to get value for a particular Tag.
 	/// </summary>
-	public class AuraEffects : IHearthVector
+	public class AuraEffects : IEquatable<AuraEffects>
 	{
-		private static readonly int _int32Size = sizeof(int);
-
 		private const int PlayableLength = 2;
 		private const int WeaponLength = PlayableLength + 1;
 		private const int CharacterLength = PlayableLength + 2;
 		private const int HeroLength = CharacterLength + 3;
 		private const int MinionLength = CharacterLength + 7;
-
-		public string Prefix()
-		{
-			return "AuraEffects.";
-		}
-
-		public OrderedDictionary Vector()
-		{
-			return new OrderedDictionary
-		{
-			{ $"{Prefix()}ATK", ATK },
-			{ $"{Prefix()}CantAttackHeroes", Convert.ToInt32(CantAttackHeroes) },
-			{ $"{Prefix()}CantBeTargetedBySpells", Convert.ToInt32(CantBeTargetedBySpells) },
-			{ $"{Prefix()}CardCostHealth", Convert.ToInt32(CardCostHealth) },
-			{ $"{Prefix()}Charge", Charge },
-			{ $"{Prefix()}Echo", Convert.ToInt32(Echo) },
-			{ $"{Prefix()}Health", Health },
-			{ $"{Prefix()}HeroPowerDamage", HeroPowerDamage },
-			{ $"{Prefix()}Immune", Immune },
-			{ $"{Prefix()}Lifesteal", Convert.ToInt32(Lifesteal) },
-			{ $"{Prefix()}Taunt", Convert.ToInt32(Taunt) },
-			{ $"{Prefix()}Type", (int)Type }
-		};
-		}
-
-		public static OrderedDictionary NullVector = new OrderedDictionary
-		{
-			{ $"NullAuraEffects.ATK", 0 },
-			{ $"NullAuraEffects.CantAttackHeroes", 0 },
-			{ $"NullAuraEffects.CantBeTargetedBySpells", 0 },
-			{ $"NullAuraEffects.CardCostHealth", 0 },
-			{ $"NullAuraEffects.Charge", 0 },
-			{ $"NullAuraEffects.Echo", 0 },
-			{ $"NullAuraEffects.Health", 0 },
-			{ $"NullAuraEffects.HeroPowerDamage", 0 },
-			{ $"NullAuraEffects.Immune", 0 },
-			{ $"NullAuraEffects.Lifesteal", 0 },
-			{ $"NullAuraEffects.Taunt", 0 },
-			{ $"NullAuraEffects.Type", 0 }
-		};
 
 		// Indices:
 		// Playables
@@ -122,7 +80,7 @@ namespace SabberStoneCore.Enchants
 
 		private AuraEffects(AuraEffects original) : this (original.Type)
 		{
-			Buffer.BlockCopy(original._data, 0, _data, 0, _data.Length * _int32Size);
+			Buffer.BlockCopy(original._data, 0, _data, 0, _data.Length * sizeof(int));
 		}
 
 		public readonly CardType Type;
@@ -188,7 +146,7 @@ namespace SabberStoneCore.Enchants
 		}
 
 		// Only for Hero entities
-		public bool CantAttackHeroes
+		public bool CannotAttackHeroes
 		{
 			get
 			{
@@ -276,7 +234,7 @@ namespace SabberStoneCore.Enchants
 					case GameTag.ECHO:
 						return Echo ? 1 : 0;
 					case GameTag.CANNOT_ATTACK_HEROES:
-						return CantAttackHeroes ? 1 : 0;
+						return CannotAttackHeroes ? 1 : 0;
 					case GameTag.HEROPOWER_DAMAGE:
 						return HeroPowerDamage;
 					default:
@@ -322,7 +280,7 @@ namespace SabberStoneCore.Enchants
 						Echo = value > 0;
 						return;
 					case GameTag.CANNOT_ATTACK_HEROES:
-						CantAttackHeroes = value > 0;
+						CannotAttackHeroes = value > 0;
 						return;
 					case GameTag.HEROPOWER_DAMAGE:
 						HeroPowerDamage = value;
@@ -348,89 +306,82 @@ namespace SabberStoneCore.Enchants
 			hash.Append("]");
 			return hash.ToString();
 		}
+
+		#region Equality members
+
+		public bool Equals(AuraEffects other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			return Type == other.Type &&
+			       System.Linq.Enumerable.SequenceEqual(_data, other._data);
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != this.GetType()) return false;
+			return Equals((AuraEffects) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				int hashCode = (int) Type;
+				int[] data = _data;
+				for (int i = 0; i < data.Length; i++)
+					hashCode = (hashCode * 397) ^ data[i];
+				return hashCode;
+			}
+		}
+
+		public static bool operator ==(AuraEffects left, AuraEffects right)
+		{
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(AuraEffects left, AuraEffects right)
+		{
+			return !Equals(left, right);
+		}
+
+		#endregion
 	}
 
 	/// <summary>
-	/// A collecton of controller Tag increments from Auras. These tags tends to be checked when a player plays any cards.
+	/// A collecton of controller Tag increments from Auras.
+	/// These tags tends to be checked when a player plays any cards.
 	/// </summary>
-	public class ControllerAuraEffects : IHearthVector
+	public class ControllerAuraEffects : IEquatable<ControllerAuraEffects>
 	{
-		public string Prefix()
-		{
-			return "ControllerAuraEffects.";
-		}
-
-		public OrderedDictionary Vector()
-		{
-			return new OrderedDictionary
-		{
-			{ $"{Prefix()}AllHealingDouble", AllHealingDouble },
-			{ $"{Prefix()}ChooseBoth", ChooseBoth },
-			{ $"{Prefix()}ExtraBattlecry", ExtraBattlecry },
-			{ $"{Prefix()}ExtraBattlecryAndCombo", ExtraBattlecryAndCombo },
-			{ $"{Prefix()}ExtraEndTurnEffect", ExtraEndTurnEffect },
-			{ $"{Prefix()}HeroPowerDisabled", HeroPowerDisabled },
-			{ $"{Prefix()}HeroPowerDouble", HeroPowerDouble },
-			{ $"{Prefix()}RestoreToDamage", RestoreToDamage },
-			{ $"{Prefix()}SpellPower", SpellPower },
-			{ $"{Prefix()}SpellPowerDouble", SpellPowerDouble },
-			{ $"{Prefix()}SpellsCostHealth", SpellsCostHealth },
-			{ $"{Prefix()}TimeOut", TimeOut }
-		};
-		}
-
-		public static OrderedDictionary NullVector =
-			new OrderedDictionary
-			{
-				{ $"NullControllerAuraEffects.ControllerAuraEffects.AllHealingDouble", 0 },
-				{ $"NullControllerAuraEffects.ControllerAuraEffects.ChooseBoth", 0 },
-				{ $"NullControllerAuraEffects.ControllerAuraEffects.ExtraBattlecry", 0 },
-				{ $"NullControllerAuraEffects.ControllerAuraEffects.ExtraBattlecryAndCombo", 0 },
-				{ $"NullControllerAuraEffects.ControllerAuraEffects.ExtraEndTurnEffect", 0 },
-				{ $"NullControllerAuraEffects.ControllerAuraEffects.HeroPowerDisabled", 0 },
-				{ $"NullControllerAuraEffects.ControllerAuraEffects.HeroPowerDouble", 0 },
-				{ $"NullControllerAuraEffects.ControllerAuraEffects.RestoreToDamage", 0 },
-				{ $"NullControllerAuraEffects.ControllerAuraEffects.SpellPower", 0 },
-				{ $"NullControllerAuraEffects.ControllerAuraEffects.SpellPowerDouble", 0 },
-				{ $"NullControllerAuraEffects.ControllerAuraEffects.SpellsCostHealth", 0 },
-				{ $"NullControllerAuraEffects.ControllerAuraEffects.TimeOut", 0 }
-			};
+		private Action<IPowerHistoryEntry> _sendHistory;
+		private int _controllerEntityId;
 
 		private int _timeOut;
-		public int TimeOut => _timeOut;
-
 		private int _spellPowerDouble;
-		public int SpellPowerDouble => _spellPowerDouble;
-
 		private int _heroPowerDouble;
-		public int HeroPowerDouble => _heroPowerDouble;
-
 		private int _restoreToDamage;
-		public int RestoreToDamage => _restoreToDamage;
-
-		private int _extraBattlecry;
-		public int ExtraBattlecry => _extraBattlecry;
-
+		private int _extraBattecry;
 		private int _chooseBoth;
-		public int ChooseBoth => _chooseBoth;
-
 		private int _spellsCostHealth;
-		public int SpellsCostHealth => _spellsCostHealth;
-
 		private int _extraEndTurnEffect;
-		public int ExtraEndTurnEffect => _extraEndTurnEffect;
-
 		private int _heroPowerDisabled;
-		public int HeroPowerDisabled => _heroPowerDisabled;
-
 		private int _allHealingDouble;
-		public int AllHealingDouble => _allHealingDouble;
-
 		private int _extraBattlecryAndCombo;
-		public int ExtraBattlecryAndCombo => _extraBattlecryAndCombo;
-
 		private int _spellPower;
-		public int SpellPower => _spellPower;
+
+		public ControllerAuraEffects() { }
+
+		public ControllerAuraEffects(in Game g, in Controller c)
+		{
+			if (g.History)
+			{
+				_sendHistory = g.PowerHistory.Add;
+				_controllerEntityId = c.Id;
+			}
+		}
 
 		public int this[GameTag t]
 		{
@@ -452,7 +403,7 @@ namespace SabberStoneCore.Enchants
 					case GameTag.SPELLS_COST_HEALTH:
 						return _spellsCostHealth >= 1 ? 1 : 0;
 					case GameTag.EXTRA_BATTLECRIES_BASE:
-						return _extraBattlecry;
+						return _extraBattecry;
 					case GameTag.EXTRA_END_TURN_EFFECT:
 						return _extraEndTurnEffect;
 					case GameTag.HERO_POWER_DISABLED:
@@ -469,6 +420,7 @@ namespace SabberStoneCore.Enchants
 			}
 			set
 			{
+				_sendHistory?.Invoke(PowerHistoryBuilder.TagChange(_controllerEntityId, t, value));
 				switch (t)
 				{
 					case GameTag.TIMEOUT:
@@ -491,7 +443,7 @@ namespace SabberStoneCore.Enchants
 						_spellsCostHealth = value;
 						return;
 					case GameTag.EXTRA_BATTLECRIES_BASE:
-						_extraBattlecry = value;
+						_extraBattecry = value;
 						return;
 					case GameTag.EXTRA_END_TURN_EFFECT:
 						_extraEndTurnEffect = value;
@@ -514,9 +466,14 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
-		public ControllerAuraEffects Clone()
+		public ControllerAuraEffects Clone(Controller c)
 		{
-			return (ControllerAuraEffects)MemberwiseClone();
+
+			var cae = (ControllerAuraEffects)MemberwiseClone();
+			cae._sendHistory = c.Game.History
+				? (Action<IPowerHistoryEntry>) c.Game.PowerHistory.Add
+				: null;
+			return cae;
 		}
 
 		public string Hash()
@@ -526,7 +483,7 @@ namespace SabberStoneCore.Enchants
 			sb.Append(_spellPowerDouble);
 			sb.Append(_heroPowerDouble);
 			sb.Append(_restoreToDamage);
-			sb.Append(_extraBattlecry);
+			sb.Append(_extraBattecry);
 			sb.Append(_chooseBoth);
 			sb.Append(_spellsCostHealth);
 			sb.Append(_extraEndTurnEffect);
@@ -537,5 +494,59 @@ namespace SabberStoneCore.Enchants
 			sb.Append("]");
 			return sb.ToString();
 		}
+
+		#region Equality members
+
+		public bool Equals(ControllerAuraEffects other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			return _timeOut == other._timeOut && _spellPowerDouble == other._spellPowerDouble &&
+			       _heroPowerDouble == other._heroPowerDouble && _restoreToDamage == other._restoreToDamage &&
+			       _extraBattecry == other._extraBattecry && _chooseBoth == other._chooseBoth &&
+			       _spellsCostHealth == other._spellsCostHealth && _extraEndTurnEffect == other._extraEndTurnEffect &&
+			       _heroPowerDisabled == other._heroPowerDisabled && _allHealingDouble == other._allHealingDouble &&
+			       _extraBattlecryAndCombo == other._extraBattlecryAndCombo && _spellPower == other._spellPower;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != this.GetType()) return false;
+			return Equals((ControllerAuraEffects) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				int hashCode = _timeOut;
+				hashCode = (hashCode * 397) ^ _spellPowerDouble;
+				hashCode = (hashCode * 397) ^ _heroPowerDouble;
+				hashCode = (hashCode * 397) ^ _restoreToDamage;
+				hashCode = (hashCode * 397) ^ _extraBattecry;
+				hashCode = (hashCode * 397) ^ _chooseBoth;
+				hashCode = (hashCode * 397) ^ _spellsCostHealth;
+				hashCode = (hashCode * 397) ^ _extraEndTurnEffect;
+				hashCode = (hashCode * 397) ^ _heroPowerDisabled;
+				hashCode = (hashCode * 397) ^ _allHealingDouble;
+				hashCode = (hashCode * 397) ^ _extraBattlecryAndCombo;
+				hashCode = (hashCode * 397) ^ _spellPower;
+				return hashCode;
+			}
+		}
+
+		public static bool operator ==(ControllerAuraEffects left, ControllerAuraEffects right)
+		{
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(ControllerAuraEffects left, ControllerAuraEffects right)
+		{
+			return !Equals(left, right);
+		}
+
+		#endregion
 	}
 }

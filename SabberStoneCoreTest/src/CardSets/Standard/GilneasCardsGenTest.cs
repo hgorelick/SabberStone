@@ -1513,7 +1513,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.True(testCard.HasTaunt);
 			Assert.True(testCard.HasLifeSteal);
 
-			var clone = game.Clone();
+			Game clone = game.Clone();
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -2944,12 +2944,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ratcatcher"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ratcatcher"));
 
+			IPlayable target2 = game.ProcessCard("Summoning Portal");
 			IPlayable target = game.ProcessCard("Chillwind Yeti");
 			Minion test = game.ProcessCard<Minion>("Ratcatcher", target);
+			Minion test2 = game.ProcessCard<Minion>("Ratcatcher", target2);
 
 			Assert.Equal(6, test.AttackDamage);
 			Assert.Equal(7, test.Health);
 			Assert.True(target.ToBeDestroyed);
+
+			Assert.Equal(2, test2.AttackDamage);
+			Assert.Equal(6, test2.Health);
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -4605,6 +4610,33 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			test.Kill();
 
 			Assert.True(target.ToBeDestroyed);
+
+			// https://playhearthstone.com/en-us/blog/21965466/
+			// The impact on Voodoo Doll is a little different with the update.
+			// If you transform the minion that’s already been cursed by Voodoo Doll,
+			// the curse will be broken, and the transformed (and formerly cursed) minion
+			// will not be killed when Voodoo Doll dies.
+			// Silencing the cursed minion will also break the curse,
+			// in addition to silencing the Voodoo Doll.
+			test = game.ProcessCard<Minion>("Wisp");
+
+			Minion silenceTest = game.ProcessCard<Minion>("Voodoo Doll", test, asZeroCost: true);
+			test.Silence();
+			silenceTest.Kill();
+			Assert.False(test.ToBeDestroyed);
+
+			Minion transformTest = game.ProcessCard<Minion>("Voodoo Doll", test, asZeroCost: true);
+			game.ProcessCard<Minion>("Master of Evolution", test, asZeroCost: true);
+			transformTest.Kill();
+			test = (Minion) game.IdEntityDic[test.Id];
+			Assert.False(test.ToBeDestroyed);
+
+			Minion returnToHandTest = game.ProcessCard<Minion>("Voodoo Doll", test, asZeroCost: true);
+			game.ProcessCard("Shadowstep", test);
+			Assert.Equal(Zone.HAND, test.Zone.Type);
+			game.ProcessCard(test);
+			returnToHandTest.Kill();
+			Assert.False(test.ToBeDestroyed);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4997,7 +5029,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 
 			// Test Skycap'n Kragg mana cost is reduced by Amalgam in field
-			var skycapn = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Skycap'n Kragg"));
+			IPlayable skycapn = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Skycap'n Kragg"));
 			Minion testCard = game.ProcessCard<Minion>("Nightmare Amalgam");
 			Assert.Equal(6, skycapn.Cost);
 

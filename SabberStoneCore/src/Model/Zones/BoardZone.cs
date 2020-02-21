@@ -100,6 +100,19 @@ namespace SabberStoneCore.Model.Zones
 			}
 		}
 
+		internal static void InitialiseMinion(Minion entity)
+		{
+			if (entity.Game.CurrentPlayer != entity.Controller) return;
+			if (entity.HasCharge) return;
+			if (entity.IsRush)
+			{
+				entity.AttackableByRush = true;
+				entity.Game.RushMinions.Add(entity.Id);
+			}
+			else
+				entity.IsExhausted = true;
+		}
+
 		public override Minion Remove(Minion entity)
 		{
 			RemoveAura(entity);
@@ -129,10 +142,6 @@ namespace SabberStoneCore.Model.Zones
 		public void Replace(Minion oldEntity, Minion newEntity)
 		{
 			int pos = oldEntity.ZonePosition;
-			_entities[pos] = newEntity;
-			newEntity.ZonePosition = pos;
-			newEntity[GameTag.ZONE] = (int)Type;
-			newEntity.Zone = this;
 
 			// Remove old Entity
 			RemoveAura(oldEntity);
@@ -141,20 +150,34 @@ namespace SabberStoneCore.Model.Zones
 			oldEntity.ActivatedTrigger?.Remove();
 			if (oldEntity.Card.Untouchable && --_untouchableCount == 0)
 				_hasUntouchables = false;
-
-			Controller.SetasideZone.Add(oldEntity);
+			oldEntity.ZonePosition = 0;
+			oldEntity.Controller.SetasideZone.Add(oldEntity);
 
 			// Add new Entity
 			newEntity.OrderOfPlay = Game.NextOop;
+			_entities[pos] = newEntity;
+			if (newEntity.Game.History)
+				newEntity[GameTag.ZONE] = (int)Type;
+			newEntity.Zone = this;
+			newEntity.ZonePosition = pos;
 			ActivateAura(newEntity);
 			if (newEntity.Card.Untouchable)
 			{
 				++_untouchableCount;
 				_hasUntouchables = true;
 			}
-
 			Auras.ForEach(a => a.EntityAdded(newEntity));
 			AdjacentAuras.ForEach(a => a.BoardChanged = true);
+			if (!newEntity.HasCharge)
+			{
+				if (newEntity.IsRush)
+				{
+					newEntity.AttackableByRush = true;
+					Game.RushMinions.Add(newEntity.Id);
+				}
+				else
+					newEntity.IsExhausted = true;
+			}
 		}
 
 		/// <summary>

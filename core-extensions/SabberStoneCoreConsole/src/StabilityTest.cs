@@ -100,7 +100,7 @@ namespace SabberStoneCoreConsole
 		    {
 			    var tasks = new Task[num];
 			    var cts = new CancellationTokenSource();
-			    var token = cts.Token;
+				CancellationToken token = cts.Token;
 			    for (int j = 0; j < tasks.Length; j++)
 			    {
 				    tasks[j] = new Task(() =>

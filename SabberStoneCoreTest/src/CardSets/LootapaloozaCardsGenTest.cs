@@ -417,7 +417,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twig of the World Tree"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twig of the World Tree"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Twig of the World Tree"));
 
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.Opponent.Hero));
@@ -646,12 +646,12 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wandering Monster"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wandering Monster"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wandering Monster"));
 
 			game.EndTurn();
 
-			var attacker = game.ProcessCard<Minion>("Stonetusk Boar");
+			Minion attacker = game.ProcessCard<Minion>("Stonetusk Boar");
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, attacker, game.CurrentOpponent.Hero));
 
 			Assert.Empty(game.CurrentOpponent.SecretZone);
@@ -826,7 +826,7 @@ namespace SabberStoneCoreTest.CardSets
 
 			Assert.True(game.CurrentPlayer.HandZone.IsFull);
 
-			foreach (var handCard in game.CurrentPlayer.HandZone)
+			foreach (IPlayable handCard in game.CurrentPlayer.HandZone)
 			{
 				Assert.True(handCard is Spell);
 				Assert.True(handCard.Card.Class == CardClass.HUNTER);
@@ -2566,7 +2566,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.ProcessCard("Deadly Poison");
 			game.ProcessCard("Deadly Poison");
 			game.ProcessCard("Leeching Poison");
-			var weapon = game.CurrentPlayer.Hero.Weapon;
+			Weapon weapon = game.CurrentPlayer.Hero.Weapon;
 			Assert.True(weapon.AttackDamage == 5 && weapon.HasLifeSteal);
 			game.EndTurn();
 
@@ -2851,7 +2851,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lesser Sapphire Spellstone"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lesser Sapphire Spellstone"));
 
 			game.ProcessCard("Lightning Storm", null, true);
 			Assert.NotEqual("Sapphire Spellstone", testCard.Card.Name);
@@ -3062,7 +3062,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vulgar Homunculus"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vulgar Homunculus"));
 			int previousHealth = game.CurrentPlayer.Hero.Health;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Vulgar Homunculus"));
 			Assert.Equal(previousHealth - 2, game.CurrentPlayer.Hero.Health);
@@ -3096,7 +3096,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kobold Librarian"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kobold Librarian"));
 			int previousHealth = game.CurrentPlayer.Hero.Health;
 			int previousCardsInHand = game.CurrentPlayer.HandZone.Count;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Kobold Librarian"));
@@ -3208,7 +3208,7 @@ namespace SabberStoneCoreTest.CardSets
 				game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			}
 
-			foreach (var card in game.CurrentPlayer.HandZone)
+			foreach (IPlayable card in game.CurrentPlayer.HandZone)
 			{
 				if (minionsInDeck.Contains(card.Card))
 				{
@@ -3224,7 +3224,7 @@ namespace SabberStoneCoreTest.CardSets
 			{
 				game.CurrentPlayer.TemporaryMana = 10;
 				var testCard = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Possessed Lackey"));
-				var darkPact = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
+				IPlayable darkPact = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
 				int previousBoardAmount = game.CurrentPlayer.BoardZone.Count;
 				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 				game.Process(PlayCardTask.Any(game.CurrentPlayer, darkPact, testCard));
@@ -3239,7 +3239,7 @@ namespace SabberStoneCoreTest.CardSets
 				}
 			}
 
-			foreach (var card in game.CurrentPlayer.BoardZone)
+			foreach (Minion card in game.CurrentPlayer.BoardZone)
 			{
 				if (minionsInDeck.Contains(card.Card))
 				{
@@ -3285,15 +3285,15 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Voidlord"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Voidlord"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Voidlord"));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			var twistingNether = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twisting Nether"));
+			IPlayable twistingNether = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Twisting Nether"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, twistingNether));
 
 			Assert.Equal(3, game.CurrentPlayer.Opponent.BoardZone.Count);
-			var voidwalker = Cards.FromName("Voidwalker");
+			Card voidwalker = Cards.FromName("Voidwalker");
 			for (int i = 0; i < game.CurrentPlayer.Opponent.BoardZone.Count; i++)
 			{
 				Assert.Equal(voidwalker, game.CurrentPlayer.Opponent.BoardZone[i].Card);
@@ -3388,8 +3388,8 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			int previousHealth = game.CurrentPlayer.Hero.Health;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
-			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
 			var silverback = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silverback Patriarch"));
 			var silverback2 = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silverback Patriarch"));
 
@@ -3399,7 +3399,7 @@ namespace SabberStoneCoreTest.CardSets
 			Assert.True(silverback.ToBeDestroyed, "Friendly Minion wasn't Destroyed");
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			var pyroblast = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Pyroblast"));
+			IPlayable pyroblast = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Pyroblast"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, pyroblast, game.CurrentOpponent.Hero));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
@@ -3829,7 +3829,7 @@ namespace SabberStoneCoreTest.CardSets
 				game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			}
 
-			foreach (var card in game.CurrentPlayer.HandZone)
+			foreach (IPlayable card in game.CurrentPlayer.HandZone)
 			{
 				if (minionsInDeck.Contains(card.Card))
 				{
@@ -3840,12 +3840,12 @@ namespace SabberStoneCoreTest.CardSets
 			for (int i = 0; i < minionsInDeck.Count; i++)
 			{
 				game.CurrentPlayer.TemporaryMana = 10;
-				var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gather Your Party"));
+				IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gather Your Party"));
 				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 				Assert.Equal(minionsInDeck.Count - i - 1, game.CurrentPlayer.DeckZone.Count);
 			}
 
-			foreach (var card in game.CurrentPlayer.BoardZone)
+			foreach (Minion card in game.CurrentPlayer.BoardZone)
 			{
 				if (minionsInDeck.Contains(card.Card))
 				{
@@ -3971,7 +3971,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sewer Crawler"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sewer Crawler"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Sewer Crawler"));
 			Assert.Equal(game.CurrentPlayer.BoardZone[0].Card, testCard.Card);
 			Assert.Equal(game.CurrentPlayer.BoardZone[1].Card, Cards.FromId("LOOT_069t"));
@@ -4010,8 +4010,8 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Scorp-o-matic"));
-			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Scorp-o-matic"));
+			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Scorp-o-matic"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Scorp-o-matic"));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			var elvenArcher = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elven Archer"));
@@ -4090,10 +4090,10 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ebon Dragonsmith"));
-			var warAxe = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
-			var reaper = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcanite Reaper"));
-			var yeti = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Chillwind Yeti"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ebon Dragonsmith"));
+			IPlayable warAxe = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
+			IPlayable reaper = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcanite Reaper"));
+			IPlayable yeti = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Chillwind Yeti"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ebon Dragonsmith"));
 			Assert.Equal(yeti.Cost, yeti.Card.Cost);
 			Assert.True(warAxe.Cost == warAxe.Card.Cost - 2 || reaper.Cost == reaper.Card.Cost - 2, "Weapon Discount Failed. Fiery War Axe Cost:" + warAxe.Cost.ToString() + ". Arcanite Reaper Cost: " + reaper.Cost.ToString());
@@ -4129,12 +4129,12 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Corrosive Sludge"));
-			var yourWeapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Corrosive Sludge"));
+			IPlayable yourWeapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, yourWeapon));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			var theirWeapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
+			IPlayable theirWeapon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, theirWeapon));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
@@ -4180,18 +4180,18 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lone Champion"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lone Champion"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 			Assert.True(testCard[GameTag.TAUNT] == 1, "Doesn't have Taunt with a open board");
 			Assert.True(testCard[GameTag.DIVINE_SHIELD] == 1, "Doesn't have Divine Shield with a open board");
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lone Champion"));
+			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lone Champion"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2));
 			Assert.True(testCard2[GameTag.TAUNT] == 1, "Doesn't have Taunt with no friendly minions");
 			Assert.True(testCard2[GameTag.DIVINE_SHIELD] == 1, "Doesn't have Divine Shield with no friendly minions");
 
-			var testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lone Champion"));
+			IPlayable testCard3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lone Champion"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard3));
 			Assert.False(testCard3[GameTag.TAUNT] == 1, "Has Taunt with friendly minions");
 			Assert.False(testCard3[GameTag.DIVINE_SHIELD] == 1, "Has Divine Shield with friendly minions");
@@ -4850,7 +4850,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Feral Gibberer"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Feral Gibberer"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Feral Gibberer"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Feral Gibberer"));
 
@@ -5100,7 +5100,10 @@ namespace SabberStoneCoreTest.CardSets
 						break;
 					case "LOOT_998j":
 						Assert.NotNull(clone.CurrentPlayer.Choice);
-						clone.ChooseNthChoice(1);
+						if (clone.IdEntityDic[clone.CurrentPlayer.Choice.Choices[0]].Card.Name == "Khadgar")
+							clone.ChooseNthChoice(2);	// Don't Choose Khadgar as it would create 3 copies rather than 2.
+						else
+							clone.ChooseNthChoice(1);
 						Assert.Equal(3, clone.CurrentPlayer.BoardZone.Count);
 						Assert.Equal(Rarity.LEGENDARY, clone.CurrentPlayer.BoardZone[1].Card.Rarity);
 						Assert.Equal(Rarity.LEGENDARY, clone.CurrentPlayer.BoardZone[2].Card.Rarity);

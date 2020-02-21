@@ -1021,7 +1021,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kalecgos"));
+			IPlayable testMinion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kalecgos"));
 			Minion testCard = game.ProcessCard<Minion>("Kalecgos");
 			Spell testSpell = (Spell) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
 
@@ -1029,6 +1029,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(CardType.SPELL, chosen.Card.Type);
 			Assert.Equal(0, chosen.Cost);
 			Assert.Equal(0, testSpell.Cost);
+			Assert.NotEqual(0, testMinion.Cost);
 			game.ProcessCard(testSpell, game.CurrentOpponent.Hero);
 			Assert.Equal(chosen.Card.Cost, chosen.Cost);
 			testCard.Kill();
@@ -1474,6 +1475,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
 				},
 				Player2HeroClass = CardClass.PALADIN,
 				Shuffle = true,
@@ -1488,6 +1493,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			IPlayable drawnP = game.IdEntityDic[game.CurrentPlayer.LastCardDrawn];
 			Minion drawn = Assert.IsType<Minion>(drawnP);
+
 			Assert.Equal(0, drawn.Cost);
 			Assert.Equal(drawn.Card.ATK + 2, drawn.AttackDamage);
 			Assert.Equal(drawn.Card.Health + 2, drawn.Health);
@@ -1851,11 +1857,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.EndTurn();
 			// 7
 
+			Game clone = game.Clone();
+
 			game.ProcessCard(testCard, target);
 			Assert.Equal(2, target.AttackDamage);
 			game.EndTurn();
 			Assert.Equal(2, target.AttackDamage);
 			game.EndTurn();
+			Assert.Equal(9, target.AttackDamage);
+
+			// Test with History = false
+			target = (Minion) clone.IdEntityDic[target.Id];
+			clone.ProcessCard(clone.IdEntityDic[testCard.Id], target);
+			Assert.Equal(2, target.AttackDamage);
+			clone.EndTurn();
+			Assert.Equal(2, target.AttackDamage);
+			clone.EndTurn();
 			Assert.Equal(9, target.AttackDamage);
 		}
 

@@ -1038,7 +1038,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Open the Waygate"));
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Open the Waygate"));
 
 			game.ProcessCard(testCard);
 			Assert.NotNull(game.CurrentPlayer.SecretZone.Quest);

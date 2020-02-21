@@ -19,6 +19,7 @@ using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.HearthVector;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -448,7 +449,9 @@ namespace SabberStoneCore.Model.Entities
 			if (source.HasOverkill && source.Controller == game.CurrentPlayer && Health < 0)
 			{
 				game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TakeDamage", !_logging ? "" : $"{source}' Overkill is triggered.");
-				game.TaskQueue.Enqueue(source.Card.Power.OverkillTask, source.Controller, source, null);
+
+				ISimpleTask task = source is Hero h ? h.Weapon.Card.Power.OverkillTask : source.Card.Power.OverkillTask;
+				game.TaskQueue.Enqueue(task, source.Controller, source, null);
 			}
 
 			game.ProcessTasks();
@@ -789,8 +792,8 @@ namespace SabberStoneCore.Model.Entities
 				{
 					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.HEALTH, value));
 					_data[GameTag.HEALTH] = value;
-					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.DAMAGE, value));
-					_data[GameTag.DAMAGE] = value;
+					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.DAMAGE, 0));
+					_data[GameTag.DAMAGE] = 0;
 				}
 			}
 		}

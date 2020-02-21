@@ -12,14 +12,11 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
 using System.Text;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
-using SabberStoneCore.HearthVector;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
@@ -33,81 +30,25 @@ namespace SabberStoneCore.Auras
 	/// </summary>
 	public class AdaptiveCostEffect : IAura
 	{
-		public string Prefix()
-		{
-			return "AdaptiveCostEffect.";
-		}
-
-		public OrderedDictionary Vector()
-		{
-			var v = new OrderedDictionary
-				{
-					{ $"{Prefix()}CachedValue", CachedValue },
-					{ $"{Prefix()}EffectType", (int)EffectType },
-					{ $"{Prefix()}IsAppliedThisTurn", Convert.ToInt32(IsAppliedThisTurn) },
-					{ $"{Prefix()}IsTriggered", Convert.ToInt32(IsTriggered) },
-					{ $"{Prefix()}Operator", (int)Operator }
-				};
-
-			v.Add($"{Prefix()}Owner.AssetId", Owner != null ? Owner.Card.AssetId : 0);
-
-			v.Add($"{Prefix()}TriggerSource", (int)TriggerSource);
-			v.Add($"{Prefix()}TriggerType", (int)TriggerType);
-			v.Add($"{Prefix()}Value", Value);
-
-			return v;
-		}
-
-		public static OrderedDictionary NullVector = new OrderedDictionary
-		{
-			{ "NullAdaptiveCostEffect.CachedValue", 0 },
-			{ "NullAdaptiveCostEffect.EffectType", 0 },
-			{ "NullAdaptiveCostEffect.IsAppliedThisTurn", 0 },
-			{ "NullAdaptiveCostEffect.IsTriggered", 0 },
-			{ "NullAdaptiveCostEffect.Operator", 0 },
-			{ "NullAdaptiveCostEffect.Owner.AssetId", 0 },
-			{ "NullAdaptiveCostEffect.TriggerSource", 0 },
-			{ "NullAdaptiveCostEffect.TriggerType", 0 },
-			{ "NullAdaptiveCostEffect.Value", 0 },
-		};
-
 		// Consider make these subclasses
 		private readonly Type _type;
-		public Type EffectType => _type;
 
 		private readonly Playable _owner;
-		public IPlayable Owner => _owner;
-
 		private readonly int _value;
-		public int Value => _value;
-
 		private readonly EffectOperator _operator;
-		public EffectOperator Operator => _operator;
-
 		private readonly Func<IPlayable, int> _costFunction;
-		public Func<IPlayable, int> CostFunction => _costFunction;
 
 		private readonly TriggerType _triggerType;
-		public TriggerType TriggerType => _triggerType;
-
 		private readonly TriggerSource _triggerSource;
-		public TriggerSource TriggerSource => _triggerSource;
-
 		private readonly SelfCondition _condition;
 		private readonly TriggerManager.TriggerHandler _updateHandler;
 		private readonly TriggerManager.TriggerHandler _removedHandler;
 
 		private readonly Func<Playable, int> _initialisationFunction;
-		public Func<Playable, int> InitialisationFunction => _initialisationFunction;
-
 		private int _cachedValue = -1;
-		public int CachedValue => _cachedValue;
 
 		private bool _isTriggered;
-		public bool IsTriggered => _isTriggered;
-
 		private bool _isAppliedThisTurn;
-		public bool IsAppliedThisTurn => _isAppliedThisTurn;
 
 		/// <summary>
 		/// Creates an Adaptive Cost Effect that varies the owner's cost.
@@ -144,6 +85,15 @@ namespace SabberStoneCore.Auras
 			_condition = triggerCondition;
 		}
 
+		/// <summary>
+		/// Creates an Adaptive Cost Effect that reduces cost by
+		/// a criterion estimated during the entire game.
+		/// </summary>
+		/// <param name="initialisationFunction">A function to estimate the accumulated value before activation in hand.</param>
+		/// <param name="triggerValueFunction">A function to calculate the value increment when triggered. Argument is the source of the trigger.</param>
+		/// <param name="trigger">A type of trigger that affects this effect.</param>
+		/// <param name="triggerSource">The source constraint for the trigger.</param>
+		/// <param name="triggerCondition">An additional condition for the trigger.</param>
 		public AdaptiveCostEffect(Func<Playable, int> initialisationFunction, Func<IPlayable, int> triggerValueFunction, TriggerType trigger,
 			TriggerSource triggerSource = TriggerSource.ALL, SelfCondition triggerCondition = null)
 		{
@@ -193,6 +143,8 @@ namespace SabberStoneCore.Auras
 			_isAppliedThisTurn = prototype._isAppliedThisTurn;
 		}
 
+		public IPlayable Owner => _owner;
+
 		public void Activate(Playable owner, bool cloning = false)
 		{
 			if (!cloning && !(owner.Zone is HandZone)) return;
@@ -227,6 +179,9 @@ namespace SabberStoneCore.Auras
 				case TriggerType.ZONE:
 					owner.Game.TriggerManager.ZoneTrigger += instance._updateHandler;
 					break;
+				case TriggerType.OVERLOAD:
+					owner.Game.TriggerManager.OverloadTrigger += instance._updateHandler;
+					break;
 				default:
 					throw new NotImplementedException();
 			}
@@ -237,7 +192,7 @@ namespace SabberStoneCore.Auras
 		public int Apply(int value)
 		{
 			if (_initialisationFunction != null)
-				return _cachedValue;
+				return value + _cachedValue;
 
 			if (_costFunction != null && (_condition == null || _condition.Eval(_owner)))
 			{
@@ -282,6 +237,12 @@ namespace SabberStoneCore.Auras
 				case TriggerType.TURN_START:
 					_owner.Game.TriggerManager.TurnStartTrigger -= _updateHandler;
 					break;
+				case TriggerType.ZONE:
+					_owner.Game.TriggerManager.ZoneTrigger -= _updateHandler;
+					break;
+				case TriggerType.OVERLOAD:
+					_owner.Game.TriggerManager.OverloadTrigger -= _updateHandler;
+					break;
 				default:
 					throw new NotImplementedException();
 			}
@@ -297,21 +258,24 @@ namespace SabberStoneCore.Auras
 			if (_triggerType != TriggerType.NONE)
 			{
 				if (_initialisationFunction != null)
-				{
 					_owner._costManager.UpdateAdaptiveEffect(_cachedValue);
-					return;
+				else
+				{
+					if (!_isTriggered) return;
+
+					if (_isAppliedThisTurn) return;
+
+					_owner._costManager.UpdateAdaptiveEffect(_value);
+
+					_isAppliedThisTurn = true;
 				}
-
-				if (!_isTriggered) return;
-
-				if (_isAppliedThisTurn) return;
-
-				_owner._costManager.UpdateAdaptiveEffect(_value);
-
-				_isAppliedThisTurn = true;
 			}
 			else
 				_owner._costManager.UpdateAdaptiveEffect();
+
+			if (_owner.Game.History)
+				_owner.Game.PowerHistory.Add(PowerHistoryBuilder
+					.TagChange(_owner.Id, GameTag.COST, _owner.Cost));
 		}
 
 		public void Clone(IPlayable clone)
@@ -372,7 +336,7 @@ namespace SabberStoneCore.Auras
 			_owner.Game.TriggerManager.EndTurnTrigger -= _removedHandler;
 		}
 
-		public enum Type
+		private enum Type
 		{
 			Variable,
 			Triggered,

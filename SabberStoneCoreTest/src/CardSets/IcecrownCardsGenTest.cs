@@ -2345,7 +2345,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 
 			game.ProcessCard("Bloodfen Raptor");
-			var target = game.ProcessCard("Bloodfen Raptor");
+			IPlayable target = game.ProcessCard("Bloodfen Raptor");
 			game.ProcessCard("Bloodfen Raptor");
 
 			game.ProcessCard("Desperate Stand", target);
@@ -2607,7 +2607,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shadow Essence"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-			var minion = game.CurrentPlayer.BoardZone[0];
+			Minion minion = game.CurrentPlayer.BoardZone[0];
 			Assert.Equal(5, minion.Health);
 			Assert.Equal(5, minion.AttackDamage);
 			Assert.Equal(1, game.CurrentPlayer.DeckZone.Count);
@@ -3198,7 +3198,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snowfury Giant"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snowfury Giant"));
 
 			game.ProcessCard("Feral Spirit");
 			Assert.Equal(9, testCard.Cost);
@@ -3603,7 +3603,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			var target = game.ProcessCard("Stonetusk Boar");
+			IPlayable target = game.ProcessCard("Stonetusk Boar");
 			game.EndTurn();
 
 			game.CurrentPlayer.Hero.Damage = 10;

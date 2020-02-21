@@ -38,23 +38,23 @@ namespace SabberStoneCore.Auras
 			set
 			{
 				_removed = value;
-				Vector()[$"{Prefix()}Removed"] = Convert.ToInt32(value);
+				//Vector()[$"{Prefix()}Removed"] = Convert.ToInt32(value);
 			}
 		}
 
-		public override OrderedDictionary Vector()
-		{
-			OrderedDictionary v = base.Vector();
-			v.Add($"{Prefix()}OffTrigger", (int)_offTrigger);
-			v.Add($"{Prefix()}Removed", Convert.ToInt32(_removed));
-			return v;
-		}
+		//public override OrderedDictionary Vector()
+		//{
+		//	OrderedDictionary v = base.Vector();
+		//	v.Add($"{Prefix()}OffTrigger", (int)_offTrigger);
+		//	v.Add($"{Prefix()}Removed", Convert.ToInt32(_removed));
+		//	return v;
+		//}
 
-		public static new OrderedDictionary NullVector = Aura.NullVector.AddRange(new OrderedDictionary
-		{
-			{ "OffTrigger", 0 },
-			{ "Removed", 0 },
-		}, "NullSwitchingAura.");
+		//public static new OrderedDictionary NullVector = Aura.NullVector.AddRange(new OrderedDictionary
+		//{
+		//	{ "OffTrigger", 0 },
+		//	{ "Removed", 0 },
+		//}, "NullSwitchingAura.");
 
 		public SwitchingAura(AuraType type, SelfCondition initCondition, TriggerType offTrigger, params IEffect[] effects) : base(type, effects)
 		{
@@ -158,7 +158,7 @@ namespace SabberStoneCore.Auras
 			if (Game.Logging)
 				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Aura.RemoveInternal",
 					$"{Owner}'s aura is removed from " +
-					$"{string.Join(",", AppliedEntityIdCollection.Select(i => Game.IdEntityDic[i]))})");
+					$"{String.Join(",", AppliedEntityIdCollection.Select(i => Game.IdEntityDic[i]))})");
 		}
 
 		private void TurnOff(IEntity source)

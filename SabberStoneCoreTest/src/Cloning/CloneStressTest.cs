@@ -173,9 +173,9 @@ namespace SabberStoneCoreTest.Cloning
 			clone.Process(task2);
 			Game clone2 = clone.Clone();
 
-			var minion = game.CurrentPlayer.BoardZone[0];
-			var cloneMinion = clone.CurrentPlayer.BoardZone[0];
-			var clone2Minion = clone2.CurrentPlayer.BoardZone[0];
+			SabberStoneCore.Model.Entities.Minion minion = game.CurrentPlayer.BoardZone[0];
+			SabberStoneCore.Model.Entities.Minion cloneMinion = clone.CurrentPlayer.BoardZone[0];
+			SabberStoneCore.Model.Entities.Minion clone2Minion = clone2.CurrentPlayer.BoardZone[0];
 
 			Assert.Equal(2, minion.AttackDamage);
 			Assert.Equal(2, cloneMinion.AttackDamage);
